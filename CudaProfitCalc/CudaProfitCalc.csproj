@@ -53,13 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiControl\Api.cs" />
+    <Compile Include="JsonControl.cs" />
     <Compile Include="ApiControl\Bittrex.cs" />
     <Compile Include="ApiControl\CoinTweak.cs" />
     <Compile Include="ApiControl\CoinWarz.cs" />
     <Compile Include="ApiControl\Cryptsy.cs" />
     <Compile Include="ApiControl\MintPal.cs" />
     <Compile Include="ApiControl\NiceHash.cs" />
+    <Compile Include="ApiControl\PoolPicker.cs" />
     <Compile Include="ApiControl\WhatToMine.cs" />
     <Compile Include="Coin.cs" />
     <Compile Include="CoinList.cs" />
@@ -70,6 +71,7 @@
       <DependentUpon>CudaProfitCalc.cs</DependentUpon>
     </Compile>
     <Compile Include="HashAlgo.cs" />
+    <Compile Include="MiscJson.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CudaProfitCalc.resx">
@@ -102,6 +104,7 @@
   <ItemGroup>
     <Content Include="Icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

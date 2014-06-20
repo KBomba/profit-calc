@@ -31,10 +31,12 @@ namespace CudaProfitCalc
 
         public bool HasMarketErrors { get; set; }
         public bool HasImplementedMarketApi { get; set; }
-        public readonly bool IsNiceHash;
+        public bool IsMultiPool;
+
+        public Coin(){}
 
         public Coin(string coinName, string tagName, HashAlgo.Algo algo,
-            double difficulty, double last24HDifficulty, double blockReward, Exchange exchange)
+            double difficulty, double blockReward, Exchange exchange)
         {
             CoinName = coinName;
             TagName = tagName.ToUpper();
@@ -44,7 +46,7 @@ namespace CudaProfitCalc
             BlockReward = blockReward;
             BestExchange = exchange;
             HasMarketErrors = false;
-            IsNiceHash = false;
+            IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
 
@@ -77,7 +79,7 @@ namespace CudaProfitCalc
             BestExchange = new Exchange { ExchangeName = "NiceHash", BtcPrice = niceHashStat.Price, BtcVolume = 0 };
 
             HasMarketErrors = false;
-            IsNiceHash = true;
+            IsMultiPool = true;
             HasImplementedMarketApi = true;
 
         }
@@ -92,7 +94,7 @@ namespace CudaProfitCalc
             BlockReward = wtmCoin.Value.BlockReward;
             BestExchange = new Exchange { ExchangeName = "Unknown (WhatToMine)", BtcPrice = wtmCoin.Value.ExchangeRate, BtcVolume = wtmCoin.Value.Volume * wtmCoin.Value.ExchangeRate };
             HasMarketErrors = false;
-            IsNiceHash = false;
+            IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
 
@@ -106,7 +108,7 @@ namespace CudaProfitCalc
             BlockReward = ctwCoin.BlockCoins;
             BestExchange = new Exchange { ExchangeName = ctwCoin.ExName + " (CoinTweak)", BtcPrice = ctwCoin.ConversionRateToBtc, BtcVolume = ctwCoin.BtcVol };
             HasMarketErrors = !ctwCoin.HasBuyOffers;
-            IsNiceHash = false;
+            IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
 
@@ -120,13 +122,13 @@ namespace CudaProfitCalc
             BlockReward = cwzCoin.BlockReward;
             BestExchange = new Exchange { ExchangeName = cwzCoin.Exchange + " (CoinWarz)", BtcPrice = cwzCoin.ExchangeRate, BtcVolume = cwzCoin.ExchangeVolume * cwzCoin.ExchangeRate };
             HasMarketErrors = cwzCoin.HealthStatus.Contains("Unhealthy");
-            IsNiceHash = false;
+            IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
 
         public void CalcProfitability(double hashRateMh)
         {
-            if (IsNiceHash)
+            if (IsMultiPool)
             {
                 CoinsPerDay = 0;
                 BtcPerDay = (hashRateMh/1000)*BestExchange.BtcPrice;
@@ -134,11 +136,23 @@ namespace CudaProfitCalc
             else
             {
                 double magicNumber = Math.Pow(2, 32);
+
                 if (Algo == HashAlgo.Algo.Quark) magicNumber = Math.Pow(2, 24);
+                // Unsure about the following line, try it out if you wish to :P
+                //if (Algo == HashAlgo.Algo.JHA) magicNumber = Math.Pow(2, 33);
+
 
                 CoinsPerDay = BlockReward / (Difficulty * magicNumber / (hashRateMh * 1000000) / 3600 / 24);
                 BtcPerDay = CoinsPerDay * BestExchange.BtcPrice;
             }
+        }
+
+        public override string ToString()
+        {
+            return "TAG: " + TagName + " | Name:" + CoinName + " | Algo: " + Algo + " | BTC/day: " + BtcPerDay.ToString("#.00000000")
+                + " | Coins/day: " + CoinsPerDay.ToString("#.00000000") + " | Best exchange: " + BestExchange.ExchangeName + " | BTC price: "
+                + BestExchange.BtcPrice.ToString("#.00000000") + " | BTC volume: " + BestExchange.BtcVolume.ToString("#.00000000") + " | Difficulty: "
+                + Difficulty.ToString("#.###") + " | Blockreward: " + BlockReward.ToString("#.###");
         }
     }
 }

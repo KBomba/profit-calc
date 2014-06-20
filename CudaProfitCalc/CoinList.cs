@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using CudaProfitCalc.ApiControl;
 
 namespace CudaProfitCalc
@@ -26,7 +27,7 @@ namespace CudaProfitCalc
             bool found = false;
             foreach (Coin c in List)
             {
-                if (c.TagName == newCoin.TagName && c.Algo == newCoin.Algo)
+                if (c.TagName == newCoin.TagName && c.Algo == newCoin.Algo && !newCoin.IsMultiPool)
                 {
                     if (c.Difficulty != newCoin.Difficulty)
                     {
@@ -49,7 +50,7 @@ namespace CudaProfitCalc
 
         public void UpdateNiceHash(string address)
         {
-            NiceHash niceHashData = Api.DownloadSerializedApi<NiceHash>(address);
+            NiceHash niceHashData = JsonControl.DownloadSerializedApi<NiceHash>(address);
             Add(new Coin(niceHashData.Results.Stats[0]));
             Add(new Coin(niceHashData.Results.Stats[3]));
             Add(new Coin(niceHashData.Results.Stats[4]));
@@ -58,7 +59,7 @@ namespace CudaProfitCalc
 
         public void UpdateWhatToMine(string address)
         {
-            WhatToMine wtmData = Api.DownloadSerializedApi<WhatToMine>(address);
+            WhatToMine wtmData = JsonControl.DownloadSerializedApi<WhatToMine>(address);
             foreach (KeyValuePair<string, WhatToMine.Coin> wtmCoin in wtmData.Coins)
             {
                 Coin c = new Coin(wtmCoin);
@@ -68,7 +69,7 @@ namespace CudaProfitCalc
 
         public void UpdateCoinTweak(string address)
         {
-            CoinTweak ctwData = Api.DownloadSerializedApi<CoinTweak>(address);
+            CoinTweak ctwData = JsonControl.DownloadSerializedApi<CoinTweak>(address);
             foreach (CoinTweak.Coin ctwCoin in ctwData.Coins)
             {
                 Coin c = new Coin(ctwCoin);
@@ -78,7 +79,7 @@ namespace CudaProfitCalc
 
         public void UpdateCoinWarz(string address)
         {
-            CoinWarz cwzData = Api.DownloadSerializedApi<CoinWarz>(address);
+            CoinWarz cwzData = JsonControl.DownloadSerializedApi<CoinWarz>(address);
             foreach (CoinWarz.Coin cwzCoin in cwzData.Data)
             {
                 Coin c = new Coin(cwzCoin);
@@ -88,7 +89,7 @@ namespace CudaProfitCalc
 
         public void UpdateMintPal(string address)
         {
-            MintPal mp = Api.DownloadSerializedApi<MintPal>(address);
+            MintPal mp = JsonControl.DownloadSerializedApi<MintPal>(address);
             foreach (Coin c in List)
             {
                 foreach (MintPal.Coin mpCoin in mp.Data)
@@ -105,13 +106,13 @@ namespace CudaProfitCalc
 
         public void UpdateCryptsy(string address)
         {
-            Cryptsy cp = Api.DownloadSerializedApi<Cryptsy>(address);
+            Cryptsy cp = JsonControl.DownloadSerializedApi<Cryptsy>(address);
             foreach (Coin c in List)
             {
                 foreach (KeyValuePair<string, Cryptsy.Return.Market> cpCoin in cp.Returns.Markets)
                 {
                     if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName &&
-                        ((cpCoin.Value.Volume/cpCoin.Value.LastTradePrice) > c.BestExchange.BtcVolume ||
+                        ((cpCoin.Value.Volume*cpCoin.Value.LastTradePrice) > c.BestExchange.BtcVolume ||
                          !c.HasImplementedMarketApi) && cpCoin.Value.BuyOrders != null)
                     {
                         c.BestExchange = new Coin.Exchange
@@ -129,7 +130,7 @@ namespace CudaProfitCalc
 
         public void UpdateBittrex(string address)
         {
-            Bittrex bt = Api.DownloadSerializedApi<Bittrex>(address);
+            Bittrex bt = JsonControl.DownloadSerializedApi<Bittrex>(address);
             foreach (Coin c in List)
             {
                 foreach (Bittrex.Result btCoin in bt.Results)
@@ -148,6 +149,192 @@ namespace CudaProfitCalc
                             break;
                         }
                     }
+                }
+            }
+        }
+
+        public void UpdatePoolPicker(string address, decimal average)
+        {
+            PoolPicker pp = JsonControl.DownloadSerializedApi<PoolPicker>(address);
+
+            foreach (PoolPicker.Pool pool in pp.Pools)
+            {
+                
+
+
+                if (pool.PoolProfitability.Scrypt != null)
+                {
+                    Coin c = new Coin
+                    {
+                        Difficulty = (double)average,
+                        HasImplementedMarketApi = true,
+                        IsMultiPool = true,
+                        HasMarketErrors = false,
+                        BestExchange =
+                            new Coin.Exchange
+                            {
+                                ExchangeName = pool.Name,
+                            }
+                    };
+
+                    c.Algo = HashAlgo.Algo.Scrypt;
+                    c.CoinName = pool.Name + c.Algo;
+                    c.TagName = "PPicker" + pool.Id + c.Algo;
+                    c.BlockReward = pool.PoolProfitability.Scrypt.Count;
+
+                    double dAverage = 0;
+                    int iCounter = 0;
+                    foreach (PoolPicker.Pool.Profitability.Algo scrypt in pool.PoolProfitability.Scrypt)
+                    {
+                        if (iCounter == average) break;
+                        iCounter++;
+                        dAverage += Double.Parse(scrypt.Btcmhs, NumberStyles.Float, CultureInfo.InvariantCulture);
+                    }
+
+                    c.BestExchange.BtcPrice = dAverage / iCounter * 1000;
+                    c.BestExchange.BtcVolume = dAverage;
+
+                    Add(c);
+                }
+
+                if (pool.PoolProfitability.ScryptN != null)
+                {
+                    Coin c = new Coin
+                    {
+                        Difficulty = (double)average,
+                        HasImplementedMarketApi = true,
+                        IsMultiPool = true,
+                        HasMarketErrors = false,
+                        BestExchange =
+                            new Coin.Exchange
+                            {
+                                ExchangeName = pool.Name,
+                            }
+                    };
+
+                    c.Algo = HashAlgo.Algo.ScryptN;
+                    c.CoinName = pool.Name + c.Algo;
+                    c.TagName = "PPicker" + pool.Id + c.Algo;
+                    c.BlockReward = pool.PoolProfitability.ScryptN.Count;
+
+                    double dAverage = 0;
+                    int iCounter = 0;
+                    foreach (PoolPicker.Pool.Profitability.Algo scryptN in pool.PoolProfitability.ScryptN)
+                    {
+                        if (iCounter == average) break;
+                        iCounter++;
+                        dAverage += Double.Parse(scryptN.Btcmhs, NumberStyles.Float, CultureInfo.InvariantCulture);
+                    }
+
+                    c.BestExchange.BtcPrice = dAverage / iCounter * 1000;
+                    c.BestExchange.BtcVolume = dAverage;
+
+                    Add(c);
+                }
+
+                if (pool.PoolProfitability.X11 != null)
+                {
+                    Coin c = new Coin
+                    {
+                        Difficulty = (double)average,
+                        HasImplementedMarketApi = true,
+                        IsMultiPool = true,
+                        HasMarketErrors = false,
+                        BestExchange =
+                            new Coin.Exchange
+                            {
+                                ExchangeName = pool.Name,
+                            }
+                    };
+
+                    c.Algo = HashAlgo.Algo.X11;
+                    c.CoinName = pool.Name + c.Algo;
+                    c.TagName = "PPicker" + pool.Id + c.Algo;
+                    c.BlockReward = pool.PoolProfitability.X11.Count;
+
+                    double dAverage = 0;
+                    int iCounter = 0;
+                    foreach (PoolPicker.Pool.Profitability.Algo x11 in pool.PoolProfitability.X11)
+                    {
+                        if (iCounter == average) break;
+                        iCounter++;
+                        dAverage += Double.Parse(x11.Btcmhs, NumberStyles.Float, CultureInfo.InvariantCulture);
+                    }
+
+                    c.BestExchange.BtcPrice = dAverage / iCounter * 1000;
+                    c.BestExchange.BtcVolume = dAverage;
+
+                    Add(c);
+                }
+
+                if (pool.PoolProfitability.X13 != null)
+                {
+                    Coin c = new Coin
+                    {
+                        Difficulty = (double)average,
+                        HasImplementedMarketApi = true,
+                        IsMultiPool = true,
+                        HasMarketErrors = false,
+                        BestExchange =
+                            new Coin.Exchange
+                            {
+                                ExchangeName = pool.Name,
+                            }
+                    };
+
+                    c.Algo = HashAlgo.Algo.X13;
+                    c.CoinName = pool.Name + c.Algo;
+                    c.TagName = "PPicker" + pool.Id + c.Algo;
+                    c.BlockReward = pool.PoolProfitability.X13.Count;
+
+                    double dAverage = 0;
+                    int iCounter = 0;
+                    foreach (PoolPicker.Pool.Profitability.Algo x13 in pool.PoolProfitability.X13)
+                    {
+                        if (iCounter == average) break;
+                        iCounter++;
+                        dAverage += Double.Parse(x13.Btcmhs, NumberStyles.Float, CultureInfo.InvariantCulture);
+                    }
+
+                    c.BestExchange.BtcPrice = dAverage / iCounter * 1000;
+                    c.BestExchange.BtcVolume = dAverage;
+
+                    Add(c);
+                }
+
+                if (pool.PoolProfitability.Keccak != null)
+                {
+                    Coin c = new Coin
+                    {
+                        Difficulty = (double)average,
+                        HasImplementedMarketApi = true,
+                        IsMultiPool = true,
+                        HasMarketErrors = false,
+                        BestExchange =
+                            new Coin.Exchange
+                            {
+                                ExchangeName = pool.Name,
+                            }
+                    };
+
+                    c.Algo = HashAlgo.Algo.Keccak;
+                    c.CoinName = pool.Name + c.Algo;
+                    c.TagName = "PPicker" + pool.Id + c.Algo;
+                    c.BlockReward = pool.PoolProfitability.Keccak.Count;
+
+                    double dAverage = 0;
+                    int iCounter = 0;
+                    foreach (PoolPicker.Pool.Profitability.Algo keccak in pool.PoolProfitability.Keccak)
+                    {
+                        if (iCounter == average) break;
+                        iCounter++;
+                        dAverage += Double.Parse(keccak.Btcmhs, NumberStyles.Float, CultureInfo.InvariantCulture);
+                    }
+
+                    c.BestExchange.BtcPrice = dAverage / iCounter;
+                    c.BestExchange.BtcVolume = dAverage;
+
+                    Add(c);
                 }
             }
         }
@@ -175,10 +362,7 @@ namespace CudaProfitCalc
             StringBuilder sb = new StringBuilder();
             foreach (Coin c in List)
             {
-                sb.Append("TAG: " + c.TagName + " | Name:" + c.CoinName + " | Algo: " + c.Algo 
-                    + " | BTC/day: " + c.BtcPerDay.ToString("0.000000000") + " | Coins/day: " + c.CoinsPerDay
-                    + " | Best exchange: " + c.BestExchange.ExchangeName + " | BTC price: " + c.BestExchange.BtcPrice.ToString("0.000000000")
-                    + " | BTC volume: " + c.BestExchange.BtcVolume + " | Difficulty: " + c.Difficulty + " | Blockreward: " + c.BlockReward + Environment.NewLine);
+                sb.Append(c + Environment.NewLine);
             }
 
             return sb.ToString();

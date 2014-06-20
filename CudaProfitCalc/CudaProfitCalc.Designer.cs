@@ -32,7 +32,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CudaProfitCalc));
             this.grpHashrates = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudAmount = new System.Windows.Forms.NumericUpDown();
             this.btnCalc = new System.Windows.Forms.Button();
+            this.txtJane13 = new System.Windows.Forms.TextBox();
+            this.lblJane13 = new System.Windows.Forms.Label();
+            this.txtJane15 = new System.Windows.Forms.TextBox();
+            this.lblJane15 = new System.Windows.Forms.Label();
+            this.txtScryptN = new System.Windows.Forms.TextBox();
+            this.lblScryptN = new System.Windows.Forms.Label();
             this.txtHefty = new System.Windows.Forms.TextBox();
             this.lblHefty = new System.Windows.Forms.Label();
             this.txtX13 = new System.Windows.Forms.TextBox();
@@ -55,14 +63,26 @@
             this.lblMyrGroestl = new System.Windows.Forms.Label();
             this.txtGroestl = new System.Windows.Forms.TextBox();
             this.lblGroestl = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgView = new System.Windows.Forms.DataGridView();
+            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CoinName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtcPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CoinsPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangeVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ctxtStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmResultsToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHashratesToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.grpApiControl = new System.Windows.Forms.GroupBox();
-            this.chkShowOnlyHealthy = new System.Windows.Forms.CheckBox();
+            this.nudPoolpicker = new System.Windows.Forms.NumericUpDown();
+            this.chkPoolpicker = new System.Windows.Forms.CheckBox();
             this.chkNiceHash = new System.Windows.Forms.CheckBox();
             this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
+            this.chkShowOnlyHealthy = new System.Windows.Forms.CheckBox();
             this.chkCoinwarz = new System.Windows.Forms.CheckBox();
             this.chkCointweak = new System.Windows.Forms.CheckBox();
             this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
@@ -74,26 +94,26 @@
             this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CoinName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BtcPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CoinsPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangeVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpHashrates.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.ctxtStrip.SuspendLayout();
             this.grpApiControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).BeginInit();
             this.stStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpHashrates
             // 
+            this.grpHashrates.Controls.Add(this.label1);
+            this.grpHashrates.Controls.Add(this.nudAmount);
             this.grpHashrates.Controls.Add(this.btnCalc);
+            this.grpHashrates.Controls.Add(this.txtJane13);
+            this.grpHashrates.Controls.Add(this.lblJane13);
+            this.grpHashrates.Controls.Add(this.txtJane15);
+            this.grpHashrates.Controls.Add(this.lblJane15);
+            this.grpHashrates.Controls.Add(this.txtScryptN);
+            this.grpHashrates.Controls.Add(this.lblScryptN);
             this.grpHashrates.Controls.Add(this.txtHefty);
             this.grpHashrates.Controls.Add(this.lblHefty);
             this.grpHashrates.Controls.Add(this.txtX13);
@@ -118,20 +138,93 @@
             this.grpHashrates.Controls.Add(this.lblGroestl);
             this.grpHashrates.Location = new System.Drawing.Point(12, 100);
             this.grpHashrates.Name = "grpHashrates";
-            this.grpHashrates.Size = new System.Drawing.Size(803, 105);
+            this.grpHashrates.Size = new System.Drawing.Size(1024, 105);
             this.grpHashrates.TabIndex = 0;
             this.grpHashrates.TabStop = false;
             this.grpHashrates.Text = "Hashrates (in MH/s)";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(830, 74);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(14, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "X";
+            // 
+            // nudAmount
+            // 
+            this.nudAmount.Location = new System.Drawing.Point(844, 72);
+            this.nudAmount.Name = "nudAmount";
+            this.nudAmount.Size = new System.Drawing.Size(38, 20);
+            this.nudAmount.TabIndex = 31;
+            this.nudAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudAmount.ValueChanged += new System.EventHandler(this.nudAmount_ValueChanged);
+            // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(706, 71);
+            this.btnCalc.Location = new System.Drawing.Point(912, 71);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(80, 23);
             this.btnCalc.TabIndex = 26;
             this.btnCalc.Text = "Calculate";
             this.btnCalc.UseVisualStyleBackColor = true;
             this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
+            // 
+            // txtJane13
+            // 
+            this.txtJane13.Location = new System.Drawing.Point(912, 45);
+            this.txtJane13.Name = "txtJane13";
+            this.txtJane13.Size = new System.Drawing.Size(80, 20);
+            this.txtJane13.TabIndex = 30;
+            this.txtJane13.Text = "0.0095";
+            // 
+            // lblJane13
+            // 
+            this.lblJane13.AutoSize = true;
+            this.lblJane13.Location = new System.Drawing.Point(830, 48);
+            this.lblJane13.Name = "lblJane13";
+            this.lblJane13.Size = new System.Drawing.Size(62, 13);
+            this.lblJane13.TabIndex = 29;
+            this.lblJane13.Text = "Jane(Nf13):";
+            // 
+            // txtJane15
+            // 
+            this.txtJane15.Location = new System.Drawing.Point(912, 19);
+            this.txtJane15.Name = "txtJane15";
+            this.txtJane15.Size = new System.Drawing.Size(80, 20);
+            this.txtJane15.TabIndex = 28;
+            this.txtJane15.Text = "0.0009";
+            // 
+            // lblJane15
+            // 
+            this.lblJane15.AutoSize = true;
+            this.lblJane15.Location = new System.Drawing.Point(830, 22);
+            this.lblJane15.Name = "lblJane15";
+            this.lblJane15.Size = new System.Drawing.Size(59, 13);
+            this.lblJane15.TabIndex = 27;
+            this.lblJane15.Text = "Jane(Nf15)";
+            // 
+            // txtScryptN
+            // 
+            this.txtScryptN.Location = new System.Drawing.Point(706, 71);
+            this.txtScryptN.Name = "txtScryptN";
+            this.txtScryptN.Size = new System.Drawing.Size(80, 20);
+            this.txtScryptN.TabIndex = 25;
+            this.txtScryptN.Text = "0.14";
+            // 
+            // lblScryptN
+            // 
+            this.lblScryptN.AutoSize = true;
+            this.lblScryptN.Location = new System.Drawing.Point(624, 74);
+            this.lblScryptN.Name = "lblScryptN";
+            this.lblScryptN.Size = new System.Drawing.Size(51, 13);
+            this.lblScryptN.TabIndex = 24;
+            this.lblScryptN.Text = "Scrypt-N:";
             // 
             // txtHefty
             // 
@@ -156,7 +249,7 @@
             this.txtX13.Name = "txtX13";
             this.txtX13.Size = new System.Drawing.Size(80, 20);
             this.txtX13.TabIndex = 21;
-            this.txtX13.Text = "1.7";
+            this.txtX13.Text = "2";
             // 
             // lblX13
             // 
@@ -320,20 +413,20 @@
             this.lblGroestl.TabIndex = 0;
             this.lblGroestl.Text = "Groestl:";
             // 
-            // dataGridView1
+            // dgView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dgView.AllowUserToAddRows = false;
+            this.dgView.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tag,
             this.CoinName,
             this.Algo,
@@ -344,15 +437,85 @@
             this.BestExchangeVolume,
             this.Difficulty,
             this.BlockReward});
-            this.dataGridView1.ContextMenuStrip = this.ctxtStrip;
-            this.dataGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 211);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.Size = new System.Drawing.Size(804, 351);
-            this.dataGridView1.TabIndex = 1;
+            this.dgView.ContextMenuStrip = this.ctxtStrip;
+            this.dgView.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dgView.Location = new System.Drawing.Point(12, 211);
+            this.dgView.Name = "dgView";
+            this.dgView.ReadOnly = true;
+            this.dgView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgView.Size = new System.Drawing.Size(1024, 351);
+            this.dgView.TabIndex = 1;
+            // 
+            // Tag
+            // 
+            this.Tag.HeaderText = "Tag";
+            this.Tag.Name = "Tag";
+            this.Tag.ReadOnly = true;
+            this.Tag.Width = 51;
+            // 
+            // CoinName
+            // 
+            this.CoinName.HeaderText = "Name";
+            this.CoinName.Name = "CoinName";
+            this.CoinName.ReadOnly = true;
+            this.CoinName.Width = 60;
+            // 
+            // Algo
+            // 
+            this.Algo.HeaderText = "Algo";
+            this.Algo.Name = "Algo";
+            this.Algo.ReadOnly = true;
+            this.Algo.Width = 53;
+            // 
+            // BtcPerDay
+            // 
+            this.BtcPerDay.HeaderText = "BTC per day";
+            this.BtcPerDay.Name = "BtcPerDay";
+            this.BtcPerDay.ReadOnly = true;
+            this.BtcPerDay.Width = 69;
+            // 
+            // CoinsPerDay
+            // 
+            this.CoinsPerDay.HeaderText = "Coins per day";
+            this.CoinsPerDay.Name = "CoinsPerDay";
+            this.CoinsPerDay.ReadOnly = true;
+            this.CoinsPerDay.Width = 73;
+            // 
+            // BestExchange
+            // 
+            this.BestExchange.HeaderText = "Best exchange";
+            this.BestExchange.Name = "BestExchange";
+            this.BestExchange.ReadOnly = true;
+            this.BestExchange.Width = 95;
+            // 
+            // BestExchangePrice
+            // 
+            this.BestExchangePrice.HeaderText = "Price";
+            this.BestExchangePrice.Name = "BestExchangePrice";
+            this.BestExchangePrice.ReadOnly = true;
+            this.BestExchangePrice.Width = 56;
+            // 
+            // BestExchangeVolume
+            // 
+            this.BestExchangeVolume.HeaderText = "Volume";
+            this.BestExchangeVolume.Name = "BestExchangeVolume";
+            this.BestExchangeVolume.ReadOnly = true;
+            this.BestExchangeVolume.Width = 67;
+            // 
+            // Difficulty
+            // 
+            this.Difficulty.HeaderText = "Difficulty";
+            this.Difficulty.Name = "Difficulty";
+            this.Difficulty.ReadOnly = true;
+            this.Difficulty.Width = 72;
+            // 
+            // BlockReward
+            // 
+            this.BlockReward.HeaderText = "Block reward";
+            this.BlockReward.Name = "BlockReward";
+            this.BlockReward.ReadOnly = true;
+            this.BlockReward.Width = 87;
             // 
             // ctxtStrip
             // 
@@ -360,27 +523,29 @@
             this.tsmResultsToClipboard,
             this.tsmHashratesToClipboard});
             this.ctxtStrip.Name = "ctxtStrip";
-            this.ctxtStrip.Size = new System.Drawing.Size(223, 48);
+            this.ctxtStrip.Size = new System.Drawing.Size(156, 48);
             // 
             // tsmResultsToClipboard
             // 
             this.tsmResultsToClipboard.Name = "tsmResultsToClipboard";
-            this.tsmResultsToClipboard.Size = new System.Drawing.Size(222, 22);
-            this.tsmResultsToClipboard.Text = "Copy results to clipboard";
+            this.tsmResultsToClipboard.Size = new System.Drawing.Size(155, 22);
+            this.tsmResultsToClipboard.Text = "Copy all results";
             this.tsmResultsToClipboard.Click += new System.EventHandler(this.tsmResultsToClipboard_Click);
             // 
             // tsmHashratesToClipboard
             // 
             this.tsmHashratesToClipboard.Name = "tsmHashratesToClipboard";
-            this.tsmHashratesToClipboard.Size = new System.Drawing.Size(222, 22);
-            this.tsmHashratesToClipboard.Text = "Copy hashrates to clipboard";
+            this.tsmHashratesToClipboard.Size = new System.Drawing.Size(155, 22);
+            this.tsmHashratesToClipboard.Text = "Copy hashrates";
             this.tsmHashratesToClipboard.Click += new System.EventHandler(this.tsmHashratesToClipboard_Click);
             // 
             // grpApiControl
             // 
-            this.grpApiControl.Controls.Add(this.chkShowOnlyHealthy);
+            this.grpApiControl.Controls.Add(this.nudPoolpicker);
+            this.grpApiControl.Controls.Add(this.chkPoolpicker);
             this.grpApiControl.Controls.Add(this.chkNiceHash);
             this.grpApiControl.Controls.Add(this.txtCointweakApiKey);
+            this.grpApiControl.Controls.Add(this.chkShowOnlyHealthy);
             this.grpApiControl.Controls.Add(this.chkCoinwarz);
             this.grpApiControl.Controls.Add(this.chkCointweak);
             this.grpApiControl.Controls.Add(this.txtCoinwarzApiKey);
@@ -393,19 +558,36 @@
             this.grpApiControl.Size = new System.Drawing.Size(803, 88);
             this.grpApiControl.TabIndex = 2;
             this.grpApiControl.TabStop = false;
-            this.grpApiControl.Text = "API Control";
+            this.grpApiControl.Text = "API";
             // 
-            // chkShowOnlyHealthy
+            // nudPoolpicker
             // 
-            this.chkShowOnlyHealthy.AutoSize = true;
-            this.chkShowOnlyHealthy.Checked = true;
-            this.chkShowOnlyHealthy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShowOnlyHealthy.Location = new System.Drawing.Point(141, 19);
-            this.chkShowOnlyHealthy.Name = "chkShowOnlyHealthy";
-            this.chkShowOnlyHealthy.Size = new System.Drawing.Size(150, 17);
-            this.chkShowOnlyHealthy.TabIndex = 32;
-            this.chkShowOnlyHealthy.Text = "Show only \"healthy\" coins";
-            this.chkShowOnlyHealthy.UseVisualStyleBackColor = true;
+            this.nudPoolpicker.Location = new System.Drawing.Point(517, 17);
+            this.nudPoolpicker.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudPoolpicker.Name = "nudPoolpicker";
+            this.nudPoolpicker.Size = new System.Drawing.Size(38, 20);
+            this.nudPoolpicker.TabIndex = 33;
+            this.nudPoolpicker.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // chkPoolpicker
+            // 
+            this.chkPoolpicker.AutoSize = true;
+            this.chkPoolpicker.Checked = true;
+            this.chkPoolpicker.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPoolpicker.Location = new System.Drawing.Point(345, 19);
+            this.chkPoolpicker.Name = "chkPoolpicker";
+            this.chkPoolpicker.Size = new System.Drawing.Size(246, 17);
+            this.chkPoolpicker.TabIndex = 33;
+            this.chkPoolpicker.Text = "Use PoolPicker, averaging over               days.";
+            this.chkPoolpicker.UseVisualStyleBackColor = true;
             // 
             // chkNiceHash
             // 
@@ -422,10 +604,23 @@
             // txtCointweakApiKey
             // 
             this.txtCointweakApiKey.Enabled = false;
-            this.txtCointweakApiKey.Location = new System.Drawing.Point(461, 39);
+            this.txtCointweakApiKey.Location = new System.Drawing.Point(461, 40);
             this.txtCointweakApiKey.Name = "txtCointweakApiKey";
             this.txtCointweakApiKey.Size = new System.Drawing.Size(336, 20);
             this.txtCointweakApiKey.TabIndex = 30;
+            this.txtCointweakApiKey.Text = "Enter your CoinTweak API key here.";
+            // 
+            // chkShowOnlyHealthy
+            // 
+            this.chkShowOnlyHealthy.AutoSize = true;
+            this.chkShowOnlyHealthy.Checked = true;
+            this.chkShowOnlyHealthy.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowOnlyHealthy.Location = new System.Drawing.Point(141, 19);
+            this.chkShowOnlyHealthy.Name = "chkShowOnlyHealthy";
+            this.chkShowOnlyHealthy.Size = new System.Drawing.Size(150, 17);
+            this.chkShowOnlyHealthy.TabIndex = 32;
+            this.chkShowOnlyHealthy.Text = "Show only \"healthy\" coins";
+            this.chkShowOnlyHealthy.UseVisualStyleBackColor = true;
             // 
             // chkCoinwarz
             // 
@@ -452,10 +647,11 @@
             // txtCoinwarzApiKey
             // 
             this.txtCoinwarzApiKey.Enabled = false;
-            this.txtCoinwarzApiKey.Location = new System.Drawing.Point(461, 62);
+            this.txtCoinwarzApiKey.Location = new System.Drawing.Point(461, 63);
             this.txtCoinwarzApiKey.Name = "txtCoinwarzApiKey";
             this.txtCoinwarzApiKey.Size = new System.Drawing.Size(336, 20);
             this.txtCoinwarzApiKey.TabIndex = 27;
+            this.txtCoinwarzApiKey.Text = "Enter your CoinWarz API key here.";
             // 
             // chkWhattomine
             // 
@@ -468,7 +664,6 @@
             this.chkWhattomine.TabIndex = 3;
             this.chkWhattomine.Text = "Use WhatToMine";
             this.chkWhattomine.UseVisualStyleBackColor = true;
-            this.chkWhattomine.CheckedChanged += new System.EventHandler(this.chkWhattomine_CheckedChanged);
             // 
             // chkCryptsy
             // 
@@ -515,7 +710,7 @@
             this.tsStatus});
             this.stStatusStrip.Location = new System.Drawing.Point(0, 569);
             this.stStatusStrip.Name = "stStatusStrip";
-            this.stStatusStrip.Size = new System.Drawing.Size(828, 22);
+            this.stStatusStrip.Size = new System.Drawing.Size(1048, 22);
             this.stStatusStrip.SizingGrip = false;
             this.stStatusStrip.TabIndex = 3;
             this.stStatusStrip.Text = "Status Striper";
@@ -537,95 +732,28 @@
             this.tsStatus.Size = new System.Drawing.Size(96, 17);
             this.tsStatus.Text = "Ready for launch";
             // 
-            // Tag
-            // 
-            this.Tag.HeaderText = "Tag";
-            this.Tag.Name = "Tag";
-            this.Tag.ReadOnly = true;
-            this.Tag.Width = 51;
-            // 
-            // CoinName
-            // 
-            this.CoinName.HeaderText = "Name";
-            this.CoinName.Name = "CoinName";
-            this.CoinName.ReadOnly = true;
-            this.CoinName.Width = 60;
-            // 
-            // Algo
-            // 
-            this.Algo.HeaderText = "Algo";
-            this.Algo.Name = "Algo";
-            this.Algo.ReadOnly = true;
-            this.Algo.Width = 53;
-            // 
-            // BtcPerDay
-            // 
-            this.BtcPerDay.HeaderText = "BTC per day";
-            this.BtcPerDay.Name = "BtcPerDay";
-            this.BtcPerDay.ReadOnly = true;
-            this.BtcPerDay.Width = 91;
-            // 
-            // CoinsPerDay
-            // 
-            this.CoinsPerDay.HeaderText = "Coins per day";
-            this.CoinsPerDay.Name = "CoinsPerDay";
-            this.CoinsPerDay.ReadOnly = true;
-            this.CoinsPerDay.Width = 96;
-            // 
-            // BestExchange
-            // 
-            this.BestExchange.HeaderText = "Best exchange";
-            this.BestExchange.Name = "BestExchange";
-            this.BestExchange.ReadOnly = true;
-            this.BestExchange.Width = 95;
-            // 
-            // BestExchangePrice
-            // 
-            this.BestExchangePrice.HeaderText = "Price";
-            this.BestExchangePrice.Name = "BestExchangePrice";
-            this.BestExchangePrice.ReadOnly = true;
-            this.BestExchangePrice.Width = 56;
-            // 
-            // BestExchangeVolume
-            // 
-            this.BestExchangeVolume.HeaderText = "Volume";
-            this.BestExchangeVolume.Name = "BestExchangeVolume";
-            this.BestExchangeVolume.ReadOnly = true;
-            this.BestExchangeVolume.Width = 67;
-            // 
-            // Difficulty
-            // 
-            this.Difficulty.HeaderText = "Difficulty";
-            this.Difficulty.Name = "Difficulty";
-            this.Difficulty.ReadOnly = true;
-            this.Difficulty.Width = 72;
-            // 
-            // BlockReward
-            // 
-            this.BlockReward.HeaderText = "Block reward";
-            this.BlockReward.Name = "BlockReward";
-            this.BlockReward.ReadOnly = true;
-            this.BlockReward.Width = 87;
-            // 
             // CudaProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 591);
+            this.ClientSize = new System.Drawing.Size(1048, 591);
             this.Controls.Add(this.stStatusStrip);
             this.Controls.Add(this.grpApiControl);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgView);
             this.Controls.Add(this.grpHashrates);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "CudaProfitCalc";
-            this.Text = "Profitability Calculator ~ By Kbomba";
+            this.Text = "Profit Calculator~ By KBomba";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CudaProfitCalc_FormClosing);
             this.grpHashrates.ResumeLayout(false);
             this.grpHashrates.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgView)).EndInit();
             this.ctxtStrip.ResumeLayout(false);
             this.grpApiControl.ResumeLayout(false);
             this.grpApiControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).EndInit();
             this.stStatusStrip.ResumeLayout(false);
             this.stStatusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -636,7 +764,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox grpHashrates;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgView;
         private System.Windows.Forms.TextBox txtGroestl;
         private System.Windows.Forms.Label lblGroestl;
         private System.Windows.Forms.Button btnCalc;
@@ -688,6 +816,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangeVolume;
         private System.Windows.Forms.DataGridViewTextBoxColumn Difficulty;
         private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
+        private System.Windows.Forms.TextBox txtJane13;
+        private System.Windows.Forms.Label lblJane13;
+        private System.Windows.Forms.TextBox txtJane15;
+        private System.Windows.Forms.Label lblJane15;
+        private System.Windows.Forms.TextBox txtScryptN;
+        private System.Windows.Forms.Label lblScryptN;
+        private System.Windows.Forms.NumericUpDown nudAmount;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nudPoolpicker;
+        private System.Windows.Forms.CheckBox chkPoolpicker;
     }
 }
 
