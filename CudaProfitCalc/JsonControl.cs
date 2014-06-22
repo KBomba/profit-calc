@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Net;
+using System.Net.Http;
 using Newtonsoft.Json;
 
 namespace CudaProfitCalc
@@ -8,15 +9,31 @@ namespace CudaProfitCalc
     {
         public static T DownloadSerializedApi<T>(string address) where T : new()
         {
-            string jsonData;
+            T newT = new T();
+            HttpClient client = new HttpClient();
+
+            using (Stream s = client.GetStreamAsync(address).Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+
+                newT = serializer.Deserialize<T>(reader);
+            }
+
+            return newT;
+
+            /*string jsonData;
             using (WebClient web = new WebClient())
             {
                jsonData = web.DownloadString(address);
             }
 
             T newT = !string.IsNullOrEmpty(jsonData) ? JsonConvert.DeserializeObject<T>(jsonData) : new T();
-            return newT;
+            return newT;*/
         }
+
+        
 
         public static T GetSerializedApiFile<T>(string location) where T : new()
         {

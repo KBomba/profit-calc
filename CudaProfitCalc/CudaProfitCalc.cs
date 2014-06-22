@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using CudaProfitCalc.ApiControl;
 using Newtonsoft.Json;
 
 namespace CudaProfitCalc
@@ -24,79 +25,66 @@ namespace CudaProfitCalc
 
         private void LoadSettings()
         {
-            if (File.Exists("hashrates.txt"))
+            try
             {
-                HashRateJson rates = JsonControl.GetSerializedApiFile<HashRateJson>("hashrates.txt");
-                txtGroestl.Text = rates.List[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
-                txtMyrGroestl.Text = rates.List[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
-                txtFugue.Text = rates.List[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
-                txtKeccak.Text = rates.List[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
-                txtJackpot.Text = rates.List[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
-                txtNist5.Text = rates.List[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
-                txtQuark.Text = rates.List[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
-                txtScrypt.Text = rates.List[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
-                txtX11.Text = rates.List[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
-                txtX13.Text = rates.List[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
-                txtHefty.Text = rates.List[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
-                txtScryptN.Text = rates.List[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
-                txtJane15.Text = rates.List[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
-                txtJane13.Text = rates.List[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
+                if (File.Exists("hashrates.txt"))
+                {
+                    HashRateJson rates = JsonControl.GetSerializedApiFile<HashRateJson>("hashrates.txt");
+                    txtGroestl.Text = rates.List[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
+                    txtMyrGroestl.Text = rates.List[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
+                    txtFugue.Text = rates.List[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
+                    txtKeccak.Text = rates.List[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
+                    txtJackpot.Text = rates.List[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
+                    txtNist5.Text = rates.List[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
+                    txtQuark.Text = rates.List[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
+                    txtScrypt.Text = rates.List[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
+                    txtX11.Text = rates.List[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
+                    txtX13.Text = rates.List[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
+                    txtHefty.Text = rates.List[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
+                    txtScryptN.Text = rates.List[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
+                    txtJane15.Text = rates.List[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
+                    txtJane13.Text = rates.List[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
+                }
             }
-
-            if (File.Exists("apisettings.txt"))
+            catch (Exception exception)
             {
-                ApiJson api = JsonControl.GetSerializedApiFile<ApiJson>("apisettings.txt");
-                txtCointweakApiKey.Text = api.ApiSettings["CoinTweak"];
-                txtCoinwarzApiKey.Text = api.ApiSettings["CoinWarz"];
-                nudPoolpicker.Text = api.ApiSettings["PoolPicker"];
-                nudAmount.Text = api.ApiSettings["Multiplier"];
-                _hashRateMultiplier = nudAmount.Value;
-
-                chkBittrex.Checked = api.CheckedApis["Bittrex"];
-                chkMintpal.Checked = api.CheckedApis["Mintpal"];
-                chkCryptsy.Checked = api.CheckedApis["Cryptsy"];
-                chkNiceHash.Checked = api.CheckedApis["Nicehash"];
-                chkWhattomine.Checked = api.CheckedApis["WhatToMine"];
-                chkCointweak.Checked = api.CheckedApis["CoinTweak"];
-                chkCoinwarz.Checked = api.CheckedApis["CoinWarz"];
-                chkPoolpicker.Checked = api.CheckedApis["PoolPicker"];
+                MessageBox.Show("Oops, something went wrong with loading your hashrates.txt" + Environment.NewLine + Environment.NewLine + exception.StackTrace);
             }
-
-            _hashList = new HashRateJson { List = ParseHashrates() };
-        }
-
-        private void btnCalc_Click(object sender, EventArgs e)
-        {
-            tsStatus.Text = "Busy...";
-            Thread.Sleep(50);
-            tsProgress.Value = 0;
-
-            _hashList.List = ParseHashrates();
-
-            const int i = 10;
-            GetCoinList(i);
-            tsProgress.Value += i;
-
-            _coinList.Sort(_hashList.List);
-            tsProgress.Value += i;
-
-            UpdateDataGridView();
-
-            tsProgress.Value = 100;
-            tsStatus.Text = "Completed";
-
-
             
+            try
+            {
+                if (File.Exists("apisettings.txt"))
+                {
+                    ApiJson api = JsonControl.GetSerializedApiFile<ApiJson>("apisettings.txt");
+                    txtCointweakApiKey.Text = api.ApiSettings["CoinTweak"];
+                    txtCoinwarzApiKey.Text = api.ApiSettings["CoinWarz"];
+                    nudPoolpicker.Text = api.ApiSettings["PoolPicker"];
+                    chkWeight.Checked = bool.Parse(api.ApiSettings["WeightedCalculations"]);
+                    nudAmount.Text = api.ApiSettings["Multiplier"];
+                    _hashRateMultiplier = nudAmount.Value;
+
+                    chkBittrex.Checked = api.CheckedApis["Bittrex"];
+                    chkMintpal.Checked = api.CheckedApis["Mintpal"];
+                    chkCryptsy.Checked = api.CheckedApis["Cryptsy"];
+                    chkPoloniex.Checked = api.CheckedApis["Poloniex"];
+                    chkNiceHash.Checked = api.CheckedApis["Nicehash"];
+                    chkWhattomine.Checked = api.CheckedApis["WhatToMine"];
+                    chkCointweak.Checked = api.CheckedApis["CoinTweak"];
+                    chkCoinwarz.Checked = api.CheckedApis["CoinWarz"];
+                    chkPoolpicker.Checked = api.CheckedApis["PoolPicker"];
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Oops, something went wrong with loading your apisettings.txt" + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+            }
+
+            _hashList = new HashRateJson { List = ParseHashrates((double) _hashRateMultiplier) };
         }
 
         private void SaveSettings()
         {
-            Dictionary<HashAlgo.Algo, double> toBeSaved = new Dictionary<HashAlgo.Algo, double>(_hashList.List);
-            foreach (KeyValuePair<HashAlgo.Algo, double> hashRate in _hashList.List)
-            {
-                toBeSaved[hashRate.Key] = hashRate.Value / (double)_hashRateMultiplier;
-            }
-            _hashList.List = toBeSaved;
+            _hashList = new HashRateJson { List = ParseHashrates(1) };
             string jsonHashlist = JsonConvert.SerializeObject(_hashList, Formatting.Indented);
             File.WriteAllText(@"hashrates.txt", jsonHashlist);
 
@@ -109,11 +97,13 @@ namespace CudaProfitCalc
             api.ApiSettings.Add("CoinTweak", txtCointweakApiKey.Text);
             api.ApiSettings.Add("CoinWarz", txtCoinwarzApiKey.Text);
             api.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
+            api.ApiSettings.Add("WeightedCalculations", chkWeight.Checked.ToString());
             api.ApiSettings.Add("Multiplier", nudAmount.Text);
 
             api.CheckedApis.Add("Bittrex", chkBittrex.Checked);
             api.CheckedApis.Add("Mintpal", chkMintpal.Checked);
             api.CheckedApis.Add("Cryptsy", chkCryptsy.Checked);
+            api.CheckedApis.Add("Poloniex", chkPoloniex.Checked);
             api.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
             api.CheckedApis.Add("WhatToMine", chkWhattomine.Checked);
             api.CheckedApis.Add("CoinTweak", chkCointweak.Checked);
@@ -123,6 +113,29 @@ namespace CudaProfitCalc
             string jsonApiList = JsonConvert.SerializeObject(api, Formatting.Indented);
             File.WriteAllText(@"apisettings.txt", jsonApiList);
         }
+
+        private void btnCalc_Click(object sender, EventArgs e)
+        {
+            tsStatus.Text = "Busy...";
+            Thread.Sleep(50);
+            tsProgress.Value = 0;
+
+            _hashList.List = ParseHashrates((double) nudAmount.Value);
+
+            const int i = 8;
+            GetCoinList(i);
+            tsProgress.Value += i;
+
+            _coinList.Sort(_hashList.List, chkWeight.Checked);
+            tsProgress.Value += i;
+
+            UpdateDataGridView();
+
+            tsProgress.Value = 100;
+            tsStatus.Text = "Completed";
+        }
+
+
 
         private void UpdateDataGridView()
         {
@@ -136,8 +149,9 @@ namespace CudaProfitCalc
                 arrCoinRows[index].HeaderCell.Value = String.Format("{0}", index + 1);
                 arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.CoinName, 
                     coin.Algo, coin.BtcPerDay.ToString("0.00000000"), coin.CoinsPerDay.ToString("0.00000"),
-                    coin.BestExchange.ExchangeName, coin.BestExchange.BtcPrice.ToString("0.00000000"), 
-                    coin.BestExchange.BtcVolume.ToString("0.000"), coin.Difficulty, coin.BlockReward);
+                    coin.Exchanges[0].ExchangeName, coin.Exchanges[0].BtcPrice.ToString("0.00000000"),
+                    coin.Exchanges[0].BtcVolume.ToString("0.000"), coin.WeightedBtcPrice.ToString("0.00000000"),
+                    coin.TotalVolume.ToString("0.000"), coin.Difficulty, coin.BlockReward);
             }
 
             dgView.Rows.AddRange(arrCoinRows);
@@ -217,6 +231,16 @@ namespace CudaProfitCalc
             }
 
             tsProgress.Value += progress;
+            try 
+            {
+                if (chkPoloniex.Checked) _coinList.UpdatePoloniex("https://poloniex.com/public?command=returnTicker");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Oops, something went wrong with the Poloniex API."  + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+            }
+
+            tsProgress.Value += progress;
             try
             {
                 if (chkPoolpicker.Checked) _coinList.UpdatePoolPicker("http://poolpicker.eu/api", nudPoolpicker.Value);
@@ -233,14 +257,15 @@ namespace CudaProfitCalc
             }
         }
 
-        private Dictionary<HashAlgo.Algo, double> ParseHashrates()
+        private Dictionary<HashAlgo.Algo, double> ParseHashrates(double multiplier)
         {
+
             Dictionary<HashAlgo.Algo, double> hashList = new Dictionary<HashAlgo.Algo, double>();
             double d;
 
             if (Double.TryParse(txtGroestl.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.Groestl, d * (double) _hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.Groestl, d * multiplier);
             }
             else
             {
@@ -249,7 +274,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtMyrGroestl.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.MyriadGroestl, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.MyriadGroestl, d * multiplier);
             }
             else
             {
@@ -258,7 +283,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtFugue.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.Fugue256, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.Fugue256, d * multiplier);
             }
             else
             {
@@ -267,7 +292,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtKeccak.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.Keccak, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.Keccak, d * multiplier);
             }
             else
             {
@@ -276,7 +301,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtJackpot.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.JHA, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.JHA, d * multiplier);
             }
             else
             {
@@ -285,7 +310,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtNist5.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.Nist5, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.Nist5, d * multiplier);
             }
             else
             {
@@ -294,7 +319,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtQuark.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.Quark, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.Quark, d * multiplier);
             }
             else
             {
@@ -303,7 +328,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtScrypt.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.Scrypt, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.Scrypt, d * multiplier);
             }
             else
             {
@@ -312,7 +337,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtX11.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.X11, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.X11, d * multiplier);
             }
             else
             {
@@ -321,7 +346,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtX13.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.X13, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.X13, d * multiplier);
             }
             else
             {
@@ -330,7 +355,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtHefty.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.Heavy, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.Heavy, d * multiplier);
             }
             else
             {
@@ -339,7 +364,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtScryptN.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.ScryptN, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.ScryptN, d * multiplier);
             }
             else
             {
@@ -348,7 +373,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtJane15.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.ScryptJane15, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.ScryptJane15, d * multiplier);
             }
             else
             {
@@ -357,7 +382,7 @@ namespace CudaProfitCalc
 
             if (Double.TryParse(txtJane13.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out d))
             {
-                hashList.Add(HashAlgo.Algo.ScryptJane13, d * (double)_hashRateMultiplier);
+                hashList.Add(HashAlgo.Algo.ScryptJane13, d * multiplier);
             }
             else
             {
@@ -411,9 +436,9 @@ namespace CudaProfitCalc
             _hashRateMultiplier = nudAmount.Value;
         }
 
-        private void btnApiSettings_Click(object sender, EventArgs e)
+        private void chkPoolpicker_CheckedChanged(object sender, EventArgs e)
         {
-
+            nudPoolpicker.Enabled = chkPoolpicker.Checked;
         }
 
     }

@@ -53,8 +53,8 @@ namespace CudaProfitCalc.ApiControl
                     [JsonProperty("date")]
                     public string Date { get; set; }
 
-                    [JsonProperty("btcmhs")]
-                    public string Btcmhs { get; set; }
+                    [JsonProperty("btc")]
+                    public string Btc { get; set; }
                 }
             }
         }
