@@ -146,7 +146,7 @@
             this.grpHashrates.Controls.Add(this.lblGroestl);
             this.grpHashrates.Location = new System.Drawing.Point(12, 100);
             this.grpHashrates.Name = "grpHashrates";
-            this.grpHashrates.Size = new System.Drawing.Size(1155, 105);
+            this.grpHashrates.Size = new System.Drawing.Size(1125, 105);
             this.grpHashrates.TabIndex = 0;
             this.grpHashrates.TabStop = false;
             this.grpHashrates.Text = "Hashrates (in MH/s)";
@@ -454,7 +454,7 @@
             this.dgView.ReadOnly = true;
             this.dgView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgView.Size = new System.Drawing.Size(1156, 351);
+            this.dgView.Size = new System.Drawing.Size(1124, 351);
             this.dgView.TabIndex = 1;
             // 
             // Tag
@@ -571,7 +571,7 @@
             this.grpApiControl.Controls.Add(this.chkBittrex);
             this.grpApiControl.Location = new System.Drawing.Point(12, 12);
             this.grpApiControl.Name = "grpApiControl";
-            this.grpApiControl.Size = new System.Drawing.Size(229, 88);
+            this.grpApiControl.Size = new System.Drawing.Size(199, 88);
             this.grpApiControl.TabIndex = 2;
             this.grpApiControl.TabStop = false;
             this.grpApiControl.Text = "Market APIs";
@@ -581,7 +581,7 @@
             this.chkPoloniex.AutoSize = true;
             this.chkPoloniex.Checked = true;
             this.chkPoloniex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPoloniex.Location = new System.Drawing.Point(131, 19);
+            this.chkPoloniex.Location = new System.Drawing.Point(106, 19);
             this.chkPoloniex.Name = "chkPoloniex";
             this.chkPoloniex.Size = new System.Drawing.Size(88, 17);
             this.chkPoloniex.TabIndex = 3;
@@ -675,7 +675,7 @@
             this.tsStatus});
             this.stStatusStrip.Location = new System.Drawing.Point(0, 569);
             this.stStatusStrip.Name = "stStatusStrip";
-            this.stStatusStrip.Size = new System.Drawing.Size(1180, 22);
+            this.stStatusStrip.Size = new System.Drawing.Size(1148, 22);
             this.stStatusStrip.SizingGrip = false;
             this.stStatusStrip.TabIndex = 3;
             this.stStatusStrip.Text = "Status Striper";
@@ -704,7 +704,7 @@
             this.grpGeneralCoinInfo.Controls.Add(this.txtCoinwarzApiKey);
             this.grpGeneralCoinInfo.Controls.Add(this.chkCointweak);
             this.grpGeneralCoinInfo.Controls.Add(this.chkCoinwarz);
-            this.grpGeneralCoinInfo.Location = new System.Drawing.Point(247, 12);
+            this.grpGeneralCoinInfo.Location = new System.Drawing.Point(217, 12);
             this.grpGeneralCoinInfo.Name = "grpGeneralCoinInfo";
             this.grpGeneralCoinInfo.Size = new System.Drawing.Size(470, 88);
             this.grpGeneralCoinInfo.TabIndex = 4;
@@ -770,7 +770,7 @@
             this.groupBox1.Controls.Add(this.nudPoolpicker);
             this.groupBox1.Controls.Add(this.chkPoolpicker);
             this.groupBox1.Controls.Add(this.chkNiceHash);
-            this.groupBox1.Location = new System.Drawing.Point(723, 12);
+            this.groupBox1.Location = new System.Drawing.Point(693, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(444, 88);
             this.groupBox1.TabIndex = 5;
@@ -805,7 +805,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1180, 591);
+            this.ClientSize = new System.Drawing.Size(1148, 591);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpGeneralCoinInfo);
             this.Controls.Add(this.stStatusStrip);

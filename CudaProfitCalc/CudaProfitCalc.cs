@@ -126,6 +126,7 @@ namespace CudaProfitCalc
             tsProgress.Value += i;
 
             _coinList.Sort(_hashList.List, chkWeight.Checked);
+            if (chkShowOnlyHealthy.Checked) _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay) && !coin.IsMultiPool);
             tsProgress.Value += i;
 
             UpdateDataGridView();
