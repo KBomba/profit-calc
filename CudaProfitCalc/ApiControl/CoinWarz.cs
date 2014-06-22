@@ -5,11 +5,11 @@ namespace CudaProfitCalc.ApiControl
 {
     public class CoinWarz
     {
-        [JsonProperty("Success")]
+        /*[JsonProperty("Success")]
         public bool Success { get; set; }
 
         [JsonProperty("Message")]
-        public string Message { get; set; }
+        public string Message { get; set; }*/
 
         [JsonProperty("Data")]
         public List<Coin> Data { get; set; }
@@ -30,14 +30,14 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("BlockReward")]
             public double BlockReward { get; set; }
 
-            [JsonProperty("BlockCount")]
+            /*[JsonProperty("BlockCount")]
             public uint BlockCount { get; set; }
 
             [JsonProperty("ProfitRatio")]
             public double ProfitRatio { get; set; }
 
             [JsonProperty("AvgProfitRatio")]
-            public double AvgProfitRatio { get; set; }
+            public double AvgProfitRatio { get; set; }*/
 
             [JsonProperty("Exchange")]
             public string Exchange { get; set; }
@@ -48,7 +48,7 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("ExchangeVolume")]
             public double ExchangeVolume { get; set; }
 
-            [JsonProperty("IsBlockExplorerOnline")]
+            /*[JsonProperty("IsBlockExplorerOnline")]
             public bool IsBlockExplorerOnline { get; set; }
 
             [JsonProperty("IsExchangeOnline")]
@@ -58,7 +58,7 @@ namespace CudaProfitCalc.ApiControl
             public string Message { get; set; }
 
             [JsonProperty("BlockTimeInSeconds")]
-            public uint BlockTimeInSeconds { get; set; }
+            public uint BlockTimeInSeconds { get; set; }*/
 
             [JsonProperty("HealthStatus")]
             public string HealthStatus { get; set; }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using CudaProfitCalc.ApiControl;
 
 namespace CudaProfitCalc
@@ -208,6 +207,7 @@ namespace CudaProfitCalc
             }
         }
 
+
         public void UpdatePoolPicker(string address, decimal average)
         {
             PoolPicker pp = JsonControl.DownloadSerializedApi<PoolPicker>(address);
@@ -226,11 +226,10 @@ namespace CudaProfitCalc
                     };
                     Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
                     c.Exchanges.Add(ppExchange);
-                    
+
                     c.Algo = HashAlgo.Algo.Scrypt;
-                    c.CoinName = pool.Name + c.Algo;
-                    c.TagName = "PPicker" + pool.Id + c.Algo;
-                    c.BlockReward = pool.PoolProfitability.Scrypt.Count;
+                    c.CoinName = pool.Name + " " + c.Algo;
+                    c.TagName = "PP" + pool.Id + c.Algo;
 
                     double dAverage = 0;
                     int iCounter = 0;
@@ -242,7 +241,6 @@ namespace CudaProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
-                    c.Exchanges[0].BtcVolume = dAverage;
 
                     Add(c);
                 }
@@ -261,9 +259,8 @@ namespace CudaProfitCalc
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.ScryptN;
-                    c.CoinName = pool.Name + c.Algo;
-                    c.TagName = "PPicker" + pool.Id + c.Algo;
-                    c.BlockReward = pool.PoolProfitability.ScryptN.Count;
+                    c.CoinName = pool.Name + " " + c.Algo;
+                    c.TagName = "PP" + pool.Id + c.Algo;
 
                     double dAverage = 0;
                     int iCounter = 0;
@@ -275,7 +272,6 @@ namespace CudaProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
-                    c.Exchanges[0].BtcVolume = dAverage;
 
                     Add(c);
                 }
@@ -294,9 +290,8 @@ namespace CudaProfitCalc
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.X11;
-                    c.CoinName = pool.Name + c.Algo;
-                    c.TagName = "PPicker" + pool.Id + c.Algo;
-                    c.BlockReward = pool.PoolProfitability.X11.Count;
+                    c.CoinName = pool.Name + " " + c.Algo;
+                    c.TagName = "PP" + pool.Id + c.Algo;
 
                     double dAverage = 0;
                     int iCounter = 0;
@@ -308,7 +303,6 @@ namespace CudaProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
-                    c.Exchanges[0].BtcVolume = dAverage;
 
                     Add(c);
                 }
@@ -327,9 +321,8 @@ namespace CudaProfitCalc
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.X13;
-                    c.CoinName = pool.Name + c.Algo;
-                    c.TagName = "PPicker" + pool.Id + c.Algo;
-                    c.BlockReward = pool.PoolProfitability.X13.Count;
+                    c.CoinName = pool.Name + " " + c.Algo;
+                    c.TagName = "PP" + pool.Id + c.Algo;
 
                     double dAverage = 0;
                     int iCounter = 0;
@@ -341,7 +334,6 @@ namespace CudaProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
-                    c.Exchanges[0].BtcVolume = dAverage;
 
                     Add(c);
                 }
@@ -360,9 +352,8 @@ namespace CudaProfitCalc
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.Keccak;
-                    c.CoinName = pool.Name + c.Algo;
-                    c.TagName = "PPicker" + pool.Id + c.Algo;
-                    c.BlockReward = pool.PoolProfitability.Keccak.Count;
+                    c.CoinName = pool.Name + " " + c.Algo;
+                    c.TagName = "PP" + pool.Id + c.Algo;
 
                     double dAverage = 0;
                     int iCounter = 0;
@@ -374,11 +365,35 @@ namespace CudaProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter;
-                    c.Exchanges[0].BtcVolume = dAverage;
 
                     Add(c);
                 }
             }
+        }
+
+        public void Sort(Dictionary<HashAlgo.Algo, double> hashList, bool useWeightedCalculation, string coindeskAddress, string coindeskCnyAdress)
+        {
+            CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(coindeskAddress);
+            double usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
+            double eurPrice = cd.BpiPrice.EurPrice.RateFloat;
+            double gbpPrice = cd.BpiPrice.GbpPrice.RateFloat;
+
+            cd = JsonControl.DownloadSerializedApi<CoinDesk>(coindeskCnyAdress);
+            double cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
+
+            foreach (Coin coin in List)
+            {
+                if (hashList.ContainsKey(coin.Algo))
+                {
+                    coin.CalcProfitability(hashList[coin.Algo], useWeightedCalculation);
+                    coin.UsdPerDay = coin.BtcPerDay * usdPrice;
+                    coin.EurPerDay = coin.BtcPerDay * eurPrice;
+                    coin.GbpPerDay = coin.BtcPerDay * gbpPrice;
+                    coin.CnyPerDay = coin.BtcPerDay * cnyPrice;
+                }
+            }
+
+            List = List.OrderByDescending(o => o.BtcPerDay).ToList();
         }
 
         public void Sort(Dictionary<HashAlgo.Algo, double> hashList, bool useWeightedCalculation)
@@ -388,11 +403,7 @@ namespace CudaProfitCalc
                 if (hashList.ContainsKey(coin.Algo))
                 {
                     coin.CalcProfitability(hashList[coin.Algo], useWeightedCalculation);
-                }
-                else
-                {
-                    coin.BtcPerDay = 0;
-                    coin.CoinsPerDay = 0;
+                    coin.UsdPerDay = 0;
                 }
             }
 

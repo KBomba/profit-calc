@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using CudaProfitCalc.ApiControl;
 
 namespace CudaProfitCalc
@@ -36,6 +35,11 @@ namespace CudaProfitCalc
 
         public double CoinsPerDay { get; set; }
         public double BtcPerDay { get; set; }
+
+        public double UsdPerDay { get; set; }
+        public double EurPerDay { get; set; }
+        public double GbpPerDay { get; set; }
+        public double CnyPerDay { get; set; }
 
         public bool HasMarketErrors { get; set; }
         public bool HasImplementedMarketApi { get; set; }
@@ -79,14 +83,14 @@ namespace CudaProfitCalc
                     break;
             }
 
-            CoinName = "NiceHash" + Algo;
+            CoinName = "Act. NiceHash " + Algo;
             TagName = "NICE" + Algo.ToString().ToUpper();
-            Difficulty = niceHashStat.Speed;
-            BlockReward = niceHashStat.Price;
+            Difficulty = 0;
+            BlockReward = 0;
 
             Exchange nhExchange = new Exchange { ExchangeName = "NiceHash", BtcPrice = niceHashStat.Price, BtcVolume = 0, Weight = 1 };
             Exchanges = new List<Exchange> { nhExchange };
-            TotalVolume = nhExchange.BtcVolume;
+            TotalVolume = 0;
             HasMarketErrors = false;
             IsMultiPool = true;
             HasImplementedMarketApi = true;

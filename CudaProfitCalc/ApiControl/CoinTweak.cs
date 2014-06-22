@@ -5,7 +5,7 @@ namespace CudaProfitCalc.ApiControl
 {
     public class CoinTweak
     {
-        [JsonProperty("success")]
+        /*[JsonProperty("success")]
         public bool Success { get; set; }
 
         [JsonProperty("callsRemaining")]
@@ -28,7 +28,7 @@ namespace CudaProfitCalc.ApiControl
         {
             [JsonProperty("conversionRateToBtc")]
             public double ConversionRateToBtc { get; set; }
-        }
+        }*/
 
         [JsonProperty("coin")]
         public List<Coin> Coins;
@@ -43,8 +43,8 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("difficulty")]
             public double Difficulty { get; set; }
 
-            [JsonProperty("avg_diff")]
-            public double AvgDiff { get; set; }
+            /*[JsonProperty("avg_diff")]
+            public double AvgDiff { get; set; }*/
 
             [JsonProperty("blockCoins")]
             public double BlockCoins { get; set; }
@@ -55,7 +55,7 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("hasBuyOffers")]
             public bool HasBuyOffers { get; set; }
 
-            [JsonProperty("hasBuyOffersLtc")]
+            /*[JsonProperty("hasBuyOffersLtc")]
             public bool HasBuyOffersLtc { get; set; }
 
             [JsonProperty("hashRate")]
@@ -68,7 +68,7 @@ namespace CudaProfitCalc.ApiControl
             public double CoinsPerDay { get; set; }
 
             [JsonProperty("coinsPerDayAvg")]
-            public double CoinsPerDayAvg { get; set; }
+            public double CoinsPerDayAvg { get; set; }*/
 
             [JsonProperty("Btc_vol")]
             public double BtcVol { get; set; }
@@ -79,7 +79,7 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("conversionRateToBtc")]
             public double ConversionRateToBtc { get; set; }
 
-            [JsonProperty("conversionRateToLtc")]
+            /*[JsonProperty("conversionRateToLtc")]
             public object ConversionRateToLtc { get; set; }
 
             [JsonProperty("conversionRateToUsd")]
@@ -104,7 +104,7 @@ namespace CudaProfitCalc.ApiControl
             public string BlockRewardError { get; set; }
 
             [JsonProperty("Ltc_ex_name")]
-            public string LtcExName { get; set; }
+            public string LtcExName { get; set; }*/
         }
     }
 }

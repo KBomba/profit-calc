@@ -18,35 +18,35 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("block_reward")]
             public double BlockReward { get; set; }
 
-            [JsonProperty("block_time")]
+            /*[JsonProperty("block_time")]
             public uint BlockTime { get; set; }
 
             [JsonProperty("last_block")]
-            public uint LastBlock { get; set; }
+            public uint LastBlock { get; set; }*/
 
             [JsonProperty("difficulty")]
             public double Difficulty { get; set; }
 
-            [JsonProperty("difficulty24")]
+            /*[JsonProperty("difficulty24")]
             public double Difficulty24 { get; set; }
 
             [JsonProperty("nethash")]
-            public double Nethash { get; set; }
+            public double Nethash { get; set; }*/
 
             [JsonProperty("exchange_rate")]
             public double ExchangeRate { get; set; }
 
-            [JsonProperty("market_cap")]
-            public string MarketCap { get; set; }
+            /*[JsonProperty("market_cap")]
+            public string MarketCap { get; set; }*/
 
             [JsonProperty("volume")]
             public double Volume { get; set; }
 
-            [JsonProperty("profitability")]
+            /*[JsonProperty("profitability")]
             public int Profitability { get; set; }
 
             [JsonProperty("profitability24")]
-            public int Profitability24 { get; set; }
+            public int Profitability24 { get; set; }*/
         }
     }
 }

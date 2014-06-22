@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
 
@@ -22,15 +21,6 @@ namespace CudaProfitCalc
             }
 
             return newT;
-
-            /*string jsonData;
-            using (WebClient web = new WebClient())
-            {
-               jsonData = web.DownloadString(address);
-            }
-
-            T newT = !string.IsNullOrEmpty(jsonData) ? JsonConvert.DeserializeObject<T>(jsonData) : new T();
-            return newT;*/
         }
 
         

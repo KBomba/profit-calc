@@ -5,8 +5,8 @@ namespace CudaProfitCalc.ApiControl
 {
     class Cryptsy
     {
-        [JsonProperty("success")]
-        public int Success { get; set; }
+        /*[JsonProperty("success")]
+        public int Success { get; set; }*/
 
         [JsonProperty("return")]
         public Return Returns { get; set; }
@@ -16,11 +16,11 @@ namespace CudaProfitCalc.ApiControl
             public Dictionary<string, Market> Markets { get; set; }
             public class Market
             {
-                [JsonProperty("marketid")]
+                /*[JsonProperty("marketid")]
                 public string MarketId { get; set; }
 
                 [JsonProperty("label")]
-                public string Label { get; set; }
+                public string Label { get; set; }*/
 
                 [JsonProperty("lasttradeprice")]
                 public double LastTradePrice { get; set; }
@@ -28,8 +28,8 @@ namespace CudaProfitCalc.ApiControl
                 [JsonProperty("volume")]
                 public double Volume { get; set; }
 
-                [JsonProperty("lasttradetime")]
-                public string LastTradetime { get; set; }
+                /*[JsonProperty("lasttradetime")]
+                public string LastTradetime { get; set; }*/
 
                 [JsonProperty("primaryname")]
                 public string PrimaryName { get; set; }
@@ -37,13 +37,13 @@ namespace CudaProfitCalc.ApiControl
                 [JsonProperty("primarycode")]
                 public string PrimaryCode { get; set; }
 
-                [JsonProperty("secondaryname")]
-                public string SecondaryName { get; set; }
+                /*[JsonProperty("secondaryname")]
+                public string SecondaryName { get; set; }*/
 
                 [JsonProperty("secondarycode")]
                 public string SecondaryCode { get; set; }
 
-                [JsonProperty("recenttrades")]
+                /*[JsonProperty("recenttrades")]
                 public List<Trades> RecentTrades { get; set; }
                 public class Trades
                 {
@@ -65,7 +65,7 @@ namespace CudaProfitCalc.ApiControl
 
                 [JsonProperty("sellorders")]
                 public List<Order> SellOrders { get; set; }
-
+                */
 
                 [JsonProperty("buyorders")]
                 public List<Order> BuyOrders { get; set; }
@@ -74,11 +74,11 @@ namespace CudaProfitCalc.ApiControl
                     [JsonProperty("price")]
                     public double Price { get; set; }
 
-                    [JsonProperty("quantity")]
+                    /*[JsonProperty("quantity")]
                     public double Quantity { get; set; }
 
                     [JsonProperty("total")]
-                    public double Total { get; set; }
+                    public double Total { get; set; }*/
                 }
             }
         }

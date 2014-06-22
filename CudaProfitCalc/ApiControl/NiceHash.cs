@@ -19,12 +19,12 @@ namespace CudaProfitCalc.ApiControl
                 [JsonProperty("algo")]
                 public int Algo { get; set; }
 
-                [JsonProperty("speed")]
-                public double Speed { get; set; }
+                /*[JsonProperty("speed")]
+                public double Speed { get; set; }*/
             }
         }
 
-        [JsonProperty("method")]
-        public string Method { get; set; }
+        /*[JsonProperty("method")]
+        public string Method { get; set; }*/
     }
 }

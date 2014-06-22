@@ -5,21 +5,21 @@ namespace CudaProfitCalc.ApiControl
 {
     class MintPal
     {
-        [JsonProperty("status")]
+        /*[JsonProperty("status")]
         public string Status { get; set; }
 
         [JsonProperty("count")]
-        public int Count { get; set; }
+        public int Count { get; set; }*/
 
         [JsonProperty("data")]
         public List<Coin> Data { get; set; }
         public class Coin
         {
-            [JsonProperty("market_id")]
+            /*[JsonProperty("market_id")]
             public string MarketId { get; set; }
 
             [JsonProperty("coin")]
-            public string CoinName { get; set; }
+            public string CoinName { get; set; }*/
 
             [JsonProperty("code")]
             public string Code { get; set; }
@@ -27,7 +27,7 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("exchange")]
             public string Exchange { get; set; }
 
-            [JsonProperty("last_price")]
+           /*[JsonProperty("last_price")]
             public double LastPrice { get; set; }
 
             [JsonProperty("yesterday_price")]
@@ -40,7 +40,7 @@ namespace CudaProfitCalc.ApiControl
             public double Last24hHigh { get; set; }
 
             [JsonProperty("24hlow")]
-            public double Last24hLow { get; set; }
+            public double Last24hLow { get; set; }*/
 
             [JsonProperty("24hvol")]
             public double Last24hVol { get; set; }
@@ -48,8 +48,8 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("top_bid")]
             public double TopBid { get; set; }
 
-            [JsonProperty("top_ask")]
-            public double TopAsk { get; set; }
+            /*[JsonProperty("top_ask")]
+            public double TopAsk { get; set; }*/
         }
     }
 }

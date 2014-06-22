@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControl\CoinDesk.cs" />
     <Compile Include="ApiControl\Poloniex.cs" />
     <Compile Include="JsonControl.cs" />
     <Compile Include="ApiControl\Bittrex.cs" />

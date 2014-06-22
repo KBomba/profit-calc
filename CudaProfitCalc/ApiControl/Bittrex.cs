@@ -5,11 +5,11 @@ namespace CudaProfitCalc.ApiControl
 {
     class Bittrex
     {
-        [JsonProperty("success")]
+        /*[JsonProperty("success")]
         public bool Success { get; set; }
 
         [JsonProperty("message")]
-        public string Message { get; set; }
+        public string Message { get; set; }*/
 
         [JsonProperty("result")]
         public List<Result> Results { get; set; }
@@ -18,7 +18,7 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("MarketName")]
             public string MarketName { get; set; }
 
-            [JsonProperty("High")]
+            /*[JsonProperty("High")]
             public string High { get; set; }
 
             [JsonProperty("Low")]
@@ -28,18 +28,18 @@ namespace CudaProfitCalc.ApiControl
             public string Volume { get; set; }
 
             [JsonProperty("Last")]
-            public string Last { get; set; }
+            public string Last { get; set; }*/
 
             [JsonProperty("BaseVolume")]
             public string BaseVolume { get; set; }
 
-            [JsonProperty("TimeStamp")]
-            public string TimeStamp { get; set; }
+            /*[JsonProperty("TimeStamp")]
+            public string TimeStamp { get; set; }*/
 
             [JsonProperty("Bid")]
             public string Bid { get; set; }
 
-            [JsonProperty("Ask")]
+            /*[JsonProperty("Ask")]
             public string Ask { get; set; }
 
             [JsonProperty("OpenBuyOrders")]
@@ -52,7 +52,7 @@ namespace CudaProfitCalc.ApiControl
             public string PrevDay { get; set; }
 
             [JsonProperty("Created")]
-            public string Created { get; set; }
+            public string Created { get; set; }*/
         }
     }
 }

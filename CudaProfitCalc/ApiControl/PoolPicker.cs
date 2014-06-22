@@ -15,7 +15,7 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("name")]
             public string Name { get; set; }
 
-            [JsonProperty("url")]
+            /*[JsonProperty("url")]
             public string Url { get; set; }
 
             [JsonProperty("note")]
@@ -25,7 +25,7 @@ namespace CudaProfitCalc.ApiControl
             public string Rating { get; set; }
 
             [JsonProperty("reviews")]
-            public string Reviews { get; set; }
+            public string Reviews { get; set; }*/
 
             [JsonProperty("profitability")]
             public Profitability PoolProfitability { get; set; }
@@ -40,8 +40,8 @@ namespace CudaProfitCalc.ApiControl
                 [JsonProperty("X11")]
                 public List<Algo> X11 { get; set; }
 
-                [JsonProperty("SHA256")]
-                public List<Algo> Sha256 { get; set; }
+                /*[JsonProperty("SHA256")]
+                public List<Algo> Sha256 { get; set; }*/
 
                 [JsonProperty("X13")]
                 public List<Algo> X13 { get; set; }
@@ -50,8 +50,8 @@ namespace CudaProfitCalc.ApiControl
                 public List<Algo> Keccak { get; set; }
                 public class Algo
                 {
-                    [JsonProperty("date")]
-                    public string Date { get; set; }
+                    /*[JsonProperty("date")]
+                    public string Date { get; set; }*/
 
                     [JsonProperty("btc")]
                     public string Btc { get; set; }
