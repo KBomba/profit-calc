@@ -64,30 +64,6 @@
             this.txtGroestl = new System.Windows.Forms.TextBox();
             this.lblGroestl = new System.Windows.Forms.Label();
             this.dgView = new System.Windows.Forms.DataGridView();
-            this.ctxtStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmResultsToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmHashratesToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.grpApiControl = new System.Windows.Forms.GroupBox();
-            this.chkCryptsy = new System.Windows.Forms.CheckBox();
-            this.chkMintpal = new System.Windows.Forms.CheckBox();
-            this.chkBittrex = new System.Windows.Forms.CheckBox();
-            this.nudPoolpicker = new System.Windows.Forms.NumericUpDown();
-            this.chkPoolpicker = new System.Windows.Forms.CheckBox();
-            this.chkNiceHash = new System.Windows.Forms.CheckBox();
-            this.chkShowOnlyHealthy = new System.Windows.Forms.CheckBox();
-            this.stStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
-            this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.grpGeneralCoinInfo = new System.Windows.Forms.GroupBox();
-            this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
-            this.chkWhattomine = new System.Windows.Forms.CheckBox();
-            this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
-            this.chkCointweak = new System.Windows.Forms.CheckBox();
-            this.chkCoinwarz = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkPoloniex = new System.Windows.Forms.CheckBox();
-            this.chkWeight = new System.Windows.Forms.CheckBox();
             this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CoinName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -100,6 +76,30 @@
             this.TotalVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ctxtStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmResultsToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmHashratesToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.grpApiControl = new System.Windows.Forms.GroupBox();
+            this.chkPoloniex = new System.Windows.Forms.CheckBox();
+            this.chkCryptsy = new System.Windows.Forms.CheckBox();
+            this.chkMintpal = new System.Windows.Forms.CheckBox();
+            this.chkBittrex = new System.Windows.Forms.CheckBox();
+            this.nudPoolpicker = new System.Windows.Forms.NumericUpDown();
+            this.chkPoolpicker = new System.Windows.Forms.CheckBox();
+            this.chkNiceHash = new System.Windows.Forms.CheckBox();
+            this.stStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
+            this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.grpGeneralCoinInfo = new System.Windows.Forms.GroupBox();
+            this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
+            this.chkWhattomine = new System.Windows.Forms.CheckBox();
+            this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
+            this.chkCointweak = new System.Windows.Forms.CheckBox();
+            this.chkCoinwarz = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkWeight = new System.Windows.Forms.CheckBox();
+            this.chkShowOnlyHealthy = new System.Windows.Forms.CheckBox();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -457,6 +457,90 @@
             this.dgView.Size = new System.Drawing.Size(1156, 351);
             this.dgView.TabIndex = 1;
             // 
+            // Tag
+            // 
+            this.Tag.HeaderText = "Tag";
+            this.Tag.Name = "Tag";
+            this.Tag.ReadOnly = true;
+            this.Tag.Width = 51;
+            // 
+            // CoinName
+            // 
+            this.CoinName.HeaderText = "Name";
+            this.CoinName.Name = "CoinName";
+            this.CoinName.ReadOnly = true;
+            this.CoinName.Width = 60;
+            // 
+            // Algo
+            // 
+            this.Algo.HeaderText = "Algo";
+            this.Algo.Name = "Algo";
+            this.Algo.ReadOnly = true;
+            this.Algo.Width = 53;
+            // 
+            // BtcPerDay
+            // 
+            this.BtcPerDay.HeaderText = "BTC per day";
+            this.BtcPerDay.Name = "BtcPerDay";
+            this.BtcPerDay.ReadOnly = true;
+            this.BtcPerDay.Width = 69;
+            // 
+            // CoinsPerDay
+            // 
+            this.CoinsPerDay.HeaderText = "Coins per day";
+            this.CoinsPerDay.Name = "CoinsPerDay";
+            this.CoinsPerDay.ReadOnly = true;
+            this.CoinsPerDay.Width = 73;
+            // 
+            // BestExchange
+            // 
+            this.BestExchange.HeaderText = "Best exchange";
+            this.BestExchange.Name = "BestExchange";
+            this.BestExchange.ReadOnly = true;
+            this.BestExchange.Width = 95;
+            // 
+            // BestExchangePrice
+            // 
+            this.BestExchangePrice.HeaderText = "Best exchange\'s price";
+            this.BestExchangePrice.Name = "BestExchangePrice";
+            this.BestExchangePrice.ReadOnly = true;
+            this.BestExchangePrice.Width = 124;
+            // 
+            // ExchangeVolume
+            // 
+            this.ExchangeVolume.HeaderText = "Best exchange\'s volume";
+            this.ExchangeVolume.Name = "ExchangeVolume";
+            this.ExchangeVolume.ReadOnly = true;
+            this.ExchangeVolume.Width = 134;
+            // 
+            // WeightedPrice
+            // 
+            this.WeightedPrice.HeaderText = "Weighted price";
+            this.WeightedPrice.Name = "WeightedPrice";
+            this.WeightedPrice.ReadOnly = true;
+            this.WeightedPrice.Width = 96;
+            // 
+            // TotalVolume
+            // 
+            this.TotalVolume.HeaderText = "Total Volume";
+            this.TotalVolume.Name = "TotalVolume";
+            this.TotalVolume.ReadOnly = true;
+            this.TotalVolume.Width = 87;
+            // 
+            // Difficulty
+            // 
+            this.Difficulty.HeaderText = "Difficulty";
+            this.Difficulty.Name = "Difficulty";
+            this.Difficulty.ReadOnly = true;
+            this.Difficulty.Width = 72;
+            // 
+            // BlockReward
+            // 
+            this.BlockReward.HeaderText = "Block reward";
+            this.BlockReward.Name = "BlockReward";
+            this.BlockReward.ReadOnly = true;
+            this.BlockReward.Width = 87;
+            // 
             // ctxtStrip
             // 
             this.ctxtStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -491,6 +575,18 @@
             this.grpApiControl.TabIndex = 2;
             this.grpApiControl.TabStop = false;
             this.grpApiControl.Text = "Market APIs";
+            // 
+            // chkPoloniex
+            // 
+            this.chkPoloniex.AutoSize = true;
+            this.chkPoloniex.Checked = true;
+            this.chkPoloniex.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPoloniex.Location = new System.Drawing.Point(131, 19);
+            this.chkPoloniex.Name = "chkPoloniex";
+            this.chkPoloniex.Size = new System.Drawing.Size(88, 17);
+            this.chkPoloniex.TabIndex = 3;
+            this.chkPoloniex.Text = "Use Poloniex";
+            this.chkPoloniex.UseVisualStyleBackColor = true;
             // 
             // chkCryptsy
             // 
@@ -540,7 +636,7 @@
             this.nudPoolpicker.Size = new System.Drawing.Size(38, 20);
             this.nudPoolpicker.TabIndex = 33;
             this.nudPoolpicker.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -569,18 +665,6 @@
             this.chkNiceHash.TabIndex = 31;
             this.chkNiceHash.Text = "Get actual NiceHash prices";
             this.chkNiceHash.UseVisualStyleBackColor = true;
-            // 
-            // chkShowOnlyHealthy
-            // 
-            this.chkShowOnlyHealthy.AutoSize = true;
-            this.chkShowOnlyHealthy.Checked = true;
-            this.chkShowOnlyHealthy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShowOnlyHealthy.Location = new System.Drawing.Point(6, 19);
-            this.chkShowOnlyHealthy.Name = "chkShowOnlyHealthy";
-            this.chkShowOnlyHealthy.Size = new System.Drawing.Size(150, 17);
-            this.chkShowOnlyHealthy.TabIndex = 32;
-            this.chkShowOnlyHealthy.Text = "Show only \"healthy\" coins";
-            this.chkShowOnlyHealthy.UseVisualStyleBackColor = true;
             // 
             // stStatusStrip
             // 
@@ -693,18 +777,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Misc.";
             // 
-            // chkPoloniex
-            // 
-            this.chkPoloniex.AutoSize = true;
-            this.chkPoloniex.Checked = true;
-            this.chkPoloniex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPoloniex.Location = new System.Drawing.Point(131, 19);
-            this.chkPoloniex.Name = "chkPoloniex";
-            this.chkPoloniex.Size = new System.Drawing.Size(88, 17);
-            this.chkPoloniex.TabIndex = 3;
-            this.chkPoloniex.Text = "Use Poloniex";
-            this.chkPoloniex.UseVisualStyleBackColor = true;
-            // 
             // chkWeight
             // 
             this.chkWeight.AutoSize = true;
@@ -717,89 +789,17 @@
             this.chkWeight.Text = "Use weighted price calculation";
             this.chkWeight.UseVisualStyleBackColor = true;
             // 
-            // Tag
+            // chkShowOnlyHealthy
             // 
-            this.Tag.HeaderText = "Tag";
-            this.Tag.Name = "Tag";
-            this.Tag.ReadOnly = true;
-            this.Tag.Width = 51;
-            // 
-            // CoinName
-            // 
-            this.CoinName.HeaderText = "Name";
-            this.CoinName.Name = "CoinName";
-            this.CoinName.ReadOnly = true;
-            this.CoinName.Width = 60;
-            // 
-            // Algo
-            // 
-            this.Algo.HeaderText = "Algo";
-            this.Algo.Name = "Algo";
-            this.Algo.ReadOnly = true;
-            this.Algo.Width = 53;
-            // 
-            // BtcPerDay
-            // 
-            this.BtcPerDay.HeaderText = "BTC per day";
-            this.BtcPerDay.Name = "BtcPerDay";
-            this.BtcPerDay.ReadOnly = true;
-            this.BtcPerDay.Width = 91;
-            // 
-            // CoinsPerDay
-            // 
-            this.CoinsPerDay.HeaderText = "Coins per day";
-            this.CoinsPerDay.Name = "CoinsPerDay";
-            this.CoinsPerDay.ReadOnly = true;
-            this.CoinsPerDay.Width = 96;
-            // 
-            // BestExchange
-            // 
-            this.BestExchange.HeaderText = "Best exchange";
-            this.BestExchange.Name = "BestExchange";
-            this.BestExchange.ReadOnly = true;
-            this.BestExchange.Width = 95;
-            // 
-            // BestExchangePrice
-            // 
-            this.BestExchangePrice.HeaderText = "Best exchange\'s price";
-            this.BestExchangePrice.Name = "BestExchangePrice";
-            this.BestExchangePrice.ReadOnly = true;
-            this.BestExchangePrice.Width = 124;
-            // 
-            // ExchangeVolume
-            // 
-            this.ExchangeVolume.HeaderText = "Best exchange\'s volume";
-            this.ExchangeVolume.Name = "ExchangeVolume";
-            this.ExchangeVolume.ReadOnly = true;
-            this.ExchangeVolume.Width = 134;
-            // 
-            // WeightedPrice
-            // 
-            this.WeightedPrice.HeaderText = "Weighted price";
-            this.WeightedPrice.Name = "WeightedPrice";
-            this.WeightedPrice.ReadOnly = true;
-            this.WeightedPrice.Width = 96;
-            // 
-            // TotalVolume
-            // 
-            this.TotalVolume.HeaderText = "Total Volume";
-            this.TotalVolume.Name = "TotalVolume";
-            this.TotalVolume.ReadOnly = true;
-            this.TotalVolume.Width = 87;
-            // 
-            // Difficulty
-            // 
-            this.Difficulty.HeaderText = "Difficulty";
-            this.Difficulty.Name = "Difficulty";
-            this.Difficulty.ReadOnly = true;
-            this.Difficulty.Width = 72;
-            // 
-            // BlockReward
-            // 
-            this.BlockReward.HeaderText = "Block reward";
-            this.BlockReward.Name = "BlockReward";
-            this.BlockReward.ReadOnly = true;
-            this.BlockReward.Width = 87;
+            this.chkShowOnlyHealthy.AutoSize = true;
+            this.chkShowOnlyHealthy.Checked = true;
+            this.chkShowOnlyHealthy.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShowOnlyHealthy.Location = new System.Drawing.Point(6, 19);
+            this.chkShowOnlyHealthy.Name = "chkShowOnlyHealthy";
+            this.chkShowOnlyHealthy.Size = new System.Drawing.Size(150, 17);
+            this.chkShowOnlyHealthy.TabIndex = 32;
+            this.chkShowOnlyHealthy.Text = "Show only \"healthy\" coins";
+            this.chkShowOnlyHealthy.UseVisualStyleBackColor = true;
             // 
             // CudaProfitCalc
             // 
@@ -872,7 +872,6 @@
         private System.Windows.Forms.ToolStripStatusLabel tsProgressText;
         private System.Windows.Forms.CheckBox chkNiceHash;
         private System.Windows.Forms.ToolStripStatusLabel tsStatus;
-        private System.Windows.Forms.CheckBox chkShowOnlyHealthy;
         private System.Windows.Forms.ContextMenuStrip ctxtStrip;
         private System.Windows.Forms.ToolStripMenuItem tsmResultsToClipboard;
         private System.Windows.Forms.ToolStripMenuItem tsmHashratesToClipboard;
@@ -907,6 +906,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalVolume;
         private System.Windows.Forms.DataGridViewTextBoxColumn Difficulty;
         private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
+        private System.Windows.Forms.CheckBox chkShowOnlyHealthy;
     }
 }
 

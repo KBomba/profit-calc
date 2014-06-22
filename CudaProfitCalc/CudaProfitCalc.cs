@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using CudaProfitCalc.ApiControl;
 using Newtonsoft.Json;
 
 namespace CudaProfitCalc
@@ -409,11 +408,6 @@ namespace CudaProfitCalc
 
                 Clipboard.SetText(sb.ToString());
             }
-        }
-
-        private void copyThisResultToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void CudaProfitCalc_FormClosing(object sender, FormClosingEventArgs e)

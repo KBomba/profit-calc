@@ -188,7 +188,7 @@ namespace CudaProfitCalc
             StringBuilder sb = new StringBuilder();
             for (int index = 0; index < Exchanges.Count; index++)
             {
-                sb.Append(" | Exchange #").Append(index).Append(": ").Append(Exchanges[index].ExchangeName)
+                sb.Append(" | Exchange #").Append(index+1).Append(": ").Append(Exchanges[index].ExchangeName)
                     .Append(" | BTC volume: ").Append(Exchanges[index].BtcVolume.ToString("#.0000"))
                     .Append(" | BTC price: ").Append(Exchanges[index].BtcPrice.ToString("#.00000000"))
                     .Append(" | Weight: ").Append(Exchanges[index].Weight.ToString("#.000"));
