@@ -816,7 +816,6 @@
             this.BtcPerDay.HeaderText = "BTC per day";
             this.BtcPerDay.Name = "BtcPerDay";
             this.BtcPerDay.ReadOnly = true;
-            this.BtcPerDay.Visible = false;
             this.BtcPerDay.Width = 91;
             // 
             // CoinsPerDay
