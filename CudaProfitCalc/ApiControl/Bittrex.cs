@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace CudaProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl
 {
     class Bittrex
     {

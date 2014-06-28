@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CudaProfitCalc
+namespace ProfitCalc
 {
     static class Program
     {

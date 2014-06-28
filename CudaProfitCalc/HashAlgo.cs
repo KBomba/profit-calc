@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CudaProfitCalc
+namespace ProfitCalc
 {
     static class HashAlgo
     {
@@ -22,6 +22,7 @@ namespace CudaProfitCalc
             Nist5,
             X11,
             X13,
+            CryptoNight,
             Unknown
         } ;
 
@@ -62,6 +63,9 @@ namespace CudaProfitCalc
                     return Algo.JHA;
                 case "nist5":
                     return Algo.Nist5;
+                case "cryptonight":
+                case "cryptonite":
+                    return Algo.CryptoNight;
                 default:
                     return Algo.Unknown;
             }

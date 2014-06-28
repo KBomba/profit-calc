@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace CudaProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl
 {
     public class CoinDesk
     {

@@ -2,13 +2,13 @@
 using System.Net.Http;
 using Newtonsoft.Json;
 
-namespace CudaProfitCalc
+namespace ProfitCalc
 {
     static class JsonControl
     {
         public static T DownloadSerializedApi<T>(string address) where T : new()
         {
-            T newT = new T();
+            T newT;
             HttpClient client = new HttpClient();
 
             using (Stream s = client.GetStreamAsync(address).Result)
@@ -16,7 +16,6 @@ namespace CudaProfitCalc
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 JsonSerializer serializer = new JsonSerializer();
-
                 newT = serializer.Deserialize<T>(reader);
             }
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CudaProfitCalc.ApiControl;
+using ProfitCalc.ApiControl;
 
-namespace CudaProfitCalc
+namespace ProfitCalc
 {
     class Coin
     {
@@ -14,6 +14,7 @@ namespace CudaProfitCalc
         public HashAlgo.Algo Algo { get; set; }
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
+        public uint Height { get; set; }
 
         public List<Exchange> Exchanges { get; set; }
         internal class Exchange
@@ -105,6 +106,7 @@ namespace CudaProfitCalc
             if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
             Difficulty = wtmCoin.Value.Difficulty;
             BlockReward = wtmCoin.Value.BlockReward;
+            Height = wtmCoin.Value.LastBlock;
             Exchange wtmExchange = new Exchange { ExchangeName = "Unknown (WhatToMine)", BtcPrice = wtmCoin.Value.ExchangeRate, BtcVolume = wtmCoin.Value.Volume * wtmCoin.Value.ExchangeRate, Weight = 1 };
             Exchanges = new List<Exchange> { wtmExchange };
             TotalVolume = wtmExchange.BtcVolume;
@@ -137,6 +139,7 @@ namespace CudaProfitCalc
             if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
             Difficulty = cwzCoin.Difficulty;
             BlockReward = cwzCoin.BlockReward;
+            Height = cwzCoin.BlockCount;
             Exchange cwzExchange = new Exchange { ExchangeName = cwzCoin.Exchange + " (CoinWarz)", BtcPrice = cwzCoin.ExchangeRate, BtcVolume = cwzCoin.ExchangeVolume * cwzCoin.ExchangeRate, Weight = 1};
             Exchanges = new List<Exchange> { cwzExchange };
             TotalVolume = cwzExchange.BtcVolume;
@@ -164,6 +167,11 @@ namespace CudaProfitCalc
 
 
                 CoinsPerDay = BlockReward / (Difficulty * magicNumber / (hashRateMh * 1000000) / 3600 / 24);
+
+                //Cryptonight's difficulty is net hashrate * 60
+                if (Algo == HashAlgo.Algo.CryptoNight)
+                    CoinsPerDay = (BlockReward*24*60)*((hashRateMh*1000000)/(Difficulty/60));
+
                 foreach (Exchange exchange in Exchanges)
                 {
                     exchange.Weight = exchange.BtcVolume/TotalVolume;
@@ -176,7 +184,7 @@ namespace CudaProfitCalc
 
         public void SortExchanges()
         {
-            Exchanges = Enumerable.OrderByDescending(Exchanges, exchange => exchange.BtcVolume).ToList();
+            Exchanges = Exchanges.OrderByDescending(exchange => exchange.BtcVolume).ToList();
         }
 
         public override string ToString()

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace CudaProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl
 {
     public class CoinWarz
     {
@@ -30,10 +30,10 @@ namespace CudaProfitCalc.ApiControl
             [JsonProperty("BlockReward")]
             public double BlockReward { get; set; }
 
-            /*[JsonProperty("BlockCount")]
+            [JsonProperty("BlockCount")]
             public uint BlockCount { get; set; }
 
-            [JsonProperty("ProfitRatio")]
+            /*[JsonProperty("ProfitRatio")]
             public double ProfitRatio { get; set; }
 
             [JsonProperty("AvgProfitRatio")]

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace CudaProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl
 {
     public class WhatToMine
     {
@@ -19,10 +19,10 @@ namespace CudaProfitCalc.ApiControl
             public double BlockReward { get; set; }
 
             /*[JsonProperty("block_time")]
-            public uint BlockTime { get; set; }
+            public uint BlockTime { get; set; }*/
 
             [JsonProperty("last_block")]
-            public uint LastBlock { get; set; }*/
+            public uint LastBlock { get; set; }
 
             [JsonProperty("difficulty")]
             public double Difficulty { get; set; }

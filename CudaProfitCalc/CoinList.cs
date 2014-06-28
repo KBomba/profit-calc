@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
-using CudaProfitCalc.ApiControl;
+using ProfitCalc.ApiControl;
 
-namespace CudaProfitCalc
+namespace ProfitCalc
 {
     class CoinList
     {
@@ -28,7 +29,7 @@ namespace CudaProfitCalc
             {
                 if (c.TagName == newCoin.TagName && c.Algo == newCoin.Algo && !newCoin.IsMultiPool)
                 {
-                    if (c.Difficulty != newCoin.Difficulty)
+                    if (c.Height < newCoin.Height)
                     {
                         List.Remove(c);
                     }
@@ -123,8 +124,11 @@ namespace CudaProfitCalc
                 {
                     if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName && cpCoin.Value.BuyOrders != null)
                     {
-                        Coin.Exchange cpExchange = new Coin.Exchange {ExchangeName = "Cryptsy",BtcPrice = cpCoin.Value.BuyOrders[0].Price,
-                            BtcVolume = (cpCoin.Value.Volume*cpCoin.Value.LastTradePrice) };
+                        double volume = Double.Parse(cpCoin.Value.Volume, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        double price = Double.Parse(cpCoin.Value.BuyOrders[0].Price, NumberStyles.Float, CultureInfo.InvariantCulture);
+
+                        Coin.Exchange cpExchange = new Coin.Exchange {ExchangeName = "Cryptsy",BtcPrice = price,
+                            BtcVolume = (volume*price) };
                         if (c.HasImplementedMarketApi)
                         {
                             c.Exchanges.Add(cpExchange);
@@ -165,7 +169,8 @@ namespace CudaProfitCalc
                             }
                             else
                             {
-                                c.Exchanges[0] = btExchange;
+                                c.Exchanges = new List<Coin.Exchange>();
+                                c.Exchanges.Add(btExchange);
                                 c.TotalVolume = btExchange.BtcVolume;
                                 c.HasImplementedMarketApi = true;
                             }
@@ -371,7 +376,38 @@ namespace CudaProfitCalc
             }
         }
 
-        public void Sort(Dictionary<HashAlgo.Algo, double> hashList, bool useWeightedCalculation, string coindeskAddress, string coindeskCnyAdress)
+        public void AddMoneroWorkAround()
+        {
+            MoneroChain mon = JsonControl.DownloadSerializedApi<MoneroChain>("http://monerochain.info/api/stats");
+            MoneroLatestBlock moneroLatest = new MoneroLatestBlock();
+            try
+            {
+                moneroLatest = JsonControl.DownloadSerializedApi<MoneroLatestBlock>("http://monerochain.info/api/block/" + mon.Height);
+            }
+            catch (Exception)
+            {
+                moneroLatest = JsonControl.DownloadSerializedApi<MoneroLatestBlock>("http://monerochain.info/api/block/" + (mon.Height -1));
+            }
+
+            Coin c = new Coin
+            {
+                Algo = HashAlgo.Algo.CryptoNight,
+                CoinName = "Monero",
+                TagName = "XMR",
+                Height = (uint) moneroLatest.Height,
+                Difficulty = moneroLatest.Difficulty,
+                BlockReward = moneroLatest.Reward,
+                Exchanges = new List<Coin.Exchange>(),
+                TotalVolume = 0,
+                HasMarketErrors = false,
+                IsMultiPool = false,
+                HasImplementedMarketApi = false
+            };
+
+            Add(c);
+        }
+
+        public void Sort(HashRateJson hashList, bool useWeightedCalculation, string coindeskAddress, string coindeskCnyAdress)
         {
             CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(coindeskAddress);
             double usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
@@ -383,9 +419,28 @@ namespace CudaProfitCalc
 
             foreach (Coin coin in List)
             {
-                if (hashList.ContainsKey(coin.Algo))
+                if (hashList.ListHashRate.ContainsKey(coin.Algo))
                 {
-                    coin.CalcProfitability(hashList[coin.Algo], useWeightedCalculation);
+                    coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation);
+
+                    double fiatElectricityCost = (hashList.ListWattage[coin.Algo] / 1000) * 24 * hashList.FiatPerKwh;
+                    switch (hashList.FiatOfChoice)
+                    {
+                        case 1:
+                            coin.BtcPerDay -= (fiatElectricityCost / eurPrice);
+                            break;
+                        case 2:
+                            coin.BtcPerDay -= (fiatElectricityCost / gbpPrice);
+                            break;
+                        case 3:
+                            coin.BtcPerDay -= (fiatElectricityCost / cnyPrice);
+                            break;
+                        default:
+                            coin.BtcPerDay -= (fiatElectricityCost / usdPrice);
+                            break;
+                    }
+                    
+                    
                     coin.UsdPerDay = coin.BtcPerDay * usdPrice;
                     coin.EurPerDay = coin.BtcPerDay * eurPrice;
                     coin.GbpPerDay = coin.BtcPerDay * gbpPrice;
@@ -393,21 +448,22 @@ namespace CudaProfitCalc
                 }
             }
 
-            List = List.OrderByDescending(o => o.BtcPerDay).ToList();
+            //Removing all errored coins and actually sorting them
+            List = List.Where(x => (x.BtcPerDay != 0 && x.TotalVolume != 0) || x.IsMultiPool).OrderByDescending(o => o.BtcPerDay).ToList();
         }
 
-        public void Sort(Dictionary<HashAlgo.Algo, double> hashList, bool useWeightedCalculation)
+        public void Sort(HashRateJson hashList, bool useWeightedCalculation)
         {
             foreach (Coin coin in List)
             {
-                if (hashList.ContainsKey(coin.Algo))
+                if (hashList.ListHashRate.ContainsKey(coin.Algo))
                 {
-                    coin.CalcProfitability(hashList[coin.Algo], useWeightedCalculation);
-                    coin.UsdPerDay = 0;
+                    coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation);
                 }
             }
 
-            List = List.OrderByDescending(o => o.BtcPerDay).ToList();
+            //Removing all errored coins and actually sorting them
+            List = List.Where(x => x.BtcPerDay != 0 && x.TotalVolume != 0).OrderByDescending(o => o.BtcPerDay).ToList();
         }
 
         public override string ToString()

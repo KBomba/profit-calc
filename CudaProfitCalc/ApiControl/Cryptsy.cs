@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace CudaProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl
 {
     class Cryptsy
     {
@@ -23,10 +23,10 @@ namespace CudaProfitCalc.ApiControl
                 public string Label { get; set; }*/
 
                 [JsonProperty("lasttradeprice")]
-                public double LastTradePrice { get; set; }
+                public string LastTradePrice { get; set; }
 
                 [JsonProperty("volume")]
-                public double Volume { get; set; }
+                public string Volume { get; set; }
 
                 /*[JsonProperty("lasttradetime")]
                 public string LastTradetime { get; set; }*/
@@ -72,7 +72,7 @@ namespace CudaProfitCalc.ApiControl
                 public class Order
                 {
                     [JsonProperty("price")]
-                    public double Price { get; set; }
+                    public string Price { get; set; }
 
                     /*[JsonProperty("quantity")]
                     public double Quantity { get; set; }
