@@ -194,8 +194,13 @@ namespace ProfitCalc
 
             tsStatus.Text = "Calculating profits and sorting the list...";
             SortAndCalculatePrices();
+
             if (chkShowOnlyHealthy.Checked)
-                _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay) && !coin.IsMultiPool);
+            {
+                tsStatus.Text = "Another round of unhealthy coin removal..";
+                _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay) && !coin.IsMultiPool);                
+            }
+
             tsProgress.Value += i;
 
             tsStatus.Text = "Writing data to GUI...";
@@ -258,6 +263,7 @@ namespace ProfitCalc
             {
                 try
                 {
+                    tsStatus.Text = "Getting XMR diff, reward, ...";
                     _coinList.AddMoneroWorkAround();
                 }
                 catch (Exception exception)
@@ -272,6 +278,7 @@ namespace ProfitCalc
             {
                 try
                 {
+                    tsStatus.Text = "Getting actual NiceHash prices...";
                     _coinList.UpdateNiceHash("https://www.nicehash.com/api?method=stats.global.current");
                 }
                 catch (Exception exception)
@@ -282,108 +289,130 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-           if(chkPoolpicker.Checked){
-               try
+            if (chkPoolpicker.Checked)
             {
-                _coinList.UpdatePoolPicker("http://poolpicker.eu/api", nudPoolpicker.Value);
+                try
+                {
+                    tsStatus.Text = "Getting multipools prices...";
+                    _coinList.UpdatePoolPicker("http://poolpicker.eu/api", nudPoolpicker.Value);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the PoolPicker API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the PoolPicker API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
 
             tsProgress.Value += progress;
-            if(chkWhattomine.Checked) {
+            if (chkWhattomine.Checked)
+            {
                 try
-            {
-                _coinList.UpdateWhatToMine("http://www.whattomine.com/coins.json");
+                {
+                    tsStatus.Text = "Getting coin info from WhatToMine...";
+                    _coinList.UpdateWhatToMine("http://www.whattomine.com/coins.json");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the WhatToMine API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the WhatToMine API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
 
             tsProgress.Value += progress;
-            if(chkCointweak.Checked) {
-                try
+            if (chkCointweak.Checked)
             {
-                 _coinList.UpdateCoinTweak("http://cointweak.com/API/getProfitOverview/&key=" +
+                try
+                {
+                    tsStatus.Text = "Getting coin info from CoinTweak...";
+                    _coinList.UpdateCoinTweak("http://cointweak.com/API/getProfitOverview/&key=" +
                                               txtCointweakApiKey.Text);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the CoinTweak API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the CoinTweak API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
 
             tsProgress.Value += progress;
-         if(chkCoinwarz.Checked){
-             try
+            if (chkCoinwarz.Checked)
             {
-                _coinList.UpdateCoinWarz("http://www.coinwarz.com/v1/api/profitability/?apikey=" +
-                                         txtCoinwarzApiKey.Text + "&algo=all");
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the CoinWarz API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
-
-            tsProgress.Value += progress;
-          if(chkBittrex.Checked){
-              try
-            {
-                _coinList.UpdateBittrex("https://bittrex.com/api/v1/public/getmarketsummaries");
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the Bittrex API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
-
-            tsProgress.Value += progress;
-           if(chkBittrex.Checked){
-               try
-            {
-                _coinList.UpdateMintPal("https://api.mintpal.com/v2/market/summary/BTC");
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the Mintpal API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
-
-            tsProgress.Value += progress;
-            if(chkCryptsy.Checked) {
                 try
-            {
-                _coinList.UpdateCryptsy("http://pubapi.cryptsy.com/api.php?method=marketdatav2");
+                {
+                    tsStatus.Text = "Getting coin info from CoinWarz...";
+                    _coinList.UpdateCoinWarz("http://www.coinwarz.com/v1/api/profitability/?apikey=" +
+                                             txtCoinwarzApiKey.Text + "&algo=all");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the CoinWarz API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the Cryptsy API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
 
             tsProgress.Value += progress;
-           if(chkPoloniex.Checked) {
-               try
+            if (chkBittrex.Checked)
             {
-                _coinList.UpdatePoloniex("https://poloniex.com/public?command=returnTicker");
+                try
+                {
+                    tsStatus.Text = "Updating with Bittrex prices...";
+                    _coinList.UpdateBittrex("https://bittrex.com/api/v1/public/getmarketsummaries");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the Bittrex API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with the Poloniex API." + Environment.NewLine +
-                                Environment.NewLine + exception.StackTrace);
-            }}
 
-            if (chkShowOnlyHealthy.Checked)
+            tsProgress.Value += progress;
+            if (chkBittrex.Checked)
             {
-                List<Coin> tempList =
-                    _coinList.List.Where(coin => coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
-                _coinList.List = tempList;
+                try
+                {
+                    tsStatus.Text = "Updating with MintPal prices...";
+                    _coinList.UpdateMintPal("https://api.mintpal.com/v2/market/summary/BTC");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the Mintpal API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkCryptsy.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with Cryptsy prices...";
+                    _coinList.UpdateCryptsy("http://pubapi.cryptsy.com/api.php?method=marketdatav2");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the Cryptsy API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkPoloniex.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with Poloniex prices...";
+                    _coinList.UpdatePoloniex("https://poloniex.com/public?command=returnTicker");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the Poloniex API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
+            }
+
+            if (chkShowOnlyHealthy.Checked) {
+                tsStatus.Text = "Removing unhealthy coins...";
+                _coinList.List = _coinList.List.Where(coin => coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
             }
         }
 
