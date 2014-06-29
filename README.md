@@ -19,19 +19,27 @@ A nice & easy profit calculator. Default hashrates set for one GTX750TI.
 
 
 !!! REQUIRES NET4.5 !!!
+================
 Downloadlink: http://www.microsoft.com/en-us/download/details.aspx?id=30653
 
 HOW TO GET API KEYS:
+================
 Get your CoinTweak API key here, one free key per mailaddress, 2000 usages max:
 http://cointweak.com/API
 
 Get your CoinWarz API key here, one free key per mailaddress, 25 usages/day, 1000 usages max:
 http://www.coinwarz.com/v1/api/documentation
 
+
+
 ~KBomba
 
 Donations are welcome!
+================
 BTC: 1MVBPhMaeuj5daZtaKaVu8BZL5K44CCq7E 
+
 BC: B4s7UnNYKePfGz5DVBzyNbaeiwi2ExLy7D
+
 TAC: TswDiAfmHdTnCpiRJVgfEtFxr3a4z3yHQk 
+
 JPC: JY81D2jfvcD8WdisdGj7Rz6AcdBmGX9kRV
