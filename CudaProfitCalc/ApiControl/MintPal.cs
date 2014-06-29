@@ -43,7 +43,7 @@ namespace ProfitCalc.ApiControl
             public double Last24hLow { get; set; }*/
 
             [JsonProperty("24hvol")]
-            public double Last24hVol { get; set; }
+            public double Last24HVol { get; set; }
 
             [JsonProperty("top_bid")]
             public double TopBid { get; set; }

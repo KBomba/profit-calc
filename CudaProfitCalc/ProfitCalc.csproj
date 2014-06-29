@@ -75,6 +75,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControl\AllCoin.cs" />
+    <Compile Include="ApiControl\AllCrypt.cs" />
     <Compile Include="ApiControl\CoinDesk.cs" />
     <Compile Include="ApiControl\MoneroChain.cs" />
     <Compile Include="ApiControl\Poloniex.cs" />

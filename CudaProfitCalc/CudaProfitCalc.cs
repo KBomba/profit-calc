@@ -91,6 +91,8 @@ namespace ProfitCalc
             chlBoxMarketApi.Items.Add("Mintpal", true);
             chlBoxMarketApi.Items.Add("Cryptsy", true);
             chlBoxMarketApi.Items.Add("Poloniex", true);
+            chlBoxMarketApi.Items.Add("AllCoin", false);
+            chlBoxMarketApi.Items.Add("AllCrypt", false);
 
             try
             {
@@ -107,6 +109,8 @@ namespace ProfitCalc
                     chlBoxMarketApi.SetItemChecked(1, apiSettings.CheckedApis["Mintpal"]);
                     chlBoxMarketApi.SetItemChecked(2, apiSettings.CheckedApis["Cryptsy"]);
                     chlBoxMarketApi.SetItemChecked(3, apiSettings.CheckedApis["Poloniex"]);
+                    chlBoxMarketApi.SetItemChecked(4, apiSettings.CheckedApis["AllCoin"]);
+                    chlBoxMarketApi.SetItemChecked(5, apiSettings.CheckedApis["AllCrypt"]);
 
                     chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"];
                     chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"];
@@ -172,6 +176,9 @@ namespace ProfitCalc
             apiSettings.CheckedApis.Add("Mintpal", chlBoxMarketApi.GetItemChecked(1));
             apiSettings.CheckedApis.Add("Cryptsy", chlBoxMarketApi.GetItemChecked(2));
             apiSettings.CheckedApis.Add("Poloniex", chlBoxMarketApi.GetItemChecked(3));
+            apiSettings.CheckedApis.Add("AllCoin", chlBoxMarketApi.GetItemChecked(4));
+            apiSettings.CheckedApis.Add("AllCrypt", chlBoxMarketApi.GetItemChecked(5));
+
             apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
             apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
             apiSettings.CheckedApis.Add("WhatToMine", chkWhattomine.Checked);
@@ -192,7 +199,7 @@ namespace ProfitCalc
 
             _hashList = ParseHashrates((double) nudAmount.Value, true);
 
-            const int i = 8;
+            const int i = 7;
             GetCoinList(i);
             tsProgress.Value += i;
 
@@ -410,6 +417,36 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the Poloniex API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chlBoxMarketApi.GetItemChecked(4))
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with AllCoin prices...";
+                    _coinList.UpdateAllCoin("https://www.allcoin.com/api2/pairs");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the AllCoin API." + Environment.NewLine +
+                                    Environment.NewLine + exception.StackTrace);
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chlBoxMarketApi.GetItemChecked(5))
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with AllCrypt prices...";
+                    _coinList.UpdateAllCrypt("https://www.allcrypt.com/api?method=cmcmarketdata");
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the AllCrypt API." + Environment.NewLine +
                                     Environment.NewLine + exception.StackTrace);
                 }
             }
@@ -698,6 +735,8 @@ namespace ProfitCalc
         private void chkCoindesk_CheckedChanged(object sender, EventArgs e)
         {
             SetVisibleFiatColumn();
+            cbbFiat.Enabled = chkCoindesk.Checked;
+            txtFiatElectricityCost.Enabled = chkCoindesk.Checked;
         }
 
         private void cbbFiat_SelectedIndexChanged(object sender, EventArgs e)

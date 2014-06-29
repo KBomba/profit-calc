@@ -570,6 +570,16 @@
             // nudAmount
             // 
             this.nudAmount.Location = new System.Drawing.Point(186, 495);
+            this.nudAmount.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudAmount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudAmount.Name = "nudAmount";
             this.nudAmount.Size = new System.Drawing.Size(50, 20);
             this.nudAmount.TabIndex = 31;
@@ -722,9 +732,6 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -907,7 +914,6 @@
             this.chlBoxMarketApi.CheckOnClick = true;
             this.chlBoxMarketApi.FormattingEnabled = true;
             this.chlBoxMarketApi.Location = new System.Drawing.Point(6, 19);
-            this.chlBoxMarketApi.MultiColumn = true;
             this.chlBoxMarketApi.Name = "chlBoxMarketApi";
             this.chlBoxMarketApi.Size = new System.Drawing.Size(187, 64);
             this.chlBoxMarketApi.TabIndex = 35;

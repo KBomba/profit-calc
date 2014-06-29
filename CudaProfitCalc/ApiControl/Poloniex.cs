@@ -20,9 +20,9 @@ namespace ProfitCalc.ApiControl
         public string BaseVolume { get; set; }
 
         /*[JsonProperty("quoteVolume")]
-        public string QuoteVolume { get; set; }
+        public string QuoteVolume { get; set; }*/
 
         [JsonProperty("isFrozen")]
-        public string IsFrozen { get; set; }*/
+        public string IsFrozen { get; set; }
     }
 }
