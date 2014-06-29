@@ -12,26 +12,26 @@ namespace ProfitCalc.ApiControl
         [JsonProperty("height")]
         public int Height { get; set; }
 
-        [JsonProperty("difficulty")]
+        /*[JsonProperty("difficulty")]
         public int Difficulty { get; set; }
 
         [JsonProperty("tx_count")]
         public int TxCount { get; set; }
 
         [JsonProperty("total_coins")]
-        public double TotalCoins { get; set; }
+        public double TotalCoins { get; set; }*/
     }
 
     class MoneroLatestBlock
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
+        /*[JsonProperty("id")]
+        public string Id { get; set; }*/
 
         [JsonProperty("height")]
         public int Height { get; set; }
 
-        [JsonProperty("timestamp")]
-        public int Timestamp { get; set; }
+        /*[JsonProperty("timestamp")]
+        public int Timestamp { get; set; }*/
 
         [JsonProperty("difficulty")]
         public int Difficulty { get; set; }
@@ -39,7 +39,7 @@ namespace ProfitCalc.ApiControl
         [JsonProperty("reward")]
         public double Reward { get; set; }
 
-        [JsonProperty("size")]
+        /*[JsonProperty("size")]
         public int Size { get; set; }
 
         [JsonProperty("transactions")]
@@ -51,6 +51,6 @@ namespace ProfitCalc.ApiControl
 
             [JsonProperty("amount")]
             public double Amount { get; set; }
-        }
+        }*/
     }
 }

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using ProfitCalc.ApiControl;
 
 namespace ProfitCalc
 {
@@ -90,6 +87,11 @@ namespace ProfitCalc
                                 + Environment.NewLine + Environment.NewLine + exception.StackTrace);
             }
 
+            chlBoxMarketApi.Items.Add("Bittrex", true);
+            chlBoxMarketApi.Items.Add("Mintpal", true);
+            chlBoxMarketApi.Items.Add("Cryptsy", true);
+            chlBoxMarketApi.Items.Add("Poloniex", true);
+
             try
             {
                 if (File.Exists("apisettings.txt"))
@@ -101,10 +103,11 @@ namespace ProfitCalc
                     nudAmount.Text = apiSettings.ApiSettings["Multiplier"];
                     _hashRateMultiplier = nudAmount.Value;
 
-                    chkBittrex.Checked = apiSettings.CheckedApis["Bittrex"];
-                    chkMintpal.Checked = apiSettings.CheckedApis["Mintpal"];
-                    chkCryptsy.Checked = apiSettings.CheckedApis["Cryptsy"];
-                    chkPoloniex.Checked = apiSettings.CheckedApis["Poloniex"];
+                    chlBoxMarketApi.SetItemChecked(0, apiSettings.CheckedApis["Bittrex"]);
+                    chlBoxMarketApi.SetItemChecked(1, apiSettings.CheckedApis["Mintpal"]);
+                    chlBoxMarketApi.SetItemChecked(2, apiSettings.CheckedApis["Cryptsy"]);
+                    chlBoxMarketApi.SetItemChecked(3, apiSettings.CheckedApis["Poloniex"]);
+
                     chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"];
                     chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"];
                     chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"];
@@ -165,10 +168,10 @@ namespace ProfitCalc
             apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
             apiSettings.ApiSettings.Add("Multiplier", nudAmount.Text);
 
-            apiSettings.CheckedApis.Add("Bittrex", chkBittrex.Checked);
-            apiSettings.CheckedApis.Add("Mintpal", chkMintpal.Checked);
-            apiSettings.CheckedApis.Add("Cryptsy", chkCryptsy.Checked);
-            apiSettings.CheckedApis.Add("Poloniex", chkPoloniex.Checked);
+            apiSettings.CheckedApis.Add("Bittrex", chlBoxMarketApi.GetItemChecked(0));
+            apiSettings.CheckedApis.Add("Mintpal", chlBoxMarketApi.GetItemChecked(1));
+            apiSettings.CheckedApis.Add("Cryptsy", chlBoxMarketApi.GetItemChecked(2));
+            apiSettings.CheckedApis.Add("Poloniex", chlBoxMarketApi.GetItemChecked(3));
             apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
             apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
             apiSettings.CheckedApis.Add("WhatToMine", chkWhattomine.Checked);
@@ -183,6 +186,7 @@ namespace ProfitCalc
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
+            // Actual process starts here ^^"
             tsStatus.Text = "Starting...";
             tsProgress.Value = 0;
 
@@ -351,7 +355,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chkBittrex.Checked)
+            if (chlBoxMarketApi.GetItemChecked(0))
             {
                 try
                 {
@@ -366,7 +370,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chkBittrex.Checked)
+            if (chlBoxMarketApi.GetItemChecked(1))
             {
                 try
                 {
@@ -381,11 +385,11 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chkCryptsy.Checked)
+            if (chlBoxMarketApi.GetItemChecked(2))
             {
                 try
                 {
-                    tsStatus.Text = "Updating with Cryptsy prices...";
+                    tsStatus.Text = "Updating with Cryptsy prices... (This might take a few seconds :p )";
                     _coinList.UpdateCryptsy("http://pubapi.cryptsy.com/api.php?method=marketdatav2");
                 }
                 catch (Exception exception)
@@ -396,7 +400,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chkPoloniex.Checked)
+            if (chlBoxMarketApi.GetItemChecked(3))
             {
                 try
                 {
@@ -705,39 +709,40 @@ namespace ProfitCalc
         {
             if (chkCoindesk.Checked)
             {
-                switch (cbbFiat.SelectedIndex)
+                if (cbbFiat.SelectedIndex == 0)
                 {
-                    case 0:
-                        dgView.Columns[3].Visible = true;
-                        dgView.Columns[4].Visible = false;
-                        dgView.Columns[5].Visible = false;
-                        dgView.Columns[6].Visible = false;
-                        break;
-                    case 1:
-                        dgView.Columns[3].Visible = false;
-                        dgView.Columns[4].Visible = true;
-                        dgView.Columns[5].Visible = false;
-                        dgView.Columns[6].Visible = false;
-                        break;
-                    case 2:
-                        dgView.Columns[3].Visible = false;
-                        dgView.Columns[4].Visible = false;
-                        dgView.Columns[5].Visible = true;
-                        dgView.Columns[6].Visible = false;
-                        break;
-                    case 3:
-                        dgView.Columns[3].Visible = false;
-                        dgView.Columns[4].Visible = false;
-                        dgView.Columns[5].Visible = false;
-                        dgView.Columns[6].Visible = true;
-                        break;
-                    case 4:
-                        dgView.Columns[3].Visible = true;
-                        dgView.Columns[4].Visible = true;
-                        dgView.Columns[5].Visible = true;
-                        dgView.Columns[6].Visible = true;
-                        break;
-
+                    dgView.Columns[3].Visible = true;
+                    dgView.Columns[4].Visible = false;
+                    dgView.Columns[5].Visible = false;
+                    dgView.Columns[6].Visible = false;
+                }
+                else if (cbbFiat.SelectedIndex == 1)
+                {
+                    dgView.Columns[3].Visible = false;
+                    dgView.Columns[4].Visible = true;
+                    dgView.Columns[5].Visible = false;
+                    dgView.Columns[6].Visible = false;
+                }
+                else if (cbbFiat.SelectedIndex == 2)
+                {
+                    dgView.Columns[3].Visible = false;
+                    dgView.Columns[4].Visible = false;
+                    dgView.Columns[5].Visible = true;
+                    dgView.Columns[6].Visible = false;
+                }
+                else if (cbbFiat.SelectedIndex == 3)
+                {
+                    dgView.Columns[3].Visible = false;
+                    dgView.Columns[4].Visible = false;
+                    dgView.Columns[5].Visible = false;
+                    dgView.Columns[6].Visible = true;
+                }
+                else if (cbbFiat.SelectedIndex == 4)
+                {
+                    dgView.Columns[3].Visible = true;
+                    dgView.Columns[4].Visible = true;
+                    dgView.Columns[5].Visible = true;
+                    dgView.Columns[6].Visible = true;
                 }
             }
             else
@@ -748,7 +753,5 @@ namespace ProfitCalc
                 dgView.Columns[6].Visible = false;
             }
         }
-
-
     }
 }

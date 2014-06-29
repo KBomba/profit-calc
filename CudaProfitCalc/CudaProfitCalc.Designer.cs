@@ -107,10 +107,7 @@
             this.tsmResultsToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHashratesToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.grpApiControl = new System.Windows.Forms.GroupBox();
-            this.chkPoloniex = new System.Windows.Forms.CheckBox();
-            this.chkCryptsy = new System.Windows.Forms.CheckBox();
-            this.chkMintpal = new System.Windows.Forms.CheckBox();
-            this.chkBittrex = new System.Windows.Forms.CheckBox();
+            this.chlBoxMarketApi = new System.Windows.Forms.CheckedListBox();
             this.nudPoolpicker = new System.Windows.Forms.NumericUpDown();
             this.chkPoolpicker = new System.Windows.Forms.CheckBox();
             this.chkNiceHash = new System.Windows.Forms.CheckBox();
@@ -233,7 +230,7 @@
             this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
             this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
             this.txtFiatElectricityCost.TabIndex = 67;
-            this.txtFiatElectricityCost.Text = "0.15";
+            this.txtFiatElectricityCost.Text = "0.1";
             // 
             // lblKwh
             // 
@@ -447,7 +444,7 @@
             this.txtCryptonight.Name = "txtCryptonight";
             this.txtCryptonight.Size = new System.Drawing.Size(80, 20);
             this.txtCryptonight.TabIndex = 48;
-            this.txtCryptonight.Text = "0.0002";
+            this.txtCryptonight.Text = "0.00022";
             // 
             // txtJane13Wattage
             // 
@@ -897,10 +894,7 @@
             // 
             // grpApiControl
             // 
-            this.grpApiControl.Controls.Add(this.chkPoloniex);
-            this.grpApiControl.Controls.Add(this.chkCryptsy);
-            this.grpApiControl.Controls.Add(this.chkMintpal);
-            this.grpApiControl.Controls.Add(this.chkBittrex);
+            this.grpApiControl.Controls.Add(this.chlBoxMarketApi);
             this.grpApiControl.Location = new System.Drawing.Point(271, 12);
             this.grpApiControl.Name = "grpApiControl";
             this.grpApiControl.Size = new System.Drawing.Size(199, 88);
@@ -908,53 +902,16 @@
             this.grpApiControl.TabStop = false;
             this.grpApiControl.Text = "Market APIs (live prices)";
             // 
-            // chkPoloniex
+            // chlBoxMarketApi
             // 
-            this.chkPoloniex.AutoSize = true;
-            this.chkPoloniex.Checked = true;
-            this.chkPoloniex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPoloniex.Location = new System.Drawing.Point(106, 19);
-            this.chkPoloniex.Name = "chkPoloniex";
-            this.chkPoloniex.Size = new System.Drawing.Size(88, 17);
-            this.chkPoloniex.TabIndex = 3;
-            this.chkPoloniex.Text = "Use Poloniex";
-            this.chkPoloniex.UseVisualStyleBackColor = true;
-            // 
-            // chkCryptsy
-            // 
-            this.chkCryptsy.AutoSize = true;
-            this.chkCryptsy.Checked = true;
-            this.chkCryptsy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCryptsy.Location = new System.Drawing.Point(6, 65);
-            this.chkCryptsy.Name = "chkCryptsy";
-            this.chkCryptsy.Size = new System.Drawing.Size(82, 17);
-            this.chkCryptsy.TabIndex = 2;
-            this.chkCryptsy.Text = "Use Cryptsy";
-            this.chkCryptsy.UseVisualStyleBackColor = true;
-            // 
-            // chkMintpal
-            // 
-            this.chkMintpal.AutoSize = true;
-            this.chkMintpal.Checked = true;
-            this.chkMintpal.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMintpal.Location = new System.Drawing.Point(6, 42);
-            this.chkMintpal.Name = "chkMintpal";
-            this.chkMintpal.Size = new System.Drawing.Size(82, 17);
-            this.chkMintpal.TabIndex = 1;
-            this.chkMintpal.Text = "Use Mintpal";
-            this.chkMintpal.UseVisualStyleBackColor = true;
-            // 
-            // chkBittrex
-            // 
-            this.chkBittrex.AutoSize = true;
-            this.chkBittrex.Checked = true;
-            this.chkBittrex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBittrex.Location = new System.Drawing.Point(6, 19);
-            this.chkBittrex.Name = "chkBittrex";
-            this.chkBittrex.Size = new System.Drawing.Size(77, 17);
-            this.chkBittrex.TabIndex = 0;
-            this.chkBittrex.Text = "Use Bittrex";
-            this.chkBittrex.UseVisualStyleBackColor = true;
+            this.chlBoxMarketApi.CheckOnClick = true;
+            this.chlBoxMarketApi.FormattingEnabled = true;
+            this.chlBoxMarketApi.Location = new System.Drawing.Point(6, 19);
+            this.chlBoxMarketApi.MultiColumn = true;
+            this.chlBoxMarketApi.Name = "chlBoxMarketApi";
+            this.chlBoxMarketApi.Size = new System.Drawing.Size(187, 64);
+            this.chlBoxMarketApi.TabIndex = 35;
+            this.chlBoxMarketApi.ThreeDCheckBoxes = true;
             // 
             // nudPoolpicker
             // 
@@ -1154,7 +1111,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).EndInit();
             this.ctxtStrip.ResumeLayout(false);
             this.grpApiControl.ResumeLayout(false);
-            this.grpApiControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).EndInit();
             this.stStatusStrip.ResumeLayout(false);
             this.stStatusStrip.PerformLayout();
@@ -1181,9 +1137,6 @@
         private System.Windows.Forms.TextBox txtKeccak;
         private System.Windows.Forms.TextBox txtMyrGroestl;
         private System.Windows.Forms.GroupBox grpApiControl;
-        private System.Windows.Forms.CheckBox chkCryptsy;
-        private System.Windows.Forms.CheckBox chkMintpal;
-        private System.Windows.Forms.CheckBox chkBittrex;
         private System.Windows.Forms.TextBox txtJackpot;
         private System.Windows.Forms.TextBox txtFugue;
         private System.Windows.Forms.TextBox txtHefty;
@@ -1209,7 +1162,6 @@
         private System.Windows.Forms.CheckBox chkCointweak;
         private System.Windows.Forms.CheckBox chkCoinwarz;
         private System.Windows.Forms.GroupBox grpMisc;
-        private System.Windows.Forms.CheckBox chkPoloniex;
         private System.Windows.Forms.CheckBox chkWeight;
         private System.Windows.Forms.CheckBox chkShowOnlyHealthy;
         private System.Windows.Forms.CheckBox chkCoindesk;
@@ -1265,6 +1217,7 @@
         private System.Windows.Forms.Label lblKwh;
         private System.Windows.Forms.Label lblElectricityCost;
         private System.Windows.Forms.TextBox txtFiatElectricityCost;
+        private System.Windows.Forms.CheckedListBox chlBoxMarketApi;
     }
 }
 
