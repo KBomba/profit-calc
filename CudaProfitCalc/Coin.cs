@@ -79,6 +79,12 @@ namespace ProfitCalc
                 case 5:
                     Algo = HashAlgo.Algo.Keccak;
                     break;
+                case 6:
+                    Algo = HashAlgo.Algo.X15;
+                    break;
+                case 7:
+                    Algo = HashAlgo.Algo.Nist5;
+                    break;
                 default:
                     Algo = HashAlgo.Algo.Unknown;
                     break;

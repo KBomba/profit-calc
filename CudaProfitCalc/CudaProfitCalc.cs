@@ -36,9 +36,11 @@ namespace ProfitCalc
                     txtJackpot.Text = rates.ListHashRate[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
                     txtNist5.Text = rates.ListHashRate[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
                     txtQuark.Text = rates.ListHashRate[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
+                    txtQubit.Text = rates.ListHashRate[HashAlgo.Algo.Qubit].ToString(CultureInfo.InvariantCulture);
                     txtScrypt.Text = rates.ListHashRate[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
                     txtX11.Text = rates.ListHashRate[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
                     txtX13.Text = rates.ListHashRate[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
+                    txtX15.Text = rates.ListHashRate[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
                     txtHefty.Text = rates.ListHashRate[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
                     txtScryptN.Text = rates.ListHashRate[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
                     txtJane15.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
@@ -52,9 +54,11 @@ namespace ProfitCalc
                     txtJhaWattage.Text = rates.ListWattage[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
                     txtNist5Wattage.Text = rates.ListWattage[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
                     txtQuarkWattage.Text = rates.ListWattage[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
+                    txtQubitWattage.Text = rates.ListWattage[HashAlgo.Algo.Qubit].ToString(CultureInfo.InvariantCulture);
                     txtScryptWattage.Text = rates.ListWattage[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
                     txtX11Wattage.Text = rates.ListWattage[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
                     txtX13Wattage.Text = rates.ListWattage[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
+                    txtX15Wattage.Text = rates.ListWattage[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
                     txtHeftyWattage.Text = rates.ListWattage[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
                     txtScryptNWattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
                     txtJane15Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
@@ -69,7 +73,9 @@ namespace ProfitCalc
                     chkHefty.Checked = rates.CheckedHashRates["Hefty"];
                     chkX11.Checked = rates.CheckedHashRates["X11"];
                     chkX13.Checked = rates.CheckedHashRates["X13"];
+                    chkX15.Checked = rates.CheckedHashRates["X15"];
                     chkQuark.Checked = rates.CheckedHashRates["Quark"];
+                    chkQubit.Checked = rates.CheckedHashRates["Qubit"];
                     chkKeccak.Checked = rates.CheckedHashRates["Keccak"];
                     chkScrypt.Checked = rates.CheckedHashRates["Scrypt"];
                     chkScryptN.Checked = rates.CheckedHashRates["ScryptN"];
@@ -150,7 +156,9 @@ namespace ProfitCalc
             _hashList.CheckedHashRates.Add("Hefty", chkHefty.Checked);
             _hashList.CheckedHashRates.Add("X11", chkX11.Checked);
             _hashList.CheckedHashRates.Add("X13", chkX13.Checked);
+            _hashList.CheckedHashRates.Add("X15", chkX15.Checked);
             _hashList.CheckedHashRates.Add("Quark", chkQuark.Checked);
+            _hashList.CheckedHashRates.Add("Qubit", chkQubit.Checked);
             _hashList.CheckedHashRates.Add("Keccak", chkKeccak.Checked);
             _hashList.CheckedHashRates.Add("Scrypt", chkScrypt.Checked);
             _hashList.CheckedHashRates.Add("ScryptN", chkScryptN.Checked);
@@ -294,8 +302,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the NiceHash API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                    MessageBox.Show("Oops, something went wrong with the NiceHash API." + 
+                        Environment.NewLine + Environment.NewLine + exception.StackTrace );
                 }
             }
 
@@ -305,12 +313,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting multipools prices...";
-                    _coinList.UpdatePoolPicker("http://poolpicker.eu/api", nudPoolpicker.Value);
+                    _coinList.UpdatePoolPicker("http://poolpicker.eu/api", 
+                        nudPoolpicker.Value, chkReviewCalc.Checked);
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the PoolPicker API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                    MessageBox.Show("Oops, something went wrong with the PoolPicker API." + 
+                        Environment.NewLine + Environment.NewLine + exception.StackTrace);
                 }
             }
 
@@ -580,6 +589,20 @@ namespace ProfitCalc
                 }
             }
 
+            if (!checkChecked || chkX15.Checked)
+            {
+                if (Double.TryParse(txtX15.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
+                    Double.TryParse(txtX15Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                {
+                    hashList.Add(HashAlgo.Algo.X15, dHashRate * multiplier);
+                    wattageList.Add(HashAlgo.Algo.X15, dWattage);
+                }
+                else
+                {
+                    MessageBox.Show("Something wrong with your X15 hashrate");
+                }
+            }
+
             if (!checkChecked || chkQuark.Checked)
             {
                 if (Double.TryParse(txtQuark.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
@@ -591,6 +614,20 @@ namespace ProfitCalc
                 else
                 {
                     MessageBox.Show("Something wrong with your Quark hashrate");
+                }
+            }
+
+            if (!checkChecked || chkQubit.Checked)
+            {
+                if (Double.TryParse(txtQubit.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
+                    Double.TryParse(txtQubitWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                {
+                    hashList.Add(HashAlgo.Algo.Qubit, dHashRate * multiplier);
+                    wattageList.Add(HashAlgo.Algo.Qubit, dWattage);
+                }
+                else
+                {
+                    MessageBox.Show("Something wrong with your Qubit hashrate");
                 }
             }
 
@@ -748,40 +785,38 @@ namespace ProfitCalc
         {
             if (chkCoindesk.Checked)
             {
-                if (cbbFiat.SelectedIndex == 0)
+                switch (cbbFiat.SelectedIndex)
                 {
-                    dgView.Columns[3].Visible = true;
-                    dgView.Columns[4].Visible = false;
-                    dgView.Columns[5].Visible = false;
-                    dgView.Columns[6].Visible = false;
-                }
-                else if (cbbFiat.SelectedIndex == 1)
-                {
-                    dgView.Columns[3].Visible = false;
-                    dgView.Columns[4].Visible = true;
-                    dgView.Columns[5].Visible = false;
-                    dgView.Columns[6].Visible = false;
-                }
-                else if (cbbFiat.SelectedIndex == 2)
-                {
-                    dgView.Columns[3].Visible = false;
-                    dgView.Columns[4].Visible = false;
-                    dgView.Columns[5].Visible = true;
-                    dgView.Columns[6].Visible = false;
-                }
-                else if (cbbFiat.SelectedIndex == 3)
-                {
-                    dgView.Columns[3].Visible = false;
-                    dgView.Columns[4].Visible = false;
-                    dgView.Columns[5].Visible = false;
-                    dgView.Columns[6].Visible = true;
-                }
-                else if (cbbFiat.SelectedIndex == 4)
-                {
-                    dgView.Columns[3].Visible = true;
-                    dgView.Columns[4].Visible = true;
-                    dgView.Columns[5].Visible = true;
-                    dgView.Columns[6].Visible = true;
+                    case 0:
+                        dgView.Columns[3].Visible = true;
+                        dgView.Columns[4].Visible = false;
+                        dgView.Columns[5].Visible = false;
+                        dgView.Columns[6].Visible = false;
+                        break;
+                    case 1:
+                        dgView.Columns[3].Visible = false;
+                        dgView.Columns[4].Visible = true;
+                        dgView.Columns[5].Visible = false;
+                        dgView.Columns[6].Visible = false;
+                        break;
+                    case 2:
+                        dgView.Columns[3].Visible = false;
+                        dgView.Columns[4].Visible = false;
+                        dgView.Columns[5].Visible = true;
+                        dgView.Columns[6].Visible = false;
+                        break;
+                    case 3:
+                        dgView.Columns[3].Visible = false;
+                        dgView.Columns[4].Visible = false;
+                        dgView.Columns[5].Visible = false;
+                        dgView.Columns[6].Visible = true;
+                        break;
+                    case 4:
+                        dgView.Columns[3].Visible = true;
+                        dgView.Columns[4].Visible = true;
+                        dgView.Columns[5].Visible = true;
+                        dgView.Columns[6].Visible = true;
+                        break;
                 }
             }
             else

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
@@ -19,12 +20,12 @@ namespace ProfitCalc.ApiControl
             public string Url { get; set; }
 
             [JsonProperty("note")]
-            public string Note { get; set; }
+            public string Note { get; set; }*/
 
             [JsonProperty("rating")]
             public string Rating { get; set; }
 
-            [JsonProperty("reviews")]
+            /*[JsonProperty("reviews")]
             public string Reviews { get; set; }*/
 
             [JsonProperty("profitability")]

@@ -54,6 +54,8 @@ namespace ProfitCalc
             Add(new Coin(niceHashData.Results.Stats[3]));
             Add(new Coin(niceHashData.Results.Stats[4]));
             Add(new Coin(niceHashData.Results.Stats[5]));
+            Add(new Coin(niceHashData.Results.Stats[6]));
+            Add(new Coin(niceHashData.Results.Stats[7]));
         }
 
         public void UpdateWhatToMine(string address)
@@ -124,7 +126,7 @@ namespace ProfitCalc
                     if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName && cpCoin.Value.BuyOrders != null)
                     {
                         double volume = Double.Parse(cpCoin.Value.Volume, NumberStyles.Float, CultureInfo.InvariantCulture);
-                        double price = Double.Parse(cpCoin.Value.BuyOrders[0].Price, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        double price = cpCoin.Value.BuyOrders[0].Price;//Double.Parse(, NumberStyles.Float, CultureInfo.InvariantCulture);
 
                         Coin.Exchange cpExchange = new Coin.Exchange {ExchangeName = "Cryptsy",BtcPrice = price,
                             BtcVolume = (volume*price) };
@@ -303,12 +305,22 @@ namespace ProfitCalc
         }
 
 
-        public void UpdatePoolPicker(string address, decimal average)
+        public void UpdatePoolPicker(string address, decimal average, bool reviewCalc)
         {
             PoolPicker pp = JsonControl.DownloadSerializedApi<PoolPicker>(address);
-
             foreach (PoolPicker.Pool pool in pp.Pools)
             {
+                double reviewPercentage, rating;
+                if (Double.TryParse(pool.Rating, NumberStyles.Float, CultureInfo.InvariantCulture, out rating))
+                {
+                    reviewPercentage = rating/5;
+                }
+                else
+                {
+                    reviewPercentage = 1;
+                }
+
+
                 if (pool.PoolProfitability.Scrypt != null)
                 {
                     Coin c = new Coin
@@ -336,6 +348,10 @@ namespace ProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    if (reviewCalc)
+                    {
+                        c.Exchanges[0].BtcPrice *= reviewPercentage;
+                    }
 
                     Add(c);
                 }
@@ -367,6 +383,10 @@ namespace ProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    if (reviewCalc)
+                    {
+                        c.Exchanges[0].BtcPrice *= reviewPercentage;
+                    }
 
                     Add(c);
                 }
@@ -398,6 +418,10 @@ namespace ProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    if (reviewCalc)
+                    {
+                        c.Exchanges[0].BtcPrice *= reviewPercentage;
+                    }
 
                     Add(c);
                 }
@@ -429,6 +453,10 @@ namespace ProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    if (reviewCalc)
+                    {
+                        c.Exchanges[0].BtcPrice *= reviewPercentage;
+                    }
 
                     Add(c);
                 }
@@ -460,6 +488,10 @@ namespace ProfitCalc
                     }
 
                     c.Exchanges[0].BtcPrice = dAverage / iCounter;
+                    if (reviewCalc)
+                    {
+                        c.Exchanges[0].BtcPrice *= reviewPercentage;
+                    }
 
                     Add(c);
                 }

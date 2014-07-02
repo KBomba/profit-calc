@@ -18,10 +18,12 @@ namespace ProfitCalc
             MyriadGroestl,
             DiamondGroestl,
             JHA,
-            Quark,
             Nist5,
+            Quark,
+            Qubit,
             X11,
             X13,
+            X15,
             CryptoNight,
             Unknown
         } ;
