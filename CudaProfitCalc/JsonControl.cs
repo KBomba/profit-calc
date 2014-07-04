@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json;
+using ProfitCalc.ApiControl;
 
 namespace ProfitCalc
 {
@@ -8,18 +9,23 @@ namespace ProfitCalc
     {
         public static T DownloadSerializedApi<T>(string address) where T : new()
         {
-            T newT;
             HttpClient client = new HttpClient();
 
+            int buffersize = 16384;
+            if (typeof (T) == typeof (Cryptsy))
+            {
+                //8MB bufferedstream, yes, cryptsy is that large
+                buffersize = 8000000;
+            }
+
             using (Stream s = client.GetStreamAsync(address).Result)
-            using (StreamReader sr = new StreamReader(s))
+            using (BufferedStream bs = new BufferedStream(s, buffersize))
+            using (StreamReader sr = new StreamReader(bs))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                newT = serializer.Deserialize<T>(reader);
+                return serializer.Deserialize<T>(reader);
             }
-
-            return newT;
         }
 
         

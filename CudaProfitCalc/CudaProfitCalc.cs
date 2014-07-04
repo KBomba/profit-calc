@@ -261,8 +261,7 @@ namespace ProfitCalc
             for (int index = 0; index < _coinList.List.Count; index++)
             {
                 Coin coin = _coinList.List[index];
-                arrCoinRows[index] = new DataGridViewRow();
-                arrCoinRows[index].HeaderCell.Value = String.Format("{0}", index + 1);
+                arrCoinRows[index] = new DataGridViewRow {HeaderCell = {Value = String.Format("{0}", index + 1)}};
                 arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.CoinName, coin.Algo,
                     coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"), coin.GbpPerDay.ToString("0.000"), coin.CnyPerDay.ToString("0.000"),
                     coin.BtcPerDay.ToString("0.00000000"), coin.CoinsPerDay.ToString("0.00000"), coin.Exchanges[0].ExchangeName,

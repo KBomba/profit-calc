@@ -168,9 +168,6 @@ namespace ProfitCalc
                 double magicNumber = Math.Pow(2, 32);
 
                 if (Algo == HashAlgo.Algo.Quark) magicNumber = Math.Pow(2, 24);
-                // Unsure about the following line, try it out if you wish to :P
-                //if (Algo == HashAlgo.Algo.JHA) magicNumber = Math.Pow(2, 33);
-
 
                 CoinsPerDay = BlockReward / (Difficulty * magicNumber / (hashRateMh * 1000000) / 3600 / 24);
 

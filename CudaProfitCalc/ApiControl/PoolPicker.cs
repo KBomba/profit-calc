@@ -25,8 +25,8 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("rating")]
             public string Rating { get; set; }
 
-            /*[JsonProperty("reviews")]
-            public string Reviews { get; set; }*/
+            [JsonProperty("reviews")]
+            public string Reviews { get; set; }
 
             [JsonProperty("profitability")]
             public Profitability PoolProfitability { get; set; }
