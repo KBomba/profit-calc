@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    class MintPal
+    internal class MintPal
     {
         /*[JsonProperty("status")]
         public string Status { get; set; }
@@ -13,6 +13,7 @@ namespace ProfitCalc.ApiControl
 
         [JsonProperty("data")]
         public List<Coin> Data { get; set; }
+
         public class Coin
         {
             /*[JsonProperty("market_id")]
@@ -27,7 +28,7 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("exchange")]
             public string Exchange { get; set; }
 
-           /*[JsonProperty("last_price")]
+            /*[JsonProperty("last_price")]
             public double LastPrice { get; set; }
 
             [JsonProperty("yesterday_price")]

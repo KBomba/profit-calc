@@ -2,7 +2,7 @@
 
 namespace ProfitCalc.ApiControl
 {
-    class Poloniex
+    internal class Poloniex
     {
         /*[JsonProperty("last")]
         public string Last { get; set; }
@@ -11,13 +11,13 @@ namespace ProfitCalc.ApiControl
         public string LowestAsk { get; set; }*/
 
         [JsonProperty("highestBid")]
-        public string HighestBid { get; set; }
+        public double HighestBid { get; set; }
 
         /*[JsonProperty("percentChange")]
         public string PercentChange { get; set; }*/
 
         [JsonProperty("baseVolume")]
-        public string BaseVolume { get; set; }
+        public double BaseVolume { get; set; }
 
         /*[JsonProperty("quoteVolume")]
         public string QuoteVolume { get; set; }*/

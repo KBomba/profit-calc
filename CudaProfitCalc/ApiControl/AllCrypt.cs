@@ -10,13 +10,14 @@ namespace ProfitCalc.ApiControl
 
         [JsonProperty("return")]
         public Return Returns { get; set; }
+
         public class Return
         {
             [JsonProperty("markets")]
             public Dictionary<string, Coin> Markets { get; set; }
+
             public class Coin
             {
-
                 /*[JsonProperty("marketid")]
                 public string Marketid { get; set; }
 
@@ -45,13 +46,13 @@ namespace ProfitCalc.ApiControl
                 public string Volume { get; set; }*/
 
                 [JsonProperty("high_buy")]
-                public string HighBuy { get; set; }
+                public double HighBuy { get; set; }
 
                 /*[JsonProperty("low_sell")]
                 public string LowSell { get; set; }*/
 
                 [JsonProperty("volume_by_pair")]
-                public string VolumeByPair { get; set; }
+                public double VolumeByPair { get; set; }
             }
         }
     }

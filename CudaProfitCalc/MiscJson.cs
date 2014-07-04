@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc
 {
-    class HashRateJson
+    internal class HashRateJson
     {
         [JsonProperty("HashRateList")]
         public Dictionary<HashAlgo.Algo, double> ListHashRate { get; set; }
@@ -18,10 +18,10 @@ namespace ProfitCalc
         public int FiatOfChoice { get; set; }
 
         [JsonProperty("CheckedHashRates")]
-        public Dictionary<string, bool> CheckedHashRates { get; set; } 
+        public Dictionary<string, bool> CheckedHashRates { get; set; }
     }
 
-    class ApiSettingsJson
+    internal class ApiSettingsJson
     {
         [JsonProperty("ApiSettings")]
         public Dictionary<string, string> ApiSettings { get; set; }

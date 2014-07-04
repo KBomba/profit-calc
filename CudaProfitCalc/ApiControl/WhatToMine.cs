@@ -5,8 +5,8 @@ namespace ProfitCalc.ApiControl
 {
     public class WhatToMine
     {
-        [JsonProperty("coins")]
-        public Dictionary<string, Coin> Coins;
+        [JsonProperty("coins")] public Dictionary<string, Coin> Coins;
+
         public class Coin
         {
             [JsonProperty("tag")]

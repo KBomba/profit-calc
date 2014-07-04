@@ -30,7 +30,8 @@ namespace ProfitCalc
                 {
                     HashRateJson rates = JsonControl.GetSerializedApiFile<HashRateJson>("hashrates.txt");
                     txtGroestl.Text = rates.ListHashRate[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
-                    txtMyrGroestl.Text = rates.ListHashRate[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
+                    txtMyrGroestl.Text =
+                        rates.ListHashRate[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
                     txtFugue.Text = rates.ListHashRate[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
                     txtKeccak.Text = rates.ListHashRate[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
                     txtJackpot.Text = rates.ListHashRate[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
@@ -43,27 +44,39 @@ namespace ProfitCalc
                     txtX15.Text = rates.ListHashRate[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
                     txtHefty.Text = rates.ListHashRate[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
                     txtScryptN.Text = rates.ListHashRate[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
-                    txtJane15.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
-                    txtJane13.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
-                    txtCryptonight.Text = rates.ListHashRate[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
+                    txtJane15.Text =
+                        rates.ListHashRate[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
+                    txtJane13.Text =
+                        rates.ListHashRate[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
+                    txtCryptonight.Text =
+                        rates.ListHashRate[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
 
-                    txtGroestlWattage.Text = rates.ListWattage[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
-                    txtMyrGroestlWattage.Text = rates.ListWattage[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
-                    txtFugueWattage.Text = rates.ListWattage[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
-                    txtKeccakWattage.Text = rates.ListWattage[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
+                    txtGroestlWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
+                    txtMyrGroestlWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
+                    txtFugueWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
+                    txtKeccakWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
                     txtJhaWattage.Text = rates.ListWattage[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
                     txtNist5Wattage.Text = rates.ListWattage[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
                     txtQuarkWattage.Text = rates.ListWattage[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
                     txtQubitWattage.Text = rates.ListWattage[HashAlgo.Algo.Qubit].ToString(CultureInfo.InvariantCulture);
-                    txtScryptWattage.Text = rates.ListWattage[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
+                    txtScryptWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
                     txtX11Wattage.Text = rates.ListWattage[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
                     txtX13Wattage.Text = rates.ListWattage[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
                     txtX15Wattage.Text = rates.ListWattage[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
                     txtHeftyWattage.Text = rates.ListWattage[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
-                    txtScryptNWattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
-                    txtJane15Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
-                    txtJane13Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
-                    txtCryptonightWattage.Text = rates.ListWattage[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
+                    txtScryptNWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
+                    txtJane15Wattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
+                    txtJane13Wattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
+                    txtCryptonightWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
 
                     chkGroestl.Checked = rates.CheckedHashRates["Groestl"];
                     chkMyrGroestl.Checked = rates.CheckedHashRates["MyrGroestl"];
@@ -132,8 +145,6 @@ namespace ProfitCalc
                 MessageBox.Show("Oops, something went wrong with loading your apisettings.txt. \nIgnore this if this is the first time you get this after updating."
                                 + Environment.NewLine + Environment.NewLine + exception.StackTrace);
             }
-
-
         }
 
         private void SaveSettings()
@@ -217,7 +228,7 @@ namespace ProfitCalc
             if (chkShowOnlyHealthy.Checked)
             {
                 tsStatus.Text = "Another round of unhealthy coin removal..";
-                _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay) && !coin.IsMultiPool);                
+                _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay) && !coin.IsMultiPool);
             }
 
             tsProgress.Value += i;
@@ -263,8 +274,10 @@ namespace ProfitCalc
                 Coin coin = _coinList.List[index];
                 arrCoinRows[index] = new DataGridViewRow {HeaderCell = {Value = String.Format("{0}", index + 1)}};
                 arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.CoinName, coin.Algo,
-                    coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"), coin.GbpPerDay.ToString("0.000"), coin.CnyPerDay.ToString("0.000"),
-                    coin.BtcPerDay.ToString("0.00000000"), coin.CoinsPerDay.ToString("0.00000"), coin.Exchanges[0].ExchangeName,
+                    coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"), coin.GbpPerDay.ToString("0.000"),
+                    coin.CnyPerDay.ToString("0.000"),
+                    coin.BtcPerDay.ToString("0.00000000"), coin.CoinsPerDay.ToString("0.00000"),
+                    coin.Exchanges[0].ExchangeName,
                     coin.Exchanges[0].BtcPrice.ToString("0.00000000"), coin.Exchanges[0].BtcVolume.ToString("0.000"),
                     coin.WeightedBtcPrice.ToString("0.00000000"), coin.TotalVolume.ToString("0.000"), coin.Difficulty,
                     coin.BlockReward);
@@ -287,7 +300,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the MoneroChain API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -301,8 +314,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the NiceHash API." + 
-                        Environment.NewLine + Environment.NewLine + exception.StackTrace );
+                    MessageBox.Show("Oops, something went wrong with the NiceHash API." +
+                                    Environment.NewLine + Environment.NewLine + exception);
                 }
             }
 
@@ -312,13 +325,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting multipools prices...";
-                    _coinList.UpdatePoolPicker("http://poolpicker.eu/api", 
+                    _coinList.UpdatePoolPicker("http://poolpicker.eu/api",
                         nudPoolpicker.Value, chkReviewCalc.Checked);
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the PoolPicker API." + 
-                        Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                    MessageBox.Show("Oops, something went wrong with the PoolPicker API." +
+                                    Environment.NewLine + Environment.NewLine + exception);
                 }
             }
 
@@ -333,7 +346,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the WhatToMine API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -349,7 +362,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the CoinTweak API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -365,7 +378,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the CoinWarz API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -380,7 +393,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the Bittrex API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -395,7 +408,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the Mintpal API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -410,7 +423,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the Cryptsy API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -425,7 +438,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the Poloniex API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -440,7 +453,7 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the AllCoin API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
@@ -455,13 +468,15 @@ namespace ProfitCalc
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the AllCrypt API." + Environment.NewLine +
-                                    Environment.NewLine + exception.StackTrace);
+                                    Environment.NewLine + exception);
                 }
             }
 
-            if (chkShowOnlyHealthy.Checked) {
+            if (chkShowOnlyHealthy.Checked)
+            {
                 tsStatus.Text = "Removing unhealthy coins...";
-                _coinList.List = _coinList.List.Where(coin => coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
+                _coinList.List =
+                    _coinList.List.Where(coin => coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
             }
         }
 
@@ -474,12 +489,13 @@ namespace ProfitCalc
             int fiatOfChoice = cbbFiat.SelectedIndex;
 
             if (!Double.TryParse(txtFiatElectricityCost.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                    out fiatElectricityCost)) MessageBox.Show("Something wrong with your fiat/khw");
+                out fiatElectricityCost)) MessageBox.Show("Something wrong with your fiat/khw");
 
             if (!checkChecked || chkGroestl.Checked)
             {
                 if (Double.TryParse(txtGroestl.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtGroestlWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                    Double.TryParse(txtGroestlWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
                     hashList.Add(HashAlgo.Algo.Groestl, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Groestl, dWattage);
@@ -490,12 +506,14 @@ namespace ProfitCalc
                 }
             }
 
-           if (!checkChecked || chkMyrGroestl.Checked)
+            if (!checkChecked || chkMyrGroestl.Checked)
             {
-                if (Double.TryParse(txtMyrGroestl.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtMyrGroestlWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                if (
+                    Double.TryParse(txtMyrGroestl.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
+                    Double.TryParse(txtMyrGroestlWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.MyriadGroestl, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.MyriadGroestl, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.MyriadGroestl, dWattage);
                 }
                 else
@@ -509,7 +527,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtFugue.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtFugueWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.Fugue256, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.Fugue256, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Fugue256, dWattage);
                 }
                 else
@@ -523,7 +541,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtJackpot.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtJhaWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.JHA, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.JHA, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.JHA, dWattage);
                 }
                 else
@@ -537,7 +555,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtNist5.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtNist5Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.Nist5, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.Nist5, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Nist5, dWattage);
                 }
                 else
@@ -551,7 +569,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtHefty.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtHeftyWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.Heavy, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.Heavy, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Heavy, dWattage);
                 }
                 else
@@ -565,7 +583,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtX11.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtX11Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.X11, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.X11, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.X11, dWattage);
                 }
                 else
@@ -579,7 +597,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtX13.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtX13Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.X13, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.X13, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.X13, dWattage);
                 }
                 else
@@ -593,7 +611,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtX15.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtX15Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.X15, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.X15, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.X15, dWattage);
                 }
                 else
@@ -607,7 +625,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtQuark.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtQuarkWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.Quark, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.Quark, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Quark, dWattage);
                 }
                 else
@@ -621,7 +639,7 @@ namespace ProfitCalc
                 if (Double.TryParse(txtQubit.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtQubitWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.Qubit, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.Qubit, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Qubit, dWattage);
                 }
                 else
@@ -633,9 +651,10 @@ namespace ProfitCalc
             if (!checkChecked || chkKeccak.Checked)
             {
                 if (Double.TryParse(txtKeccak.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtKeccakWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                    Double.TryParse(txtKeccakWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.Keccak, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.Keccak, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Keccak, dWattage);
                 }
                 else
@@ -647,9 +666,10 @@ namespace ProfitCalc
             if (!checkChecked || chkScrypt.Checked)
             {
                 if (Double.TryParse(txtScrypt.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtScryptWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                    Double.TryParse(txtScryptWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.Scrypt, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.Scrypt, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.Scrypt, dWattage);
                 }
                 else
@@ -661,9 +681,10 @@ namespace ProfitCalc
             if (!checkChecked || chkScryptN.Checked)
             {
                 if (Double.TryParse(txtScryptN.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtScryptNWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                    Double.TryParse(txtScryptNWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.ScryptN, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.ScryptN, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.ScryptN, dWattage);
                 }
                 else
@@ -675,9 +696,10 @@ namespace ProfitCalc
             if (!checkChecked || chkJane15.Checked)
             {
                 if (Double.TryParse(txtJane15.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtJane15Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                    Double.TryParse(txtJane15Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.ScryptJane15, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.ScryptJane15, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.ScryptJane15, dWattage);
                 }
                 else
@@ -689,9 +711,10 @@ namespace ProfitCalc
             if (!checkChecked || chkJane13.Checked)
             {
                 if (Double.TryParse(txtJane13.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtJane13Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                    Double.TryParse(txtJane13Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.ScryptJane13, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.ScryptJane13, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.ScryptJane13, dWattage);
                 }
                 else
@@ -702,10 +725,12 @@ namespace ProfitCalc
 
             if (!checkChecked || chkCryptonight.Checked)
             {
-                if (Double.TryParse(txtCryptonight.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtCryptonightWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
+                if (
+                    Double.TryParse(txtCryptonight.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
+                    Double.TryParse(txtCryptonightWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
                 {
-                    hashList.Add(HashAlgo.Algo.CryptoNight, dHashRate * multiplier);
+                    hashList.Add(HashAlgo.Algo.CryptoNight, dHashRate*multiplier);
                     wattageList.Add(HashAlgo.Algo.CryptoNight, dWattage);
                 }
                 else

@@ -4,17 +4,19 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    class Cryptsy
+    internal class Cryptsy
     {
         /*[JsonProperty("success")]
         public int Success { get; set; }*/
 
         [JsonProperty("return")]
         public Return Returns { get; set; }
+
         public class Return
         {
             [JsonProperty("markets")]
             public Dictionary<string, Market> Markets { get; set; }
+
             public class Market
             {
                 /*[JsonProperty("marketid")]
@@ -24,10 +26,10 @@ namespace ProfitCalc.ApiControl
                 public string Label { get; set; }*/
 
                 [JsonProperty("lasttradeprice")]
-                public string LastTradePrice { get; set; }
+                public double LastTradePrice { get; set; }
 
                 [JsonProperty("volume")]
-                public string Volume { get; set; }
+                public double Volume { get; set; }
 
                 /*[JsonProperty("lasttradetime")]
                 public string LastTradetime { get; set; }*/
@@ -70,6 +72,7 @@ namespace ProfitCalc.ApiControl
 
                 [JsonProperty("buyorders")]
                 public List<Order> BuyOrders { get; set; }
+
                 public class Order
                 {
                     [JsonProperty("price")]

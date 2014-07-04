@@ -2,7 +2,7 @@
 
 namespace ProfitCalc
 {
-    static class HashAlgo
+    internal static class HashAlgo
     {
         public enum Algo
         {
@@ -26,7 +26,7 @@ namespace ProfitCalc
             X15,
             CryptoNight,
             Unknown
-        } ;
+        };
 
         public static Algo GetAlgorithm(string algo)
         {
@@ -46,8 +46,8 @@ namespace ProfitCalc
 
                 return Algo.ScryptJane15;
             }
-                
-                
+
+
             switch (proper)
             {
                 case "scrypt-n":
@@ -95,7 +95,7 @@ namespace ProfitCalc
 
         public static double CalcAvgSpeed(double prev, double newSpeed)
         {
-            return prev != 0 ? (prev + newSpeed) / 2 : newSpeed;
+            return prev != 0 ? (prev + newSpeed)/2 : newSpeed;
         }
     }
 }

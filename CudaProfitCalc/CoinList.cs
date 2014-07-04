@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using ProfitCalc.ApiControl;
 
 namespace ProfitCalc
 {
-    class CoinList
+    internal class CoinList
     {
         public List<Coin> List { get; set; }
 
@@ -91,13 +92,18 @@ namespace ProfitCalc
         public void UpdateMintPal(string address)
         {
             MintPal mp = JsonControl.DownloadSerializedApi<MintPal>(address);
-            foreach (Coin c in List)
+            Parallel.ForEach(List, c =>
             {
                 foreach (MintPal.Coin mpCoin in mp.Data)
                 {
                     if (mpCoin.Exchange == "BTC" && mpCoin.Code == c.TagName)
                     {
-                        Coin.Exchange mpExchange = new Coin.Exchange { ExchangeName = "MintPal", BtcPrice = mpCoin.TopBid, BtcVolume = mpCoin.Last24HVol };
+                        Coin.Exchange mpExchange = new Coin.Exchange
+                        {
+                            ExchangeName = "MintPal",
+                            BtcPrice = mpCoin.TopBid,
+                            BtcVolume = mpCoin.Last24HVol
+                        };
                         if (c.HasImplementedMarketApi)
                         {
                             c.Exchanges.Add(mpExchange);
@@ -105,31 +111,34 @@ namespace ProfitCalc
                         }
                         else
                         {
-                            c.Exchanges = new List<Coin.Exchange> { mpExchange };
+                            c.Exchanges = new List<Coin.Exchange> {mpExchange};
                             c.TotalVolume = mpExchange.BtcVolume;
                             c.HasImplementedMarketApi = true;
                         }
-                        
+
                         break;
                     }
                 }
-            }
+            });
         }
 
         public void UpdateCryptsy(string address)
         {
             Cryptsy cp = JsonControl.DownloadSerializedApi<Cryptsy>(address);
-            foreach (Coin c in List)
+            Parallel.ForEach(List, c =>
             {
                 foreach (KeyValuePair<string, Cryptsy.Return.Market> cpCoin in cp.Returns.Markets)
                 {
-                    if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName && cpCoin.Value.BuyOrders != null)
+                    if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName &&
+                        cpCoin.Value.BuyOrders != null)
                     {
-                        double volume = Double.Parse(cpCoin.Value.Volume, NumberStyles.Float, CultureInfo.InvariantCulture);
-                        double price = cpCoin.Value.BuyOrders[0].Price;//Double.Parse(, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        Coin.Exchange cpExchange = new Coin.Exchange
+                        {
+                            ExchangeName = "Cryptsy",
+                            BtcPrice = cpCoin.Value.BuyOrders[0].Price
+                        };
+                        cpExchange.BtcVolume = (cpCoin.Value.Volume*cpExchange.BtcPrice);
 
-                        Coin.Exchange cpExchange = new Coin.Exchange {ExchangeName = "Cryptsy",BtcPrice = price,
-                            BtcVolume = (volume*price) };
                         if (c.HasImplementedMarketApi)
                         {
                             c.Exchanges.Add(cpExchange);
@@ -137,14 +146,14 @@ namespace ProfitCalc
                         }
                         else
                         {
-                            c.Exchanges = new List<Coin.Exchange> { cpExchange };
+                            c.Exchanges = new List<Coin.Exchange> {cpExchange};
                             c.TotalVolume = cpExchange.BtcVolume;
                             c.HasImplementedMarketApi = true;
                         }
                         break;
                     }
                 }
-            }
+            });
         }
 
         public void UpdateBittrex(string address)
@@ -154,28 +163,28 @@ namespace ProfitCalc
             {
                 foreach (Bittrex.Result btCoin in bt.Results)
                 {
-                    if (!String.IsNullOrEmpty(btCoin.BaseVolume) && !String.IsNullOrEmpty(btCoin.Bid))
+                    String[] splitMarket = btCoin.MarketName.Split('-');
+                    if (splitMarket[0].Trim().ToUpper() == "BTC" && splitMarket[1].Trim().ToUpper() == c.TagName)
                     {
-                        String[] splitMarket = btCoin.MarketName.Split('-');
-                        if (splitMarket[0].Trim().ToUpper() == "BTC" && splitMarket[1].Trim().ToUpper() == c.TagName)
+                        Coin.Exchange btExchange = new Coin.Exchange
                         {
-                            double volume = Double.Parse(btCoin.BaseVolume, NumberStyles.Float, CultureInfo.InvariantCulture);
-                            double price = Double.Parse(btCoin.Bid, NumberStyles.Float, CultureInfo.InvariantCulture);
+                            ExchangeName = "Bittrex",
+                            BtcPrice = btCoin.Bid,
+                            BtcVolume = btCoin.BaseVolume
+                        };
 
-                            Coin.Exchange btExchange = new Coin.Exchange { ExchangeName = "Bittrex", BtcPrice = price, BtcVolume = volume };
-                            if (c.HasImplementedMarketApi)
-                            {
-                                c.Exchanges.Add(btExchange);
-                                c.TotalVolume += btExchange.BtcVolume;
-                            }
-                            else
-                            {
-                                c.Exchanges = new List<Coin.Exchange> {btExchange};
-                                c.TotalVolume = btExchange.BtcVolume;
-                                c.HasImplementedMarketApi = true;
-                            }
-                            break;
+                        if (c.HasImplementedMarketApi)
+                        {
+                            c.Exchanges.Add(btExchange);
+                            c.TotalVolume += btExchange.BtcVolume;
                         }
+                        else
+                        {
+                            c.Exchanges = new List<Coin.Exchange> {btExchange};
+                            c.TotalVolume = btExchange.BtcVolume;
+                            c.HasImplementedMarketApi = true;
+                        }
+                        break;
                     }
                 }
             }
@@ -184,21 +193,18 @@ namespace ProfitCalc
         public void UpdatePoloniex(string address)
         {
             Dictionary<string, Poloniex> pol = JsonControl.DownloadSerializedApi<Dictionary<string, Poloniex>>(address);
-            foreach (Coin c in List)
+            Parallel.ForEach(List, c =>
             {
                 foreach (KeyValuePair<string, Poloniex> polCoin in pol)
                 {
                     String[] splitMarket = polCoin.Key.Split('_');
                     if (splitMarket[0].Trim().ToUpper() == "BTC" && splitMarket[1].Trim().ToUpper() == c.TagName)
                     {
-                        double volume = Double.Parse(polCoin.Value.BaseVolume, NumberStyles.Float, CultureInfo.InvariantCulture);
-                        double price = Double.Parse(polCoin.Value.HighestBid, NumberStyles.Float, CultureInfo.InvariantCulture);
-
                         Coin.Exchange polExchange = new Coin.Exchange
                         {
-                            ExchangeName = "Poloniex", 
-                            BtcPrice = price, 
-                            BtcVolume = volume
+                            ExchangeName = "Poloniex",
+                            BtcPrice = polCoin.Value.HighestBid,
+                            BtcVolume = polCoin.Value.BaseVolume
                         };
 
                         if (c.HasImplementedMarketApi)
@@ -208,7 +214,7 @@ namespace ProfitCalc
                         }
                         else
                         {
-                            c.Exchanges = new List<Coin.Exchange> { polExchange };
+                            c.Exchanges = new List<Coin.Exchange> {polExchange};
                             c.TotalVolume = polExchange.BtcVolume;
                             c.HasImplementedMarketApi = true;
                         }
@@ -217,13 +223,13 @@ namespace ProfitCalc
                         break;
                     }
                 }
-            }
+            });
         }
 
         public void UpdateAllCoin(string address)
         {
             AllCoin ac = JsonControl.DownloadSerializedApi<AllCoin>(address);
-            foreach (Coin c in List)
+            Parallel.ForEach(List, c =>
             {
                 foreach (KeyValuePair<string, AllCoin.Coin> acCoin in ac.Data)
                 {
@@ -231,9 +237,12 @@ namespace ProfitCalc
                     if (splitMarket[1].Trim().ToUpper() == "BTC" && splitMarket[0].Trim().ToUpper() == c.TagName)
                     {
                         double volume, price;
-                        
-                        if (Double.TryParse(acCoin.Value.Volume24HBtc, NumberStyles.Float, CultureInfo.InvariantCulture, out volume) 
-                            && Double.TryParse(acCoin.Value.TopBid, NumberStyles.Float, CultureInfo.InvariantCulture, out price))
+
+                        if (
+                            Double.TryParse(acCoin.Value.Volume24HBtc, NumberStyles.Float, CultureInfo.InvariantCulture,
+                                out volume) &&
+                            Double.TryParse(acCoin.Value.TopBid, NumberStyles.Float, CultureInfo.InvariantCulture,
+                                out price))
                         {
                             Coin.Exchange acExchange = new Coin.Exchange
                             {
@@ -249,59 +258,54 @@ namespace ProfitCalc
                             }
                             else
                             {
-                                c.Exchanges = new List<Coin.Exchange> { acExchange };
+                                c.Exchanges = new List<Coin.Exchange> {acExchange};
                                 c.TotalVolume = acExchange.BtcVolume;
                                 c.HasImplementedMarketApi = true;
                             }
 
-                            if (acCoin.Value.Status != "1" || acCoin.Value.WalletStatus != "1") c.HasMarketErrors = true;
+                            if (acCoin.Value.Status != "1" || acCoin.Value.WalletStatus != "1")
+                                c.HasMarketErrors = true;
                         }
-                        break;
                     }
+                    break;
                 }
-            }
+            });
         }
 
         public void UpdateAllCrypt(string address)
         {
             AllCrypt ac = JsonControl.DownloadSerializedApi<AllCrypt>(address);
 
-            foreach (Coin c in List)
+            Parallel.ForEach(List, c =>
             {
                 foreach (KeyValuePair<string, AllCrypt.Return.Coin> acCoin in ac.Returns.Markets)
                 {
-                    if (acCoin.Value.SecondaryCode.Trim().ToUpperInvariant() == "BTC" 
+                    if (acCoin.Value.SecondaryCode.Trim().ToUpperInvariant() == "BTC"
                         && acCoin.Value.PrimaryCode.Trim().ToUpper() == c.TagName)
                     {
-                        double volume, price;
-
-                        if (Double.TryParse(acCoin.Value.VolumeByPair, NumberStyles.Float, CultureInfo.InvariantCulture, out volume)&&
-                            Double.TryParse(acCoin.Value.HighBuy, NumberStyles.Float, CultureInfo.InvariantCulture, out price))
+                        Coin.Exchange acExchange = new Coin.Exchange
                         {
-                            Coin.Exchange acExchange = new Coin.Exchange
-                            {
-                                ExchangeName = "AllCrypt",
-                                BtcVolume = volume,
-                                BtcPrice = price
-                            };
+                            ExchangeName = "AllCrypt",
+                            BtcVolume = acCoin.Value.VolumeByPair,
+                            BtcPrice = acCoin.Value.HighBuy
+                        };
 
-                            if (c.HasImplementedMarketApi)
-                            {
-                                c.Exchanges.Add(acExchange);
-                                c.TotalVolume += acExchange.BtcVolume;
-                            }
-                            else
-                            {
-                                c.Exchanges = new List<Coin.Exchange> {acExchange};
-                                c.TotalVolume = acExchange.BtcVolume;
-                                c.HasImplementedMarketApi = true;
-                            }
+                        if (c.HasImplementedMarketApi)
+                        {
+                            c.Exchanges.Add(acExchange);
+                            c.TotalVolume += acExchange.BtcVolume;
                         }
-
-                        break;
+                        else
+                        {
+                            c.Exchanges = new List<Coin.Exchange> {acExchange};
+                            c.TotalVolume = acExchange.BtcVolume;
+                            c.HasImplementedMarketApi = true;
+                        }
                     }
+
+                    break;
                 }
-            }
+            });
         }
 
 
@@ -325,13 +329,13 @@ namespace ProfitCalc
                 {
                     Coin c = new Coin
                     {
-                        Difficulty = (double)average,
+                        Difficulty = (double) average,
                         HasImplementedMarketApi = true,
                         IsMultiPool = true,
                         HasMarketErrors = false,
                         Exchanges = new List<Coin.Exchange>(),
                     };
-                    Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
+                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.Scrypt;
@@ -344,10 +348,10 @@ namespace ProfitCalc
                     {
                         if (iCounter == average) break;
                         iCounter++;
-                        dAverage += Double.Parse(scrypt.Btc, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        dAverage += scrypt.Btc;
                     }
 
-                    c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
                     if (reviewCalc)
                     {
                         c.Exchanges[0].BtcPrice *= reviewPercentage;
@@ -360,13 +364,13 @@ namespace ProfitCalc
                 {
                     Coin c = new Coin
                     {
-                        Difficulty = (double)average,
+                        Difficulty = (double) average,
                         HasImplementedMarketApi = true,
                         IsMultiPool = true,
                         HasMarketErrors = false,
                         Exchanges = new List<Coin.Exchange>(),
                     };
-                    Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
+                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.ScryptN;
@@ -379,10 +383,10 @@ namespace ProfitCalc
                     {
                         if (iCounter == average) break;
                         iCounter++;
-                        dAverage += Double.Parse(scryptN.Btc, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        dAverage += scryptN.Btc;
                     }
 
-                    c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
                     if (reviewCalc)
                     {
                         c.Exchanges[0].BtcPrice *= reviewPercentage;
@@ -395,13 +399,13 @@ namespace ProfitCalc
                 {
                     Coin c = new Coin
                     {
-                        Difficulty = (double)average,
+                        Difficulty = (double) average,
                         HasImplementedMarketApi = true,
                         IsMultiPool = true,
                         HasMarketErrors = false,
                         Exchanges = new List<Coin.Exchange>(),
                     };
-                    Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
+                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.X11;
@@ -414,10 +418,10 @@ namespace ProfitCalc
                     {
                         if (iCounter == average) break;
                         iCounter++;
-                        dAverage += Double.Parse(x11.Btc, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        dAverage += x11.Btc;
                     }
 
-                    c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
                     if (reviewCalc)
                     {
                         c.Exchanges[0].BtcPrice *= reviewPercentage;
@@ -430,13 +434,13 @@ namespace ProfitCalc
                 {
                     Coin c = new Coin
                     {
-                        Difficulty = (double)average,
+                        Difficulty = (double) average,
                         HasImplementedMarketApi = true,
                         IsMultiPool = true,
                         HasMarketErrors = false,
                         Exchanges = new List<Coin.Exchange>(),
                     };
-                    Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
+                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.X13;
@@ -449,10 +453,10 @@ namespace ProfitCalc
                     {
                         if (iCounter == average) break;
                         iCounter++;
-                        dAverage += Double.Parse(x13.Btc, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        dAverage += x13.Btc;
                     }
 
-                    c.Exchanges[0].BtcPrice = dAverage / iCounter * 1000;
+                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
                     if (reviewCalc)
                     {
                         c.Exchanges[0].BtcPrice *= reviewPercentage;
@@ -465,13 +469,13 @@ namespace ProfitCalc
                 {
                     Coin c = new Coin
                     {
-                        Difficulty = (double)average,
+                        Difficulty = (double) average,
                         HasImplementedMarketApi = true,
                         IsMultiPool = true,
                         HasMarketErrors = false,
                         Exchanges = new List<Coin.Exchange>(),
                     };
-                    Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
+                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
                     c.Exchanges.Add(ppExchange);
 
                     c.Algo = HashAlgo.Algo.Keccak;
@@ -484,10 +488,10 @@ namespace ProfitCalc
                     {
                         if (iCounter == average) break;
                         iCounter++;
-                        dAverage += Double.Parse(keccak.Btc, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        dAverage += keccak.Btc;
                     }
 
-                    c.Exchanges[0].BtcPrice = dAverage / iCounter;
+                    c.Exchanges[0].BtcPrice = dAverage/iCounter;
                     if (reviewCalc)
                     {
                         c.Exchanges[0].BtcPrice *= reviewPercentage;
@@ -501,14 +505,17 @@ namespace ProfitCalc
         public void AddMoneroWorkAround()
         {
             MoneroChain mon = JsonControl.DownloadSerializedApi<MoneroChain>("http://monerochain.info/api/stats");
-            MoneroLatestBlock moneroLatest = new MoneroLatestBlock();
+            MoneroLatestBlock moneroLatest;
             try
             {
-                moneroLatest = JsonControl.DownloadSerializedApi<MoneroLatestBlock>("http://monerochain.info/api/block/" + mon.Height);
+                moneroLatest = JsonControl.DownloadSerializedApi<MoneroLatestBlock>(
+                    "http://monerochain.info/api/block/" + mon.Height);
             }
             catch (Exception)
             {
-                moneroLatest = JsonControl.DownloadSerializedApi<MoneroLatestBlock>("http://monerochain.info/api/block/" + (mon.Height -1));
+                moneroLatest =
+                    JsonControl.DownloadSerializedApi<MoneroLatestBlock>(
+                    "http://monerochain.info/api/block/" + (mon.Height - 1));
             }
 
             Coin c = new Coin
@@ -529,7 +536,8 @@ namespace ProfitCalc
             Add(c);
         }
 
-        public void Sort(HashRateJson hashList, bool useWeightedCalculation, string coindeskAddress, string coindeskCnyAdress)
+        public void Sort(HashRateJson hashList, bool useWeightedCalculation, string coindeskAddress,
+            string coindeskCnyAdress)
         {
             CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(coindeskAddress);
             double usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
@@ -539,53 +547,59 @@ namespace ProfitCalc
             cd = JsonControl.DownloadSerializedApi<CoinDesk>(coindeskCnyAdress);
             double cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
 
-            foreach (Coin coin in List)
+            Parallel.ForEach(List, coin =>
             {
                 if (hashList.ListHashRate.ContainsKey(coin.Algo))
                 {
                     coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation);
 
-                    double fiatElectricityCost = (hashList.ListWattage[coin.Algo] / 1000) * 24 * hashList.FiatPerKwh;
+                    double fiatElectricityCost = (hashList.ListWattage[coin.Algo]/1000)*24*hashList.FiatPerKwh;
                     switch (hashList.FiatOfChoice)
                     {
                         case 1:
-                            coin.BtcPerDay -= (fiatElectricityCost / eurPrice);
+                            coin.BtcPerDay -= (fiatElectricityCost/eurPrice);
                             break;
                         case 2:
-                            coin.BtcPerDay -= (fiatElectricityCost / gbpPrice);
+                            coin.BtcPerDay -= (fiatElectricityCost/gbpPrice);
                             break;
                         case 3:
-                            coin.BtcPerDay -= (fiatElectricityCost / cnyPrice);
+                            coin.BtcPerDay -= (fiatElectricityCost/cnyPrice);
                             break;
                         default:
-                            coin.BtcPerDay -= (fiatElectricityCost / usdPrice);
+                            coin.BtcPerDay -= (fiatElectricityCost/usdPrice);
                             break;
                     }
-                    
-                    
-                    coin.UsdPerDay = coin.BtcPerDay * usdPrice;
-                    coin.EurPerDay = coin.BtcPerDay * eurPrice;
-                    coin.GbpPerDay = coin.BtcPerDay * gbpPrice;
-                    coin.CnyPerDay = coin.BtcPerDay * cnyPrice;
+
+
+                    coin.UsdPerDay = coin.BtcPerDay*usdPrice;
+                    coin.EurPerDay = coin.BtcPerDay*eurPrice;
+                    coin.GbpPerDay = coin.BtcPerDay*gbpPrice;
+                    coin.CnyPerDay = coin.BtcPerDay*cnyPrice;
                 }
-            }
+            });
 
             //Removing all errored coins and actually sorting them
-            List = List.Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool)).OrderByDescending(o => o.BtcPerDay).ToList();
+            List =
+                List.Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
+                    .OrderByDescending(o => o.BtcPerDay)
+                    .ToList();
         }
 
         public void Sort(HashRateJson hashList, bool useWeightedCalculation)
         {
-            foreach (Coin coin in List)
+            Parallel.ForEach(List, coin =>
             {
                 if (hashList.ListHashRate.ContainsKey(coin.Algo))
                 {
                     coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation);
                 }
-            }
+            });
 
             //Removing all errored coins and actually sorting them
-            List = List.Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool)).OrderByDescending(o => o.BtcPerDay).ToList();
+            List =
+                List.Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
+                    .OrderByDescending(o => o.BtcPerDay)
+                    .ToList();
         }
 
         public override string ToString()

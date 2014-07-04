@@ -6,7 +6,7 @@ using ProfitCalc.ApiControl;
 
 namespace ProfitCalc
 {
-    class Coin
+    internal class Coin
     {
         public string CoinName { get; set; }
         public string TagName { get; set; }
@@ -17,6 +17,7 @@ namespace ProfitCalc
         public uint Height { get; set; }
 
         public List<Exchange> Exchanges { get; set; }
+
         internal class Exchange
         {
             public string ExchangeName { get; set; }
@@ -46,7 +47,9 @@ namespace ProfitCalc
         public bool HasImplementedMarketApi { get; set; }
         public bool IsMultiPool;
 
-        public Coin(){}
+        public Coin()
+        {
+        }
 
         public Coin(string coinName, string tagName, HashAlgo.Algo algo,
             double difficulty, double blockReward, Exchange exchange)
@@ -67,10 +70,10 @@ namespace ProfitCalc
         {
             switch (niceHashStat.Algo)
             {
-                case 0: 
+                case 0:
                     Algo = HashAlgo.Algo.Scrypt;
                     break;
-                case 3: 
+                case 3:
                     Algo = HashAlgo.Algo.X11;
                     break;
                 case 4:
@@ -95,13 +98,18 @@ namespace ProfitCalc
             Difficulty = 0;
             BlockReward = 0;
 
-            Exchange nhExchange = new Exchange { ExchangeName = "NiceHash", BtcPrice = niceHashStat.Price, BtcVolume = 0, Weight = 1 };
-            Exchanges = new List<Exchange> { nhExchange };
+            Exchange nhExchange = new Exchange
+            {
+                ExchangeName = "NiceHash",
+                BtcPrice = niceHashStat.Price,
+                BtcVolume = 0,
+                Weight = 1
+            };
+            Exchanges = new List<Exchange> {nhExchange};
             TotalVolume = 0;
             HasMarketErrors = false;
             IsMultiPool = true;
             HasImplementedMarketApi = true;
-
         }
 
         public Coin(KeyValuePair<string, WhatToMine.Coin> wtmCoin)
@@ -113,8 +121,14 @@ namespace ProfitCalc
             Difficulty = wtmCoin.Value.Difficulty;
             BlockReward = wtmCoin.Value.BlockReward;
             Height = wtmCoin.Value.LastBlock;
-            Exchange wtmExchange = new Exchange { ExchangeName = "Unknown (WhatToMine)", BtcPrice = wtmCoin.Value.ExchangeRate, BtcVolume = wtmCoin.Value.Volume * wtmCoin.Value.ExchangeRate, Weight = 1 };
-            Exchanges = new List<Exchange> { wtmExchange };
+            Exchange wtmExchange = new Exchange
+            {
+                ExchangeName = "Unknown (WhatToMine)",
+                BtcPrice = wtmCoin.Value.ExchangeRate,
+                BtcVolume = wtmCoin.Value.Volume*wtmCoin.Value.ExchangeRate,
+                Weight = 1
+            };
+            Exchanges = new List<Exchange> {wtmExchange};
             TotalVolume = wtmExchange.BtcVolume;
             HasMarketErrors = false;
             IsMultiPool = false;
@@ -129,8 +143,14 @@ namespace ProfitCalc
             if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
             Difficulty = ctwCoin.Difficulty;
             BlockReward = ctwCoin.BlockCoins;
-            Exchange ctwExchange = new Exchange { ExchangeName = ctwCoin.ExName + " (CoinTweak)", BtcPrice = ctwCoin.ConversionRateToBtc, BtcVolume = ctwCoin.BtcVol, Weight = 1 };
-            Exchanges = new List<Exchange> { ctwExchange };
+            Exchange ctwExchange = new Exchange
+            {
+                ExchangeName = ctwCoin.ExName + " (CoinTweak)",
+                BtcPrice = ctwCoin.ConversionRateToBtc,
+                BtcVolume = ctwCoin.BtcVol,
+                Weight = 1
+            };
+            Exchanges = new List<Exchange> {ctwExchange};
             TotalVolume = ctwExchange.BtcVolume;
             HasMarketErrors = !ctwCoin.HasBuyOffers;
             IsMultiPool = false;
@@ -146,8 +166,14 @@ namespace ProfitCalc
             Difficulty = cwzCoin.Difficulty;
             BlockReward = cwzCoin.BlockReward;
             Height = cwzCoin.BlockCount;
-            Exchange cwzExchange = new Exchange { ExchangeName = cwzCoin.Exchange + " (CoinWarz)", BtcPrice = cwzCoin.ExchangeRate, BtcVolume = cwzCoin.ExchangeVolume * cwzCoin.ExchangeRate, Weight = 1};
-            Exchanges = new List<Exchange> { cwzExchange };
+            Exchange cwzExchange = new Exchange
+            {
+                ExchangeName = cwzCoin.Exchange + " (CoinWarz)",
+                BtcPrice = cwzCoin.ExchangeRate,
+                BtcVolume = cwzCoin.ExchangeVolume*cwzCoin.ExchangeRate,
+                Weight = 1
+            };
+            Exchanges = new List<Exchange> {cwzExchange};
             TotalVolume = cwzExchange.BtcVolume;
             HasMarketErrors = cwzCoin.HealthStatus.Contains("Unhealthy");
             IsMultiPool = false;
@@ -164,12 +190,12 @@ namespace ProfitCalc
             else
             {
                 SortExchanges();
-                
+
                 double magicNumber = Math.Pow(2, 32);
 
                 if (Algo == HashAlgo.Algo.Quark) magicNumber = Math.Pow(2, 24);
 
-                CoinsPerDay = BlockReward / (Difficulty * magicNumber / (hashRateMh * 1000000) / 3600 / 24);
+                CoinsPerDay = BlockReward/(Difficulty*magicNumber/(hashRateMh*1000000)/3600/24);
 
                 //Cryptonight's difficulty is net hashrate * 60
                 if (Algo == HashAlgo.Algo.CryptoNight)
@@ -192,10 +218,13 @@ namespace ProfitCalc
 
         public override string ToString()
         {
-            return "TAG: " + TagName + " | Name:" + CoinName + " | Algo: " + Algo + " | BTC/day: " + BtcPerDay.ToString("#.00000000")
-                + " | Coins/day: " + CoinsPerDay.ToString("#.00000000") + GetExchanges() 
-                + " | Weighted price: " + WeightedBtcPrice.ToString("#.00000000") + " | Total volume: " + TotalVolume.ToString("#.0000") 
-                + " | Difficulty: " + Difficulty.ToString("#.###") + " | Blockreward: " + BlockReward.ToString("#.###");
+            return "TAG: " + TagName + " | Name:" + CoinName + " | Algo: " + Algo + " | BTC/day: " +
+                   BtcPerDay.ToString("#.00000000")
+                   + " | Coins/day: " + CoinsPerDay.ToString("#.00000000") + GetExchanges()
+                   + " | Weighted price: " + WeightedBtcPrice.ToString("#.00000000") + " | Total volume: " +
+                   TotalVolume.ToString("#.0000")
+                   + " | Difficulty: " + Difficulty.ToString("#.###") + " | Blockreward: " +
+                   BlockReward.ToString("#.###");
         }
 
         public string GetExchanges()
@@ -203,7 +232,7 @@ namespace ProfitCalc
             StringBuilder sb = new StringBuilder();
             for (int index = 0; index < Exchanges.Count; index++)
             {
-                sb.Append(" | Exchange #").Append(index+1).Append(": ").Append(Exchanges[index].ExchangeName)
+                sb.Append(" | Exchange #").Append(index + 1).Append(": ").Append(Exchanges[index].ExchangeName)
                     .Append(" | BTC volume: ").Append(Exchanges[index].BtcVolume.ToString("#.0000"))
                     .Append(" | BTC price: ").Append(Exchanges[index].BtcPrice.ToString("#.00000000"))
                     .Append(" | Weight: ").Append(Exchanges[index].Weight.ToString("#.000"));

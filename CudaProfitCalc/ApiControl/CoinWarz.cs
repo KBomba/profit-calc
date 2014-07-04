@@ -13,6 +13,7 @@ namespace ProfitCalc.ApiControl
 
         [JsonProperty("Data")]
         public List<Coin> Data { get; set; }
+
         public class Coin
         {
             [JsonProperty("CoinName")]

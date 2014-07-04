@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    class MoneroChain
+    internal class MoneroChain
     {
         [JsonProperty("height")]
         public int Height { get; set; }
@@ -22,7 +22,7 @@ namespace ProfitCalc.ApiControl
         public double TotalCoins { get; set; }*/
     }
 
-    class MoneroLatestBlock
+    internal class MoneroLatestBlock
     {
         /*[JsonProperty("id")]
         public string Id { get; set; }*/

@@ -4,14 +4,15 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    class PoolPicker
+    internal class PoolPicker
     {
         [JsonProperty("pools")]
         public List<Pool> Pools { get; set; }
+
         public class Pool
         {
             [JsonProperty("id")]
-            public string Id { get; set; }
+            public int Id { get; set; }
 
             [JsonProperty("name")]
             public string Name { get; set; }
@@ -25,11 +26,12 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("rating")]
             public string Rating { get; set; }
 
-            [JsonProperty("reviews")]
-            public string Reviews { get; set; }
+            /*[JsonProperty("reviews")]
+            public int Reviews { get; set; }*/
 
             [JsonProperty("profitability")]
             public Profitability PoolProfitability { get; set; }
+
             public class Profitability
             {
                 [JsonProperty("Scrypt")]
@@ -49,13 +51,14 @@ namespace ProfitCalc.ApiControl
 
                 [JsonProperty("Keccak")]
                 public List<Algo> Keccak { get; set; }
+
                 public class Algo
                 {
                     /*[JsonProperty("date")]
                     public string Date { get; set; }*/
 
                     [JsonProperty("btc")]
-                    public string Btc { get; set; }
+                    public double Btc { get; set; }
                 }
             }
         }

@@ -23,10 +23,12 @@ namespace ProfitCalc.ApiControl
 
         [JsonProperty("bpi")]
         public Bpi BpiPrice { get; set; }
+
         public class Bpi
         {
             [JsonProperty("USD")]
             public USD UsdPrice { get; set; }
+
             public class USD
             {
                 /*[JsonProperty("code")]
@@ -44,6 +46,7 @@ namespace ProfitCalc.ApiControl
 
             [JsonProperty("EUR")]
             public EUR EurPrice { get; set; }
+
             public class EUR
             {
                 /*[JsonProperty("code")]
@@ -61,6 +64,7 @@ namespace ProfitCalc.ApiControl
 
             [JsonProperty("GBP")]
             public GBP GbpPrice { get; set; }
+
             public class GBP
             {
                 /*[JsonProperty("code")]
@@ -78,6 +82,7 @@ namespace ProfitCalc.ApiControl
 
             [JsonProperty("CNY")]
             public CNY CnyPrice { get; set; }
+
             public class CNY
             {
                 /*[JsonProperty("code")]

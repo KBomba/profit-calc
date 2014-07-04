@@ -7,10 +7,12 @@ namespace ProfitCalc.ApiControl
     {
         [JsonProperty("result")]
         public Result Results { get; set; }
+
         public class Result
         {
             [JsonProperty("stats")]
             public List<Stat> Stats { get; set; }
+
             public class Stat
             {
                 [JsonProperty("price")]

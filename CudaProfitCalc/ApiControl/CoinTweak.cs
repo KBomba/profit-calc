@@ -30,8 +30,8 @@ namespace ProfitCalc.ApiControl
             public double ConversionRateToBtc { get; set; }
         }*/
 
-        [JsonProperty("coin")]
-        public List<Coin> Coins;
+        [JsonProperty("coin")] public List<Coin> Coins;
+
         public class Coin
         {
             [JsonProperty("coin_fullname")]

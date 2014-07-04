@@ -5,15 +5,14 @@ namespace ProfitCalc.ApiControl
 {
     public class AllCoin
     {
-
         [JsonProperty("code")]
         public int Code { get; set; }
 
         [JsonProperty("data")]
         public Dictionary<string, Coin> Data { get; set; }
+
         public class Coin
         {
-
             /*[JsonProperty("volume_24h_**")]
             public string Volume24h** { get; set; }*/
 

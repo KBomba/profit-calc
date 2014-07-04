@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    class Bittrex
+    internal class Bittrex
     {
         /*[JsonProperty("success")]
         public bool Success { get; set; }
@@ -13,6 +13,7 @@ namespace ProfitCalc.ApiControl
 
         [JsonProperty("result")]
         public List<Result> Results { get; set; }
+
         public class Result
         {
             [JsonProperty("MarketName")]
@@ -31,13 +32,13 @@ namespace ProfitCalc.ApiControl
             public string Last { get; set; }*/
 
             [JsonProperty("BaseVolume")]
-            public string BaseVolume { get; set; }
+            public double BaseVolume { get; set; }
 
             /*[JsonProperty("TimeStamp")]
             public string TimeStamp { get; set; }*/
 
             [JsonProperty("Bid")]
-            public string Bid { get; set; }
+            public double Bid { get; set; }
 
             /*[JsonProperty("Ask")]
             public string Ask { get; set; }
