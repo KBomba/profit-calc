@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ProfitCalc.ApiControl;
@@ -11,15 +13,12 @@ namespace ProfitCalc
     internal class CoinList
     {
         public List<Coin> List { get; set; }
+        private readonly HttpClient _client;
 
-        public CoinList(List<Coin> list)
-        {
-            List = list;
-        }
-
-        public CoinList()
+        public CoinList(HttpClient client)
         {
             List = new List<Coin>();
+            _client = client;
         }
 
         public void Add(Coin newCoin)
@@ -50,7 +49,7 @@ namespace ProfitCalc
 
         public void UpdateNiceHash(string address)
         {
-            NiceHash niceHashData = JsonControl.DownloadSerializedApi<NiceHash>(address);
+            NiceHash niceHashData = JsonControl.DownloadSerializedApi<NiceHash>(_client.GetStreamAsync(address).Result);
             Add(new Coin(niceHashData.Results.Stats[0]));
             Add(new Coin(niceHashData.Results.Stats[2]));
             Add(new Coin(niceHashData.Results.Stats[3]));
@@ -62,7 +61,7 @@ namespace ProfitCalc
 
         public void UpdateWhatToMine(string address)
         {
-            WhatToMine wtmData = JsonControl.DownloadSerializedApi<WhatToMine>(address);
+            WhatToMine wtmData = JsonControl.DownloadSerializedApi<WhatToMine>(_client.GetStreamAsync(address).Result);
             foreach (KeyValuePair<string, WhatToMine.Coin> wtmCoin in wtmData.Coins)
             {
                 Coin c = new Coin(wtmCoin);
@@ -72,7 +71,7 @@ namespace ProfitCalc
 
         public void UpdateCoinTweak(string address)
         {
-            CoinTweak ctwData = JsonControl.DownloadSerializedApi<CoinTweak>(address);
+            CoinTweak ctwData = JsonControl.DownloadSerializedApi<CoinTweak>(_client.GetStreamAsync(address).Result);
             foreach (CoinTweak.Coin ctwCoin in ctwData.Coins)
             {
                 Coin c = new Coin(ctwCoin);
@@ -82,7 +81,7 @@ namespace ProfitCalc
 
         public void UpdateCoinWarz(string address)
         {
-            CoinWarz cwzData = JsonControl.DownloadSerializedApi<CoinWarz>(address);
+            CoinWarz cwzData = JsonControl.DownloadSerializedApi<CoinWarz>(_client.GetStreamAsync(address).Result);
             foreach (CoinWarz.Coin cwzCoin in cwzData.Data)
             {
                 Coin c = new Coin(cwzCoin);
@@ -92,7 +91,7 @@ namespace ProfitCalc
 
         public void UpdateMintPal(string address)
         {
-            MintPal mp = JsonControl.DownloadSerializedApi<MintPal>(address);
+            MintPal mp = JsonControl.DownloadSerializedApi<MintPal>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(mp.Data, mpCoin =>
             {
                 if (mpCoin.Exchange == "BTC" && mpCoin.Code == c.TagName)
@@ -120,7 +119,7 @@ namespace ProfitCalc
 
         public void UpdateCryptsy(string address)
         {
-            Cryptsy cp = JsonControl.DownloadSerializedApi<Cryptsy>(address);
+            Cryptsy cp = JsonControl.DownloadSerializedApi<Cryptsy>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(cp.Returns.Markets, cpCoin =>
             {
                 if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName &&
@@ -150,7 +149,7 @@ namespace ProfitCalc
 
         public void UpdateBittrex(string address)
         {
-            Bittrex bt = JsonControl.DownloadSerializedApi<Bittrex>(address);
+            Bittrex bt = JsonControl.DownloadSerializedApi<Bittrex>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(bt.Results, btCoin =>
             {
                 String[] splitMarket = btCoin.MarketName.Split('-');
@@ -180,7 +179,7 @@ namespace ProfitCalc
 
         public void UpdatePoloniex(string address)
         {
-            Dictionary<string, Poloniex> pol = JsonControl.DownloadSerializedApi<Dictionary<string, Poloniex>>(address);
+            Dictionary<string, Poloniex> pol = JsonControl.DownloadSerializedApi<Dictionary<string, Poloniex>>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(pol, polCoin =>
             {
                 String[] splitMarket = polCoin.Key.Split('_');
@@ -212,7 +211,7 @@ namespace ProfitCalc
 
         public void UpdateAllCoin(string address)
         {
-            AllCoin ac = JsonControl.DownloadSerializedApi<AllCoin>(address);
+            AllCoin ac = JsonControl.DownloadSerializedApi<AllCoin>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(ac.Data, acCoin =>
             {
                 String[] splitMarket = acCoin.Key.Split('_');
@@ -254,7 +253,7 @@ namespace ProfitCalc
 
         public void UpdateAllCrypt(string address)
         {
-            AllCrypt ac = JsonControl.DownloadSerializedApi<AllCrypt>(address);
+            AllCrypt ac = JsonControl.DownloadSerializedApi<AllCrypt>(_client.GetStreamAsync(address).Result);
 
             Parallel.ForEach(List, c => Parallel.ForEach(ac.Returns.Markets, acCoin =>
             {
@@ -286,7 +285,7 @@ namespace ProfitCalc
 
         public void UpdatePoolPicker(string address, decimal average, bool reviewCalc)
         {
-            PoolPicker pp = JsonControl.DownloadSerializedApi<PoolPicker>(address);
+            PoolPicker pp = JsonControl.DownloadSerializedApi<PoolPicker>(_client.GetStreamAsync(address).Result);
             foreach (PoolPicker.Pool pool in pp.Pools)
             {
                 double reviewPercentage, rating;
@@ -479,18 +478,18 @@ namespace ProfitCalc
 
         public void AddMoneroWorkAround()
         {
-            MoneroChain mon = JsonControl.DownloadSerializedApi<MoneroChain>("http://monerochain.info/api/stats");
+            MoneroChain mon = JsonControl.DownloadSerializedApi<MoneroChain>(_client.GetStreamAsync("http://monerochain.info/api/stats").Result);
             MoneroLatestBlock moneroLatest;
             try
             {
                 moneroLatest = JsonControl.DownloadSerializedApi<MoneroLatestBlock>(
-                    "http://monerochain.info/api/block/" + mon.Height);
+                    _client.GetStreamAsync("http://monerochain.info/api/block/").Result);
             }
             catch (Exception)
             {
                 moneroLatest =
                     JsonControl.DownloadSerializedApi<MoneroLatestBlock>(
-                    "http://monerochain.info/api/block/" + (mon.Height - 1));
+                    _client.GetStreamAsync("http://monerochain.info/api/block/" + (mon.Height - 1)).Result);
             }
 
             Coin c = new Coin
@@ -511,15 +510,15 @@ namespace ProfitCalc
             Add(c);
         }
 
-        public void Sort(HashRateJson hashList, bool useWeightedCalculation, string coindeskAddress,
+        public void Sort(HashRateJson hashList, bool useWeightedCalculation, string coindeskAdress,
             string coindeskCnyAdress)
         {
-            CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(coindeskAddress);
+            CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(_client.GetStreamAsync(coindeskAdress).Result);
             double usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
             double eurPrice = cd.BpiPrice.EurPrice.RateFloat;
             double gbpPrice = cd.BpiPrice.GbpPrice.RateFloat;
 
-            cd = JsonControl.DownloadSerializedApi<CoinDesk>(coindeskCnyAdress);
+            cd = JsonControl.DownloadSerializedApi<CoinDesk>(_client.GetStreamAsync(coindeskCnyAdress).Result);
             double cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
 
             Parallel.ForEach(List, coin =>

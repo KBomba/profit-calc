@@ -32,6 +32,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.grpHashrates = new System.Windows.Forms.GroupBox();
+            this.chkX15 = new System.Windows.Forms.CheckBox();
+            this.txtX15Wattage = new System.Windows.Forms.TextBox();
+            this.txtX15 = new System.Windows.Forms.TextBox();
+            this.chkQubit = new System.Windows.Forms.CheckBox();
+            this.txtQubitWattage = new System.Windows.Forms.TextBox();
+            this.txtQubit = new System.Windows.Forms.TextBox();
             this.cbbFiat = new System.Windows.Forms.ComboBox();
             this.lblElectricityCost = new System.Windows.Forms.Label();
             this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
@@ -125,12 +131,8 @@
             this.chkReviewCalc = new System.Windows.Forms.CheckBox();
             this.chkWeight = new System.Windows.Forms.CheckBox();
             this.chkShowOnlyHealthy = new System.Windows.Forms.CheckBox();
-            this.chkQubit = new System.Windows.Forms.CheckBox();
-            this.txtQubitWattage = new System.Windows.Forms.TextBox();
-            this.txtQubit = new System.Windows.Forms.TextBox();
-            this.chkX15 = new System.Windows.Forms.CheckBox();
-            this.txtX15Wattage = new System.Windows.Forms.TextBox();
-            this.txtX15 = new System.Windows.Forms.TextBox();
+            this.txtProxy = new System.Windows.Forms.TextBox();
+            this.chkProxy = new System.Windows.Forms.CheckBox();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -210,6 +212,62 @@
             this.grpHashrates.TabIndex = 0;
             this.grpHashrates.TabStop = false;
             this.grpHashrates.Text = "Your hashrates";
+            // 
+            // chkX15
+            // 
+            this.chkX15.AutoSize = true;
+            this.chkX15.Checked = true;
+            this.chkX15.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkX15.Location = new System.Drawing.Point(9, 254);
+            this.chkX15.Name = "chkX15";
+            this.chkX15.Size = new System.Drawing.Size(45, 17);
+            this.chkX15.TabIndex = 74;
+            this.chkX15.Text = "X15";
+            this.chkX15.UseVisualStyleBackColor = true;
+            // 
+            // txtX15Wattage
+            // 
+            this.txtX15Wattage.Location = new System.Drawing.Point(188, 252);
+            this.txtX15Wattage.Name = "txtX15Wattage";
+            this.txtX15Wattage.Size = new System.Drawing.Size(50, 20);
+            this.txtX15Wattage.TabIndex = 73;
+            this.txtX15Wattage.Text = "500";
+            // 
+            // txtX15
+            // 
+            this.txtX15.Location = new System.Drawing.Point(102, 252);
+            this.txtX15.Name = "txtX15";
+            this.txtX15.Size = new System.Drawing.Size(80, 20);
+            this.txtX15.TabIndex = 72;
+            this.txtX15.Text = "1.5";
+            // 
+            // chkQubit
+            // 
+            this.chkQubit.AutoSize = true;
+            this.chkQubit.Checked = true;
+            this.chkQubit.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkQubit.Location = new System.Drawing.Point(9, 306);
+            this.chkQubit.Name = "chkQubit";
+            this.chkQubit.Size = new System.Drawing.Size(51, 17);
+            this.chkQubit.TabIndex = 71;
+            this.chkQubit.Text = "Qubit";
+            this.chkQubit.UseVisualStyleBackColor = true;
+            // 
+            // txtQubitWattage
+            // 
+            this.txtQubitWattage.Location = new System.Drawing.Point(188, 304);
+            this.txtQubitWattage.Name = "txtQubitWattage";
+            this.txtQubitWattage.Size = new System.Drawing.Size(50, 20);
+            this.txtQubitWattage.TabIndex = 70;
+            this.txtQubitWattage.Text = "500";
+            // 
+            // txtQubit
+            // 
+            this.txtQubit.Location = new System.Drawing.Point(102, 304);
+            this.txtQubit.Name = "txtQubit";
+            this.txtQubit.Size = new System.Drawing.Size(80, 20);
+            this.txtQubit.TabIndex = 69;
+            this.txtQubit.Text = "3.9";
             // 
             // cbbFiat
             // 
@@ -1025,9 +1083,9 @@
             // txtCointweakApiKey
             // 
             this.txtCointweakApiKey.Enabled = false;
-            this.txtCointweakApiKey.Location = new System.Drawing.Point(122, 44);
+            this.txtCointweakApiKey.Location = new System.Drawing.Point(114, 44);
             this.txtCointweakApiKey.Name = "txtCointweakApiKey";
-            this.txtCointweakApiKey.Size = new System.Drawing.Size(336, 20);
+            this.txtCointweakApiKey.Size = new System.Drawing.Size(344, 20);
             this.txtCointweakApiKey.TabIndex = 30;
             this.txtCointweakApiKey.Text = "Enter your CoinTweak API key here.";
             // 
@@ -1046,9 +1104,9 @@
             // txtCoinwarzApiKey
             // 
             this.txtCoinwarzApiKey.Enabled = false;
-            this.txtCoinwarzApiKey.Location = new System.Drawing.Point(122, 65);
+            this.txtCoinwarzApiKey.Location = new System.Drawing.Point(114, 65);
             this.txtCoinwarzApiKey.Name = "txtCoinwarzApiKey";
-            this.txtCoinwarzApiKey.Size = new System.Drawing.Size(336, 20);
+            this.txtCoinwarzApiKey.Size = new System.Drawing.Size(344, 20);
             this.txtCoinwarzApiKey.TabIndex = 27;
             this.txtCoinwarzApiKey.Text = "Enter your CoinWarz API key here.";
             // 
@@ -1076,6 +1134,8 @@
             // 
             // grpMisc
             // 
+            this.grpMisc.Controls.Add(this.txtProxy);
+            this.grpMisc.Controls.Add(this.chkProxy);
             this.grpMisc.Controls.Add(this.chkReviewCalc);
             this.grpMisc.Controls.Add(this.chkWeight);
             this.grpMisc.Controls.Add(this.chkShowOnlyHealthy);
@@ -1125,63 +1185,26 @@
             this.chkShowOnlyHealthy.Text = "Show only \"healthy\" coins";
             this.chkShowOnlyHealthy.UseVisualStyleBackColor = true;
             // 
-            // chkQubit
+            // txtProxy
             // 
-            this.chkQubit.AutoSize = true;
-            this.chkQubit.Checked = true;
-            this.chkQubit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkQubit.Location = new System.Drawing.Point(9, 306);
-            this.chkQubit.Name = "chkQubit";
-            this.chkQubit.Size = new System.Drawing.Size(51, 17);
-            this.chkQubit.TabIndex = 71;
-            this.chkQubit.Text = "Qubit";
-            this.chkQubit.UseVisualStyleBackColor = true;
+            this.txtProxy.Enabled = false;
+            this.txtProxy.Location = new System.Drawing.Point(331, 40);
+            this.txtProxy.Name = "txtProxy";
+            this.txtProxy.Size = new System.Drawing.Size(282, 20);
+            this.txtProxy.TabIndex = 32;
             // 
-            // txtQubitWattage
+            // chkProxy
             // 
-            this.txtQubitWattage.Location = new System.Drawing.Point(188, 304);
-            this.txtQubitWattage.Name = "txtQubitWattage";
-            this.txtQubitWattage.Size = new System.Drawing.Size(50, 20);
-            this.txtQubitWattage.TabIndex = 70;
-            this.txtQubitWattage.Text = "500";
+            this.chkProxy.AutoSize = true;
+            this.chkProxy.Location = new System.Drawing.Point(273, 42);
+            this.chkProxy.Name = "chkProxy";
+            this.chkProxy.Size = new System.Drawing.Size(52, 17);
+            this.chkProxy.TabIndex = 31;
+            this.chkProxy.Text = "Proxy";
+            this.chkProxy.UseVisualStyleBackColor = true;
+            this.chkProxy.CheckedChanged += new System.EventHandler(this.chkProxy_CheckedChanged);
             // 
-            // txtQubit
-            // 
-            this.txtQubit.Location = new System.Drawing.Point(102, 304);
-            this.txtQubit.Name = "txtQubit";
-            this.txtQubit.Size = new System.Drawing.Size(80, 20);
-            this.txtQubit.TabIndex = 69;
-            this.txtQubit.Text = "3.9";
-            // 
-            // chkX15
-            // 
-            this.chkX15.AutoSize = true;
-            this.chkX15.Checked = true;
-            this.chkX15.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkX15.Location = new System.Drawing.Point(9, 254);
-            this.chkX15.Name = "chkX15";
-            this.chkX15.Size = new System.Drawing.Size(45, 17);
-            this.chkX15.TabIndex = 74;
-            this.chkX15.Text = "X15";
-            this.chkX15.UseVisualStyleBackColor = true;
-            // 
-            // txtX15Wattage
-            // 
-            this.txtX15Wattage.Location = new System.Drawing.Point(188, 252);
-            this.txtX15Wattage.Name = "txtX15Wattage";
-            this.txtX15Wattage.Size = new System.Drawing.Size(50, 20);
-            this.txtX15Wattage.TabIndex = 73;
-            this.txtX15Wattage.Text = "500";
-            // 
-            // txtX15
-            // 
-            this.txtX15.Location = new System.Drawing.Point(102, 252);
-            this.txtX15.Name = "txtX15";
-            this.txtX15.Size = new System.Drawing.Size(80, 20);
-            this.txtX15.TabIndex = 72;
-            this.txtX15.Text = "1.5";
-            // 
-            // CudaProfitCalc
+            // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1193,7 +1216,7 @@
             this.Controls.Add(this.dgView);
             this.Controls.Add(this.grpHashrates);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "CudaProfitCalc";
+            this.Name = "ProfitCalc";
             this.Text = "Profit Calculator~ By KBomba";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CudaProfitCalc_FormClosing);
             this.grpHashrates.ResumeLayout(false);
@@ -1316,6 +1339,8 @@
         private System.Windows.Forms.CheckBox chkX15;
         private System.Windows.Forms.TextBox txtX15Wattage;
         private System.Windows.Forms.TextBox txtX15;
+        private System.Windows.Forms.TextBox txtProxy;
+        private System.Windows.Forms.CheckBox chkProxy;
     }
 }
 

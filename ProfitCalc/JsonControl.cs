@@ -1,18 +1,17 @@
 ﻿using System.IO;
-using System.Net.Http;
 using Newtonsoft.Json;
 
 namespace ProfitCalc
 {
     public static class JsonControl
     {
-        public static T DownloadSerializedApi<T>(string address) where T : new()
+        public static T DownloadSerializedApi<T>(Stream rawStream) where T : new()
         {
             using (JsonReader reader = 
                 new JsonTextReader(
                     new StreamReader(
                         new BufferedStream(
-                            new HttpClient().GetStreamAsync(address).Result))))
+                            rawStream))))
             {
                 JsonSerializer serializer = new JsonSerializer {NullValueHandling = NullValueHandling.Ignore};
                 return serializer.Deserialize<T>(reader);

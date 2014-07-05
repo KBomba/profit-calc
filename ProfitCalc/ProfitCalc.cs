@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -110,6 +112,7 @@ namespace ProfitCalc
                     nudPoolpicker.Text = apiSettings.ApiSettings["PoolPicker"];
                     nudAmount.Text = apiSettings.ApiSettings["Multiplier"];
                     _hashRateMultiplier = nudAmount.Value;
+                    txtProxy.Text = apiSettings.ApiSettings["ProxyURL"];
 
                     chlBoxMarketApi.SetItemChecked(0, apiSettings.CheckedApis["Bittrex"]);
                     chlBoxMarketApi.SetItemChecked(1, apiSettings.CheckedApis["Mintpal"]);
@@ -124,7 +127,9 @@ namespace ProfitCalc
                     chkCointweak.Checked = apiSettings.CheckedApis["CoinTweak"];
                     chkCoinwarz.Checked = apiSettings.CheckedApis["CoinWarz"];
                     chkPoolpicker.Checked = apiSettings.CheckedApis["PoolPicker"];
-                    chkWeight.Checked = apiSettings.CheckedApis["WeightedCalculations"];
+
+                    chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"];
+                    chkProxy.Checked = apiSettings.CheckedMisc["Proxy"];
                 }
             }
             catch (Exception exception)
@@ -171,12 +176,14 @@ namespace ProfitCalc
             {
                 ApiSettings = new Dictionary<string, string>(),
                 CheckedApis = new Dictionary<string, bool>(),
+                CheckedMisc = new Dictionary<string, bool>(),
             };
 
             apiSettings.ApiSettings.Add("CoinTweak", txtCointweakApiKey.Text);
             apiSettings.ApiSettings.Add("CoinWarz", txtCoinwarzApiKey.Text);
             apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
             apiSettings.ApiSettings.Add("Multiplier", nudAmount.Text);
+            apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
 
             apiSettings.CheckedApis.Add("Bittrex", chlBoxMarketApi.GetItemChecked(0));
             apiSettings.CheckedApis.Add("Mintpal", chlBoxMarketApi.GetItemChecked(1));
@@ -191,7 +198,9 @@ namespace ProfitCalc
             apiSettings.CheckedApis.Add("CoinTweak", chkCointweak.Checked);
             apiSettings.CheckedApis.Add("CoinWarz", chkCoinwarz.Checked);
             apiSettings.CheckedApis.Add("PoolPicker", chkPoolpicker.Checked);
-            apiSettings.CheckedApis.Add("WeightedCalculations", chkWeight.Checked);
+
+            apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
+            apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
 
             string jsonApiList = JsonConvert.SerializeObject(apiSettings, Formatting.Indented);
             File.WriteAllText(@"apisettings.txt", jsonApiList);
@@ -278,7 +287,19 @@ namespace ProfitCalc
 
         private void GetCoinList(int progress)
         {
-            _coinList = new CoinList();
+            HttpClientHandler hch = new HttpClientHandler();
+            if (chkProxy.Checked)
+            {
+                hch.UseProxy = true;
+                hch.Proxy = String.IsNullOrEmpty(txtProxy.Text) ? WebRequest.GetSystemWebProxy() : new WebProxy(txtProxy.Text);
+            }
+            else
+            {
+                hch.UseProxy = false;
+                hch.Proxy = null;
+            }
+
+            _coinList = new CoinList(new HttpClient(hch, true));
 
             if (chkCryptonight.Checked)
             {
@@ -771,6 +792,11 @@ namespace ProfitCalc
         private void chkCoinwarz_CheckedChanged(object sender, EventArgs e)
         {
             txtCoinwarzApiKey.Enabled = chkCoinwarz.Checked;
+        }
+
+        private void chkProxy_CheckedChanged(object sender, EventArgs e)
+        {
+            txtProxy.Enabled = chkProxy.Checked;
         }
 
         private void nudAmount_ValueChanged(object sender, EventArgs e)

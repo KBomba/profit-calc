@@ -28,5 +28,8 @@ namespace ProfitCalc
 
         [JsonProperty("CheckedApis")]
         public Dictionary<string, bool> CheckedApis { get; set; }
+
+        [JsonProperty("CheckedMisc")]
+        public Dictionary<string, bool> CheckedMisc { get; set; }
     }
 }
