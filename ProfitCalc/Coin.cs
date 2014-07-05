@@ -73,6 +73,9 @@ namespace ProfitCalc
                 case 0:
                     Algo = HashAlgo.Algo.Scrypt;
                     break;
+                case 2:
+                    Algo = HashAlgo.Algo.ScryptN;
+                    break;
                 case 3:
                     Algo = HashAlgo.Algo.X11;
                     break;

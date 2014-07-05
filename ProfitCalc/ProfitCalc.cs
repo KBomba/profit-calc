@@ -200,6 +200,7 @@ namespace ProfitCalc
         private void btnCalc_Click(object sender, EventArgs e)
         {
             // Actual process starts here ^^"
+            DateTime start = DateTime.Now;
             tsStatus.Text = "Starting...";
             tsProgress.Value = 0;
 
@@ -215,7 +216,8 @@ namespace ProfitCalc
             if (chkShowOnlyHealthy.Checked)
             {
                 tsStatus.Text = "Another round of unhealthy coin removal..";
-                _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay) && !coin.IsMultiPool);
+                _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay && !coin.IsMultiPool)
+                    || (coin.BtcPerDay <= 0));
             }
 
             tsProgress.Value += i;
@@ -224,7 +226,8 @@ namespace ProfitCalc
             UpdateDataGridView();
 
             tsProgress.Value = 100;
-            tsStatus.Text = "Completed";
+            TimeSpan end = DateTime.Now.Subtract(start);
+            tsStatus.Text = "Completed in " + end.TotalSeconds.ToString("0.##") + " seconds";
         }
 
         private void SortAndCalculatePrices()
@@ -463,7 +466,7 @@ namespace ProfitCalc
             {
                 tsStatus.Text = "Removing unhealthy coins...";
                 _coinList.List =
-                    _coinList.List.Where(coin => coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
+                    _coinList.List.AsParallel().Where(coin => coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
             }
         }
 

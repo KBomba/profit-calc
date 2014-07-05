@@ -52,6 +52,7 @@ namespace ProfitCalc
         {
             NiceHash niceHashData = JsonControl.DownloadSerializedApi<NiceHash>(address);
             Add(new Coin(niceHashData.Results.Stats[0]));
+            Add(new Coin(niceHashData.Results.Stats[2]));
             Add(new Coin(niceHashData.Results.Stats[3]));
             Add(new Coin(niceHashData.Results.Stats[4]));
             Add(new Coin(niceHashData.Results.Stats[5]));
@@ -554,7 +555,7 @@ namespace ProfitCalc
 
             //Removing all errored coins and actually sorting them
             List =
-                List.Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
+                List.AsParallel().Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
                     .OrderByDescending(o => o.BtcPerDay)
                     .ToList();
         }
@@ -571,7 +572,7 @@ namespace ProfitCalc
 
             //Removing all errored coins and actually sorting them
             List =
-                List.Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
+                List.AsParallel().Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
                     .OrderByDescending(o => o.BtcPerDay)
                     .ToList();
         }
