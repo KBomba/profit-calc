@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -285,6 +284,8 @@ namespace ProfitCalc
 
         public void UpdatePoolPicker(string address, decimal average, bool reviewCalc)
         {
+            DateTime whenToEnd = DateTime.UtcNow - new TimeSpan((int) average, 0, 0,0);
+
             PoolPicker pp = JsonControl.DownloadSerializedApi<PoolPicker>(_client.GetStreamAsync(address).Result);
             foreach (PoolPicker.Pool pool in pp.Pools)
             {
@@ -298,182 +299,62 @@ namespace ProfitCalc
                     reviewPercentage = 1;
                 }
 
-
                 if (pool.PoolProfitability.Scrypt != null)
-                {
-                    Coin c = new Coin
-                    {
-                        Difficulty = (double) average,
-                        HasImplementedMarketApi = true,
-                        IsMultiPool = true,
-                        HasMarketErrors = false,
-                        Exchanges = new List<Coin.Exchange>(),
-                    };
-                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
-                    c.Exchanges.Add(ppExchange);
-
-                    c.Algo = HashAlgo.Algo.Scrypt;
-                    c.CoinName = pool.Name + " " + c.Algo;
-                    c.TagName = "PP" + pool.Id + c.Algo;
-
-                    double dAverage = 0;
-                    int iCounter = 0;
-                    foreach (PoolPicker.Pool.Profitability.Algo scrypt in pool.PoolProfitability.Scrypt)
-                    {
-                        if (iCounter == average) break;
-                        iCounter++;
-                        dAverage += scrypt.Btc;
-                    }
-
-                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
-                    if (reviewCalc)
-                    {
-                        c.Exchanges[0].BtcPrice *= reviewPercentage;
-                    }
-
-                    Add(c);
-                }
+                    AddPoolPickerPool(pool, pool.PoolProfitability.Scrypt, HashAlgo.Algo.Scrypt, whenToEnd, reviewCalc, reviewPercentage);
+                
 
                 if (pool.PoolProfitability.ScryptN != null)
-                {
-                    Coin c = new Coin
-                    {
-                        Difficulty = (double) average,
-                        HasImplementedMarketApi = true,
-                        IsMultiPool = true,
-                        HasMarketErrors = false,
-                        Exchanges = new List<Coin.Exchange>(),
-                    };
-                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
-                    c.Exchanges.Add(ppExchange);
-
-                    c.Algo = HashAlgo.Algo.ScryptN;
-                    c.CoinName = pool.Name + " " + c.Algo;
-                    c.TagName = "PP" + pool.Id + c.Algo;
-
-                    double dAverage = 0;
-                    int iCounter = 0;
-                    foreach (PoolPicker.Pool.Profitability.Algo scryptN in pool.PoolProfitability.ScryptN)
-                    {
-                        if (iCounter == average) break;
-                        iCounter++;
-                        dAverage += scryptN.Btc;
-                    }
-
-                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
-                    if (reviewCalc)
-                    {
-                        c.Exchanges[0].BtcPrice *= reviewPercentage;
-                    }
-
-                    Add(c);
-                }
+                    AddPoolPickerPool(pool, pool.PoolProfitability.ScryptN, HashAlgo.Algo.ScryptN, whenToEnd, reviewCalc, reviewPercentage);
 
                 if (pool.PoolProfitability.X11 != null)
-                {
-                    Coin c = new Coin
-                    {
-                        Difficulty = (double) average,
-                        HasImplementedMarketApi = true,
-                        IsMultiPool = true,
-                        HasMarketErrors = false,
-                        Exchanges = new List<Coin.Exchange>(),
-                    };
-                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
-                    c.Exchanges.Add(ppExchange);
+                    AddPoolPickerPool(pool, pool.PoolProfitability.X11, HashAlgo.Algo.X11, whenToEnd, reviewCalc, reviewPercentage);
 
-                    c.Algo = HashAlgo.Algo.X11;
-                    c.CoinName = pool.Name + " " + c.Algo;
-                    c.TagName = "PP" + pool.Id + c.Algo;
-
-                    double dAverage = 0;
-                    int iCounter = 0;
-                    foreach (PoolPicker.Pool.Profitability.Algo x11 in pool.PoolProfitability.X11)
-                    {
-                        if (iCounter == average) break;
-                        iCounter++;
-                        dAverage += x11.Btc;
-                    }
-
-                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
-                    if (reviewCalc)
-                    {
-                        c.Exchanges[0].BtcPrice *= reviewPercentage;
-                    }
-
-                    Add(c);
-                }
 
                 if (pool.PoolProfitability.X13 != null)
-                {
-                    Coin c = new Coin
-                    {
-                        Difficulty = (double) average,
-                        HasImplementedMarketApi = true,
-                        IsMultiPool = true,
-                        HasMarketErrors = false,
-                        Exchanges = new List<Coin.Exchange>(),
-                    };
-                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
-                    c.Exchanges.Add(ppExchange);
-
-                    c.Algo = HashAlgo.Algo.X13;
-                    c.CoinName = pool.Name + " " + c.Algo;
-                    c.TagName = "PP" + pool.Id + c.Algo;
-
-                    double dAverage = 0;
-                    int iCounter = 0;
-                    foreach (PoolPicker.Pool.Profitability.Algo x13 in pool.PoolProfitability.X13)
-                    {
-                        if (iCounter == average) break;
-                        iCounter++;
-                        dAverage += x13.Btc;
-                    }
-
-                    c.Exchanges[0].BtcPrice = dAverage/iCounter*1000;
-                    if (reviewCalc)
-                    {
-                        c.Exchanges[0].BtcPrice *= reviewPercentage;
-                    }
-
-                    Add(c);
-                }
+                    AddPoolPickerPool(pool, pool.PoolProfitability.X13, HashAlgo.Algo.X13, whenToEnd, reviewCalc, reviewPercentage);
 
                 if (pool.PoolProfitability.Keccak != null)
-                {
-                    Coin c = new Coin
-                    {
-                        Difficulty = (double) average,
-                        HasImplementedMarketApi = true,
-                        IsMultiPool = true,
-                        HasMarketErrors = false,
-                        Exchanges = new List<Coin.Exchange>(),
-                    };
-                    Coin.Exchange ppExchange = new Coin.Exchange {ExchangeName = pool.Name,};
-                    c.Exchanges.Add(ppExchange);
-
-                    c.Algo = HashAlgo.Algo.Keccak;
-                    c.CoinName = pool.Name + " " + c.Algo;
-                    c.TagName = "PP" + pool.Id + c.Algo;
-
-                    double dAverage = 0;
-                    int iCounter = 0;
-                    foreach (PoolPicker.Pool.Profitability.Algo keccak in pool.PoolProfitability.Keccak)
-                    {
-                        if (iCounter == average) break;
-                        iCounter++;
-                        dAverage += keccak.Btc;
-                    }
-
-                    c.Exchanges[0].BtcPrice = dAverage/iCounter;
-                    if (reviewCalc)
-                    {
-                        c.Exchanges[0].BtcPrice *= reviewPercentage;
-                    }
-
-                    Add(c);
-                }
+                    AddPoolPickerPool(pool, pool.PoolProfitability.Keccak, HashAlgo.Algo.Keccak, whenToEnd, reviewCalc, reviewPercentage);
             }
+        }
+
+        private void AddPoolPickerPool(PoolPicker.Pool pool, List<PoolPicker.Pool.Profitability.Algo> profitList, HashAlgo.Algo algo, DateTime whenToEnd, bool reviewCalc, double reviewPercentage)
+        {
+            Coin c = new Coin
+            {
+                HasImplementedMarketApi = true,
+                IsMultiPool = true,
+                HasMarketErrors = false,
+                Exchanges = new List<Coin.Exchange>(),
+            };
+            Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
+            c.Exchanges.Add(ppExchange);
+
+            c.Algo = algo;
+            c.CoinName = pool.Name + " " + c.Algo;
+            c.TagName = "PP" + pool.Id + c.Algo;
+
+            double dAverage = 0;
+            int iCounter;
+            for (iCounter = 0; iCounter < profitList.Count; iCounter++)
+            {
+                PoolPicker.Pool.Profitability.Algo profit = profitList[iCounter];
+                dAverage += profit.Btc;
+                DateTime profitDate = DateTime.ParseExact(profit.Date, "yyyy-MM-dd",
+                    CultureInfo.InvariantCulture);
+                if (profitDate.Date.Equals(whenToEnd.Date)) break;
+            }
+
+            c.Exchanges[0].BtcPrice = c.Algo == HashAlgo.Algo.Keccak
+                ? dAverage/(iCounter + 1)
+                : dAverage/(iCounter + 1)*1000;
+
+            if (reviewCalc)
+            {
+                c.Exchanges[0].BtcPrice *= reviewPercentage;
+            }
+
+            Add(c);
         }
 
         public void AddMoneroWorkAround()

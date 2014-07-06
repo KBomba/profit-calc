@@ -54,8 +54,8 @@ namespace ProfitCalc.ApiControl
 
                 public class Algo
                 {
-                    /*[JsonProperty("date")]
-                    public string Date { get; set; }*/
+                    [JsonProperty("date")]
+                    public string Date { get; set; }
 
                     [JsonProperty("btc")]
                     public double Btc { get; set; }
