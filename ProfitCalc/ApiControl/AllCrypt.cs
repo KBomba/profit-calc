@@ -36,10 +36,10 @@ namespace ProfitCalc.ApiControl
                 [JsonProperty("secondarycode")]
                 public string SecondaryCode { get; set; }
 
-                /*[JsonProperty("lasttradeprice")]
-                public string LastTradePrice { get; set; }
+                [JsonProperty("lasttradeprice")]
+                public double LastTradePrice { get; set; }
 
-                [JsonProperty("lasttradetime")]
+                /*[JsonProperty("lasttradetime")]
                 public string LastTradeTime { get; set; }
 
                 [JsonProperty("volume")]
@@ -48,8 +48,8 @@ namespace ProfitCalc.ApiControl
                 [JsonProperty("high_buy")]
                 public double HighBuy { get; set; }
 
-                /*[JsonProperty("low_sell")]
-                public string LowSell { get; set; }*/
+                [JsonProperty("low_sell")]
+                public double LowSell { get; set; }
 
                 [JsonProperty("volume_by_pair")]
                 public double VolumeByPair { get; set; }

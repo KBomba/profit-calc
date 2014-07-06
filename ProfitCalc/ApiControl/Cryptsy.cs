@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
@@ -64,11 +63,11 @@ namespace ProfitCalc.ApiControl
 
                     [JsonProperty("total")]
                     public double Total { get; set; }
-                }
+                }*/
 
                 [JsonProperty("sellorders")]
                 public List<Order> SellOrders { get; set; }
-                */
+                
 
                 [JsonProperty("buyorders")]
                 public List<Order> BuyOrders { get; set; }
@@ -76,7 +75,7 @@ namespace ProfitCalc.ApiControl
                 public class Order
                 {
                     [JsonProperty("price")]
-                    public Double Price { get; set; }
+                    public double Price { get; set; }
 
                     /*[JsonProperty("quantity")]
                     public double Quantity { get; set; }

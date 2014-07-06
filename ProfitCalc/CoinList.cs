@@ -88,17 +88,34 @@ namespace ProfitCalc
             }
         }
 
-        public void UpdateMintPal(string address)
+        public void UpdateMintPal(string address, int selectedIndex)
         {
             MintPal mp = JsonControl.DownloadSerializedApi<MintPal>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(mp.Data, mpCoin =>
             {
                 if (mpCoin.Exchange == "BTC" && mpCoin.Code == c.TagName)
                 {
+                    double priceToUse;
+                    switch (selectedIndex)
+                    {
+                        case 0:
+                            priceToUse = mpCoin.TopBid;
+                            break;
+                        case 1:
+                            priceToUse = mpCoin.LastPrice;
+                            break;
+                        case 2:
+                            priceToUse = mpCoin.TopAsk;
+                            break;
+                        default:
+                            priceToUse = mpCoin.TopBid;
+                            break;
+                    }
+
                     Coin.Exchange mpExchange = new Coin.Exchange
                     {
                         ExchangeName = "MintPal",
-                        BtcPrice = mpCoin.TopBid,
+                        BtcPrice = priceToUse,
                         BtcVolume = mpCoin.Last24HVol
                     };
                     if (c.HasImplementedMarketApi)
@@ -116,7 +133,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateCryptsy(string address)
+        public void UpdateCryptsy(string address, int selectedIndex)
         {
             Cryptsy cp = JsonControl.DownloadSerializedApi<Cryptsy>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(cp.Returns.Markets, cpCoin =>
@@ -124,12 +141,29 @@ namespace ProfitCalc
                 if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName &&
                     cpCoin.Value.BuyOrders != null)
                 {
+                    double priceToUse;
+                    switch (selectedIndex)
+                    {
+                        case 0:
+                            priceToUse = cpCoin.Value.BuyOrders[0].Price;
+                            break;
+                        case 1:
+                            priceToUse = cpCoin.Value.LastTradePrice;
+                            break;
+                        case 2:
+                            priceToUse = cpCoin.Value.SellOrders[0].Price;
+                            break;
+                        default:
+                            priceToUse = cpCoin.Value.BuyOrders[0].Price;
+                            break;
+                    }
+
                     Coin.Exchange cpExchange = new Coin.Exchange
                     {
                         ExchangeName = "Cryptsy",
-                        BtcPrice = cpCoin.Value.BuyOrders[0].Price
+                        BtcPrice = priceToUse,
+                        BtcVolume = (cpCoin.Value.Volume*priceToUse)
                     };
-                    cpExchange.BtcVolume = (cpCoin.Value.Volume*cpExchange.BtcPrice);
 
                     if (c.HasImplementedMarketApi)
                     {
@@ -146,7 +180,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateBittrex(string address)
+        public void UpdateBittrex(string address, int selectedIndex)
         {
             Bittrex bt = JsonControl.DownloadSerializedApi<Bittrex>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(bt.Results, btCoin =>
@@ -154,10 +188,27 @@ namespace ProfitCalc
                 String[] splitMarket = btCoin.MarketName.Split('-');
                 if (splitMarket[0].Trim().ToUpper() == "BTC" && splitMarket[1].Trim().ToUpper() == c.TagName)
                 {
+                    double priceToUse;
+                    switch (selectedIndex)
+                    {
+                        case 0:
+                            priceToUse = btCoin.Bid;
+                            break;
+                        case 1:
+                            priceToUse = btCoin.Last;
+                            break;
+                        case 2:
+                            priceToUse = btCoin.Ask;
+                            break;
+                        default:
+                            priceToUse = btCoin.Bid;
+                            break;
+                    }
+
                     Coin.Exchange btExchange = new Coin.Exchange
                     {
                         ExchangeName = "Bittrex",
-                        BtcPrice = btCoin.Bid,
+                        BtcPrice = priceToUse,
                         BtcVolume = btCoin.BaseVolume
                     };
 
@@ -176,7 +227,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdatePoloniex(string address)
+        public void UpdatePoloniex(string address, int selectedIndex)
         {
             Dictionary<string, Poloniex> pol = JsonControl.DownloadSerializedApi<Dictionary<string, Poloniex>>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(pol, polCoin =>
@@ -184,10 +235,27 @@ namespace ProfitCalc
                 String[] splitMarket = polCoin.Key.Split('_');
                 if (splitMarket[0].Trim().ToUpper() == "BTC" && splitMarket[1].Trim().ToUpper() == c.TagName)
                 {
+                    double priceToUse;
+                    switch (selectedIndex)
+                    {
+                        case 0:
+                            priceToUse = polCoin.Value.HighestBid;
+                            break;
+                        case 1:
+                            priceToUse = polCoin.Value.Last;
+                            break;
+                        case 2:
+                            priceToUse = polCoin.Value.LowestAsk;
+                            break;
+                        default:
+                            priceToUse = polCoin.Value.HighestBid;
+                            break;
+                    }
+
                     Coin.Exchange polExchange = new Coin.Exchange
                     {
                         ExchangeName = "Poloniex",
-                        BtcPrice = polCoin.Value.HighestBid,
+                        BtcPrice = priceToUse,
                         BtcVolume = polCoin.Value.BaseVolume
                     };
 
@@ -208,7 +276,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateAllCoin(string address)
+        public void UpdateAllCoin(string address, int selectedIndex)
         {
             AllCoin ac = JsonControl.DownloadSerializedApi<AllCoin>(_client.GetStreamAsync(address).Result);
             Parallel.ForEach(List, c => Parallel.ForEach(ac.Data, acCoin =>
@@ -217,12 +285,31 @@ namespace ProfitCalc
                 if (splitMarket[1].Trim().ToUpper() == "BTC" && splitMarket[0].Trim().ToUpper() == c.TagName)
                 {
                     double volume, price;
+                    bool hasOrder;
+
+                    switch (selectedIndex)
+                    {
+                        case 0:
+                            hasOrder = Double.TryParse(acCoin.Value.TopBid, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out price);
+                            break;
+                        case 1:
+                            hasOrder = Double.TryParse(acCoin.Value.TradePrice, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out price);
+                            break;
+                        case 2:
+                            hasOrder = Double.TryParse(acCoin.Value.TopAsk, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out price);
+                            break;
+                        default:
+                            hasOrder = Double.TryParse(acCoin.Value.TopBid, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out price);
+                            break;
+                    }
 
                     if (
-                        Double.TryParse(acCoin.Value.Volume24HBtc, NumberStyles.Float, CultureInfo.InvariantCulture,
-                            out volume) &&
-                        Double.TryParse(acCoin.Value.TopBid, NumberStyles.Float, CultureInfo.InvariantCulture,
-                            out price))
+                        Double.TryParse(acCoin.Value.Volume24HBtc, NumberStyles.Float, 
+                        CultureInfo.InvariantCulture, out volume) && hasOrder)
                     {
                         Coin.Exchange acExchange = new Coin.Exchange
                         {
@@ -250,12 +337,29 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateAllCrypt(string address)
+        public void UpdateAllCrypt(string address, int selectedIndex)
         {
             AllCrypt ac = JsonControl.DownloadSerializedApi<AllCrypt>(_client.GetStreamAsync(address).Result);
 
             Parallel.ForEach(List, c => Parallel.ForEach(ac.Returns.Markets, acCoin =>
             {
+                double priceToUse;
+                switch (selectedIndex)
+                {
+                    case 0:
+                        priceToUse = acCoin.Value.HighBuy;
+                        break;
+                    case 1:
+                        priceToUse = acCoin.Value.LastTradePrice;
+                        break;
+                    case 2:
+                        priceToUse = acCoin.Value.LowSell;
+                        break;
+                    default:
+                        priceToUse = acCoin.Value.HighBuy;
+                        break;
+                }
+
                 if (acCoin.Value.SecondaryCode.Trim().ToUpperInvariant() == "BTC"
                     && acCoin.Value.PrimaryCode.Trim().ToUpper() == c.TagName)
                 {
@@ -263,7 +367,7 @@ namespace ProfitCalc
                     {
                         ExchangeName = "AllCrypt",
                         BtcVolume = acCoin.Value.VolumeByPair,
-                        BtcPrice = acCoin.Value.HighBuy
+                        BtcPrice = priceToUse
                     };
 
                     if (c.HasImplementedMarketApi)

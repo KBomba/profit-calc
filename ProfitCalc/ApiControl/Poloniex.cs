@@ -4,11 +4,11 @@ namespace ProfitCalc.ApiControl
 {
     internal class Poloniex
     {
-        /*[JsonProperty("last")]
-        public string Last { get; set; }
+        [JsonProperty("last")]
+        public double Last { get; set; }
 
         [JsonProperty("lowestAsk")]
-        public string LowestAsk { get; set; }*/
+        public double LowestAsk { get; set; }
 
         [JsonProperty("highestBid")]
         public double HighestBid { get; set; }

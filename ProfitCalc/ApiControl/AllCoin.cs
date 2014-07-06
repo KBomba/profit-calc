@@ -29,12 +29,12 @@ namespace ProfitCalc.ApiControl
             public string Min24HPrice { get; set; }
 
             [JsonProperty("max_24h_price")]
-            public string Max24HPrice { get; set; }
+            public string Max24HPrice { get; set; }*/
 
             [JsonProperty("trade_price")]
             public string TradePrice { get; set; }
 
-            [JsonProperty("type")]
+            /*[JsonProperty("type")]
             public string Type { get; set; }
 
             [JsonProperty("exchange")]
@@ -49,10 +49,10 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("top_bid")]
             public string TopBid { get; set; }
 
-            /*[JsonProperty("top_ask")]
+            [JsonProperty("top_ask")]
             public string TopAsk { get; set; }
 
-            [JsonProperty("name")]
+            /*[JsonProperty("name")]
             public string Name { get; set; }*/
 
             [JsonProperty("status")]

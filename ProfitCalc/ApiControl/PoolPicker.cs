@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    internal class PoolPicker
+    public class PoolPicker
     {
         [JsonProperty("pools")]
         public List<Pool> Pools { get; set; }

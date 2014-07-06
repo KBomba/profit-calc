@@ -7,9 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using Newtonsoft.Json;
 
 namespace ProfitCalc
@@ -23,16 +21,18 @@ namespace ProfitCalc
         public ProfitCalc()
         {
             InitializeComponent();
-            cbbFiat.SelectedIndex = 0;
             LoadSettings();
         }
 
         private void LoadSettings()
         {
-            try
+            cbbFiat.SelectedIndex = 0;
+            
+            if (File.Exists("hashrates.txt"))
             {
-                if (File.Exists("hashrates.txt"))
+                try
                 {
+
                     HashRateJson rates = JsonControl.GetSerializedApiFile<HashRateJson>("hashrates.txt");
                     txtGroestl.Text = rates.ListHashRate[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
                     txtMyrGroestl.Text = rates.ListHashRate[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
@@ -91,11 +91,11 @@ namespace ProfitCalc
                     cbbFiat.SelectedIndex = rates.FiatOfChoice;
                     txtFiatElectricityCost.Text = rates.FiatPerKwh.ToString(CultureInfo.InvariantCulture);
                 }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with loading your hashrates.txt \nIgnore this if this is the first time you get this after updating."
-                                + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with loading your hashrates.txt \nIgnore this if this is the first time you get this after updating."
+                                    + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                }
             }
 
 
@@ -103,11 +103,12 @@ namespace ProfitCalc
             {
                 page.BackColor = SystemColors.Menu;
             }
-
-            try
+            
+            if (File.Exists("apisettings.txt"))
             {
-                if (File.Exists("apisettings.txt"))
+                try
                 {
+
                     ApiSettingsJson apiSettings = JsonControl.GetSerializedApiFile<ApiSettingsJson>("apisettings.txt");
                     txtCointweakApiKey.Text = apiSettings.ApiSettings["CoinTweak"];
                     txtCoinwarzApiKey.Text = apiSettings.ApiSettings["CoinWarz"];
@@ -115,6 +116,9 @@ namespace ProfitCalc
                     nudAmount.Text = apiSettings.ApiSettings["Multiplier"];
                     _hashRateMultiplier = nudAmount.Value;
                     txtProxy.Text = apiSettings.ApiSettings["ProxyURL"];
+                    int savedIndex; 
+                    int.TryParse(apiSettings.ApiSettings["BidRecentAsk"], out savedIndex);
+                    cbbBidRecentAsk.SelectedIndex = savedIndex;
 
                     chkBittrex.Checked = apiSettings.CheckedApis["Bittrex"];
                     chkMintpal.Checked = apiSettings.CheckedApis["Mintpal"];
@@ -132,11 +136,11 @@ namespace ProfitCalc
                     chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"];
                     chkProxy.Checked = apiSettings.CheckedMisc["Proxy"];
                 }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("Oops, something went wrong with loading your apisettings.txt. \nIgnore this if this is the first time you get this after updating."
-                                + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with loading your apisettings.txt. \nIgnore this if this is the first time you get this after updating."
+                                    + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                }
             }
         }
 
@@ -185,6 +189,7 @@ namespace ProfitCalc
             apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
             apiSettings.ApiSettings.Add("Multiplier", nudAmount.Text);
             apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
+            apiSettings.ApiSettings.Add("BidRecentAsk", cbbBidRecentAsk.SelectedIndex.ToString(CultureInfo.InvariantCulture));
 
             apiSettings.CheckedApis.Add("Bittrex", chkBittrex.Checked);
             apiSettings.CheckedApis.Add("Mintpal", chkMintpal.Checked);
@@ -400,7 +405,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Bittrex prices...";
-                    _coinList.UpdateBittrex("https://bittrex.com/api/v1/public/getmarketsummaries");
+                    _coinList.UpdateBittrex("https://bittrex.com/api/v1/public/getmarketsummaries", cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -415,7 +420,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with MintPal prices...";
-                    _coinList.UpdateMintPal("https://api.mintpal.com/v2/market/summary/BTC");
+                    _coinList.UpdateMintPal("https://api.mintpal.com/v2/market/summary/BTC", cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -430,7 +435,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Cryptsy prices... (This might take a few seconds :p )";
-                    _coinList.UpdateCryptsy("http://pubapi.cryptsy.com/api.php?method=marketdatav2");
+                    _coinList.UpdateCryptsy("http://pubapi.cryptsy.com/api.php?method=marketdatav2", cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -445,7 +450,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Poloniex prices...";
-                    _coinList.UpdatePoloniex("https://poloniex.com/public?command=returnTicker");
+                    _coinList.UpdatePoloniex("https://poloniex.com/public?command=returnTicker", cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -460,7 +465,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCoin prices...";
-                    _coinList.UpdateAllCoin("https://www.allcoin.com/api2/pairs");
+                    _coinList.UpdateAllCoin("https://www.allcoin.com/api2/pairs", cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -475,7 +480,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCrypt prices...";
-                    _coinList.UpdateAllCrypt("https://www.allcrypt.com/api?method=cmcmarketdata");
+                    _coinList.UpdateAllCrypt("https://www.allcrypt.com/api?method=cmcmarketdata", cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -808,6 +813,7 @@ namespace ProfitCalc
         private void chkPoolpicker_CheckedChanged(object sender, EventArgs e)
         {
             nudPoolpicker.Enabled = chkPoolpicker.Checked;
+            chkReviewCalc.Checked = chkPoolpicker.Checked;
         }
 
         private void chkCoindesk_CheckedChanged(object sender, EventArgs e)

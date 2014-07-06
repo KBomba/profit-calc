@@ -26,10 +26,10 @@ namespace ProfitCalc.ApiControl
             public string Low { get; set; }
 
             [JsonProperty("Volume")]
-            public string Volume { get; set; }
+            public string Volume { get; set; }*/
 
             [JsonProperty("Last")]
-            public string Last { get; set; }*/
+            public double Last { get; set; }
 
             [JsonProperty("BaseVolume")]
             public double BaseVolume { get; set; }
@@ -40,10 +40,10 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("Bid")]
             public double Bid { get; set; }
 
-            /*[JsonProperty("Ask")]
-            public string Ask { get; set; }
+            [JsonProperty("Ask")]
+            public double Ask { get; set; }
 
-            [JsonProperty("OpenBuyOrders")]
+            /*[JsonProperty("OpenBuyOrders")]
             public string OpenBuyOrders { get; set; }
 
             [JsonProperty("OpenSellOrders")]

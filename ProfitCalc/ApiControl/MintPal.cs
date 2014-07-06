@@ -28,10 +28,10 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("exchange")]
             public string Exchange { get; set; }
 
-            /*[JsonProperty("last_price")]
+            [JsonProperty("last_price")]
             public double LastPrice { get; set; }
 
-            [JsonProperty("yesterday_price")]
+            /*[JsonProperty("yesterday_price")]
             public double YesterdayPrice { get; set; }
 
             [JsonProperty("change")]
@@ -49,8 +49,8 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("top_bid")]
             public double TopBid { get; set; }
 
-            /*[JsonProperty("top_ask")]
-            public double TopAsk { get; set; }*/
+            [JsonProperty("top_ask")]
+            public double TopAsk { get; set; }
         }
     }
 }
