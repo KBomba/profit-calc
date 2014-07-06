@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Newtonsoft.Json;
 
 namespace ProfitCalc
@@ -95,12 +98,11 @@ namespace ProfitCalc
                                 + Environment.NewLine + Environment.NewLine + exception.StackTrace);
             }
 
-            chlBoxMarketApi.Items.Add("Bittrex", true);
-            chlBoxMarketApi.Items.Add("Mintpal", true);
-            chlBoxMarketApi.Items.Add("Cryptsy", true);
-            chlBoxMarketApi.Items.Add("Poloniex", true);
-            chlBoxMarketApi.Items.Add("AllCoin", false);
-            chlBoxMarketApi.Items.Add("AllCrypt", false);
+
+            foreach (TabPage page in tabControlSettings.TabPages)
+            {
+                page.BackColor = SystemColors.Menu;
+            }
 
             try
             {
@@ -114,13 +116,12 @@ namespace ProfitCalc
                     _hashRateMultiplier = nudAmount.Value;
                     txtProxy.Text = apiSettings.ApiSettings["ProxyURL"];
 
-                    chlBoxMarketApi.SetItemChecked(0, apiSettings.CheckedApis["Bittrex"]);
-                    chlBoxMarketApi.SetItemChecked(1, apiSettings.CheckedApis["Mintpal"]);
-                    chlBoxMarketApi.SetItemChecked(2, apiSettings.CheckedApis["Cryptsy"]);
-                    chlBoxMarketApi.SetItemChecked(3, apiSettings.CheckedApis["Poloniex"]);
-                    chlBoxMarketApi.SetItemChecked(4, apiSettings.CheckedApis["AllCoin"]);
-                    chlBoxMarketApi.SetItemChecked(5, apiSettings.CheckedApis["AllCrypt"]);
-
+                    chkBittrex.Checked = apiSettings.CheckedApis["Bittrex"];
+                    chkMintpal.Checked = apiSettings.CheckedApis["Mintpal"];
+                    chkCryptsy.Checked = apiSettings.CheckedApis["Cryptsy"];
+                    chkPoloniex.Checked = apiSettings.CheckedApis["Poloniex"];
+                    chkAllcoin.Checked = apiSettings.CheckedApis["AllCoin"];
+                    chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"];
                     chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"];
                     chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"];
                     chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"];
@@ -185,12 +186,12 @@ namespace ProfitCalc
             apiSettings.ApiSettings.Add("Multiplier", nudAmount.Text);
             apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
 
-            apiSettings.CheckedApis.Add("Bittrex", chlBoxMarketApi.GetItemChecked(0));
-            apiSettings.CheckedApis.Add("Mintpal", chlBoxMarketApi.GetItemChecked(1));
-            apiSettings.CheckedApis.Add("Cryptsy", chlBoxMarketApi.GetItemChecked(2));
-            apiSettings.CheckedApis.Add("Poloniex", chlBoxMarketApi.GetItemChecked(3));
-            apiSettings.CheckedApis.Add("AllCoin", chlBoxMarketApi.GetItemChecked(4));
-            apiSettings.CheckedApis.Add("AllCrypt", chlBoxMarketApi.GetItemChecked(5));
+            apiSettings.CheckedApis.Add("Bittrex", chkBittrex.Checked);
+            apiSettings.CheckedApis.Add("Mintpal", chkMintpal.Checked);
+            apiSettings.CheckedApis.Add("Cryptsy", chkCryptsy.Checked);
+            apiSettings.CheckedApis.Add("Poloniex", chkPoloniex.Checked);
+            apiSettings.CheckedApis.Add("AllCoin", chkAllcoin.Checked);
+            apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
 
             apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
             apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
@@ -394,7 +395,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chlBoxMarketApi.GetItemChecked(0))
+            if (chkBittrex.Checked)
             {
                 try
                 {
@@ -409,7 +410,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chlBoxMarketApi.GetItemChecked(1))
+            if (chkMintpal.Checked)
             {
                 try
                 {
@@ -424,7 +425,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chlBoxMarketApi.GetItemChecked(2))
+            if (chkCryptsy.Checked)
             {
                 try
                 {
@@ -439,7 +440,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chlBoxMarketApi.GetItemChecked(3))
+            if (chkPoloniex.Checked)
             {
                 try
                 {
@@ -454,7 +455,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chlBoxMarketApi.GetItemChecked(4))
+            if (chkAllcoin.Checked)
             {
                 try
                 {
@@ -469,7 +470,7 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chlBoxMarketApi.GetItemChecked(5))
+            if (chkAllcrypt.Checked)
             {
                 try
                 {

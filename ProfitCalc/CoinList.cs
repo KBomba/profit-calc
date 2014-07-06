@@ -318,7 +318,8 @@ namespace ProfitCalc
             }
         }
 
-        private void AddPoolPickerPool(PoolPicker.Pool pool, List<PoolPicker.Pool.Profitability.Algo> profitList, HashAlgo.Algo algo, DateTime whenToEnd, bool reviewCalc, double reviewPercentage)
+        private void AddPoolPickerPool(PoolPicker.Pool pool, List<PoolPicker.Pool.Profitability.Algo> profitList, HashAlgo.Algo algo, 
+            DateTime whenToEnd, bool reviewCalc, double reviewPercentage)
         {
             Coin c = new Coin
             {
