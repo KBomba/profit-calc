@@ -1324,8 +1324,6 @@
             // chkRemoveNegative
             // 
             this.chkRemoveNegative.AutoSize = true;
-            this.chkRemoveNegative.Checked = true;
-            this.chkRemoveNegative.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveNegative.Location = new System.Drawing.Point(6, 29);
             this.chkRemoveNegative.Name = "chkRemoveNegative";
             this.chkRemoveNegative.Size = new System.Drawing.Size(200, 17);

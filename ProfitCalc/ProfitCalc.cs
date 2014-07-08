@@ -27,6 +27,7 @@ namespace ProfitCalc
         private void LoadSettings()
         {
             cbbFiat.SelectedIndex = 0;
+            cbbBidRecentAsk.SelectedIndex = 0;
             
             if (File.Exists("hashrates.txt"))
             {
