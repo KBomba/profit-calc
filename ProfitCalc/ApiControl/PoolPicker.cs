@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    public class PoolPicker
+    internal class PoolPicker
     {
         [JsonProperty("pools")]
         public List<Pool> Pools { get; set; }

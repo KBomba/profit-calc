@@ -51,6 +51,7 @@ namespace ProfitCalc
         {
         }
 
+/*
         public Coin(string coinName, string tagName, HashAlgo.Algo algo,
             double difficulty, double blockReward, Exchange exchange)
         {
@@ -65,6 +66,7 @@ namespace ProfitCalc
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
+*/
 
         public Coin(NiceHash.Result.Stat niceHashStat)
         {

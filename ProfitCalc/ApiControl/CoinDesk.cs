@@ -2,7 +2,7 @@
 
 namespace ProfitCalc.ApiControl
 {
-    public class CoinDesk
+    internal class CoinDesk
     {
         /*[JsonProperty("time")]
         public Time Updated { get; set; }

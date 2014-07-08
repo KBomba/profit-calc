@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    public class AllCoin
+    internal class AllCoin
     {
         [JsonProperty("code")]
         public int Code { get; set; }

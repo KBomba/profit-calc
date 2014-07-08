@@ -97,12 +97,6 @@ namespace ProfitCalc
                                     + Environment.NewLine + Environment.NewLine + exception.StackTrace);
                 }
             }
-
-
-            foreach (TabPage page in tabControlSettings.TabPages)
-            {
-                page.BackColor = SystemColors.Menu;
-            }
             
             if (File.Exists("apisettings.txt"))
             {
@@ -141,6 +135,11 @@ namespace ProfitCalc
                     MessageBox.Show("Oops, something went wrong with loading your apisettings.txt. \nIgnore this if this is the first time you get this after updating."
                                     + Environment.NewLine + Environment.NewLine + exception.StackTrace);
                 }
+            }
+
+            foreach (TabPage page in tabControlSettings.TabPages)
+            {
+                page.BackColor = SystemColors.Menu;
             }
         }
 
@@ -228,11 +227,17 @@ namespace ProfitCalc
             tsStatus.Text = "Calculating profits and sorting the list...";
             SortAndCalculatePrices();
 
-            if (chkShowOnlyHealthy.Checked)
+            if (chkRemoveUnhealthy.Checked)
             {
                 tsStatus.Text = "Another round of unhealthy coin removal..";
-                _coinList.List.RemoveAll(coin => (coin.TotalVolume < coin.BtcPerDay && !coin.IsMultiPool)
-                    || (coin.BtcPerDay <= 0));
+                _coinList.List.RemoveAll(coin => 
+                    coin.TotalVolume < coin.BtcPerDay && !coin.IsMultiPool);
+            }
+
+            if (chkRemoveNegative.Checked)
+            {
+                tsStatus.Text = "Removing results with negative profits..";
+                _coinList.List.RemoveAll(coin => coin.BtcPerDay <= 0);
             }
 
             tsProgress.Value += i;
@@ -489,7 +494,7 @@ namespace ProfitCalc
                 }
             }
 
-            if (chkShowOnlyHealthy.Checked)
+            if (chkRemoveUnhealthy.Checked)
             {
                 tsStatus.Text = "Removing unhealthy coins...";
                 _coinList.List =
@@ -835,30 +840,35 @@ namespace ProfitCalc
                 switch (cbbFiat.SelectedIndex)
                 {
                     case 0:
+                        lblElectricityCost.Text = "USD/kWh";
                         dgView.Columns[3].Visible = true;
                         dgView.Columns[4].Visible = false;
                         dgView.Columns[5].Visible = false;
                         dgView.Columns[6].Visible = false;
                         break;
                     case 1:
+                        lblElectricityCost.Text = "EUR/kWh";
                         dgView.Columns[3].Visible = false;
                         dgView.Columns[4].Visible = true;
                         dgView.Columns[5].Visible = false;
                         dgView.Columns[6].Visible = false;
                         break;
                     case 2:
+                        lblElectricityCost.Text = "GBP/kWh";
                         dgView.Columns[3].Visible = false;
                         dgView.Columns[4].Visible = false;
                         dgView.Columns[5].Visible = true;
                         dgView.Columns[6].Visible = false;
                         break;
                     case 3:
+                        lblElectricityCost.Text = "CNY/kWh";
                         dgView.Columns[3].Visible = false;
                         dgView.Columns[4].Visible = false;
                         dgView.Columns[5].Visible = false;
                         dgView.Columns[6].Visible = true;
                         break;
-                    case 4:
+                    default:
+                        lblElectricityCost.Text = "USD/kWh";
                         dgView.Columns[3].Visible = true;
                         dgView.Columns[4].Visible = true;
                         dgView.Columns[5].Visible = true;
@@ -868,11 +878,15 @@ namespace ProfitCalc
             }
             else
             {
+                lblElectricityCost.Text = "Fiat of choice/kWh (disabled)";
                 dgView.Columns[3].Visible = false;
                 dgView.Columns[4].Visible = false;
                 dgView.Columns[5].Visible = false;
                 dgView.Columns[6].Visible = false;
             }
+
+            int x = txtFiatElectricityCost.Location.X - 6 - lblElectricityCost.Size.Width;
+            lblElectricityCost.Location = new Point(x, lblElectricityCost.Location.Y);
         }
     }
 }
