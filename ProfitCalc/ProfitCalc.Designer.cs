@@ -32,6 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.grpHashrates = new System.Windows.Forms.GroupBox();
+            this.chkJane14 = new System.Windows.Forms.CheckBox();
+            this.txtJane14Wattage = new System.Windows.Forms.TextBox();
+            this.txtJane14 = new System.Windows.Forms.TextBox();
             this.chkX15 = new System.Windows.Forms.CheckBox();
             this.txtX15Wattage = new System.Windows.Forms.TextBox();
             this.txtX15 = new System.Windows.Forms.TextBox();
@@ -150,9 +153,6 @@
             this.nudCryptoday = new System.Windows.Forms.NumericUpDown();
             this.chkCryptoday = new System.Windows.Forms.CheckBox();
             this.tabMisc = new System.Windows.Forms.TabPage();
-            this.chkJane14 = new System.Windows.Forms.CheckBox();
-            this.txtJane14Wattage = new System.Windows.Forms.TextBox();
-            this.txtJane14 = new System.Windows.Forms.TextBox();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -239,6 +239,34 @@
             this.grpHashrates.TabIndex = 0;
             this.grpHashrates.TabStop = false;
             this.grpHashrates.Text = "Your hashrates";
+            // 
+            // chkJane14
+            // 
+            this.chkJane14.AutoSize = true;
+            this.chkJane14.Checked = true;
+            this.chkJane14.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkJane14.Location = new System.Drawing.Point(9, 436);
+            this.chkJane14.Name = "chkJane14";
+            this.chkJane14.Size = new System.Drawing.Size(81, 17);
+            this.chkJane14.TabIndex = 77;
+            this.chkJane14.Text = "Jane (Nf14)";
+            this.chkJane14.UseVisualStyleBackColor = true;
+            // 
+            // txtJane14Wattage
+            // 
+            this.txtJane14Wattage.Location = new System.Drawing.Point(188, 434);
+            this.txtJane14Wattage.Name = "txtJane14Wattage";
+            this.txtJane14Wattage.Size = new System.Drawing.Size(50, 20);
+            this.txtJane14Wattage.TabIndex = 76;
+            this.txtJane14Wattage.Text = "500";
+            // 
+            // txtJane14
+            // 
+            this.txtJane14.Location = new System.Drawing.Point(102, 434);
+            this.txtJane14.Name = "txtJane14";
+            this.txtJane14.Size = new System.Drawing.Size(80, 20);
+            this.txtJane14.TabIndex = 75;
+            this.txtJane14.Text = "0.0034";
             // 
             // chkX15
             // 
@@ -1441,34 +1469,6 @@
             this.tabMisc.TabIndex = 3;
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
-            // 
-            // chkJane14
-            // 
-            this.chkJane14.AutoSize = true;
-            this.chkJane14.Checked = true;
-            this.chkJane14.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkJane14.Location = new System.Drawing.Point(9, 436);
-            this.chkJane14.Name = "chkJane14";
-            this.chkJane14.Size = new System.Drawing.Size(81, 17);
-            this.chkJane14.TabIndex = 77;
-            this.chkJane14.Text = "Jane (Nf14)";
-            this.chkJane14.UseVisualStyleBackColor = true;
-            // 
-            // txtJane14Wattage
-            // 
-            this.txtJane14Wattage.Location = new System.Drawing.Point(188, 434);
-            this.txtJane14Wattage.Name = "txtJane14Wattage";
-            this.txtJane14Wattage.Size = new System.Drawing.Size(50, 20);
-            this.txtJane14Wattage.TabIndex = 76;
-            this.txtJane14Wattage.Text = "500";
-            // 
-            // txtJane14
-            // 
-            this.txtJane14.Location = new System.Drawing.Point(102, 434);
-            this.txtJane14.Name = "txtJane14";
-            this.txtJane14.Size = new System.Drawing.Size(80, 20);
-            this.txtJane14.TabIndex = 75;
-            this.txtJane14.Text = "0.0009";
             // 
             // ProfitCalc
             // 

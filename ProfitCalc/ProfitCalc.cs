@@ -110,6 +110,7 @@ namespace ProfitCalc
                     ApiSettingsJson apiSettings = JsonControl.GetSerializedApiFile<ApiSettingsJson>("apisettings.txt");
                     txtCointweakApiKey.Text = apiSettings.ApiSettings["CoinTweak"];
                     txtCoinwarzApiKey.Text = apiSettings.ApiSettings["CoinWarz"];
+                    nudCryptoday.Text = apiSettings.ApiSettings["CrypToday"];
                     nudPoolpicker.Text = apiSettings.ApiSettings["PoolPicker"];
                     nudAmount.Text = apiSettings.ApiSettings["Multiplier"];
                     _hashRateMultiplier = nudAmount.Value;
@@ -129,6 +130,7 @@ namespace ProfitCalc
                     chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"];
                     chkCointweak.Checked = apiSettings.CheckedApis["CoinTweak"];
                     chkCoinwarz.Checked = apiSettings.CheckedApis["CoinWarz"];
+                    chkCryptoday.Checked = apiSettings.CheckedApis["CrypToday"];
                     chkPoolpicker.Checked = apiSettings.CheckedApis["PoolPicker"];
 
                     chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"];
@@ -190,6 +192,7 @@ namespace ProfitCalc
 
             apiSettings.ApiSettings.Add("CoinTweak", txtCointweakApiKey.Text);
             apiSettings.ApiSettings.Add("CoinWarz", txtCoinwarzApiKey.Text);
+            apiSettings.ApiSettings.Add("CrypToday", nudCryptoday.Text);
             apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
             apiSettings.ApiSettings.Add("Multiplier", nudAmount.Text);
             apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
@@ -207,6 +210,7 @@ namespace ProfitCalc
             apiSettings.CheckedApis.Add("WhatToMine", chkWhattomine.Checked);
             apiSettings.CheckedApis.Add("CoinTweak", chkCointweak.Checked);
             apiSettings.CheckedApis.Add("CoinWarz", chkCoinwarz.Checked);
+            apiSettings.CheckedApis.Add("CrypToday", chkCryptoday.Checked);
             apiSettings.CheckedApis.Add("PoolPicker", chkPoolpicker.Checked);
 
             apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
