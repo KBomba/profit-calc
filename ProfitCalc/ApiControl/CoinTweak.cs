@@ -5,13 +5,13 @@ namespace ProfitCalc.ApiControl
 {
     internal class CoinTweak
     {
-        /*[JsonProperty("success")]
+        [JsonProperty("success")]
         public bool Success { get; set; }
 
         [JsonProperty("callsRemaining")]
         public int CallsRemaining { get; set; }
 
-        [JsonProperty("btc")]
+        /*[JsonProperty("btc")]
         public BtcInfo Btc { get; set; }
         public class BtcInfo
         {

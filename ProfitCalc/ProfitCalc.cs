@@ -50,6 +50,7 @@ namespace ProfitCalc
                     txtHefty.Text = rates.ListHashRate[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
                     txtScryptN.Text = rates.ListHashRate[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
                     txtJane15.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
+                    txtJane14.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
                     txtJane13.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
                     txtCryptonight.Text = rates.ListHashRate[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
 
@@ -68,6 +69,7 @@ namespace ProfitCalc
                     txtHeftyWattage.Text = rates.ListWattage[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
                     txtScryptNWattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
                     txtJane15Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
+                    txtJane14Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
                     txtJane13Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
                     txtCryptonightWattage.Text = rates.ListWattage[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
 
@@ -86,6 +88,7 @@ namespace ProfitCalc
                     chkScrypt.Checked = rates.CheckedHashRates["Scrypt"];
                     chkScryptN.Checked = rates.CheckedHashRates["ScryptN"];
                     chkJane15.Checked = rates.CheckedHashRates["Jane15"];
+                    chkJane14.Checked = rates.CheckedHashRates["Jane14"];
                     chkJane13.Checked = rates.CheckedHashRates["Jane13"];
                     chkCryptonight.Checked = rates.CheckedHashRates["CryptoNight"];
 
@@ -171,6 +174,7 @@ namespace ProfitCalc
             _hashList.CheckedHashRates.Add("Scrypt", chkScrypt.Checked);
             _hashList.CheckedHashRates.Add("ScryptN", chkScryptN.Checked);
             _hashList.CheckedHashRates.Add("Jane15", chkJane15.Checked);
+            _hashList.CheckedHashRates.Add("Jane14", chkJane14.Checked);
             _hashList.CheckedHashRates.Add("Jane13", chkJane13.Checked);
             _hashList.CheckedHashRates.Add("CryptoNight", chkCryptonight.Checked);
 
@@ -284,7 +288,7 @@ namespace ProfitCalc
             {
                 Coin coin = _coinList.List[index];
                 arrCoinRows[index] = new DataGridViewRow {HeaderCell = {Value = String.Format("{0}", index + 1)}};
-                arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.CoinName, coin.Algo,
+                arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.FullName, coin.Algo,
                     coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"), 
                     coin.GbpPerDay.ToString("0.000"), coin.CnyPerDay.ToString("0.000"),
                     coin.BtcPerDay.ToString("0.00000000"), coin.CoinsPerDay.ToString("0.00000"),
@@ -333,7 +337,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting actual NiceHash prices...";
-                    _coinList.UpdateNiceHash("https://www.nicehash.com/api?method=stats.global.current");
+                    _coinList.UpdateNiceHash();
                 }
                 catch (Exception exception)
                 {
@@ -347,13 +351,27 @@ namespace ProfitCalc
             {
                 try
                 {
-                    tsStatus.Text = "Getting multipools prices...";
-                    _coinList.UpdatePoolPicker("http://poolpicker.eu/api",
-                        nudPoolpicker.Value, chkReviewCalc.Checked);
+                    tsStatus.Text = "Getting multipool prices from PoolPicker...";
+                    _coinList.UpdatePoolPicker(nudPoolpicker.Value, chkReviewCalc.Checked);
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show("Oops, something went wrong with the PoolPicker API." +
+                                    Environment.NewLine + Environment.NewLine + exception);
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkCryptoday.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Getting multipool prices from CrypToday...";
+                    _coinList.UpdateCrypToday(nudCryptoday.Value);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Oops, something went wrong with the CrypToday API." +
                                     Environment.NewLine + Environment.NewLine + exception);
                 }
             }
@@ -364,7 +382,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting coin info from WhatToMine...";
-                    _coinList.UpdateWhatToMine("http://www.whattomine.com/coins.json");
+                    _coinList.UpdateWhatToMine();
                 }
                 catch (Exception exception)
                 {
@@ -379,8 +397,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting coin info from CoinTweak...";
-                    _coinList.UpdateCoinTweak("http://cointweak.com/API/getProfitOverview/&key=" +
-                                              txtCointweakApiKey.Text);
+                    _coinList.UpdateCoinTweak(txtCointweakApiKey.Text);
                 }
                 catch (Exception exception)
                 {
@@ -395,8 +412,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting coin info from CoinWarz...";
-                    _coinList.UpdateCoinWarz("http://www.coinwarz.com/v1/api/profitability/?apikey=" +
-                                             txtCoinwarzApiKey.Text + "&algo=all");
+                    _coinList.UpdateCoinWarz(txtCoinwarzApiKey.Text);
                 }
                 catch (Exception exception)
                 {
@@ -411,7 +427,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Bittrex prices...";
-                    _coinList.UpdateBittrex("https://bittrex.com/api/v1/public/getmarketsummaries", cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateBittrex(cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -426,7 +442,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with MintPal prices...";
-                    _coinList.UpdateMintPal("https://api.mintpal.com/v2/market/summary/BTC", cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateMintPal(cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -441,7 +457,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Cryptsy prices... (This might take a few seconds :p )";
-                    _coinList.UpdateCryptsy("http://pubapi.cryptsy.com/api.php?method=marketdatav2", cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateCryptsy(cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -456,7 +472,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Poloniex prices...";
-                    _coinList.UpdatePoloniex("https://poloniex.com/public?command=returnTicker", cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdatePoloniex(cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -471,7 +487,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCoin prices...";
-                    _coinList.UpdateAllCoin("https://www.allcoin.com/api2/pairs", cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateAllCoin(cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -486,7 +502,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCrypt prices...";
-                    _coinList.UpdateAllCrypt("https://www.allcrypt.com/api?method=cmcmarketdata", cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateAllCrypt(cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
@@ -731,6 +747,21 @@ namespace ProfitCalc
                 }
             }
 
+            if (!checkChecked || chkJane15.Checked)
+            {
+                if (Double.TryParse(txtJane14.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
+                    Double.TryParse(txtJane14Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out dWattage))
+                {
+                    hashList.Add(HashAlgo.Algo.ScryptJane14, dHashRate * multiplier);
+                    wattageList.Add(HashAlgo.Algo.ScryptJane14, dWattage);
+                }
+                else
+                {
+                    MessageBox.Show("Something wrong with your Jane15 hashrate");
+                }
+            }
+
             if (!checkChecked || chkJane13.Checked)
             {
                 if (Double.TryParse(txtJane13.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
@@ -819,7 +850,12 @@ namespace ProfitCalc
         private void chkPoolpicker_CheckedChanged(object sender, EventArgs e)
         {
             nudPoolpicker.Enabled = chkPoolpicker.Checked;
-            chkReviewCalc.Checked = chkPoolpicker.Checked;
+            chkReviewCalc.Enabled = chkPoolpicker.Checked;
+        }
+
+        private void chkCryptoday_CheckedChanged(object sender, EventArgs e)
+        {
+            nudCryptoday.Enabled = chkCryptoday.Checked;
         }
 
         private void chkCoindesk_CheckedChanged(object sender, EventArgs e)

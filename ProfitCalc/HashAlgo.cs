@@ -9,6 +9,7 @@ namespace ProfitCalc
             Scrypt,
             ScryptN,
             ScryptJane15,
+            ScryptJane14,
             ScryptJane13,
             Keccak,
             Heavy,
@@ -42,6 +43,11 @@ namespace ProfitCalc
                 if (proper.Contains("13"))
                 {
                     return Algo.ScryptJane13;
+                }
+
+                if (proper.Contains("14"))
+                {
+                    return Algo.ScryptJane14;
                 }
 
                 return Algo.ScryptJane15;
@@ -80,6 +86,7 @@ namespace ProfitCalc
                 case Algo.ScryptN:
                     return "scrypt-n";
                 case Algo.ScryptJane15:
+                case Algo.ScryptJane14:
                 case Algo.ScryptJane13:
                     return "scrypt-jane";
                 case Algo.MyriadGroestl:

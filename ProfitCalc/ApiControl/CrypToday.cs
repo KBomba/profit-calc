@@ -3,30 +3,28 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
-    internal class CryptToday
+    internal class CrypToday
     {
         [JsonProperty("cols")]
         public List<Col> Cols { get; set; }
-
-        [JsonProperty("rows")]
-        public List<Row> Rows { get; set; }
-
         public class Col
         {
 
-            [JsonProperty("id")]
-            public string Id { get; set; }
+            /*[JsonProperty("id")]
+            public string Id { get; set; }*/
 
             [JsonProperty("label")]
             public string Label { get; set; }
 
-            [JsonProperty("pattern")]
-            public string Pattern { get; set; }
+            /*[JsonProperty("pattern")]
+            public string Pattern { get; set; }*/
 
             [JsonProperty("type")]
             public string Type { get; set; }
         }
 
+        [JsonProperty("rows")]
+        public List<Row> Rows { get; set; }
         public class Row
         {
 

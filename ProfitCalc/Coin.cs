@@ -8,7 +8,7 @@ namespace ProfitCalc
 {
     internal class Coin
     {
-        public string CoinName { get; set; }
+        public string FullName { get; set; }
         public string TagName { get; set; }
 
         public HashAlgo.Algo Algo { get; set; }
@@ -49,6 +49,7 @@ namespace ProfitCalc
 
         public Coin()
         {
+            Exchanges = new List<Exchange>();
         }
 
 /*
@@ -98,7 +99,7 @@ namespace ProfitCalc
                     break;
             }
 
-            CoinName = "Act. NiceHash " + Algo;
+            FullName = "Act. NiceHash " + Algo;
             TagName = "NICE" + Algo.ToString().ToUpper();
             Difficulty = 0;
             BlockReward = 0;
@@ -119,7 +120,7 @@ namespace ProfitCalc
 
         public Coin(KeyValuePair<string, WhatToMine.Coin> wtmCoin)
         {
-            CoinName = wtmCoin.Key;
+            FullName = wtmCoin.Key;
             TagName = wtmCoin.Value.Tag.ToUpper();
             Algo = HashAlgo.GetAlgorithm(wtmCoin.Value.Algorithm);
             if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
@@ -142,7 +143,7 @@ namespace ProfitCalc
 
         public Coin(CoinTweak.Coin ctwCoin)
         {
-            CoinName = ctwCoin.CoinFullname;
+            FullName = ctwCoin.CoinFullname;
             TagName = ctwCoin.CoinName.ToUpper();
             Algo = HashAlgo.GetAlgorithm(ctwCoin.AlgoName);
             if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
@@ -164,7 +165,7 @@ namespace ProfitCalc
 
         public Coin(CoinWarz.Coin cwzCoin)
         {
-            CoinName = cwzCoin.CoinName;
+            FullName = cwzCoin.CoinName;
             TagName = cwzCoin.CoinTag.ToUpper();
             Algo = HashAlgo.GetAlgorithm(cwzCoin.Algorithm);
             if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
@@ -223,13 +224,12 @@ namespace ProfitCalc
 
         public override string ToString()
         {
-            return "TAG: " + TagName + " | Name:" + CoinName + " | Algo: " + Algo + " | BTC/day: " +
-                   BtcPerDay.ToString("#.00000000")
-                   + " | Coins/day: " + CoinsPerDay.ToString("#.00000000") + GetExchanges()
-                   + " | Weighted price: " + WeightedBtcPrice.ToString("#.00000000") + " | Total volume: " +
-                   TotalVolume.ToString("#.0000")
-                   + " | Difficulty: " + Difficulty.ToString("#.###") + " | Blockreward: " +
-                   BlockReward.ToString("#.###");
+            return "TAG: " + TagName + " | Name:" + FullName + " | Algo: " + Algo + " | BTC/day: " +
+                   BtcPerDay.ToString("#.00000000") + " | Coins/day: " + CoinsPerDay.ToString("#.00000000") + 
+                   GetExchanges() + 
+                   " | Weighted price: " + WeightedBtcPrice.ToString("#.00000000") + " | Total volume: " +
+                   TotalVolume.ToString("#.0000") + " | Difficulty: " + Difficulty.ToString("#.###") + 
+                   " | Blockreward: " + BlockReward.ToString("#.###");
         }
 
         public string GetExchanges()

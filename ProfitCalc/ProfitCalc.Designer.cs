@@ -147,7 +147,12 @@
             this.chkRemoveUnhealthy = new System.Windows.Forms.CheckBox();
             this.chkWeight = new System.Windows.Forms.CheckBox();
             this.tabMultipool = new System.Windows.Forms.TabPage();
+            this.nudCryptoday = new System.Windows.Forms.NumericUpDown();
+            this.chkCryptoday = new System.Windows.Forms.CheckBox();
             this.tabMisc = new System.Windows.Forms.TabPage();
+            this.chkJane14 = new System.Windows.Forms.CheckBox();
+            this.txtJane14Wattage = new System.Windows.Forms.TextBox();
+            this.txtJane14 = new System.Windows.Forms.TextBox();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -159,11 +164,15 @@
             this.tabCoinInfo.SuspendLayout();
             this.tabPriceCalc.SuspendLayout();
             this.tabMultipool.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).BeginInit();
             this.tabMisc.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpHashrates
             // 
+            this.grpHashrates.Controls.Add(this.chkJane14);
+            this.grpHashrates.Controls.Add(this.txtJane14Wattage);
+            this.grpHashrates.Controls.Add(this.txtJane14);
             this.grpHashrates.Controls.Add(this.chkX15);
             this.grpHashrates.Controls.Add(this.txtX15Wattage);
             this.grpHashrates.Controls.Add(this.txtX15);
@@ -226,7 +235,7 @@
             this.grpHashrates.Controls.Add(this.chkCoindesk);
             this.grpHashrates.Location = new System.Drawing.Point(12, 12);
             this.grpHashrates.Name = "grpHashrates";
-            this.grpHashrates.Size = new System.Drawing.Size(253, 605);
+            this.grpHashrates.Size = new System.Drawing.Size(253, 635);
             this.grpHashrates.TabIndex = 0;
             this.grpHashrates.TabStop = false;
             this.grpHashrates.Text = "Your hashrates";
@@ -298,7 +307,7 @@
             "GBP",
             "CNY",
             "ALL"});
-            this.cbbFiat.Location = new System.Drawing.Point(153, 496);
+            this.cbbFiat.Location = new System.Drawing.Point(153, 522);
             this.cbbFiat.Name = "cbbFiat";
             this.cbbFiat.Size = new System.Drawing.Size(48, 21);
             this.cbbFiat.TabIndex = 35;
@@ -307,7 +316,7 @@
             // lblElectricityCost
             // 
             this.lblElectricityCost.AutoSize = true;
-            this.lblElectricityCost.Location = new System.Drawing.Point(81, 524);
+            this.lblElectricityCost.Location = new System.Drawing.Point(81, 550);
             this.lblElectricityCost.Name = "lblElectricityCost";
             this.lblElectricityCost.Size = new System.Drawing.Size(99, 13);
             this.lblElectricityCost.TabIndex = 68;
@@ -333,7 +342,7 @@
             // 
             // txtFiatElectricityCost
             // 
-            this.txtFiatElectricityCost.Location = new System.Drawing.Point(186, 521);
+            this.txtFiatElectricityCost.Location = new System.Drawing.Point(186, 547);
             this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
             this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
             this.txtFiatElectricityCost.TabIndex = 67;
@@ -344,7 +353,7 @@
             this.chkCryptonight.AutoSize = true;
             this.chkCryptonight.Checked = true;
             this.chkCryptonight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCryptonight.Location = new System.Drawing.Point(9, 462);
+            this.chkCryptonight.Location = new System.Drawing.Point(9, 488);
             this.chkCryptonight.Name = "chkCryptonight";
             this.chkCryptonight.Size = new System.Drawing.Size(81, 17);
             this.chkCryptonight.TabIndex = 64;
@@ -356,7 +365,7 @@
             this.chkJane13.AutoSize = true;
             this.chkJane13.Checked = true;
             this.chkJane13.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkJane13.Location = new System.Drawing.Point(9, 436);
+            this.chkJane13.Location = new System.Drawing.Point(9, 462);
             this.chkJane13.Name = "chkJane13";
             this.chkJane13.Size = new System.Drawing.Size(81, 17);
             this.chkJane13.TabIndex = 63;
@@ -521,7 +530,7 @@
             // 
             // txtCryptonightWattage
             // 
-            this.txtCryptonightWattage.Location = new System.Drawing.Point(188, 460);
+            this.txtCryptonightWattage.Location = new System.Drawing.Point(188, 486);
             this.txtCryptonightWattage.Name = "txtCryptonightWattage";
             this.txtCryptonightWattage.Size = new System.Drawing.Size(50, 20);
             this.txtCryptonightWattage.TabIndex = 49;
@@ -529,7 +538,7 @@
             // 
             // txtCryptonight
             // 
-            this.txtCryptonight.Location = new System.Drawing.Point(102, 460);
+            this.txtCryptonight.Location = new System.Drawing.Point(102, 486);
             this.txtCryptonight.Name = "txtCryptonight";
             this.txtCryptonight.Size = new System.Drawing.Size(80, 20);
             this.txtCryptonight.TabIndex = 48;
@@ -537,7 +546,7 @@
             // 
             // txtJane13Wattage
             // 
-            this.txtJane13Wattage.Location = new System.Drawing.Point(188, 434);
+            this.txtJane13Wattage.Location = new System.Drawing.Point(188, 460);
             this.txtJane13Wattage.Name = "txtJane13Wattage";
             this.txtJane13Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtJane13Wattage.TabIndex = 46;
@@ -650,7 +659,7 @@
             // lblAmountOfGpu
             // 
             this.lblAmountOfGpu.AutoSize = true;
-            this.lblAmountOfGpu.Location = new System.Drawing.Point(94, 547);
+            this.lblAmountOfGpu.Location = new System.Drawing.Point(94, 573);
             this.lblAmountOfGpu.Name = "lblAmountOfGpu";
             this.lblAmountOfGpu.Size = new System.Drawing.Size(86, 13);
             this.lblAmountOfGpu.TabIndex = 32;
@@ -658,7 +667,7 @@
             // 
             // nudAmount
             // 
-            this.nudAmount.Location = new System.Drawing.Point(186, 547);
+            this.nudAmount.Location = new System.Drawing.Point(186, 573);
             this.nudAmount.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -681,7 +690,7 @@
             // 
             // btnCalc
             // 
-            this.btnCalc.Location = new System.Drawing.Point(158, 573);
+            this.btnCalc.Location = new System.Drawing.Point(158, 599);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(80, 23);
             this.btnCalc.TabIndex = 26;
@@ -691,7 +700,7 @@
             // 
             // txtJane13
             // 
-            this.txtJane13.Location = new System.Drawing.Point(102, 434);
+            this.txtJane13.Location = new System.Drawing.Point(102, 460);
             this.txtJane13.Name = "txtJane13";
             this.txtJane13.Size = new System.Drawing.Size(80, 20);
             this.txtJane13.TabIndex = 30;
@@ -806,7 +815,7 @@
             this.chkCoindesk.AutoSize = true;
             this.chkCoindesk.Checked = true;
             this.chkCoindesk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCoindesk.Location = new System.Drawing.Point(110, 498);
+            this.chkCoindesk.Location = new System.Drawing.Point(110, 524);
             this.chkCoindesk.Name = "chkCoindesk";
             this.chkCoindesk.Size = new System.Drawing.Size(126, 17);
             this.chkCoindesk.TabIndex = 39;
@@ -851,7 +860,7 @@
             this.dgView.ReadOnly = true;
             this.dgView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgView.Size = new System.Drawing.Size(511, 420);
+            this.dgView.Size = new System.Drawing.Size(511, 452);
             this.dgView.TabIndex = 1;
             // 
             // Tag
@@ -993,7 +1002,7 @@
             // 
             // nudPoolpicker
             // 
-            this.nudPoolpicker.Location = new System.Drawing.Point(178, 27);
+            this.nudPoolpicker.Location = new System.Drawing.Point(178, 50);
             this.nudPoolpicker.Minimum = new decimal(new int[] {
             1,
             0,
@@ -1013,7 +1022,7 @@
             this.chkPoolpicker.AutoSize = true;
             this.chkPoolpicker.Checked = true;
             this.chkPoolpicker.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPoolpicker.Location = new System.Drawing.Point(6, 29);
+            this.chkPoolpicker.Location = new System.Drawing.Point(6, 52);
             this.chkPoolpicker.Name = "chkPoolpicker";
             this.chkPoolpicker.Size = new System.Drawing.Size(246, 17);
             this.chkPoolpicker.TabIndex = 33;
@@ -1040,7 +1049,7 @@
             this.tsProgressText,
             this.tsProgress,
             this.tsStatus});
-            this.stStatusStrip.Location = new System.Drawing.Point(0, 620);
+            this.stStatusStrip.Location = new System.Drawing.Point(0, 652);
             this.stStatusStrip.Name = "stStatusStrip";
             this.stStatusStrip.Size = new System.Drawing.Size(782, 22);
             this.stStatusStrip.SizingGrip = false;
@@ -1140,7 +1149,7 @@
             this.chkReviewCalc.AutoSize = true;
             this.chkReviewCalc.Checked = true;
             this.chkReviewCalc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkReviewCalc.Location = new System.Drawing.Point(6, 52);
+            this.chkReviewCalc.Location = new System.Drawing.Point(6, 75);
             this.chkReviewCalc.Name = "chkReviewCalc";
             this.chkReviewCalc.Size = new System.Drawing.Size(221, 17);
             this.chkReviewCalc.TabIndex = 35;
@@ -1378,6 +1387,8 @@
             // 
             // tabMultipool
             // 
+            this.tabMultipool.Controls.Add(this.nudCryptoday);
+            this.tabMultipool.Controls.Add(this.chkCryptoday);
             this.tabMultipool.Controls.Add(this.chkReviewCalc);
             this.tabMultipool.Controls.Add(this.chkNiceHash);
             this.tabMultipool.Controls.Add(this.nudPoolpicker);
@@ -1390,6 +1401,36 @@
             this.tabMultipool.Text = "Multipools";
             this.tabMultipool.UseVisualStyleBackColor = true;
             // 
+            // nudCryptoday
+            // 
+            this.nudCryptoday.Location = new System.Drawing.Point(178, 27);
+            this.nudCryptoday.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCryptoday.Name = "nudCryptoday";
+            this.nudCryptoday.Size = new System.Drawing.Size(38, 20);
+            this.nudCryptoday.TabIndex = 36;
+            this.nudCryptoday.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // chkCryptoday
+            // 
+            this.chkCryptoday.AutoSize = true;
+            this.chkCryptoday.Checked = true;
+            this.chkCryptoday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCryptoday.Location = new System.Drawing.Point(6, 29);
+            this.chkCryptoday.Name = "chkCryptoday";
+            this.chkCryptoday.Size = new System.Drawing.Size(246, 17);
+            this.chkCryptoday.TabIndex = 37;
+            this.chkCryptoday.Text = "Use CrypToday, averaging over               days.";
+            this.chkCryptoday.UseVisualStyleBackColor = true;
+            this.chkCryptoday.CheckedChanged += new System.EventHandler(this.chkCryptoday_CheckedChanged);
+            // 
             // tabMisc
             // 
             this.tabMisc.Controls.Add(this.txtProxy);
@@ -1401,11 +1442,39 @@
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
             // 
+            // chkJane14
+            // 
+            this.chkJane14.AutoSize = true;
+            this.chkJane14.Checked = true;
+            this.chkJane14.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkJane14.Location = new System.Drawing.Point(9, 436);
+            this.chkJane14.Name = "chkJane14";
+            this.chkJane14.Size = new System.Drawing.Size(81, 17);
+            this.chkJane14.TabIndex = 77;
+            this.chkJane14.Text = "Jane (Nf14)";
+            this.chkJane14.UseVisualStyleBackColor = true;
+            // 
+            // txtJane14Wattage
+            // 
+            this.txtJane14Wattage.Location = new System.Drawing.Point(188, 434);
+            this.txtJane14Wattage.Name = "txtJane14Wattage";
+            this.txtJane14Wattage.Size = new System.Drawing.Size(50, 20);
+            this.txtJane14Wattage.TabIndex = 76;
+            this.txtJane14Wattage.Text = "500";
+            // 
+            // txtJane14
+            // 
+            this.txtJane14.Location = new System.Drawing.Point(102, 434);
+            this.txtJane14.Name = "txtJane14";
+            this.txtJane14.Size = new System.Drawing.Size(80, 20);
+            this.txtJane14.TabIndex = 75;
+            this.txtJane14.Text = "0.0009";
+            // 
             // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(782, 642);
+            this.ClientSize = new System.Drawing.Size(782, 674);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.stStatusStrip);
             this.Controls.Add(this.dgView);
@@ -1431,6 +1500,7 @@
             this.tabPriceCalc.PerformLayout();
             this.tabMultipool.ResumeLayout(false);
             this.tabMultipool.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).EndInit();
             this.tabMisc.ResumeLayout(false);
             this.tabMisc.PerformLayout();
             this.ResumeLayout(false);
@@ -1557,6 +1627,11 @@
         private System.Windows.Forms.CheckBox chkRemoveNegative;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.NumericUpDown nudCryptoday;
+        private System.Windows.Forms.CheckBox chkCryptoday;
+        private System.Windows.Forms.CheckBox chkJane14;
+        private System.Windows.Forms.TextBox txtJane14Wattage;
+        private System.Windows.Forms.TextBox txtJane14;
     }
 }
 

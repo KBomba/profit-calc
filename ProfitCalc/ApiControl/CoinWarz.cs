@@ -5,11 +5,11 @@ namespace ProfitCalc.ApiControl
 {
     internal class CoinWarz
     {
-        /*[JsonProperty("Success")]
+        [JsonProperty("Success")]
         public bool Success { get; set; }
 
         [JsonProperty("Message")]
-        public string Message { get; set; }*/
+        public string Message { get; set; }
 
         [JsonProperty("Data")]
         public List<Coin> Data { get; set; }
