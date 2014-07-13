@@ -122,6 +122,8 @@
             this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsSpace = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsErrors = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
             this.chkWhattomine = new System.Windows.Forms.CheckBox();
             this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
@@ -153,6 +155,8 @@
             this.nudCryptoday = new System.Windows.Forms.NumericUpDown();
             this.chkCryptoday = new System.Windows.Forms.CheckBox();
             this.tabMisc = new System.Windows.Forms.TabPage();
+            this.tabLog = new System.Windows.Forms.TabPage();
+            this.txtLog = new System.Windows.Forms.TextBox();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -166,6 +170,7 @@
             this.tabMultipool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).BeginInit();
             this.tabMisc.SuspendLayout();
+            this.tabLog.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpHashrates
@@ -1040,7 +1045,7 @@
             this.nudPoolpicker.Size = new System.Drawing.Size(38, 20);
             this.nudPoolpicker.TabIndex = 33;
             this.nudPoolpicker.Value = new decimal(new int[] {
-            2,
+            7,
             0,
             0,
             0});
@@ -1076,7 +1081,9 @@
             this.stStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsProgressText,
             this.tsProgress,
-            this.tsStatus});
+            this.tsStatus,
+            this.tsSpace,
+            this.tsErrors});
             this.stStatusStrip.Location = new System.Drawing.Point(0, 652);
             this.stStatusStrip.Name = "stStatusStrip";
             this.stStatusStrip.Size = new System.Drawing.Size(782, 22);
@@ -1100,6 +1107,18 @@
             this.tsStatus.Name = "tsStatus";
             this.tsStatus.Size = new System.Drawing.Size(96, 17);
             this.tsStatus.Text = "Ready for launch";
+            this.tsStatus.TextChanged += new System.EventHandler(this.tsStatus_TextChanged);
+            // 
+            // tsSpace
+            // 
+            this.tsSpace.Name = "tsSpace";
+            this.tsSpace.Size = new System.Drawing.Size(514, 17);
+            this.tsSpace.Spring = true;
+            // 
+            // tsErrors
+            // 
+            this.tsErrors.Name = "tsErrors";
+            this.tsErrors.Size = new System.Drawing.Size(0, 17);
             // 
             // txtCointweakApiKey
             // 
@@ -1191,6 +1210,7 @@
             this.tabControlSettings.Controls.Add(this.tabPriceCalc);
             this.tabControlSettings.Controls.Add(this.tabMultipool);
             this.tabControlSettings.Controls.Add(this.tabMisc);
+            this.tabControlSettings.Controls.Add(this.tabLog);
             this.tabControlSettings.Location = new System.Drawing.Point(271, 12);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
@@ -1441,7 +1461,7 @@
             this.nudCryptoday.Size = new System.Drawing.Size(38, 20);
             this.nudCryptoday.TabIndex = 36;
             this.nudCryptoday.Value = new decimal(new int[] {
-            2,
+            7,
             0,
             0,
             0});
@@ -1469,6 +1489,29 @@
             this.tabMisc.TabIndex = 3;
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
+            // 
+            // tabLog
+            // 
+            this.tabLog.Controls.Add(this.txtLog);
+            this.tabLog.Location = new System.Drawing.Point(4, 22);
+            this.tabLog.Name = "tabLog";
+            this.tabLog.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLog.Size = new System.Drawing.Size(491, 153);
+            this.tabLog.TabIndex = 5;
+            this.tabLog.Text = "Log";
+            this.tabLog.UseVisualStyleBackColor = true;
+            // 
+            // txtLog
+            // 
+            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLog.Location = new System.Drawing.Point(3, 3);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtLog.Size = new System.Drawing.Size(485, 147);
+            this.txtLog.TabIndex = 0;
+            this.txtLog.WordWrap = false;
             // 
             // ProfitCalc
             // 
@@ -1503,6 +1546,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).EndInit();
             this.tabMisc.ResumeLayout(false);
             this.tabMisc.PerformLayout();
+            this.tabLog.ResumeLayout(false);
+            this.tabLog.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1632,6 +1677,10 @@
         private System.Windows.Forms.CheckBox chkJane14;
         private System.Windows.Forms.TextBox txtJane14Wattage;
         private System.Windows.Forms.TextBox txtJane14;
+        private System.Windows.Forms.TabPage tabLog;
+        private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.ToolStripStatusLabel tsSpace;
+        private System.Windows.Forms.ToolStripStatusLabel tsErrors;
     }
 }
 

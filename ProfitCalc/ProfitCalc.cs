@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -26,6 +27,13 @@ namespace ProfitCalc
 
         private void LoadSettings()
         {
+            foreach (TabPage page in tabControlSettings.TabPages)
+            {
+                page.BackColor = SystemColors.Menu;
+            }
+            txtLog.BackColor = SystemColors.Window;
+            txtLog.Text = "[" + DateTime.Now + "] Loading settings" + Environment.NewLine;
+
             cbbFiat.SelectedIndex = 0;
             cbbBidRecentAsk.SelectedIndex = 0;
             
@@ -36,7 +44,8 @@ namespace ProfitCalc
 
                     HashRateJson rates = JsonControl.GetSerializedApiFile<HashRateJson>("hashrates.txt");
                     txtGroestl.Text = rates.ListHashRate[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
-                    txtMyrGroestl.Text = rates.ListHashRate[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
+                    txtMyrGroestl.Text =
+                        rates.ListHashRate[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
                     txtFugue.Text = rates.ListHashRate[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
                     txtKeccak.Text = rates.ListHashRate[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
                     txtJackpot.Text = rates.ListHashRate[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
@@ -49,29 +58,43 @@ namespace ProfitCalc
                     txtX15.Text = rates.ListHashRate[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
                     txtHefty.Text = rates.ListHashRate[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
                     txtScryptN.Text = rates.ListHashRate[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
-                    txtJane15.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
-                    txtJane14.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
-                    txtJane13.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
-                    txtCryptonight.Text = rates.ListHashRate[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
+                    txtJane15.Text =
+                        rates.ListHashRate[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
+                    txtJane14.Text =
+                        rates.ListHashRate[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
+                    txtJane13.Text =
+                        rates.ListHashRate[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
+                    txtCryptonight.Text =
+                        rates.ListHashRate[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
 
-                    txtGroestlWattage.Text = rates.ListWattage[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
-                    txtMyrGroestlWattage.Text = rates.ListWattage[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
-                    txtFugueWattage.Text = rates.ListWattage[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
-                    txtKeccakWattage.Text = rates.ListWattage[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
+                    txtGroestlWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
+                    txtMyrGroestlWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
+                    txtFugueWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
+                    txtKeccakWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
                     txtJhaWattage.Text = rates.ListWattage[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
                     txtNist5Wattage.Text = rates.ListWattage[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
                     txtQuarkWattage.Text = rates.ListWattage[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
                     txtQubitWattage.Text = rates.ListWattage[HashAlgo.Algo.Qubit].ToString(CultureInfo.InvariantCulture);
-                    txtScryptWattage.Text = rates.ListWattage[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
+                    txtScryptWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
                     txtX11Wattage.Text = rates.ListWattage[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
                     txtX13Wattage.Text = rates.ListWattage[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
                     txtX15Wattage.Text = rates.ListWattage[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
                     txtHeftyWattage.Text = rates.ListWattage[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
-                    txtScryptNWattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
-                    txtJane15Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
-                    txtJane14Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
-                    txtJane13Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
-                    txtCryptonightWattage.Text = rates.ListWattage[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
+                    txtScryptNWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
+                    txtJane15Wattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
+                    txtJane14Wattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
+                    txtJane13Wattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
+                    txtCryptonightWattage.Text =
+                        rates.ListWattage[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
 
                     chkGroestl.Checked = rates.CheckedHashRates["Groestl"];
                     chkMyrGroestl.Checked = rates.CheckedHashRates["MyrGroestl"];
@@ -95,10 +118,13 @@ namespace ProfitCalc
                     cbbFiat.SelectedIndex = rates.FiatOfChoice;
                     txtFiatElectricityCost.Text = rates.FiatPerKwh.ToString(CultureInfo.InvariantCulture);
                 }
+                catch (KeyNotFoundException) 
+                {
+                    AppendToLog("KeyNotFoundException in hashrates.txt, probably due to upgrade to a newer version.");
+                }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with loading your hashrates.txt \nIgnore this if this is the first time you get this after updating."
-                                    + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                    AppendToLog("Error in hashrates.txt", exception);
                 }
             }
             
@@ -136,16 +162,14 @@ namespace ProfitCalc
                     chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"];
                     chkProxy.Checked = apiSettings.CheckedMisc["Proxy"];
                 }
+                catch (KeyNotFoundException)
+                {
+                    AppendToLog("KeyNotFoundException in apisettings.txt, probably due to upgrade to a newer version.");
+                }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with loading your apisettings.txt. \nIgnore this if this is the first time you get this after updating."
-                                    + Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                    AppendToLog("Error in apisettings.txt", exception);
                 }
-            }
-
-            foreach (TabPage page in tabControlSettings.TabPages)
-            {
-                page.BackColor = SystemColors.Menu;
             }
         }
 
@@ -218,15 +242,22 @@ namespace ProfitCalc
 
             string jsonApiList = JsonConvert.SerializeObject(apiSettings, Formatting.Indented);
             File.WriteAllText(@"apisettings.txt", jsonApiList);
+
+            AppendToLog("Saving settings");
+            File.WriteAllText(@"log.txt", txtLog.Text);
         }
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
             // Actual process starts here ^^"
             DateTime start = DateTime.Now;
-            tsStatus.Text = "Starting...";
+
+            tsStatus.Text = "Starting new profit calculation...";
+            tsErrors.Text = "0 errors";
+            tsErrors.ForeColor = Color.Green;
             tsProgress.Value = 0;
 
+            tsStatus.Text = "Parsing given hashrates...";
             _hashList = ParseHashrates((double) nudAmount.Value, true);
 
             const int i = 7;
@@ -245,7 +276,7 @@ namespace ProfitCalc
 
             if (chkRemoveNegative.Checked)
             {
-                tsStatus.Text = "Removing results with negative profits..";
+                tsStatus.Text = "Removing results with a negative profit..";
                 _coinList.List.RemoveAll(coin => coin.BtcPerDay <= 0);
             }
 
@@ -271,9 +302,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(
-                        "Oops, something went wrong with the Coindesk API, used to calculate your fiat/day." +
-                        Environment.NewLine + Environment.NewLine + exception.StackTrace);
+                    AppendToLog("Error while getting data from Coindesk, used to calculate your " + cbbFiat.Text + "/day.",
+                        exception);
                 }
             }
             else
@@ -288,25 +318,27 @@ namespace ProfitCalc
             dgView.Rows.Clear();
             DataGridViewRow[] arrCoinRows = new DataGridViewRow[_coinList.List.Count];
 
-            for (int index = 0; index < _coinList.List.Count; index++)
+            Parallel.For(0, _coinList.List.Count, index =>
             {
                 Coin coin = _coinList.List[index];
                 arrCoinRows[index] = new DataGridViewRow {HeaderCell = {Value = String.Format("{0}", index + 1)}};
                 arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.FullName, coin.Algo,
-                    coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"), 
+                    coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"),
                     coin.GbpPerDay.ToString("0.000"), coin.CnyPerDay.ToString("0.000"),
                     coin.BtcPerDay.ToString("0.00000000"), coin.CoinsPerDay.ToString("0.00000"),
-                    coin.Exchanges[0].ExchangeName, coin.Exchanges[0].BtcPrice.ToString("0.00000000"), 
-                    coin.Exchanges[0].BtcVolume.ToString("0.000"), coin.WeightedBtcPrice.ToString("0.00000000"), 
+                    coin.Exchanges[0].ExchangeName, coin.Exchanges[0].BtcPrice.ToString("0.00000000"),
+                    coin.Exchanges[0].BtcVolume.ToString("0.000"), coin.WeightedBtcPrice.ToString("0.00000000"),
                     coin.TotalVolume.ToString("0.000"), coin.Difficulty, coin.BlockReward
                     );
-            }
+            });
 
             dgView.Rows.AddRange(arrCoinRows);
         }
 
         private void GetCoinList(int progress)
         {
+            List<Action> erroredActions = new List<Action>();
+
             HttpClientHandler hch = new HttpClientHandler();
             if (chkProxy.Checked)
             {
@@ -330,8 +362,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the MoneroChain API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from MoneroChain. Will be retried.",
+                        exception);
+                    erroredActions.Add(_coinList.AddMoneroWorkAround);
                 }
             }
 
@@ -345,8 +378,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the NiceHash API." +
-                                    Environment.NewLine + Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from NiceHash. Will be retried.",
+                        exception);
+                    erroredActions.Add(_coinList.UpdateNiceHash);
                 }
             }
 
@@ -360,8 +394,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the PoolPicker API." +
-                                    Environment.NewLine + Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from PoolPicker. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdatePoolPicker(nudPoolpicker.Value, chkReviewCalc.Checked));
                 }
             }
 
@@ -375,8 +410,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the CrypToday API." +
-                                    Environment.NewLine + Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from CrypToday. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateCrypToday(nudCryptoday.Value));
                 }
             }
 
@@ -390,8 +426,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the WhatToMine API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from WhatToMine. Will be retried.",
+                        exception);
+                    erroredActions.Add(_coinList.UpdateWhatToMine);
                 }
             }
 
@@ -405,8 +442,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the CoinTweak API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from CoinTweak. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateCoinTweak(txtCointweakApiKey.Text));
                 }
             }
 
@@ -420,9 +458,36 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the CoinWarz API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from CoinWarz. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateCoinWarz(txtCoinwarzApiKey.Text));
                 }
+            }
+
+            if (erroredActions.Count > 0)
+            {
+                tsStatus.Text = "Retrying errored coin info and multipool API's";
+                int errors = 0;
+
+                foreach (Action erroredAction in erroredActions)
+                {
+                    try
+                    {
+                        erroredAction.Invoke();
+                    }
+                    catch (Exception exception)
+                    {
+                        errors++;
+                        AppendToLog("Error", exception);
+                    }
+                }
+
+                if (errors != 0)
+                {
+                    UpdateErrorCounter(errors);
+                }
+
+                erroredActions.Clear();
             }
 
             tsProgress.Value += progress;
@@ -435,8 +500,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the Bittrex API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from Bittrex. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateBittrex(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 
@@ -450,8 +516,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the Mintpal API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from Mintpal. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateMintPal(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 
@@ -460,13 +527,14 @@ namespace ProfitCalc
             {
                 try
                 {
-                    tsStatus.Text = "Updating with Cryptsy prices... (This might take a few seconds :p )";
+                    tsStatus.Text = "Updating with Cryptsy prices...";
                     _coinList.UpdateCryptsy(cbbBidRecentAsk.SelectedIndex);
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the Cryptsy API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from Cryptsy. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateCryptsy(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 
@@ -480,8 +548,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the Poloniex API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from Poloniex. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdatePoloniex(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 
@@ -495,8 +564,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the AllCoin API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from AllCoin. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateAllCoin(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 
@@ -510,19 +580,47 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Oops, something went wrong with the AllCrypt API." + Environment.NewLine +
-                                    Environment.NewLine + exception);
+                    AppendToLog("Error while getting data from AllCrypt. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateAllCrypt(cbbBidRecentAsk.SelectedIndex));
                 }
+            }
+
+            if (erroredActions.Count > 0)
+            {
+                tsStatus.Text = "Retrying errored market API's";
+                int errors = 0;
+
+                foreach (Action erroredAction in erroredActions)
+                {
+                    try
+                    {
+                        erroredAction.Invoke();
+                    }
+                    catch (Exception exception)
+                    {
+                        errors++;
+                        AppendToLog("Error", exception);
+                    }
+                }
+
+                if (errors != 0)
+                {
+                    UpdateErrorCounter(errors);
+                }
+
+                erroredActions.Clear();
             }
 
             if (chkRemoveUnhealthy.Checked)
             {
                 tsStatus.Text = "Removing unhealthy coins...";
                 _coinList.List =
-                    _coinList.List.AsParallel().Where(coin => coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
+                    _coinList.List.AsParallel().Where(coin => 
+                        coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
             }
         }
-
+        
         private HashRateJson ParseHashrates(double multiplier, bool checkChecked)
         {
             // checkChecked is false whenever all hashrates need to be saved to file
@@ -545,7 +643,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Groestl hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Groestl hashrate");
                 }
             }
 
@@ -561,7 +660,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your MyrGroestl hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your MyrGroestl hashrate");
                 }
             }
 
@@ -575,7 +675,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Fugue hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Fugue hashrate");
                 }
             }
 
@@ -589,7 +690,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your JHA hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your JHA hashrate");
                 }
             }
 
@@ -603,7 +705,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Nist5 hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Nist5 hashrate");
                 }
             }
 
@@ -617,7 +720,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Hefty hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Hefty hashrate");
                 }
             }
 
@@ -631,7 +735,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your X11 hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your X11 hashrate");
                 }
             }
 
@@ -645,7 +750,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your X13 hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your X13 hashrate");
                 }
             }
 
@@ -659,7 +765,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your X15 hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your X15 hashrate");
                 }
             }
 
@@ -673,7 +780,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Quark hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Quark hashrate");
                 }
             }
 
@@ -687,7 +795,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Qubit hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Qubit hashrate");
                 }
             }
 
@@ -702,7 +811,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Keccak hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Keccak hashrate");
                 }
             }
 
@@ -717,7 +827,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Scrypt hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Scrypt hashrate");
                 }
             }
 
@@ -732,7 +843,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your ScryptN hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your ScryptN hashrate");
                 }
             }
 
@@ -747,11 +859,12 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Jane15 hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Jane15 hashrate");
                 }
             }
 
-            if (!checkChecked || chkJane15.Checked)
+            if (!checkChecked || chkJane14.Checked)
             {
                 if (Double.TryParse(txtJane14.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
                     Double.TryParse(txtJane14Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
@@ -762,7 +875,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Jane15 hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Jane14 hashrate");
                 }
             }
 
@@ -777,7 +891,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your Jane13 hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your Jane13 hashrate");
                 }
             }
 
@@ -793,7 +908,8 @@ namespace ProfitCalc
                 }
                 else
                 {
-                    MessageBox.Show("Something wrong with your CryptoNight hashrate");
+                    UpdateErrorCounter();
+                    AppendToLog("[ERROR] Something wrong with your CryptoNight hashrate");
                 }
             }
 
@@ -805,6 +921,27 @@ namespace ProfitCalc
                 FiatOfChoice = fiatOfChoice
             };
             return hashRateJson;
+        }
+
+        private void AppendToLog(string s)
+        {
+            txtLog.AppendText("[" + DateTime.Now + "] " + s + Environment.NewLine);
+        }
+
+        private void AppendToLog(string s, Exception e)
+        {
+            txtLog.AppendText("[" + DateTime.Now + "] [ERROR] " + s + Environment.NewLine + e + Environment.NewLine);
+        }
+
+        private void UpdateErrorCounter(int iErrors = 1)
+        {
+            tsErrors.ForeColor = Color.Red;
+
+            iErrors += int.Parse(tsErrors.Text.Split(' ')[0]);
+
+            tsErrors.Text = iErrors == 1
+                ? iErrors + " error"
+                : iErrors + " errors";
         }
 
         private void tsmResultsToClipboard_Click(object sender, EventArgs e)
@@ -928,6 +1065,11 @@ namespace ProfitCalc
 
             int x = txtFiatElectricityCost.Location.X - 6 - lblElectricityCost.Size.Width;
             lblElectricityCost.Location = new Point(x, lblElectricityCost.Location.Y);
+        }
+
+        private void tsStatus_TextChanged(object sender, EventArgs e)
+        {
+            AppendToLog(tsStatus.Text);
         }
     }
 }

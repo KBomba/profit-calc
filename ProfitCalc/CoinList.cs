@@ -537,7 +537,7 @@ namespace ProfitCalc
                 _client.GetStreamAsync("http://cryp.today/data").Result);
             Coin[] tempMultipools = new Coin[ct.Cols.Count-1];
 
-            Parallel.For(0, ct.Cols.Count - 1, i =>
+            Parallel.For(0, ct.Cols.Count - 1, _po, i =>
             {
                 string[] splitNameAndAlgo = ct.Cols[i + 1].Label.Split(' ');
                 tempMultipools[i] = new Coin();
@@ -569,11 +569,11 @@ namespace ProfitCalc
                 tempMultipools[i].Exchanges.Add(ctExchange);
             });
 
-            double priceHolder;
             for (int row = ct.Rows.Count - 1; row >= ct.Rows.Count - average; row--)
             {
-                for (int column = 1; column < ct.Rows[row].Results.Count; column++)
+                Parallel.For(1, ct.Rows[row].Results.Count, _po, column =>
                 {
+                    double priceHolder;
                     if (!string.IsNullOrWhiteSpace(ct.Rows[row].Results[column].Btc) &&
                         double.TryParse(ct.Rows[row].Results[column].Btc, NumberStyles.Float,
                             CultureInfo.InvariantCulture, out priceHolder))
@@ -582,7 +582,7 @@ namespace ProfitCalc
                         // Temp storing amount of not-null BtcPerDays into BlockReward
                         tempMultipools[column - 1].BlockReward++;
                     }
-                }
+                });
             }
 
             foreach (Coin c in tempMultipools)
@@ -602,6 +602,7 @@ namespace ProfitCalc
 
                 c.Exchanges[0].BtcPrice /= c.BlockReward;
                 c.Exchanges[0].BtcPrice *= 1000;
+                c.BlockReward = 0;
                 Add(c);
             }
         }
