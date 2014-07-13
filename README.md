@@ -43,17 +43,15 @@ Supported APIs
 - Poloniex:		https://poloniex.com/
 - AllCoin:		https://allcoin.com/
 - AllCrypt:		https://allcrypt.com/
-
 - WhatToMine:	http://whattomine.com/
 - CoinTweak:	https://cointweak.com/
 - CoinWarz:		http://coinwarz.com/
-
 - NiceHash:		https://nicehash.com
 - PoolPicker:	http://poolpicker.eu/
 - Cryp.Today:	http://cryp.today/
-
 - MoneroChain:	http://monerochain.info/
 - CoinDesk:		http://coindesk.com/
+
 
 Donations are welcome!
 ================
