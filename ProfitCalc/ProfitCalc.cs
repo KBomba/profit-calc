@@ -22,21 +22,26 @@ namespace ProfitCalc
         public ProfitCalc()
         {
             InitializeComponent();
+            InitializeOtherComponents();
             LoadSettings();
+            UpdateChkAllState();
         }
 
-        private void LoadSettings()
+        private void InitializeOtherComponents()
         {
             foreach (TabPage page in tabControlSettings.TabPages)
             {
                 page.BackColor = SystemColors.Menu;
             }
             txtLog.BackColor = SystemColors.Window;
-            txtLog.Text = "[" + DateTime.Now + "] Loading settings" + Environment.NewLine;
+            AppendToLog("Loading settings");
 
             cbbFiat.SelectedIndex = 0;
             cbbBidRecentAsk.SelectedIndex = 0;
-            
+        }
+
+        private void LoadSettings()
+        {
             if (File.Exists("hashrates.txt"))
             {
                 try
@@ -159,7 +164,11 @@ namespace ProfitCalc
                     chkCryptoday.Checked = apiSettings.CheckedApis["CrypToday"];
                     chkPoolpicker.Checked = apiSettings.CheckedApis["PoolPicker"];
 
+                    chkRemoveUnhealthy.Checked = apiSettings.CheckedMisc["RemoveUnhealthy"];
+                    chkRemoveTooGoodToBeTrue.Checked = apiSettings.CheckedMisc["RemoveTooGoodToBeTrue"];
+                    chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"];
                     chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"];
+                    chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"];
                     chkProxy.Checked = apiSettings.CheckedMisc["Proxy"];
                 }
                 catch (KeyNotFoundException)
@@ -175,7 +184,7 @@ namespace ProfitCalc
 
         private void SaveSettings()
         {
-            HashRateJson parsed = ParseHashrates(1, false);
+            HashRateJson parsed = ParseGuiHashrates(1, false);
             _hashList = new HashRateJson
             {
                 ListHashRate = parsed.ListHashRate,
@@ -237,13 +246,17 @@ namespace ProfitCalc
             apiSettings.CheckedApis.Add("CrypToday", chkCryptoday.Checked);
             apiSettings.CheckedApis.Add("PoolPicker", chkPoolpicker.Checked);
 
+            apiSettings.CheckedMisc.Add("RemoveUnhealthy", chkRemoveUnhealthy.Checked);
+            apiSettings.CheckedMisc.Add("RemoveTooGoodToBeTrue", chkRemoveTooGoodToBeTrue.Checked);
+            apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
             apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
+            apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
             apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
 
             string jsonApiList = JsonConvert.SerializeObject(apiSettings, Formatting.Indented);
             File.WriteAllText(@"apisettings.txt", jsonApiList);
 
-            AppendToLog("Saving settings");
+            AppendToLog("Settings saved");
             File.WriteAllText(@"log.txt", txtLog.Text);
         }
 
@@ -258,45 +271,32 @@ namespace ProfitCalc
             tsProgress.Value = 0;
 
             tsStatus.Text = "Parsing given hashrates...";
-            _hashList = ParseHashrates((double) nudAmount.Value, true);
+            _hashList = ParseGuiHashrates((double) nudAmount.Value, true);
 
             const int i = 7;
             GetCoinList(i);
             tsProgress.Value += i;
 
             tsStatus.Text = "Calculating profits and sorting the list...";
-            SortAndCalculatePrices();
-
-            if (chkRemoveUnhealthy.Checked)
-            {
-                tsStatus.Text = "Another round of unhealthy coin removal..";
-                _coinList.List.RemoveAll(coin => 
-                    coin.TotalVolume < coin.BtcPerDay && !coin.IsMultiPool);
-            }
-
-            if (chkRemoveNegative.Checked)
-            {
-                tsStatus.Text = "Removing results with a negative profit..";
-                _coinList.List.RemoveAll(coin => coin.BtcPerDay <= 0);
-            }
+            CalculatePrices();
 
             tsProgress.Value += i;
-
-            tsStatus.Text = "Writing data to GUI...";
-            UpdateDataGridView();
+            UpdateDataGridView(GetCleanedCoinList());
 
             tsProgress.Value = 100;
             TimeSpan end = DateTime.Now.Subtract(start);
             tsStatus.Text = "Completed in " + end.TotalSeconds.ToString("0.##") + " seconds";
+
+            File.WriteAllText(@"log.txt", txtLog.Text);
         }
 
-        private void SortAndCalculatePrices()
+        private void CalculatePrices()
         {
             if (chkCoindesk.Checked)
             {
                 try
                 {
-                    _coinList.Sort(_hashList, chkWeight.Checked,
+                    _coinList.CalculatePrices(_hashList, chkWeight.Checked,
                         "https://api.coindesk.com/v1/bpi/currentprice.json",
                         "https://api.coindesk.com/v1/bpi/currentprice/CNY.json");
                 }
@@ -308,19 +308,49 @@ namespace ProfitCalc
             }
             else
             {
-                _coinList.Sort(_hashList, chkWeight.Checked);
+                _coinList.CalculatePrices(_hashList, chkWeight.Checked);
             }
         }
 
-
-        private void UpdateDataGridView()
+        private List<Coin> GetCleanedCoinList()
         {
-            dgView.Rows.Clear();
-            DataGridViewRow[] arrCoinRows = new DataGridViewRow[_coinList.List.Count];
+            ParallelQuery<Coin> tempCoinList = _coinList.List.AsParallel();
 
-            Parallel.For(0, _coinList.List.Count, index =>
+            if (chkRemoveUnhealthy.Checked)
             {
-                Coin coin = _coinList.List[index];
+                tsStatus.Text = "Removing unhealthy coins...";
+                tempCoinList = tempCoinList.Where(coin =>
+                    coin.HasImplementedMarketApi && !coin.HasMarketErrors && !Double.IsNaN(coin.BtcPerDay));
+            }
+
+            if (chkRemoveTooGoodToBeTrue.Checked)
+            {
+                tsStatus.Text = "Removing coins with a volume lower than you can earn..";
+                tempCoinList = tempCoinList.Where(coin =>
+                    coin.TotalVolume > coin.BtcPerDay || coin.IsMultiPool);
+            }
+
+            if (chkRemoveNegative.Checked)
+            {
+                tsStatus.Text = "Removing results with a negative profit..";
+                tempCoinList = tempCoinList.Where(coin =>
+                    coin.BtcPerDay >= 0);
+            }
+
+            return new List<Coin>(tempCoinList.OrderByDescending(o => o.BtcPerDay));
+        }
+
+        private void UpdateDataGridView(List<Coin> listCoins)
+        {
+            tsStatus.Text = "Writing data to table...";
+
+            dgView.Rows.Clear();
+            DataGridViewRow[] arrCoinRows = new DataGridViewRow[listCoins.Count];
+
+            Parallel.For(0, listCoins.Count, index =>
+            {
+                Coin coin = listCoins[index];
+                
                 arrCoinRows[index] = new DataGridViewRow {HeaderCell = {Value = String.Format("{0}", index + 1)}};
                 arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.FullName, coin.Algo,
                     coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"),
@@ -330,9 +360,39 @@ namespace ProfitCalc
                     coin.Exchanges[0].BtcVolume.ToString("0.000"), coin.WeightedBtcPrice.ToString("0.00000000"),
                     coin.TotalVolume.ToString("0.000"), coin.Difficulty, coin.BlockReward
                     );
+
+                if (chkColor.Checked)
+                {
+                    arrCoinRows[index].DefaultCellStyle.BackColor = GetRowColor(coin);
+                }
             });
 
             dgView.Rows.AddRange(arrCoinRows);
+        }
+
+        private Color GetRowColor(Coin coin)
+        {
+            if (!coin.HasImplementedMarketApi || coin.HasMarketErrors || Double.IsNaN(coin.BtcPerDay)) 
+            {
+                return Color.Plum;
+            }
+
+            if (coin.BtcPerDay <= 0)
+            {
+                return Color.Red;
+            }
+
+            if (coin.TotalVolume < coin.BtcPerDay && !coin.IsMultiPool)
+            {
+                return Color.PaleTurquoise;
+            }
+
+            if (coin.TagName == "CACH")
+            {
+                MessageBox.Show("Gotcha");
+            }
+
+            return Color.GreenYellow;
         }
 
         private void GetCoinList(int progress)
@@ -611,17 +671,9 @@ namespace ProfitCalc
 
                 erroredActions.Clear();
             }
-
-            if (chkRemoveUnhealthy.Checked)
-            {
-                tsStatus.Text = "Removing unhealthy coins...";
-                _coinList.List =
-                    _coinList.List.AsParallel().Where(coin => 
-                        coin.HasImplementedMarketApi && !coin.HasMarketErrors).ToList();
-            }
         }
         
-        private HashRateJson ParseHashrates(double multiplier, bool checkChecked)
+        private HashRateJson ParseGuiHashrates(double multiplier, bool checkChecked)
         {
             // checkChecked is false whenever all hashrates need to be saved to file
             Dictionary<HashAlgo.Algo, double> hashList = new Dictionary<HashAlgo.Algo, double>();
@@ -999,6 +1051,14 @@ namespace ProfitCalc
             nudCryptoday.Enabled = chkCryptoday.Checked;
         }
 
+        private void reasonToUpdateDgv_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_coinList != null && _coinList.List != null)
+            {
+                UpdateDataGridView(GetCleanedCoinList());
+            }
+        }
+
         private void chkCoindesk_CheckedChanged(object sender, EventArgs e)
         {
             SetVisibleFiatColumn();
@@ -1070,6 +1130,47 @@ namespace ProfitCalc
         private void tsStatus_TextChanged(object sender, EventArgs e)
         {
             AppendToLog(tsStatus.Text);
+        }
+
+        private void checkBox3_Click(object sender, EventArgs e)
+        {
+            foreach (CheckBox chkBox in grpHashrates.Controls.OfType<CheckBox>().AsParallel()
+                .Where(chkBox => chkAll != chkBox && chkCoindesk != chkBox))
+            {
+                chkBox.Checked = chkAll.Checked;
+            }
+        }
+
+        private void UpdateChkAllState()
+        {
+            int totalChkBoxes = 0, checkedChkBoxes = 0;
+            foreach (CheckBox chkBox in grpHashrates.Controls.OfType<CheckBox>().AsParallel()
+                .Where(chkBox => chkAll != chkBox && chkCoindesk != chkBox))
+            {
+                totalChkBoxes++;
+                if (chkBox.Checked)
+                {
+                    checkedChkBoxes++;
+                }
+            }
+
+            if (checkedChkBoxes == 0)
+            {
+                chkAll.CheckState = CheckState.Unchecked;
+            }
+            else if (checkedChkBoxes == totalChkBoxes)
+            {
+                chkAll.CheckState = CheckState.Checked;
+            }
+            else
+            {
+                chkAll.CheckState = CheckState.Indeterminate;
+            }
+        }
+
+        private void chkHashingalgo_Click(object sender, EventArgs e)
+        {
+            UpdateChkAllState();
         }
     }
 }

@@ -96,7 +96,7 @@ namespace ProfitCalc
             }
             else
             {
-                throw new Exception(ctwData.CallsRemaining.ToString(CultureInfo.InvariantCulture) + " calls remaining");
+                throw new Exception(ctwData.CallsRemaining.ToString(CultureInfo.InvariantCulture) + " calls remaining or invalid API key");
             }
         }
 
@@ -151,6 +151,7 @@ namespace ProfitCalc
                         BtcPrice = priceToUse,
                         BtcVolume = mpCoin.Last24HVol
                     };
+
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(mpExchange);
@@ -221,7 +222,7 @@ namespace ProfitCalc
         public void UpdateBittrex(int selectedIndex)
         {
             Bittrex bt = JsonControl.DownloadSerializedApi<Bittrex>(
-                _client.GetStreamAsync("http://bittrex.com/api/v1/public/getmarketsummaries").Result);
+                _client.GetStreamAsync("http://bittrex.com/api/v1.1/public/getmarketsummaries").Result);
 
             Parallel.ForEach(List, c => Parallel.ForEach(bt.Results, _po, btCoin =>
             {
@@ -481,6 +482,16 @@ namespace ProfitCalc
                 {
                     AddPoolPickerPool(pool, pool.PoolProfitability.Keccak, HashAlgo.Algo.Keccak, whenToEnd, reviewCalc, reviewPercentage);
                 }
+
+                if (pool.PoolProfitability.X15 != null)
+                {
+                    AddPoolPickerPool(pool, pool.PoolProfitability.X15, HashAlgo.Algo.Keccak, whenToEnd, reviewCalc, reviewPercentage);
+                }
+
+                if (pool.PoolProfitability.Nist5 != null)
+                {
+                    AddPoolPickerPool(pool, pool.PoolProfitability.Nist5, HashAlgo.Algo.Nist5, whenToEnd, reviewCalc, reviewPercentage);
+                }
             }
         }
 
@@ -569,9 +580,10 @@ namespace ProfitCalc
                 tempMultipools[i].Exchanges.Add(ctExchange);
             });
 
-            for (int row = ct.Rows.Count - 1; row >= ct.Rows.Count - average; row--)
+            for (int i = ct.Rows.Count - 1; i >= ct.Rows.Count - average; i--)
             {
-                Parallel.For(1, ct.Rows[row].Results.Count, _po, column =>
+                int row = i;
+                Parallel.For(1, ct.Rows[i].Results.Count, _po, column =>
                 {
                     double priceHolder;
                     if (!string.IsNullOrWhiteSpace(ct.Rows[row].Results[column].Btc) &&
@@ -641,7 +653,7 @@ namespace ProfitCalc
             Add(c);
         }
 
-        public void Sort(HashRateJson hashList, bool useWeightedCalculation, string coindeskAdress,
+        public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation, string coindeskAdress,
             string coindeskCnyAdress)
         {
             CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(_client.GetStreamAsync(coindeskAdress).Result);
@@ -683,14 +695,10 @@ namespace ProfitCalc
                 }
             });
 
-            //Removing all errored coins and actually sorting them
-            List =
-                List.AsParallel().Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
-                    .OrderByDescending(o => o.BtcPerDay)
-                    .ToList();
+            List = List.AsParallel().Where(o => o.BtcPerDay != 0).OrderByDescending(o => o.BtcPerDay).ToList();
         }
 
-        public void Sort(HashRateJson hashList, bool useWeightedCalculation)
+        public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation)
         {
             Parallel.ForEach(List, coin =>
             {
@@ -700,11 +708,7 @@ namespace ProfitCalc
                 }
             });
 
-            //Removing all errored coins and actually sorting them
-            List =
-                List.AsParallel().Where(x => x.BtcPerDay != 0 && (x.TotalVolume != 0 || x.IsMultiPool))
-                    .OrderByDescending(o => o.BtcPerDay)
-                    .ToList();
+            List = List.AsParallel().Where(o => o.BtcPerDay != 0).ToList();
         }
 
         public override string ToString()

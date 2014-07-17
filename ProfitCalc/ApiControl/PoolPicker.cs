@@ -51,6 +51,12 @@ namespace ProfitCalc.ApiControl
                 [JsonProperty("Keccak")]
                 public List<Algo> Keccak { get; set; }
 
+                [JsonProperty("X15")]
+                public List<Algo> X15 { get; set; }
+
+                [JsonProperty("Nist5")]
+                public List<Algo> Nist5 { get; set; }
+
                 public class Algo
                 {
                     [JsonProperty("date")]
