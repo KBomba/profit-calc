@@ -387,9 +387,9 @@ namespace ProfitCalc
                 return Color.PaleTurquoise;
             }
 
-            if (coin.TagName == "CACH")
+            if (coin.IsMultiPool)
             {
-                MessageBox.Show("Gotcha");
+                return Color.YellowGreen;
             }
 
             return Color.GreenYellow;
@@ -1132,7 +1132,7 @@ namespace ProfitCalc
             AppendToLog(tsStatus.Text);
         }
 
-        private void checkBox3_Click(object sender, EventArgs e)
+        private void checkAll_Click(object sender, EventArgs e)
         {
             foreach (CheckBox chkBox in grpHashrates.Controls.OfType<CheckBox>().AsParallel()
                 .Where(chkBox => chkAll != chkBox && chkCoindesk != chkBox))
@@ -1171,6 +1171,28 @@ namespace ProfitCalc
         private void chkHashingalgo_Click(object sender, EventArgs e)
         {
             UpdateChkAllState();
+        }
+
+        private void chkColor_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (chkColor.Checked)
+            {
+                chkRemoveUnhealthy.BackColor = Color.Plum;
+                chkRemoveTooGoodToBeTrue.BackColor = Color.PaleTurquoise;
+                chkRemoveNegative.BackColor = Color.Red;
+                tabMultipool.BackColor = Color.YellowGreen;
+                tabCoinInfo.BackColor = Color.GreenYellow;
+                tabMarketApi.BackColor = Color.GreenYellow;
+            }
+            else
+            {
+                chkRemoveUnhealthy.BackColor = Color.Transparent;
+                chkRemoveTooGoodToBeTrue.BackColor = Color.Transparent;
+                chkRemoveNegative.BackColor = Color.Transparent;
+                tabMultipool.BackColor = Color.Transparent;
+                tabCoinInfo.BackColor = Color.Transparent;
+                tabMarketApi.BackColor = Color.Transparent;
+            }   
         }
     }
 }

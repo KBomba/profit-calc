@@ -257,7 +257,7 @@
             this.chkAll.Size = new System.Drawing.Size(15, 14);
             this.chkAll.TabIndex = 78;
             this.chkAll.UseVisualStyleBackColor = true;
-            this.chkAll.Click += new System.EventHandler(this.checkBox3_Click);
+            this.chkAll.Click += new System.EventHandler(this.checkAll_Click);
             // 
             // chkJane14
             // 
@@ -278,7 +278,7 @@
             this.txtJane14Wattage.Name = "txtJane14Wattage";
             this.txtJane14Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtJane14Wattage.TabIndex = 76;
-            this.txtJane14Wattage.Text = "0";
+            this.txtJane14Wattage.Text = "100";
             // 
             // txtJane14
             // 
@@ -307,7 +307,7 @@
             this.txtX15Wattage.Name = "txtX15Wattage";
             this.txtX15Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtX15Wattage.TabIndex = 73;
-            this.txtX15Wattage.Text = "0";
+            this.txtX15Wattage.Text = "100";
             // 
             // txtX15
             // 
@@ -336,7 +336,7 @@
             this.txtQubitWattage.Name = "txtQubitWattage";
             this.txtQubitWattage.Size = new System.Drawing.Size(50, 20);
             this.txtQubitWattage.TabIndex = 70;
-            this.txtQubitWattage.Text = "0";
+            this.txtQubitWattage.Text = "100";
             // 
             // txtQubit
             // 
@@ -599,7 +599,7 @@
             this.txtCryptonightWattage.Name = "txtCryptonightWattage";
             this.txtCryptonightWattage.Size = new System.Drawing.Size(50, 20);
             this.txtCryptonightWattage.TabIndex = 49;
-            this.txtCryptonightWattage.Text = "0";
+            this.txtCryptonightWattage.Text = "100";
             // 
             // txtCryptonight
             // 
@@ -615,7 +615,7 @@
             this.txtJane13Wattage.Name = "txtJane13Wattage";
             this.txtJane13Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtJane13Wattage.TabIndex = 46;
-            this.txtJane13Wattage.Text = "0";
+            this.txtJane13Wattage.Text = "100";
             // 
             // txtJane15Wattage
             // 
@@ -623,7 +623,7 @@
             this.txtJane15Wattage.Name = "txtJane15Wattage";
             this.txtJane15Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtJane15Wattage.TabIndex = 45;
-            this.txtJane15Wattage.Text = "0";
+            this.txtJane15Wattage.Text = "100";
             // 
             // txtScryptNWattage
             // 
@@ -631,7 +631,7 @@
             this.txtScryptNWattage.Name = "txtScryptNWattage";
             this.txtScryptNWattage.Size = new System.Drawing.Size(50, 20);
             this.txtScryptNWattage.TabIndex = 44;
-            this.txtScryptNWattage.Text = "0";
+            this.txtScryptNWattage.Text = "100";
             // 
             // txtHeftyWattage
             // 
@@ -639,7 +639,7 @@
             this.txtHeftyWattage.Name = "txtHeftyWattage";
             this.txtHeftyWattage.Size = new System.Drawing.Size(50, 20);
             this.txtHeftyWattage.TabIndex = 39;
-            this.txtHeftyWattage.Text = "0";
+            this.txtHeftyWattage.Text = "100";
             // 
             // txtX13Wattage
             // 
@@ -647,7 +647,7 @@
             this.txtX13Wattage.Name = "txtX13Wattage";
             this.txtX13Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtX13Wattage.TabIndex = 42;
-            this.txtX13Wattage.Text = "0";
+            this.txtX13Wattage.Text = "100";
             // 
             // txtX11Wattage
             // 
@@ -655,7 +655,7 @@
             this.txtX11Wattage.Name = "txtX11Wattage";
             this.txtX11Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtX11Wattage.TabIndex = 41;
-            this.txtX11Wattage.Text = "0";
+            this.txtX11Wattage.Text = "100";
             // 
             // txtScryptWattage
             // 
@@ -663,7 +663,7 @@
             this.txtScryptWattage.Name = "txtScryptWattage";
             this.txtScryptWattage.Size = new System.Drawing.Size(50, 20);
             this.txtScryptWattage.TabIndex = 40;
-            this.txtScryptWattage.Text = "0";
+            this.txtScryptWattage.Text = "100";
             // 
             // txtQuarkWattage
             // 
@@ -671,7 +671,7 @@
             this.txtQuarkWattage.Name = "txtQuarkWattage";
             this.txtQuarkWattage.Size = new System.Drawing.Size(50, 20);
             this.txtQuarkWattage.TabIndex = 43;
-            this.txtQuarkWattage.Text = "0";
+            this.txtQuarkWattage.Text = "100";
             // 
             // txtNist5Wattage
             // 
@@ -679,7 +679,7 @@
             this.txtNist5Wattage.Name = "txtNist5Wattage";
             this.txtNist5Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtNist5Wattage.TabIndex = 38;
-            this.txtNist5Wattage.Text = "0";
+            this.txtNist5Wattage.Text = "100";
             // 
             // txtJhaWattage
             // 
@@ -687,7 +687,7 @@
             this.txtJhaWattage.Name = "txtJhaWattage";
             this.txtJhaWattage.Size = new System.Drawing.Size(50, 20);
             this.txtJhaWattage.TabIndex = 37;
-            this.txtJhaWattage.Text = "0";
+            this.txtJhaWattage.Text = "100";
             // 
             // txtKeccakWattage
             // 
@@ -695,7 +695,7 @@
             this.txtKeccakWattage.Name = "txtKeccakWattage";
             this.txtKeccakWattage.Size = new System.Drawing.Size(50, 20);
             this.txtKeccakWattage.TabIndex = 36;
-            this.txtKeccakWattage.Text = "0";
+            this.txtKeccakWattage.Text = "100";
             // 
             // txtFugueWattage
             // 
@@ -703,7 +703,7 @@
             this.txtFugueWattage.Name = "txtFugueWattage";
             this.txtFugueWattage.Size = new System.Drawing.Size(50, 20);
             this.txtFugueWattage.TabIndex = 35;
-            this.txtFugueWattage.Text = "0";
+            this.txtFugueWattage.Text = "100";
             // 
             // txtMyrGroestlWattage
             // 
@@ -711,7 +711,7 @@
             this.txtMyrGroestlWattage.Name = "txtMyrGroestlWattage";
             this.txtMyrGroestlWattage.Size = new System.Drawing.Size(50, 20);
             this.txtMyrGroestlWattage.TabIndex = 34;
-            this.txtMyrGroestlWattage.Text = "0";
+            this.txtMyrGroestlWattage.Text = "100";
             // 
             // txtGroestlWattage
             // 
@@ -719,7 +719,7 @@
             this.txtGroestlWattage.Name = "txtGroestlWattage";
             this.txtGroestlWattage.Size = new System.Drawing.Size(50, 20);
             this.txtGroestlWattage.TabIndex = 33;
-            this.txtGroestlWattage.Text = "0";
+            this.txtGroestlWattage.Text = "100";
             // 
             // btnCalc
             // 
@@ -1157,6 +1157,7 @@
             this.chkColor.Text = "Use a colored table";
             this.chkColor.UseVisualStyleBackColor = true;
             this.chkColor.CheckedChanged += new System.EventHandler(this.reasonToUpdateDgv_CheckedChanged);
+            this.chkColor.CheckStateChanged += new System.EventHandler(this.chkColor_CheckStateChanged);
             // 
             // txtProxy
             // 
@@ -1341,6 +1342,7 @@
             // chkRemoveUnhealthy
             // 
             this.chkRemoveUnhealthy.AutoSize = true;
+            this.chkRemoveUnhealthy.BackColor = System.Drawing.Color.Transparent;
             this.chkRemoveUnhealthy.Checked = true;
             this.chkRemoveUnhealthy.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveUnhealthy.Location = new System.Drawing.Point(6, 6);
@@ -1348,7 +1350,7 @@
             this.chkRemoveUnhealthy.Size = new System.Drawing.Size(319, 17);
             this.chkRemoveUnhealthy.TabIndex = 36;
             this.chkRemoveUnhealthy.Text = "Remove \"unhealthy\" coins (no exchanges, frozen markets, ...)";
-            this.chkRemoveUnhealthy.UseVisualStyleBackColor = true;
+            this.chkRemoveUnhealthy.UseVisualStyleBackColor = false;
             this.chkRemoveUnhealthy.CheckedChanged += new System.EventHandler(this.reasonToUpdateDgv_CheckedChanged);
             // 
             // chkWeight
@@ -1564,8 +1566,8 @@
             // 
             this.tabControlSettings.Controls.Add(this.tabMarketApi);
             this.tabControlSettings.Controls.Add(this.tabCoinInfo);
-            this.tabControlSettings.Controls.Add(this.tabPriceCalc);
             this.tabControlSettings.Controls.Add(this.tabMultipool);
+            this.tabControlSettings.Controls.Add(this.tabPriceCalc);
             this.tabControlSettings.Controls.Add(this.tabMisc);
             this.tabControlSettings.Controls.Add(this.tabLog);
             this.tabControlSettings.Location = new System.Drawing.Point(271, 12);
