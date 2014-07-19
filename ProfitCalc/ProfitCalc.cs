@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -337,7 +336,7 @@ namespace ProfitCalc
             {
                 tsStatus.Text = "Removing coins with a volume lower than you can earn..";
                 tempCoinList = tempCoinList.Where(coin =>
-                    coin.TotalVolume > coin.BtcPerDay || coin.IsMultiPool);
+                    coin.TotalVolume > coin.BtcPerDay || coin.IsMultiPool || Double.IsNaN(coin.BtcPerDay));
             }
 
             if (chkRemoveNegative.Checked)
