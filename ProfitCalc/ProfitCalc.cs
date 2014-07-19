@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -164,7 +165,7 @@ namespace ProfitCalc
                     chkCryptoday.Checked = apiSettings.CheckedApis["CrypToday"];
                     chkPoolpicker.Checked = apiSettings.CheckedApis["PoolPicker"];
 
-                    chkRemoveUnhealthy.Checked = apiSettings.CheckedMisc["RemoveUnhealthy"];
+                    chkRemoveUnlisted.Checked = apiSettings.CheckedMisc["RemoveUnlisted"];
                     chkRemoveTooGoodToBeTrue.Checked = apiSettings.CheckedMisc["RemoveTooGoodToBeTrue"];
                     chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"];
                     chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"];
@@ -174,6 +175,8 @@ namespace ProfitCalc
                 catch (KeyNotFoundException)
                 {
                     AppendToLog("KeyNotFoundException in apisettings.txt, probably due to upgrade to a newer version.");
+                    SaveSettings();
+                    LoadSettings();
                 }
                 catch (Exception exception)
                 {
@@ -246,7 +249,7 @@ namespace ProfitCalc
             apiSettings.CheckedApis.Add("CrypToday", chkCryptoday.Checked);
             apiSettings.CheckedApis.Add("PoolPicker", chkPoolpicker.Checked);
 
-            apiSettings.CheckedMisc.Add("RemoveUnhealthy", chkRemoveUnhealthy.Checked);
+            apiSettings.CheckedMisc.Add("RemoveUnlisted", chkRemoveUnlisted.Checked);
             apiSettings.CheckedMisc.Add("RemoveTooGoodToBeTrue", chkRemoveTooGoodToBeTrue.Checked);
             apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
             apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
@@ -316,11 +319,18 @@ namespace ProfitCalc
         {
             ParallelQuery<Coin> tempCoinList = _coinList.List.AsParallel();
 
-            if (chkRemoveUnhealthy.Checked)
+            if (chkRemoveUnlisted.Checked)
             {
-                tsStatus.Text = "Removing unhealthy coins...";
+                tsStatus.Text = "Removing coins that aren't listed on supported exchanges...";
                 tempCoinList = tempCoinList.Where(coin =>
-                    coin.HasImplementedMarketApi && !coin.HasMarketErrors && !Double.IsNaN(coin.BtcPerDay));
+                    coin.HasImplementedMarketApi);
+            }
+
+            if (chkRemoveFrozenCoins.Checked)
+            {
+                tsStatus.Text = "Removing coins that are frozen on supported exchanges...";
+                tempCoinList =
+                    tempCoinList.Where(coin => coin.Exchanges.Count(exchange => exchange.IsFrozen) == 0);
             }
 
             if (chkRemoveTooGoodToBeTrue.Checked)
@@ -372,9 +382,14 @@ namespace ProfitCalc
 
         private Color GetRowColor(Coin coin)
         {
-            if (!coin.HasImplementedMarketApi || coin.HasMarketErrors || Double.IsNaN(coin.BtcPerDay)) 
+            if (!coin.HasImplementedMarketApi) 
             {
                 return Color.Plum;
+            }
+
+            if (coin.Exchanges.Count(exchange => exchange.IsFrozen) != 0)
+            {
+                return Color.DeepSkyBlue;
             }
 
             if (coin.BtcPerDay <= 0)
@@ -1116,7 +1131,7 @@ namespace ProfitCalc
             }
             else
             {
-                lblElectricityCost.Text = "Fiat of choice/kWh (disabled)";
+                lblElectricityCost.Text = "Disabled";
                 dgView.Columns[3].Visible = false;
                 dgView.Columns[4].Visible = false;
                 dgView.Columns[5].Visible = false;
@@ -1177,7 +1192,8 @@ namespace ProfitCalc
         {
             if (chkColor.Checked)
             {
-                chkRemoveUnhealthy.BackColor = Color.Plum;
+                chkRemoveUnlisted.BackColor = Color.Plum;
+                chkRemoveFrozenCoins.BackColor = Color.DeepSkyBlue;
                 chkRemoveTooGoodToBeTrue.BackColor = Color.PaleTurquoise;
                 chkRemoveNegative.BackColor = Color.Red;
                 tabMultipool.BackColor = Color.YellowGreen;
@@ -1186,7 +1202,8 @@ namespace ProfitCalc
             }
             else
             {
-                chkRemoveUnhealthy.BackColor = Color.Transparent;
+                chkRemoveUnlisted.BackColor = Color.Transparent;
+                chkRemoveFrozenCoins.BackColor = Color.Transparent;
                 chkRemoveTooGoodToBeTrue.BackColor = Color.Transparent;
                 chkRemoveNegative.BackColor = Color.Transparent;
                 tabMultipool.BackColor = Color.Transparent;

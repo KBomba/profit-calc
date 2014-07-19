@@ -24,6 +24,7 @@ namespace ProfitCalc
             public double BtcPrice { get; set; }
             public double BtcVolume { get; set; }
             public double Weight { get; set; }
+            public bool IsFrozen { get; set; }
 
             public override string ToString()
             {
@@ -43,7 +44,7 @@ namespace ProfitCalc
         public double GbpPerDay { get; set; }
         public double CnyPerDay { get; set; }
 
-        public bool HasMarketErrors { get; set; }
+        public bool HasFrozenMarkets { get; set; }
         public bool HasImplementedMarketApi { get; set; }
         public bool IsMultiPool;
 
@@ -51,23 +52,6 @@ namespace ProfitCalc
         {
             Exchanges = new List<Exchange>();
         }
-
-/*
-        public Coin(string coinName, string tagName, HashAlgo.Algo algo,
-            double difficulty, double blockReward, Exchange exchange)
-        {
-            CoinName = coinName;
-            TagName = tagName.ToUpper();
-            Algo = algo;
-            if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
-            Difficulty = difficulty;
-            BlockReward = blockReward;
-            Exchanges = new List<Exchange> {exchange};
-            HasMarketErrors = false;
-            IsMultiPool = false;
-            HasImplementedMarketApi = false;
-        }
-*/
 
         public Coin(NiceHash.Result.Stat niceHashStat)
         {
@@ -109,11 +93,11 @@ namespace ProfitCalc
                 ExchangeName = "NiceHash",
                 BtcPrice = niceHashStat.Price,
                 BtcVolume = 0,
-                Weight = 1
+                Weight = 1,
+                IsFrozen = false
             };
             Exchanges = new List<Exchange> {nhExchange};
             TotalVolume = 0;
-            HasMarketErrors = false;
             IsMultiPool = true;
             HasImplementedMarketApi = true;
         }
@@ -132,11 +116,11 @@ namespace ProfitCalc
                 ExchangeName = "Unknown (WhatToMine)",
                 BtcPrice = wtmCoin.Value.ExchangeRate,
                 BtcVolume = wtmCoin.Value.Volume*wtmCoin.Value.ExchangeRate,
-                Weight = 1
+                Weight = 1,
+                IsFrozen = false
             };
             Exchanges = new List<Exchange> {wtmExchange};
             TotalVolume = wtmExchange.BtcVolume;
-            HasMarketErrors = false;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
@@ -154,11 +138,11 @@ namespace ProfitCalc
                 ExchangeName = ctwCoin.ExName + " (CoinTweak)",
                 BtcPrice = ctwCoin.ConversionRateToBtc,
                 BtcVolume = ctwCoin.BtcVol,
-                Weight = 1
+                Weight = 1,
+                IsFrozen = !ctwCoin.HasBuyOffers
             };
             Exchanges = new List<Exchange> {ctwExchange};
             TotalVolume = ctwExchange.BtcVolume;
-            HasMarketErrors = !ctwCoin.HasBuyOffers;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
@@ -177,11 +161,11 @@ namespace ProfitCalc
                 ExchangeName = cwzCoin.Exchange + " (CoinWarz)",
                 BtcPrice = cwzCoin.ExchangeRate,
                 BtcVolume = cwzCoin.ExchangeVolume*cwzCoin.ExchangeRate,
-                Weight = 1
+                Weight = 1,
+                IsFrozen = cwzCoin.HealthStatus.Contains("Unhealthy")
             };
             Exchanges = new List<Exchange> {cwzExchange};
             TotalVolume = cwzExchange.BtcVolume;
-            HasMarketErrors = cwzCoin.HealthStatus.Contains("Unhealthy");
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }

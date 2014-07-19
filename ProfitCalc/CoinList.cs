@@ -303,6 +303,10 @@ namespace ProfitCalc
                         BtcPrice = priceToUse,
                         BtcVolume = polCoin.Value.BaseVolume
                     };
+                    if (polCoin.Value.IsFrozen == "1")
+                    {
+                        polExchange.IsFrozen = true;
+                    }
 
                     if (c.HasImplementedMarketApi)
                     {
@@ -315,8 +319,6 @@ namespace ProfitCalc
                         c.TotalVolume = polExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
-
-                    if (polCoin.Value.IsFrozen == "1") c.HasMarketErrors = true;
 
                     _po.CancellationToken.ThrowIfCancellationRequested();
                 }
@@ -366,6 +368,10 @@ namespace ProfitCalc
                             BtcVolume = volume,
                             BtcPrice = price
                         };
+                        if (acCoin.Value.Status != "1" || acCoin.Value.WalletStatus != "1")
+                        {
+                            acExchange.IsFrozen = true;
+                        }
 
                         if (c.HasImplementedMarketApi)
                         {
@@ -378,9 +384,6 @@ namespace ProfitCalc
                             c.TotalVolume = acExchange.BtcVolume;
                             c.HasImplementedMarketApi = true;
                         }
-
-                        if (acCoin.Value.Status != "1" || acCoin.Value.WalletStatus != "1")
-                            c.HasMarketErrors = true;
                     }
 
                     _po.CancellationToken.ThrowIfCancellationRequested();
@@ -502,7 +505,6 @@ namespace ProfitCalc
             {
                 HasImplementedMarketApi = true,
                 IsMultiPool = true,
-                HasMarketErrors = false,
             };
             Coin.Exchange ppExchange = new Coin.Exchange { ExchangeName = pool.Name, };
             c.Exchanges.Add(ppExchange);
@@ -574,7 +576,6 @@ namespace ProfitCalc
 
                 tempMultipools[i].HasImplementedMarketApi = true;
                 tempMultipools[i].IsMultiPool = true;
-                tempMultipools[i].HasMarketErrors = false;
 
                 Coin.Exchange ctExchange = new Coin.Exchange {ExchangeName = splitNameAndAlgo[0]};
                 tempMultipools[i].Exchanges.Add(ctExchange);
@@ -645,7 +646,6 @@ namespace ProfitCalc
                 BlockReward = moneroLatest.Reward,
                 Exchanges = new List<Coin.Exchange>(),
                 TotalVolume = 0,
-                HasMarketErrors = false,
                 IsMultiPool = false,
                 HasImplementedMarketApi = false
             };
