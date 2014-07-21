@@ -170,26 +170,33 @@ namespace ProfitCalc
             HasImplementedMarketApi = false;
         }
 
-        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations)
+        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier)
         {
             if (IsMultiPool)
             {
                 CoinsPerDay = 0;
-                BtcPerDay = (hashRateMh/1000)*Exchanges[0].BtcPrice;
+                BtcPerDay = ((hashRateMh/1000)*Exchanges[0].BtcPrice) * multiplier;
             }
             else
             {
                 SortExchanges();
 
-                double magicNumber = Math.Pow(2, 32);
-
-                if (Algo == HashAlgo.Algo.Quark) magicNumber = Math.Pow(2, 24);
-
-                CoinsPerDay = BlockReward/(Difficulty*magicNumber/(hashRateMh*1000000)/3600/24);
-
-                //Cryptonight's difficulty is net hashrate * 60
-                if (Algo == HashAlgo.Algo.CryptoNight)
-                    CoinsPerDay = (BlockReward*24*60)*((hashRateMh*1000000)/(Difficulty/60));
+                switch (Algo)
+                {
+                    case HashAlgo.Algo.CryptoNight:
+                        //Cryptonight's difficulty is net hashrate * 60
+                        CoinsPerDay = (BlockReward*24*60)*((hashRateMh*1000000)
+                                                    /(Difficulty/60))*multiplier;
+                        break;
+                    case HashAlgo.Algo.Quark:
+                        CoinsPerDay = (BlockReward/(Difficulty*Math.Pow(2, 24)
+                                                    /(hashRateMh*1000000)/3600/24))*multiplier;
+                        break;
+                    default:
+                        CoinsPerDay = (BlockReward/(Difficulty*Math.Pow(2, 32)
+                                                    /(hashRateMh*1000000)/3600/24))*multiplier;
+                        break;
+                }
 
                 foreach (Exchange exchange in Exchanges)
                 {

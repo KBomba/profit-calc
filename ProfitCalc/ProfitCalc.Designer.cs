@@ -32,6 +32,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.grpHashrates = new System.Windows.Forms.GroupBox();
+            this.btnAddDeleteProfile = new System.Windows.Forms.Button();
+            this.cbbProfiles = new System.Windows.Forms.ComboBox();
             this.chkAll = new System.Windows.Forms.CheckBox();
             this.chkJane14 = new System.Windows.Forms.CheckBox();
             this.txtJane14Wattage = new System.Windows.Forms.TextBox();
@@ -42,11 +44,8 @@
             this.chkQubit = new System.Windows.Forms.CheckBox();
             this.txtQubitWattage = new System.Windows.Forms.TextBox();
             this.txtQubit = new System.Windows.Forms.TextBox();
-            this.cbbFiat = new System.Windows.Forms.ComboBox();
-            this.lblElectricityCost = new System.Windows.Forms.Label();
             this.lblKwh = new System.Windows.Forms.Label();
             this.lblMhs = new System.Windows.Forms.Label();
-            this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
             this.chkCryptonight = new System.Windows.Forms.CheckBox();
             this.chkJane13 = new System.Windows.Forms.CheckBox();
             this.chkJane15 = new System.Windows.Forms.CheckBox();
@@ -93,6 +92,9 @@
             this.txtFugue = new System.Windows.Forms.TextBox();
             this.txtMyrGroestl = new System.Windows.Forms.TextBox();
             this.txtGroestl = new System.Windows.Forms.TextBox();
+            this.cbbFiat = new System.Windows.Forms.ComboBox();
+            this.lblElectricityCost = new System.Windows.Forms.Label();
+            this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
             this.chkCoindesk = new System.Windows.Forms.CheckBox();
             this.lblAmountOfGpu = new System.Windows.Forms.Label();
             this.nudAmount = new System.Windows.Forms.NumericUpDown();
@@ -181,6 +183,8 @@
             // 
             // grpHashrates
             // 
+            this.grpHashrates.Controls.Add(this.btnAddDeleteProfile);
+            this.grpHashrates.Controls.Add(this.cbbProfiles);
             this.grpHashrates.Controls.Add(this.chkAll);
             this.grpHashrates.Controls.Add(this.chkJane14);
             this.grpHashrates.Controls.Add(this.txtJane14Wattage);
@@ -241,10 +245,31 @@
             this.grpHashrates.Controls.Add(this.txtGroestl);
             this.grpHashrates.Location = new System.Drawing.Point(12, 12);
             this.grpHashrates.Name = "grpHashrates";
-            this.grpHashrates.Size = new System.Drawing.Size(253, 545);
+            this.grpHashrates.Size = new System.Drawing.Size(253, 589);
             this.grpHashrates.TabIndex = 0;
             this.grpHashrates.TabStop = false;
             this.grpHashrates.Text = "Your hashrates";
+            // 
+            // btnAddDeleteProfile
+            // 
+            this.btnAddDeleteProfile.Enabled = false;
+            this.btnAddDeleteProfile.Location = new System.Drawing.Point(9, 540);
+            this.btnAddDeleteProfile.Name = "btnAddDeleteProfile";
+            this.btnAddDeleteProfile.Size = new System.Drawing.Size(87, 23);
+            this.btnAddDeleteProfile.TabIndex = 80;
+            this.btnAddDeleteProfile.Text = "Remove profile";
+            this.btnAddDeleteProfile.UseVisualStyleBackColor = true;
+            this.btnAddDeleteProfile.Click += new System.EventHandler(this.btnAddDeleteProfile_Click);
+            // 
+            // cbbProfiles
+            // 
+            this.cbbProfiles.FormattingEnabled = true;
+            this.cbbProfiles.Location = new System.Drawing.Point(9, 513);
+            this.cbbProfiles.Name = "cbbProfiles";
+            this.cbbProfiles.Size = new System.Drawing.Size(87, 21);
+            this.cbbProfiles.TabIndex = 79;
+            this.cbbProfiles.SelectedIndexChanged += new System.EventHandler(this.cbbProfiles_SelectedIndexChanged);
+            this.cbbProfiles.TextChanged += new System.EventHandler(this.cbbProfiles_TextChanged);
             // 
             // chkAll
             // 
@@ -345,32 +370,6 @@
             this.txtQubit.TabIndex = 69;
             this.txtQubit.Text = "3.9";
             // 
-            // cbbFiat
-            // 
-            this.cbbFiat.AllowDrop = true;
-            this.cbbFiat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbFiat.FormattingEnabled = true;
-            this.cbbFiat.Items.AddRange(new object[] {
-            "USD",
-            "EUR",
-            "GBP",
-            "CNY",
-            "ALL"});
-            this.cbbFiat.Location = new System.Drawing.Point(49, 56);
-            this.cbbFiat.Name = "cbbFiat";
-            this.cbbFiat.Size = new System.Drawing.Size(48, 21);
-            this.cbbFiat.TabIndex = 35;
-            this.cbbFiat.SelectedIndexChanged += new System.EventHandler(this.cbbFiat_SelectedIndexChanged);
-            // 
-            // lblElectricityCost
-            // 
-            this.lblElectricityCost.AutoSize = true;
-            this.lblElectricityCost.Location = new System.Drawing.Point(6, 86);
-            this.lblElectricityCost.Name = "lblElectricityCost";
-            this.lblElectricityCost.Size = new System.Drawing.Size(58, 13);
-            this.lblElectricityCost.TabIndex = 68;
-            this.lblElectricityCost.Text = "USD/kWh";
-            // 
             // lblKwh
             // 
             this.lblKwh.AutoSize = true;
@@ -388,14 +387,6 @@
             this.lblMhs.Size = new System.Drawing.Size(34, 13);
             this.lblMhs.TabIndex = 65;
             this.lblMhs.Text = "MH/s";
-            // 
-            // txtFiatElectricityCost
-            // 
-            this.txtFiatElectricityCost.Location = new System.Drawing.Point(70, 83);
-            this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
-            this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
-            this.txtFiatElectricityCost.TabIndex = 67;
-            this.txtFiatElectricityCost.Text = "0.1";
             // 
             // chkCryptonight
             // 
@@ -842,6 +833,40 @@
             this.txtGroestl.TabIndex = 1;
             this.txtGroestl.Text = "7.7";
             // 
+            // cbbFiat
+            // 
+            this.cbbFiat.AllowDrop = true;
+            this.cbbFiat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbFiat.FormattingEnabled = true;
+            this.cbbFiat.Items.AddRange(new object[] {
+            "USD",
+            "EUR",
+            "GBP",
+            "CNY",
+            "ALL"});
+            this.cbbFiat.Location = new System.Drawing.Point(49, 56);
+            this.cbbFiat.Name = "cbbFiat";
+            this.cbbFiat.Size = new System.Drawing.Size(48, 21);
+            this.cbbFiat.TabIndex = 35;
+            this.cbbFiat.SelectedIndexChanged += new System.EventHandler(this.cbbFiat_SelectedIndexChanged);
+            // 
+            // lblElectricityCost
+            // 
+            this.lblElectricityCost.AutoSize = true;
+            this.lblElectricityCost.Location = new System.Drawing.Point(4, 86);
+            this.lblElectricityCost.Name = "lblElectricityCost";
+            this.lblElectricityCost.Size = new System.Drawing.Size(58, 13);
+            this.lblElectricityCost.TabIndex = 68;
+            this.lblElectricityCost.Text = "USD/kWh";
+            // 
+            // txtFiatElectricityCost
+            // 
+            this.txtFiatElectricityCost.Location = new System.Drawing.Point(68, 83);
+            this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
+            this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
+            this.txtFiatElectricityCost.TabIndex = 67;
+            this.txtFiatElectricityCost.Text = "0.1";
+            // 
             // chkCoindesk
             // 
             this.chkCoindesk.AutoSize = true;
@@ -858,7 +883,7 @@
             // lblAmountOfGpu
             // 
             this.lblAmountOfGpu.AutoSize = true;
-            this.lblAmountOfGpu.Location = new System.Drawing.Point(6, 32);
+            this.lblAmountOfGpu.Location = new System.Drawing.Point(3, 111);
             this.lblAmountOfGpu.Name = "lblAmountOfGpu";
             this.lblAmountOfGpu.Size = new System.Drawing.Size(196, 13);
             this.lblAmountOfGpu.TabIndex = 32;
@@ -866,7 +891,7 @@
             // 
             // nudAmount
             // 
-            this.nudAmount.Location = new System.Drawing.Point(208, 30);
+            this.nudAmount.Location = new System.Drawing.Point(205, 109);
             this.nudAmount.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -885,7 +910,6 @@
             0,
             0,
             0});
-            this.nudAmount.ValueChanged += new System.EventHandler(this.nudAmount_ValueChanged);
             // 
             // dgView
             // 
@@ -924,7 +948,7 @@
             this.dgView.ReadOnly = true;
             this.dgView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgView.Size = new System.Drawing.Size(513, 364);
+            this.dgView.Size = new System.Drawing.Size(738, 404);
             this.dgView.TabIndex = 1;
             // 
             // Tag
@@ -1073,9 +1097,9 @@
             this.tsStatus,
             this.tsSpace,
             this.tsErrors});
-            this.stStatusStrip.Location = new System.Drawing.Point(0, 564);
+            this.stStatusStrip.Location = new System.Drawing.Point(0, 604);
             this.stStatusStrip.Name = "stStatusStrip";
-            this.stStatusStrip.Size = new System.Drawing.Size(784, 22);
+            this.stStatusStrip.Size = new System.Drawing.Size(1009, 22);
             this.stStatusStrip.SizingGrip = false;
             this.stStatusStrip.TabIndex = 3;
             this.stStatusStrip.Text = "Status Striper";
@@ -1101,7 +1125,7 @@
             // tsSpace
             // 
             this.tsSpace.Name = "tsSpace";
-            this.tsSpace.Size = new System.Drawing.Size(516, 17);
+            this.tsSpace.Size = new System.Drawing.Size(741, 17);
             this.tsSpace.Spring = true;
             // 
             // tsErrors
@@ -1136,8 +1160,6 @@
             // 
             this.tabMisc.Controls.Add(this.txtProxy);
             this.tabMisc.Controls.Add(this.chkProxy);
-            this.tabMisc.Controls.Add(this.nudAmount);
-            this.tabMisc.Controls.Add(this.lblAmountOfGpu);
             this.tabMisc.Location = new System.Drawing.Point(4, 22);
             this.tabMisc.Name = "tabMisc";
             this.tabMisc.Size = new System.Drawing.Size(491, 153);
@@ -1167,6 +1189,8 @@
             // chkColor
             // 
             this.chkColor.AutoSize = true;
+            this.chkColor.Checked = true;
+            this.chkColor.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkColor.Location = new System.Drawing.Point(6, 98);
             this.chkColor.Name = "chkColor";
             this.chkColor.Size = new System.Drawing.Size(118, 17);
@@ -1280,8 +1304,10 @@
             // 
             this.tabPriceCalc.Controls.Add(this.cbbBidRecentAsk);
             this.tabPriceCalc.Controls.Add(this.lblBidRecentAsk);
+            this.tabPriceCalc.Controls.Add(this.nudAmount);
             this.tabPriceCalc.Controls.Add(this.chkWeight);
             this.tabPriceCalc.Controls.Add(this.cbbFiat);
+            this.tabPriceCalc.Controls.Add(this.lblAmountOfGpu);
             this.tabPriceCalc.Controls.Add(this.chkCoindesk);
             this.tabPriceCalc.Controls.Add(this.txtFiatElectricityCost);
             this.tabPriceCalc.Controls.Add(this.lblElectricityCost);
@@ -1300,7 +1326,7 @@
             " highest bid",
             " recent trade",
             " lowest ask"});
-            this.cbbBidRecentAsk.Location = new System.Drawing.Point(33, 29);
+            this.cbbBidRecentAsk.Location = new System.Drawing.Point(31, 29);
             this.cbbBidRecentAsk.Name = "cbbBidRecentAsk";
             this.cbbBidRecentAsk.Size = new System.Drawing.Size(87, 21);
             this.cbbBidRecentAsk.TabIndex = 39;
@@ -1308,7 +1334,7 @@
             // lblBidRecentAsk
             // 
             this.lblBidRecentAsk.AutoSize = true;
-            this.lblBidRecentAsk.Location = new System.Drawing.Point(6, 32);
+            this.lblBidRecentAsk.Location = new System.Drawing.Point(4, 32);
             this.lblBidRecentAsk.Name = "lblBidRecentAsk";
             this.lblBidRecentAsk.Size = new System.Drawing.Size(235, 13);
             this.lblBidRecentAsk.TabIndex = 38;
@@ -1610,7 +1636,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 586);
+            this.ClientSize = new System.Drawing.Size(1009, 626);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.stStatusStrip);
             this.Controls.Add(this.dgView);
@@ -1781,6 +1807,8 @@
         private System.Windows.Forms.CheckBox chkColor;
         private System.Windows.Forms.TabPage tabFilters;
         private System.Windows.Forms.CheckBox chkRemoveFrozenCoins;
+        private System.Windows.Forms.ComboBox cbbProfiles;
+        private System.Windows.Forms.Button btnAddDeleteProfile;
     }
 }
 

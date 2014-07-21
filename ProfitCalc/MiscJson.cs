@@ -11,14 +11,17 @@ namespace ProfitCalc
         [JsonProperty("WattageList")]
         public Dictionary<HashAlgo.Algo, double> ListWattage { get; set; }
 
+        [JsonProperty("CheckedHashRates")]
+        public Dictionary<string, bool> CheckedHashRates { get; set; }
+
         [JsonProperty("FiatPerKwh")]
         public double FiatPerKwh { get; set; }
 
         [JsonProperty("FiatOfChoice")]
         public int FiatOfChoice { get; set; }
 
-        [JsonProperty("CheckedHashRates")]
-        public Dictionary<string, bool> CheckedHashRates { get; set; }
+        [JsonProperty("Multiplier")]
+        public int Multiplier { get; set; }
     }
 
     internal class ApiSettingsJson

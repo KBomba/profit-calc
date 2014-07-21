@@ -653,62 +653,59 @@ namespace ProfitCalc
             Add(c);
         }
 
-        public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation, string coindeskAdress,
-            string coindeskCnyAdress)
+        public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation, bool calcFiat)
         {
-            CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(_client.GetStreamAsync(coindeskAdress).Result);
-            double usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
-            double eurPrice = cd.BpiPrice.EurPrice.RateFloat;
-            double gbpPrice = cd.BpiPrice.GbpPrice.RateFloat;
+            double usdPrice = 0, eurPrice = 0, gbpPrice = 0, cnyPrice = 0;
+            CoinDesk cd;
 
-            cd = JsonControl.DownloadSerializedApi<CoinDesk>(_client.GetStreamAsync(coindeskCnyAdress).Result);
-            double cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
+            if (calcFiat)
+            {
+                cd = JsonControl.DownloadSerializedApi<CoinDesk>(
+                    _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice.json").Result);
+                usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
+                eurPrice = cd.BpiPrice.EurPrice.RateFloat;
+                gbpPrice = cd.BpiPrice.GbpPrice.RateFloat;
+
+                cd = JsonControl.DownloadSerializedApi<CoinDesk>(
+                        _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice/CNY.json").Result);
+                cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
+            }
 
             Parallel.ForEach(List, coin =>
             {
                 if (hashList.ListHashRate.ContainsKey(coin.Algo))
                 {
-                    coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation);
+                    coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation, hashList.Multiplier);
 
-                    double fiatElectricityCost = (hashList.ListWattage[coin.Algo]/1000)*24*hashList.FiatPerKwh;
-                    switch (hashList.FiatOfChoice)
+                    if (calcFiat)
                     {
-                        case 1:
-                            coin.BtcPerDay -= (fiatElectricityCost/eurPrice);
-                            break;
-                        case 2:
-                            coin.BtcPerDay -= (fiatElectricityCost/gbpPrice);
-                            break;
-                        case 3:
-                            coin.BtcPerDay -= (fiatElectricityCost/cnyPrice);
-                            break;
-                        default:
-                            coin.BtcPerDay -= (fiatElectricityCost/usdPrice);
-                            break;
+                        double fiatElectricityCost = (hashList.ListWattage[coin.Algo]/1000)*24*hashList.FiatPerKwh;
+                        switch (hashList.FiatOfChoice)
+                        {
+                            case 1:
+                                coin.BtcPerDay -= (fiatElectricityCost/eurPrice);
+                                break;
+                            case 2:
+                                coin.BtcPerDay -= (fiatElectricityCost/gbpPrice);
+                                break;
+                            case 3:
+                                coin.BtcPerDay -= (fiatElectricityCost/cnyPrice);
+                                break;
+                            default:
+                                coin.BtcPerDay -= (fiatElectricityCost/usdPrice);
+                                break;
+                        }
+
+
+                        coin.UsdPerDay = coin.BtcPerDay*usdPrice;
+                        coin.EurPerDay = coin.BtcPerDay*eurPrice;
+                        coin.GbpPerDay = coin.BtcPerDay*gbpPrice;
+                        coin.CnyPerDay = coin.BtcPerDay*cnyPrice;
                     }
-
-
-                    coin.UsdPerDay = coin.BtcPerDay*usdPrice;
-                    coin.EurPerDay = coin.BtcPerDay*eurPrice;
-                    coin.GbpPerDay = coin.BtcPerDay*gbpPrice;
-                    coin.CnyPerDay = coin.BtcPerDay*cnyPrice;
                 }
             });
 
             List = List.AsParallel().Where(o => o.BtcPerDay != 0).OrderByDescending(o => o.BtcPerDay).ToList();
-        }
-
-        public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation)
-        {
-            Parallel.ForEach(List, coin =>
-            {
-                if (hashList.ListHashRate.ContainsKey(coin.Algo))
-                {
-                    coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation);
-                }
-            });
-
-            List = List.AsParallel().Where(o => o.BtcPerDay != 0).ToList();
         }
 
         public override string ToString()
