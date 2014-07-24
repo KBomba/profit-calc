@@ -288,17 +288,17 @@ namespace ProfitCalc
 
             if (coin.BtcPerDay <= 0)
             {
-                return Color.Red;
-            }
-
-            if (coin.TotalVolume < coin.BtcPerDay && !coin.IsMultiPool)
-            {
-                return Color.PaleTurquoise;
+                return coin.IsMultiPool ? Color.OrangeRed : Color.Red;
             }
 
             if (coin.IsMultiPool)
             {
                 return Color.YellowGreen;
+            }
+
+            if (coin.TotalVolume < coin.BtcPerDay)
+            {
+                return Color.PaleTurquoise;
             }
 
             return Color.GreenYellow;
@@ -1299,13 +1299,16 @@ namespace ProfitCalc
 
         private void UpdateErrorCounter(int iErrors = 1)
         {
-            tsErrors.ForeColor = Color.Red;
+            if (tsErrors.Text.Any())
+            {
+                tsErrors.ForeColor = Color.Red;
 
-            iErrors += int.Parse(tsErrors.Text.Split(' ')[0]);
+                iErrors += int.Parse(tsErrors.Text.Split(' ')[0]);
 
-            tsErrors.Text = iErrors == 1
-                ? iErrors + " error"
-                : iErrors + " errors";
+                tsErrors.Text = iErrors == 1
+                    ? iErrors + " error"
+                    : iErrors + " errors";
+            }
         }
 
         private void tsmResultsToClipboard_Click(object sender, EventArgs e)
@@ -1536,6 +1539,32 @@ namespace ProfitCalc
         private void cbbProfiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateGuiHashrates(_hashList[cbbProfiles.Text]);
+        }
+
+        private void txtHashrateOrWattage_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                double result;
+                if (double.TryParse(textBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+                {
+                    _hashList[cbbProfiles.Text] = ParseGuiHashrates(false);
+                }
+                else
+                {
+                    MessageBox.Show(textBox.Text + " isn't a valid option");
+                    textBox.Text = "";
+                }
+            }
+        }
+
+        private void txtHashrateOrWattage_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ',')
+            {
+                e.KeyChar = '.';
+            }
         }
     }
 }

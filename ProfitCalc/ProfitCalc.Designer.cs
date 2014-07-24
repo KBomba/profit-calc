@@ -303,6 +303,8 @@
             this.txtJane14Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtJane14Wattage.TabIndex = 76;
             this.txtJane14Wattage.Text = "100";
+            this.txtJane14Wattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJane14Wattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtJane14
             // 
@@ -311,6 +313,8 @@
             this.txtJane14.Size = new System.Drawing.Size(80, 20);
             this.txtJane14.TabIndex = 75;
             this.txtJane14.Text = "0.0034";
+            this.txtJane14.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJane14.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // chkX15
             // 
@@ -332,6 +336,8 @@
             this.txtX15Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtX15Wattage.TabIndex = 73;
             this.txtX15Wattage.Text = "100";
+            this.txtX15Wattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtX15Wattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtX15
             // 
@@ -340,6 +346,8 @@
             this.txtX15.Size = new System.Drawing.Size(80, 20);
             this.txtX15.TabIndex = 72;
             this.txtX15.Text = "1.5";
+            this.txtX15.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtX15.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // chkQubit
             // 
@@ -361,6 +369,8 @@
             this.txtQubitWattage.Size = new System.Drawing.Size(50, 20);
             this.txtQubitWattage.TabIndex = 70;
             this.txtQubitWattage.Text = "100";
+            this.txtQubitWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtQubitWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtQubit
             // 
@@ -369,6 +379,8 @@
             this.txtQubit.Size = new System.Drawing.Size(80, 20);
             this.txtQubit.TabIndex = 69;
             this.txtQubit.Text = "3.9";
+            this.txtQubit.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtQubit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // lblKwh
             // 
@@ -590,6 +602,8 @@
             this.txtCryptonightWattage.Size = new System.Drawing.Size(50, 20);
             this.txtCryptonightWattage.TabIndex = 49;
             this.txtCryptonightWattage.Text = "100";
+            this.txtCryptonightWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtCryptonightWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtCryptonight
             // 
@@ -598,6 +612,8 @@
             this.txtCryptonight.Size = new System.Drawing.Size(80, 20);
             this.txtCryptonight.TabIndex = 48;
             this.txtCryptonight.Text = "0.00022";
+            this.txtCryptonight.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtCryptonight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtJane13Wattage
             // 
@@ -606,6 +622,8 @@
             this.txtJane13Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtJane13Wattage.TabIndex = 46;
             this.txtJane13Wattage.Text = "100";
+            this.txtJane13Wattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJane13Wattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtJane15Wattage
             // 
@@ -614,6 +632,8 @@
             this.txtJane15Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtJane15Wattage.TabIndex = 45;
             this.txtJane15Wattage.Text = "100";
+            this.txtJane15Wattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJane15Wattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtScryptNWattage
             // 
@@ -622,6 +642,8 @@
             this.txtScryptNWattage.Size = new System.Drawing.Size(50, 20);
             this.txtScryptNWattage.TabIndex = 44;
             this.txtScryptNWattage.Text = "100";
+            this.txtScryptNWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtScryptNWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtHeftyWattage
             // 
@@ -630,6 +652,8 @@
             this.txtHeftyWattage.Size = new System.Drawing.Size(50, 20);
             this.txtHeftyWattage.TabIndex = 39;
             this.txtHeftyWattage.Text = "100";
+            this.txtHeftyWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtHeftyWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtX13Wattage
             // 
@@ -638,6 +662,8 @@
             this.txtX13Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtX13Wattage.TabIndex = 42;
             this.txtX13Wattage.Text = "100";
+            this.txtX13Wattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtX13Wattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtX11Wattage
             // 
@@ -646,6 +672,8 @@
             this.txtX11Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtX11Wattage.TabIndex = 41;
             this.txtX11Wattage.Text = "100";
+            this.txtX11Wattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtX11Wattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtScryptWattage
             // 
@@ -654,6 +682,8 @@
             this.txtScryptWattage.Size = new System.Drawing.Size(50, 20);
             this.txtScryptWattage.TabIndex = 40;
             this.txtScryptWattage.Text = "100";
+            this.txtScryptWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtScryptWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtQuarkWattage
             // 
@@ -662,6 +692,8 @@
             this.txtQuarkWattage.Size = new System.Drawing.Size(50, 20);
             this.txtQuarkWattage.TabIndex = 43;
             this.txtQuarkWattage.Text = "100";
+            this.txtQuarkWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtQuarkWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtNist5Wattage
             // 
@@ -670,6 +702,8 @@
             this.txtNist5Wattage.Size = new System.Drawing.Size(50, 20);
             this.txtNist5Wattage.TabIndex = 38;
             this.txtNist5Wattage.Text = "100";
+            this.txtNist5Wattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtNist5Wattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtJhaWattage
             // 
@@ -678,6 +712,8 @@
             this.txtJhaWattage.Size = new System.Drawing.Size(50, 20);
             this.txtJhaWattage.TabIndex = 37;
             this.txtJhaWattage.Text = "100";
+            this.txtJhaWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJhaWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtKeccakWattage
             // 
@@ -686,6 +722,8 @@
             this.txtKeccakWattage.Size = new System.Drawing.Size(50, 20);
             this.txtKeccakWattage.TabIndex = 36;
             this.txtKeccakWattage.Text = "100";
+            this.txtKeccakWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtKeccakWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtFugueWattage
             // 
@@ -694,6 +732,8 @@
             this.txtFugueWattage.Size = new System.Drawing.Size(50, 20);
             this.txtFugueWattage.TabIndex = 35;
             this.txtFugueWattage.Text = "100";
+            this.txtFugueWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtFugueWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtMyrGroestlWattage
             // 
@@ -702,6 +742,8 @@
             this.txtMyrGroestlWattage.Size = new System.Drawing.Size(50, 20);
             this.txtMyrGroestlWattage.TabIndex = 34;
             this.txtMyrGroestlWattage.Text = "100";
+            this.txtMyrGroestlWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtMyrGroestlWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtGroestlWattage
             // 
@@ -710,6 +752,8 @@
             this.txtGroestlWattage.Size = new System.Drawing.Size(50, 20);
             this.txtGroestlWattage.TabIndex = 33;
             this.txtGroestlWattage.Text = "100";
+            this.txtGroestlWattage.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtGroestlWattage.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // btnCalc
             // 
@@ -728,6 +772,8 @@
             this.txtJane13.Size = new System.Drawing.Size(80, 20);
             this.txtJane13.TabIndex = 30;
             this.txtJane13.Text = "0.0095";
+            this.txtJane13.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJane13.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtJane15
             // 
@@ -736,6 +782,8 @@
             this.txtJane15.Size = new System.Drawing.Size(80, 20);
             this.txtJane15.TabIndex = 28;
             this.txtJane15.Text = "0.0009";
+            this.txtJane15.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJane15.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtScryptN
             // 
@@ -744,6 +792,8 @@
             this.txtScryptN.Size = new System.Drawing.Size(80, 20);
             this.txtScryptN.TabIndex = 25;
             this.txtScryptN.Text = "0.14";
+            this.txtScryptN.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtScryptN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtHefty
             // 
@@ -752,6 +802,8 @@
             this.txtHefty.Size = new System.Drawing.Size(80, 20);
             this.txtHefty.TabIndex = 14;
             this.txtHefty.Text = "13.1";
+            this.txtHefty.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtHefty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtX13
             // 
@@ -760,6 +812,8 @@
             this.txtX13.Size = new System.Drawing.Size(80, 20);
             this.txtX13.TabIndex = 21;
             this.txtX13.Text = "2";
+            this.txtX13.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtX13.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtX11
             // 
@@ -768,6 +822,8 @@
             this.txtX11.Size = new System.Drawing.Size(80, 20);
             this.txtX11.TabIndex = 19;
             this.txtX11.Text = "2.6";
+            this.txtX11.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtX11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtScrypt
             // 
@@ -776,6 +832,8 @@
             this.txtScrypt.Size = new System.Drawing.Size(80, 20);
             this.txtScrypt.TabIndex = 16;
             this.txtScrypt.Text = "0.28";
+            this.txtScrypt.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtScrypt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtQuark
             // 
@@ -784,6 +842,8 @@
             this.txtQuark.Size = new System.Drawing.Size(80, 20);
             this.txtQuark.TabIndex = 23;
             this.txtQuark.Text = "4.5";
+            this.txtQuark.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtQuark.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtNist5
             // 
@@ -792,6 +852,8 @@
             this.txtNist5.Size = new System.Drawing.Size(80, 20);
             this.txtNist5.TabIndex = 12;
             this.txtNist5.Text = "8.4";
+            this.txtNist5.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtNist5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtJackpot
             // 
@@ -800,6 +862,8 @@
             this.txtJackpot.Size = new System.Drawing.Size(80, 20);
             this.txtJackpot.TabIndex = 10;
             this.txtJackpot.Text = "5.6";
+            this.txtJackpot.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtJackpot.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtKeccak
             // 
@@ -808,6 +872,8 @@
             this.txtKeccak.Size = new System.Drawing.Size(80, 20);
             this.txtKeccak.TabIndex = 7;
             this.txtKeccak.Text = "163.1";
+            this.txtKeccak.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtKeccak.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtFugue
             // 
@@ -816,6 +882,8 @@
             this.txtFugue.Size = new System.Drawing.Size(80, 20);
             this.txtFugue.TabIndex = 5;
             this.txtFugue.Text = "93.9";
+            this.txtFugue.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtFugue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtMyrGroestl
             // 
@@ -824,6 +892,8 @@
             this.txtMyrGroestl.Size = new System.Drawing.Size(80, 20);
             this.txtMyrGroestl.TabIndex = 3;
             this.txtMyrGroestl.Text = "12.9";
+            this.txtMyrGroestl.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtMyrGroestl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // txtGroestl
             // 
@@ -832,6 +902,8 @@
             this.txtGroestl.Size = new System.Drawing.Size(80, 20);
             this.txtGroestl.TabIndex = 1;
             this.txtGroestl.Text = "7.7";
+            this.txtGroestl.TextChanged += new System.EventHandler(this.txtHashrateOrWattage_TextChanged);
+            this.txtGroestl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHashrateOrWattage_KeyPress);
             // 
             // cbbFiat
             // 
