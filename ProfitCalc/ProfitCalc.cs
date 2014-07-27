@@ -48,14 +48,22 @@ namespace ProfitCalc
                 {
                     cbbProfiles.Items.Add(hashRateJson.Key);
                 }
-                UpdateGuiHashrates(_hashList.First().Value);
                 cbbProfiles.SelectedIndex = 0;
+                UpdateGuiHashrates(_hashList.First().Value);
             } 
             else if (File.Exists("hashrates.txt"))
             {
                 HashRateJson rates = JsonControl.GetSerializedApiFile<HashRateJson>("hashrates.txt");
                 _hashList = new Dictionary<string, HashRateJson> {{"hashrates.txt", rates}};
+                cbbProfiles.Items.Add("hashrates.txt");
+                cbbProfiles.SelectedIndex = 0;
                 UpdateGuiHashrates(rates);
+            }
+            else
+            {
+                _hashList = new Dictionary<string, HashRateJson> { { "Default", ParseGuiHashrates(false)} };
+                cbbProfiles.Items.Add("Default");
+                cbbProfiles.SelectedIndex = 0;
             }
             
             if (File.Exists("apisettings.txt"))
@@ -1512,13 +1520,23 @@ namespace ProfitCalc
             if (btnAddDeleteProfile.Text.Contains("Remove"))
             {
                 _hashList.Remove(cbbProfiles.Text);
-                cbbProfiles.Items.RemoveAt(cbbProfiles.SelectedIndex);
-                cbbProfiles.SelectedIndex = 0;
+                foreach (var item in cbbProfiles.Items)
+                {
+                    if (item.ToString() == cbbProfiles.Text)
+                    {
+                        cbbProfiles.Items.Remove(item);
+                        break;
+                    }
+                }
+                cbbProfiles.SelectedItem = cbbProfiles.Items[0];
             }
-            else
+            else if (!_hashList.ContainsKey(cbbProfiles.Text))
             {
                 _hashList.Add(cbbProfiles.Text, ParseGuiHashrates(true));
                 cbbProfiles.Items.Add(cbbProfiles.Text);
+
+                btnAddDeleteProfile.Text = "Remove profile";
+                btnAddDeleteProfile.Enabled = cbbProfiles.Items.Count != 1;
             }
         }
 
@@ -1538,6 +1556,7 @@ namespace ProfitCalc
 
         private void cbbProfiles_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             UpdateGuiHashrates(_hashList[cbbProfiles.Text]);
         }
 
