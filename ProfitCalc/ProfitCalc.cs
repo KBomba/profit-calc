@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -17,13 +18,17 @@ namespace ProfitCalc
     {
         private CoinList _coinList;
         private Dictionary<string,HashRateJson> _hashList;
+        private BindingList<CustomCoin> _customCoins; 
 
         public ProfitCalc()
         {
             InitializeComponent();
             InitializeOtherComponents();
+
             LoadSettings();
             UpdateChkAllState();
+
+            InitCustomCoins();
         }
 
         private void InitializeOtherComponents()
@@ -31,12 +36,83 @@ namespace ProfitCalc
             foreach (TabPage page in tabControlSettings.TabPages)
             {
                 page.BackColor = SystemColors.Menu;
+                //They're white by default, and VS keeps on reverting my changes in the designer file
+                //Screw you Visual Studio :D
             }
             txtLog.BackColor = SystemColors.Window;
+            txtReadme.BackColor = SystemColors.Window;
             AppendToLog("Loading settings");
 
             cbbFiat.SelectedIndex = 0;
             cbbBidRecentAsk.SelectedIndex = 0;
+            
+            try
+            {
+                if (File.Exists("README.txt"))
+                {
+                    using (TextReader tr = File.OpenText("README.txt"))
+                    {
+                        txtReadme.Text = tr.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                AppendToLog("Unable to read README.txt", e);
+            }
+        }
+
+        private void InitCustomCoins()
+        {
+            dgvCustomCoins.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn tagColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Tag",
+                HeaderText = "Tag"
+            };
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FullName",
+                HeaderText = "Full Name"
+            };
+
+            DataGridViewComboBoxColumn algoColumn = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "Algo",
+                HeaderText = "Algo",
+                DataSource = Enum.GetValues(typeof(HashAlgo.Algo))
+            };
+
+            DataGridViewTextBoxColumn diffColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Difficulty",
+                HeaderText = "Difficulty"
+            };
+
+            DataGridViewTextBoxColumn rewardColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "BlockReward",
+                HeaderText = "Block Reward"
+            };
+
+            dgvCustomCoins.Columns.Add(tagColumn);
+            dgvCustomCoins.Columns.Add(nameColumn);
+            dgvCustomCoins.Columns.Add(algoColumn);
+            dgvCustomCoins.Columns.Add(diffColumn);
+            dgvCustomCoins.Columns.Add(rewardColumn);
+
+            CustomCoin test = new CustomCoin
+            {
+                Tag = "MYR",
+                FullName = "Myriad",
+                Algo = HashAlgo.Algo.MyriadGroestl,
+                Difficulty = 666,
+                BlockReward = 1000
+            };
+            _customCoins = new BindingList<CustomCoin> { test };
+            dgvCustomCoins.DataSource = _customCoins;
         }
 
         private void LoadSettings()
@@ -394,22 +470,6 @@ namespace ProfitCalc
             }
 
             tsProgress.Value += progress;
-            if (chkWhattomine.Checked)
-            {
-                try
-                {
-                    tsStatus.Text = "Getting coin info from WhatToMine...";
-                    _coinList.UpdateWhatToMine();
-                }
-                catch (Exception exception)
-                {
-                    AppendToLog("Error while getting data from WhatToMine. Will be retried.",
-                        exception);
-                    erroredActions.Add(_coinList.UpdateWhatToMine);
-                }
-            }
-
-            tsProgress.Value += progress;
             if (chkCointweak.Checked)
             {
                 try
@@ -438,6 +498,22 @@ namespace ProfitCalc
                     AppendToLog("Error while getting data from CoinWarz. Will be retried.",
                         exception);
                     erroredActions.Add(() => _coinList.UpdateCoinWarz(txtCoinwarzApiKey.Text));
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkWhattomine.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Getting coin info from WhatToMine...";
+                    _coinList.UpdateWhatToMine();
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while getting data from WhatToMine. Will be retried.",
+                        exception);
+                    erroredActions.Add(_coinList.UpdateWhatToMine);
                 }
             }
 

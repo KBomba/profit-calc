@@ -164,6 +164,10 @@
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabFilters = new System.Windows.Forms.TabPage();
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
+            this.tabReadme = new System.Windows.Forms.TabPage();
+            this.txtReadme = new System.Windows.Forms.TextBox();
+            this.tabCustomCoins = new System.Windows.Forms.TabPage();
+            this.dgvCustomCoins = new System.Windows.Forms.DataGridView();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -179,6 +183,9 @@
             this.tabMarketApi.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabFilters.SuspendLayout();
+            this.tabReadme.SuspendLayout();
+            this.tabCustomCoins.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).BeginInit();
             this.SuspendLayout();
             // 
             // grpHashrates
@@ -1283,7 +1290,7 @@
             this.tabMultipool.Location = new System.Drawing.Point(4, 22);
             this.tabMultipool.Name = "tabMultipool";
             this.tabMultipool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMultipool.Size = new System.Drawing.Size(491, 153);
+            this.tabMultipool.Size = new System.Drawing.Size(549, 153);
             this.tabMultipool.TabIndex = 2;
             this.tabMultipool.Text = "Multipools";
             this.tabMultipool.UseVisualStyleBackColor = true;
@@ -1472,7 +1479,7 @@
             this.tabCoinInfo.Location = new System.Drawing.Point(4, 22);
             this.tabCoinInfo.Name = "tabCoinInfo";
             this.tabCoinInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCoinInfo.Size = new System.Drawing.Size(491, 153);
+            this.tabCoinInfo.Size = new System.Drawing.Size(549, 153);
             this.tabCoinInfo.TabIndex = 1;
             this.tabCoinInfo.Text = "Coin Info";
             this.tabCoinInfo.UseVisualStyleBackColor = true;
@@ -1544,7 +1551,7 @@
             this.tabMarketApi.Location = new System.Drawing.Point(4, 22);
             this.tabMarketApi.Name = "tabMarketApi";
             this.tabMarketApi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMarketApi.Size = new System.Drawing.Size(491, 153);
+            this.tabMarketApi.Size = new System.Drawing.Size(549, 153);
             this.tabMarketApi.TabIndex = 0;
             this.tabMarketApi.Text = "Market API";
             this.tabMarketApi.UseVisualStyleBackColor = true;
@@ -1663,15 +1670,17 @@
             // 
             this.tabControlSettings.Controls.Add(this.tabMarketApi);
             this.tabControlSettings.Controls.Add(this.tabCoinInfo);
+            this.tabControlSettings.Controls.Add(this.tabCustomCoins);
             this.tabControlSettings.Controls.Add(this.tabMultipool);
             this.tabControlSettings.Controls.Add(this.tabPriceCalc);
             this.tabControlSettings.Controls.Add(this.tabFilters);
             this.tabControlSettings.Controls.Add(this.tabMisc);
             this.tabControlSettings.Controls.Add(this.tabLog);
+            this.tabControlSettings.Controls.Add(this.tabReadme);
             this.tabControlSettings.Location = new System.Drawing.Point(271, 12);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(499, 179);
+            this.tabControlSettings.Size = new System.Drawing.Size(557, 179);
             this.tabControlSettings.TabIndex = 6;
             this.tabControlSettings.TabStop = false;
             // 
@@ -1703,6 +1712,51 @@
             this.chkRemoveFrozenCoins.Text = "Remove coins that are frozen on supported exchanges";
             this.chkRemoveFrozenCoins.UseVisualStyleBackColor = false;
             this.chkRemoveFrozenCoins.CheckedChanged += new System.EventHandler(this.reasonToUpdateDgv_CheckedChanged);
+            // 
+            // tabReadme
+            // 
+            this.tabReadme.Controls.Add(this.txtReadme);
+            this.tabReadme.Location = new System.Drawing.Point(4, 22);
+            this.tabReadme.Name = "tabReadme";
+            this.tabReadme.Padding = new System.Windows.Forms.Padding(3);
+            this.tabReadme.Size = new System.Drawing.Size(491, 153);
+            this.tabReadme.TabIndex = 7;
+            this.tabReadme.Text = "Readme";
+            this.tabReadme.UseVisualStyleBackColor = true;
+            // 
+            // txtReadme
+            // 
+            this.txtReadme.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtReadme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtReadme.Location = new System.Drawing.Point(3, 3);
+            this.txtReadme.Multiline = true;
+            this.txtReadme.Name = "txtReadme";
+            this.txtReadme.ReadOnly = true;
+            this.txtReadme.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtReadme.Size = new System.Drawing.Size(485, 147);
+            this.txtReadme.TabIndex = 0;
+            this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
+    "aVu8BZL5K44CCq7E ";
+            // 
+            // tabCustomCoins
+            // 
+            this.tabCustomCoins.Controls.Add(this.dgvCustomCoins);
+            this.tabCustomCoins.Location = new System.Drawing.Point(4, 22);
+            this.tabCustomCoins.Name = "tabCustomCoins";
+            this.tabCustomCoins.Size = new System.Drawing.Size(549, 153);
+            this.tabCustomCoins.TabIndex = 8;
+            this.tabCustomCoins.Text = "Custom Coins";
+            this.tabCustomCoins.UseVisualStyleBackColor = true;
+            // 
+            // dgvCustomCoins
+            // 
+            this.dgvCustomCoins.AllowUserToOrderColumns = true;
+            this.dgvCustomCoins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
+            this.dgvCustomCoins.Name = "dgvCustomCoins";
+            this.dgvCustomCoins.Size = new System.Drawing.Size(549, 153);
+            this.dgvCustomCoins.TabIndex = 0;
             // 
             // ProfitCalc
             // 
@@ -1741,6 +1795,10 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabFilters.ResumeLayout(false);
             this.tabFilters.PerformLayout();
+            this.tabReadme.ResumeLayout(false);
+            this.tabReadme.PerformLayout();
+            this.tabCustomCoins.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1881,6 +1939,10 @@
         private System.Windows.Forms.CheckBox chkRemoveFrozenCoins;
         private System.Windows.Forms.ComboBox cbbProfiles;
         private System.Windows.Forms.Button btnAddDeleteProfile;
+        private System.Windows.Forms.TabPage tabReadme;
+        private System.Windows.Forms.TextBox txtReadme;
+        private System.Windows.Forms.TabPage tabCustomCoins;
+        private System.Windows.Forms.DataGridView dgvCustomCoins;
     }
 }
 

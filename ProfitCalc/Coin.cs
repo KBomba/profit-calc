@@ -237,4 +237,14 @@ namespace ProfitCalc
             return sb.ToString();
         }
     }
+
+    internal class CustomCoin
+    {
+        public string Tag { get; set; }
+        public string FullName { get; set; }
+
+        public HashAlgo.Algo Algo { get; set; }
+        public double Difficulty { get; set; }
+        public double BlockReward { get; set; }
+    }
 }

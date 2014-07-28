@@ -73,7 +73,7 @@
     <Compile Include="ApiControl\CrypToday.cs" />
     <Compile Include="ApiControl\MoneroChain.cs" />
     <Compile Include="ApiControl\Poloniex.cs" />
-    <Compile Include="JsonControl.cs" />
+    <Compile Include="ApiControl\JsonControl.cs" />
     <Compile Include="ApiControl\Bittrex.cs" />
     <Compile Include="ApiControl\CoinTweak.cs" />
     <Compile Include="ApiControl\CoinWarz.cs" />
