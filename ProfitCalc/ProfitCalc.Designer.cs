@@ -162,12 +162,12 @@
             this.chkMintpal = new System.Windows.Forms.CheckBox();
             this.chkBittrex = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
+            this.tabCustomCoins = new System.Windows.Forms.TabPage();
+            this.dgvCustomCoins = new System.Windows.Forms.DataGridView();
             this.tabFilters = new System.Windows.Forms.TabPage();
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
             this.tabReadme = new System.Windows.Forms.TabPage();
             this.txtReadme = new System.Windows.Forms.TextBox();
-            this.tabCustomCoins = new System.Windows.Forms.TabPage();
-            this.dgvCustomCoins = new System.Windows.Forms.DataGridView();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -182,10 +182,10 @@
             this.tabCoinInfo.SuspendLayout();
             this.tabMarketApi.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
-            this.tabFilters.SuspendLayout();
-            this.tabReadme.SuspendLayout();
             this.tabCustomCoins.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).BeginInit();
+            this.tabFilters.SuspendLayout();
+            this.tabReadme.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpHashrates
@@ -1218,7 +1218,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(491, 153);
+            this.tabLog.Size = new System.Drawing.Size(549, 153);
             this.tabLog.TabIndex = 5;
             this.tabLog.Text = "Log";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -1231,7 +1231,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(485, 147);
+            this.txtLog.Size = new System.Drawing.Size(543, 147);
             this.txtLog.TabIndex = 0;
             this.txtLog.WordWrap = false;
             // 
@@ -1241,7 +1241,7 @@
             this.tabMisc.Controls.Add(this.chkProxy);
             this.tabMisc.Location = new System.Drawing.Point(4, 22);
             this.tabMisc.Name = "tabMisc";
-            this.tabMisc.Size = new System.Drawing.Size(491, 153);
+            this.tabMisc.Size = new System.Drawing.Size(549, 153);
             this.tabMisc.TabIndex = 3;
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
@@ -1393,7 +1393,7 @@
             this.tabPriceCalc.Location = new System.Drawing.Point(4, 22);
             this.tabPriceCalc.Name = "tabPriceCalc";
             this.tabPriceCalc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPriceCalc.Size = new System.Drawing.Size(491, 153);
+            this.tabPriceCalc.Size = new System.Drawing.Size(549, 153);
             this.tabPriceCalc.TabIndex = 4;
             this.tabPriceCalc.Text = "Coin Price Calc";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
@@ -1684,6 +1684,28 @@
             this.tabControlSettings.TabIndex = 6;
             this.tabControlSettings.TabStop = false;
             // 
+            // tabCustomCoins
+            // 
+            this.tabCustomCoins.Controls.Add(this.dgvCustomCoins);
+            this.tabCustomCoins.Location = new System.Drawing.Point(4, 22);
+            this.tabCustomCoins.Name = "tabCustomCoins";
+            this.tabCustomCoins.Size = new System.Drawing.Size(549, 153);
+            this.tabCustomCoins.TabIndex = 8;
+            this.tabCustomCoins.Text = "Custom Coins";
+            this.tabCustomCoins.UseVisualStyleBackColor = true;
+            // 
+            // dgvCustomCoins
+            // 
+            this.dgvCustomCoins.AllowUserToOrderColumns = true;
+            this.dgvCustomCoins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
+            this.dgvCustomCoins.Name = "dgvCustomCoins";
+            this.dgvCustomCoins.Size = new System.Drawing.Size(549, 153);
+            this.dgvCustomCoins.TabIndex = 0;
+            this.dgvCustomCoins.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomCoins_EditingControlShowing);
+            this.dgvCustomCoins.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvCustomCoins_MouseUp);
+            // 
             // tabFilters
             // 
             this.tabFilters.Controls.Add(this.chkRemoveFrozenCoins);
@@ -1694,7 +1716,7 @@
             this.tabFilters.Location = new System.Drawing.Point(4, 22);
             this.tabFilters.Name = "tabFilters";
             this.tabFilters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilters.Size = new System.Drawing.Size(491, 153);
+            this.tabFilters.Size = new System.Drawing.Size(549, 153);
             this.tabFilters.TabIndex = 6;
             this.tabFilters.Text = "Filters";
             this.tabFilters.UseVisualStyleBackColor = true;
@@ -1719,7 +1741,7 @@
             this.tabReadme.Location = new System.Drawing.Point(4, 22);
             this.tabReadme.Name = "tabReadme";
             this.tabReadme.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReadme.Size = new System.Drawing.Size(491, 153);
+            this.tabReadme.Size = new System.Drawing.Size(549, 153);
             this.tabReadme.TabIndex = 7;
             this.tabReadme.Text = "Readme";
             this.tabReadme.UseVisualStyleBackColor = true;
@@ -1733,30 +1755,10 @@
             this.txtReadme.Name = "txtReadme";
             this.txtReadme.ReadOnly = true;
             this.txtReadme.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtReadme.Size = new System.Drawing.Size(485, 147);
+            this.txtReadme.Size = new System.Drawing.Size(543, 147);
             this.txtReadme.TabIndex = 0;
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
     "aVu8BZL5K44CCq7E ";
-            // 
-            // tabCustomCoins
-            // 
-            this.tabCustomCoins.Controls.Add(this.dgvCustomCoins);
-            this.tabCustomCoins.Location = new System.Drawing.Point(4, 22);
-            this.tabCustomCoins.Name = "tabCustomCoins";
-            this.tabCustomCoins.Size = new System.Drawing.Size(549, 153);
-            this.tabCustomCoins.TabIndex = 8;
-            this.tabCustomCoins.Text = "Custom Coins";
-            this.tabCustomCoins.UseVisualStyleBackColor = true;
-            // 
-            // dgvCustomCoins
-            // 
-            this.dgvCustomCoins.AllowUserToOrderColumns = true;
-            this.dgvCustomCoins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
-            this.dgvCustomCoins.Name = "dgvCustomCoins";
-            this.dgvCustomCoins.Size = new System.Drawing.Size(549, 153);
-            this.dgvCustomCoins.TabIndex = 0;
             // 
             // ProfitCalc
             // 
@@ -1793,12 +1795,12 @@
             this.tabMarketApi.ResumeLayout(false);
             this.tabMarketApi.PerformLayout();
             this.tabControlSettings.ResumeLayout(false);
+            this.tabCustomCoins.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).EndInit();
             this.tabFilters.ResumeLayout(false);
             this.tabFilters.PerformLayout();
             this.tabReadme.ResumeLayout(false);
             this.tabReadme.PerformLayout();
-            this.tabCustomCoins.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

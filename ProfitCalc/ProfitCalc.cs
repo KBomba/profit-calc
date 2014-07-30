@@ -103,15 +103,16 @@ namespace ProfitCalc
             dgvCustomCoins.Columns.Add(diffColumn);
             dgvCustomCoins.Columns.Add(rewardColumn);
 
-            CustomCoin test = new CustomCoin
+            if (File.Exists("customcoins.txt"))
             {
-                Tag = "MYR",
-                FullName = "Myriad",
-                Algo = HashAlgo.Algo.MyriadGroestl,
-                Difficulty = 666,
-                BlockReward = 1000
-            };
-            _customCoins = new BindingList<CustomCoin> { test };
+                _customCoins = JsonControl.GetSerializedApiFile<BindingList<CustomCoin>>("customcoins.txt");
+            }
+            else
+            {
+                _customCoins = new BindingList<CustomCoin>();
+            }
+
+
             dgvCustomCoins.DataSource = _customCoins;
         }
 
@@ -203,8 +204,8 @@ namespace ProfitCalc
                 _hashList = new Dictionary<string, HashRateJson> {{"Default", ParseGuiHashrates(false)}};
             }
             
-            string jsonHashlist = JsonConvert.SerializeObject(_hashList, Formatting.Indented);
-            File.WriteAllText(@"profiles.txt", jsonHashlist);
+            File.WriteAllText(@"profiles.txt", 
+                JsonConvert.SerializeObject(_hashList, Formatting.Indented));
 
             ApiSettingsJson apiSettings = new ApiSettingsJson
             {
@@ -243,8 +244,11 @@ namespace ProfitCalc
             apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
             apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
 
-            string jsonApiList = JsonConvert.SerializeObject(apiSettings, Formatting.Indented);
-            File.WriteAllText(@"apisettings.txt", jsonApiList);
+            File.WriteAllText(@"apisettings.txt", 
+                JsonConvert.SerializeObject(apiSettings, Formatting.Indented));
+
+            File.WriteAllText(@"customcoins.txt", 
+                JsonConvert.SerializeObject(_customCoins, Formatting.Indented));
 
             AppendToLog("Settings saved");
             File.WriteAllText(@"log.txt", txtLog.Text);
@@ -335,7 +339,8 @@ namespace ProfitCalc
             dgView.Rows.Clear();
             DataGridViewRow[] arrCoinRows = new DataGridViewRow[listCoins.Count];
 
-            Parallel.For(0, listCoins.Count, index =>
+            //Parallel.For(0, listCoins.Count, index =>
+            for (int index = 0; index < listCoins.Count; index++)
             {
                 Coin coin = listCoins[index];
                 
@@ -353,7 +358,7 @@ namespace ProfitCalc
                 {
                     arrCoinRows[index].DefaultCellStyle.BackColor = GetRowColor(coin);
                 }
-            });
+            }//);
 
             dgView.Rows.AddRange(arrCoinRows);
         }
@@ -406,7 +411,20 @@ namespace ProfitCalc
 
             _coinList = new CoinList(new HttpClient(hch, true));
 
-            if (chkCryptonight.Checked)
+            if (_customCoins.Count > 0)
+            {
+                try
+                {
+                    tsStatus.Text = "Adding custom coins...";
+                    _coinList.AddCustomCoins(_customCoins);
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while adding custom coins",exception);
+                }
+            }
+
+            /*if (chkCryptonight.Checked)
             {
                 try
                 {
@@ -419,7 +437,7 @@ namespace ProfitCalc
                         exception);
                     erroredActions.Add(_coinList.AddMoneroWorkAround);
                 }
-            }
+            }*/
 
             tsProgress.Value += progress;
             if (chkNiceHash.Checked)
@@ -1659,6 +1677,39 @@ namespace ProfitCalc
             if (e.KeyChar == ',')
             {
                 e.KeyChar = '.';
+            }
+        }
+
+        private void dgvCustomCoins_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                DataGridView.HitTestInfo hitTestInfo = dgvCustomCoins.HitTest(e.X, e.Y);
+                if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+                    dgvCustomCoins.BeginEdit(true);
+                else
+                    dgvCustomCoins.EndEdit();
+            }
+        }
+
+        private void dgvCustomCoins_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column_KeyPress);
+            if (dgvCustomCoins.CurrentCell.ColumnIndex == 3 || dgvCustomCoins.CurrentCell.ColumnIndex == 4) 
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column_KeyPress);
+                }
+            }
+        }
+
+        private void Column_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
+            {
+                e.Handled = true;
             }
         }
     }

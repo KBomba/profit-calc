@@ -53,6 +53,27 @@ namespace ProfitCalc
             Exchanges = new List<Exchange>();
         }
 
+        public Coin(CustomCoin customCoin)
+        {
+            FullName = customCoin.FullName + " (Custom coin)";
+            TagName = "CUST" + customCoin.Tag;
+            Algo = customCoin.Algo;
+            Difficulty = customCoin.Difficulty;
+            BlockReward = customCoin.BlockReward;
+            Height = 0;
+            Exchange customExchange = new Exchange
+            {
+                ExchangeName = "Unknown (Custom coin)",
+                BtcPrice = 0,
+                BtcVolume = 0,
+                Weight = 1,
+                IsFrozen = false
+            };
+            Exchanges = new List<Exchange>{customExchange};
+            IsMultiPool = false;
+            HasImplementedMarketApi = false;
+        }
+
         public Coin(NiceHash.Result.Stat niceHashStat)
         {
             switch (niceHashStat.Algo)

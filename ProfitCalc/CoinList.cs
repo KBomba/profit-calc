@@ -54,6 +54,14 @@ namespace ProfitCalc
             }
         }
 
+        public void AddCustomCoins(IEnumerable<CustomCoin> customCoins)
+        {
+            foreach (CustomCoin customCoin in customCoins)
+            {
+                Add(new Coin(customCoin));
+            }
+        }
+
         public void UpdateNiceHash()
         {
             NiceHash niceHashData = JsonControl.DownloadSerializedApi<NiceHash>(
@@ -620,7 +628,7 @@ namespace ProfitCalc
             }
         }
 
-        public void AddMoneroWorkAround()
+        /*public void AddMoneroWorkAround()
         {
             MoneroChain mon = JsonControl.DownloadSerializedApi<MoneroChain>(_client.GetStreamAsync("http://monerochain.info/api/stats").Result);
             MoneroLatestBlock moneroLatest;
@@ -651,7 +659,7 @@ namespace ProfitCalc
             };
 
             Add(c);
-        }
+        }*/
 
         public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation, bool calcFiat)
         {
