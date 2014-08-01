@@ -74,7 +74,7 @@ namespace ProfitCalc
             HasImplementedMarketApi = false;
         }
 
-        public Coin(NiceHash.Result.Stat niceHashStat)
+        public Coin(NiceHash.Result.Stat niceHashStat, string name)
         {
             switch (niceHashStat.Algo)
             {
@@ -104,7 +104,7 @@ namespace ProfitCalc
                     break;
             }
 
-            FullName = "Act. NiceHash " + Algo;
+            FullName = "Act. " + name + " " + Algo;
             TagName = "NICE" + Algo.ToString().ToUpper();
             Difficulty = 0;
             BlockReward = 0;

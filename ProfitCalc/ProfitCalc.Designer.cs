@@ -1561,7 +1561,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(6, 98);
+            this.checkBox2.Location = new System.Drawing.Point(272, 121);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(61, 17);
             this.checkBox2.TabIndex = 45;
@@ -1572,7 +1572,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(101, 98);
+            this.checkBox1.Location = new System.Drawing.Point(101, 121);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(70, 17);
             this.checkBox1.TabIndex = 44;
@@ -1583,7 +1583,7 @@
             // chkAtomictrade
             // 
             this.chkAtomictrade.AutoSize = true;
-            this.chkAtomictrade.Location = new System.Drawing.Point(101, 75);
+            this.chkAtomictrade.Location = new System.Drawing.Point(177, 121);
             this.chkAtomictrade.Name = "chkAtomictrade";
             this.chkAtomictrade.Size = new System.Drawing.Size(89, 17);
             this.chkAtomictrade.TabIndex = 43;
@@ -1605,7 +1605,7 @@
             // chkAllcrypt
             // 
             this.chkAllcrypt.AutoSize = true;
-            this.chkAllcrypt.Location = new System.Drawing.Point(101, 29);
+            this.chkAllcrypt.Location = new System.Drawing.Point(101, 52);
             this.chkAllcrypt.Name = "chkAllcrypt";
             this.chkAllcrypt.Size = new System.Drawing.Size(61, 17);
             this.chkAllcrypt.TabIndex = 41;
@@ -1615,7 +1615,7 @@
             // chkAllcoin
             // 
             this.chkAllcoin.AutoSize = true;
-            this.chkAllcoin.Location = new System.Drawing.Point(101, 6);
+            this.chkAllcoin.Location = new System.Drawing.Point(101, 29);
             this.chkAllcoin.Name = "chkAllcoin";
             this.chkAllcoin.Size = new System.Drawing.Size(58, 17);
             this.chkAllcoin.TabIndex = 40;
@@ -1627,7 +1627,7 @@
             this.chkPoloniex.AutoSize = true;
             this.chkPoloniex.Checked = true;
             this.chkPoloniex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPoloniex.Location = new System.Drawing.Point(6, 75);
+            this.chkPoloniex.Location = new System.Drawing.Point(6, 52);
             this.chkPoloniex.Name = "chkPoloniex";
             this.chkPoloniex.Size = new System.Drawing.Size(66, 17);
             this.chkPoloniex.TabIndex = 39;
@@ -1637,7 +1637,7 @@
             // chkCryptsy
             // 
             this.chkCryptsy.AutoSize = true;
-            this.chkCryptsy.Location = new System.Drawing.Point(6, 52);
+            this.chkCryptsy.Location = new System.Drawing.Point(101, 6);
             this.chkCryptsy.Name = "chkCryptsy";
             this.chkCryptsy.Size = new System.Drawing.Size(60, 17);
             this.chkCryptsy.TabIndex = 38;
@@ -1767,7 +1767,7 @@
             this.chkCCex.AutoSize = true;
             this.chkCCex.Checked = true;
             this.chkCCex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCCex.Location = new System.Drawing.Point(101, 52);
+            this.chkCCex.Location = new System.Drawing.Point(6, 74);
             this.chkCCex.Name = "chkCCex";
             this.chkCCex.Size = new System.Drawing.Size(54, 17);
             this.chkCCex.TabIndex = 46;

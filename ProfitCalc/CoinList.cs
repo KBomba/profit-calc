@@ -66,13 +66,17 @@ namespace ProfitCalc
         {
             NiceHash niceHashData = JsonControl.DownloadSerializedApi<NiceHash>(
                 _client.GetStreamAsync("http://www.nicehash.com/api?method=stats.global.current").Result);
-            Add(new Coin(niceHashData.Results.Stats[0]));
-            Add(new Coin(niceHashData.Results.Stats[2]));
-            Add(new Coin(niceHashData.Results.Stats[3]));
-            Add(new Coin(niceHashData.Results.Stats[4]));
-            Add(new Coin(niceHashData.Results.Stats[5]));
-            Add(new Coin(niceHashData.Results.Stats[6]));
-            Add(new Coin(niceHashData.Results.Stats[7]));
+            NiceHash westHashData = JsonControl.DownloadSerializedApi<NiceHash>(
+                _client.GetStreamAsync("http://www.westhash.com/api?method=stats.global.current").Result);
+
+            for (int i = 0; i < niceHashData.Results.Stats.Count; i++)
+            {
+                if (i != 1)
+                {
+                    Add(new Coin(niceHashData.Results.Stats[i], "NiceHash"));
+                    Add(new Coin(westHashData.Results.Stats[i], "WestHash"));
+                }
+            }
         }
 
         public void UpdateWhatToMine()
