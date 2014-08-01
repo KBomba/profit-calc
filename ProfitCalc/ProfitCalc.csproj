@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="ApiControl\AllCoin.cs" />
     <Compile Include="ApiControl\AllCrypt.cs" />
+    <Compile Include="ApiControl\CCex.cs" />
     <Compile Include="ApiControl\CoinDesk.cs" />
     <Compile Include="ApiControl\CrypToday.cs" />
     <Compile Include="ApiControl\MoneroChain.cs" />

@@ -406,7 +406,7 @@ namespace ProfitCalc
 
             Parallel.ForEach(List, c => Parallel.ForEach(ac.Returns.Markets, _po, acCoin =>
             {
-                if (acCoin.Value.SecondaryCode == "BTC" && acCoin.Value.PrimaryCode== c.TagName)
+                if (acCoin.Value.SecondaryCode == "BTC" && acCoin.Value.PrimaryCode == c.TagName)
                 {
                     double priceToUse;
                     switch (selectedIndex)
@@ -446,6 +446,87 @@ namespace ProfitCalc
 
                     _po.CancellationToken.ThrowIfCancellationRequested();
                 }
+            }));
+        }
+
+        public void UpdateCCex(int selectedIndex)
+        {
+            Dictionary<string, CCexPair> ccPairs = JsonControl.DownloadSerializedApi<Dictionary<string, CCexPair>>(
+                _client.GetStreamAsync("https://c-cex.com/t/prices.json").Result);
+            CCexVolume ccVolumes = JsonControl.DownloadSerializedApi<CCexVolume>(
+                _client.GetStreamAsync("https://c-cex.com/t/s.html?a=lastvolumes&h=24").Result);
+
+            Parallel.ForEach(List, c => Parallel.For(0, ccPairs.Count, _po, i =>
+            /*foreach (Coin c in List)
+            {
+                for(int i = 0; i < ccPairs.Count; i++)*/
+                {
+                    CCexPair ccPair = ccPairs.Values.ElementAt(i);
+                    var splitPair = ccPairs.Keys.ElementAt(i).Split('-');
+
+                    if (c.TagName == "BTQ")
+                    {
+                        int itemp = 1;
+                        itemp++;
+                    }
+
+                    if (splitPair[1] == "btc" && splitPair[0] == c.TagName.ToLowerInvariant())
+                    {
+                        double priceToUse;
+                        switch (selectedIndex)
+                        {
+                            case 0:
+                                priceToUse = ccPairs.Values.ElementAt(i).Buy;
+                                break;
+                            case 1:
+                                priceToUse = ccPairs.Values.ElementAt(i).Lastprice;
+                                break;
+                            case 2:
+                                priceToUse = ccPairs.Values.ElementAt(i).Sell;
+                                break;
+                            default:
+                                priceToUse = ccPairs.Values.ElementAt(i).Buy;
+                                break;
+                        }
+                        
+                        ParallelOptions optionsVolumeLoop = new ParallelOptions
+                        {
+                            CancellationToken = new CancellationTokenSource().Token,
+                        };
+                        double volumeToUse = 0;
+                        Parallel.ForEach(ccVolumes.Returns, optionsVolumeLoop, ccVolume =>
+                        //foreach (Dictionary<string, string> ccVolume in ccVolumes.Returns)
+                        {
+                            if (ccVolume.ContainsKey("volume_btc") && ccVolume.ContainsKey("volume_" + splitPair[0]) &&
+                                Double.TryParse(ccVolume["volume_btc"], NumberStyles.Any, CultureInfo.InvariantCulture, out volumeToUse))
+                            {
+                                //break;
+                                optionsVolumeLoop.CancellationToken.ThrowIfCancellationRequested();
+                            }
+                        });
+
+                        Coin.Exchange ccExchange = new Coin.Exchange
+                        {
+                            ExchangeName = "C-Cex",
+                            BtcVolume = volumeToUse,
+                            BtcPrice = priceToUse
+                        };
+
+                        if (c.HasImplementedMarketApi)
+                        {
+                            c.Exchanges.Add(ccExchange);
+                            c.TotalVolume += ccExchange.BtcVolume;
+                        }
+                        else
+                        {
+                            c.Exchanges = new List<Coin.Exchange> { ccExchange };
+                            c.TotalVolume = ccExchange.BtcVolume;
+                            c.HasImplementedMarketApi = true;
+                        }
+
+                        _po.CancellationToken.ThrowIfCancellationRequested();
+                    }
+                //}
             }));
         }
         

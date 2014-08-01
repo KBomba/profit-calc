@@ -168,6 +168,7 @@
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
             this.tabReadme = new System.Windows.Forms.TabPage();
             this.txtReadme = new System.Windows.Forms.TextBox();
+            this.chkCCex = new System.Windows.Forms.CheckBox();
             this.grpHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
@@ -1538,6 +1539,7 @@
             // 
             // tabMarketApi
             // 
+            this.tabMarketApi.Controls.Add(this.chkCCex);
             this.tabMarketApi.Controls.Add(this.checkBox2);
             this.tabMarketApi.Controls.Add(this.checkBox1);
             this.tabMarketApi.Controls.Add(this.chkAtomictrade);
@@ -1592,7 +1594,7 @@
             // chkComkort
             // 
             this.chkComkort.AutoSize = true;
-            this.chkComkort.Location = new System.Drawing.Point(101, 52);
+            this.chkComkort.Location = new System.Drawing.Point(6, 121);
             this.chkComkort.Name = "chkComkort";
             this.chkComkort.Size = new System.Drawing.Size(65, 17);
             this.chkComkort.TabIndex = 42;
@@ -1759,6 +1761,18 @@
             this.txtReadme.TabIndex = 0;
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
     "aVu8BZL5K44CCq7E ";
+            // 
+            // chkCCex
+            // 
+            this.chkCCex.AutoSize = true;
+            this.chkCCex.Checked = true;
+            this.chkCCex.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCCex.Location = new System.Drawing.Point(101, 52);
+            this.chkCCex.Name = "chkCCex";
+            this.chkCCex.Size = new System.Drawing.Size(54, 17);
+            this.chkCCex.TabIndex = 46;
+            this.chkCCex.Text = "C-Cex";
+            this.chkCCex.UseVisualStyleBackColor = true;
             // 
             // ProfitCalc
             // 
@@ -1945,6 +1959,7 @@
         private System.Windows.Forms.TextBox txtReadme;
         private System.Windows.Forms.TabPage tabCustomCoins;
         private System.Windows.Forms.DataGridView dgvCustomCoins;
+        private System.Windows.Forms.CheckBox chkCCex;
     }
 }
 

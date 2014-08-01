@@ -55,8 +55,8 @@ namespace ProfitCalc
 
         public Coin(CustomCoin customCoin)
         {
-            FullName = customCoin.FullName + " (Custom coin)";
-            TagName = "CUST" + customCoin.Tag;
+            FullName = customCoin.FullName;
+            TagName = customCoin.Tag;
             Algo = customCoin.Algo;
             Difficulty = customCoin.Difficulty;
             BlockReward = customCoin.BlockReward;

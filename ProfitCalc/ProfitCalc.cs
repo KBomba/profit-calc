@@ -163,6 +163,7 @@ namespace ProfitCalc
                     chkPoloniex.Checked = apiSettings.CheckedApis["Poloniex"];
                     chkAllcoin.Checked = apiSettings.CheckedApis["AllCoin"];
                     chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"];
+                    chkCCex.Checked = apiSettings.CheckedApis["C-Cex"];
                     chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"];
                     chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"];
                     chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"];
@@ -227,6 +228,7 @@ namespace ProfitCalc
             apiSettings.CheckedApis.Add("Poloniex", chkPoloniex.Checked);
             apiSettings.CheckedApis.Add("AllCoin", chkAllcoin.Checked);
             apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
+            apiSettings.CheckedApis.Add("C-Cex", chkCCex.Checked);
 
             apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
             apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
@@ -267,7 +269,7 @@ namespace ProfitCalc
             tsStatus.Text = "Parsing given hashrates...";
             _hashList[cbbProfiles.Text] = ParseGuiHashrates(true);
 
-            const int i = 7;
+            const int i = 6;
             GetCoinList(i);
             tsProgress.Value += i;
 
@@ -654,6 +656,22 @@ namespace ProfitCalc
                     AppendToLog("Error while getting data from AllCrypt. Will be retried.",
                         exception);
                     erroredActions.Add(() => _coinList.UpdateAllCrypt(cbbBidRecentAsk.SelectedIndex));
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkCCex.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with C-Cex prices...";
+                    _coinList.UpdateCCex(cbbBidRecentAsk.SelectedIndex);
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while getting data from C-Cex. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateCCex(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 

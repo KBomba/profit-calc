@@ -3,18 +3,15 @@ Profit Calculator
 
 A nice & easy profit calculator. Default hashrates set for one GTX750TI. 
 
-- Supported exchanges: Bittrex, Mintpal, Cryptsy, Poloniex, AllCoin & AllCrypt.
+- Supported exchanges: Bittrex, Mintpal, Cryptsy, Poloniex, AllCoin, AllCrypt & C-Cex.
 - Supported coin info apis: WhatToMine, CoinTweak & CoinWarz.
-
-- Filter to show only the "healthy" coins available on the supported exchanges & without frozen markets, low volume, etc...(applied on calculation)
+- Filters and colors to indicate whether a coin is frozen on exchanges, has no supported markets, ...
 - Option to include every exchange into the actual BTC price for a coin, but uses their volume for that coin as weight. Unchecked it uses the price of the exchange with the highest volume.
 - Option to calculate USD/EUR/GBP/CNY per day.
 - Option to calculate the electricity cost (if fiat is selected!)
-
 - Supports NiceHash to get their actual prices for vendors/us miners.
 - Supports PoolPicker to get the prices for a lot of different multipools and algos, averaging over X days. 
 - Supports Cryp.Today to get the prices user "suchmoon" got by mining at different multipools and algos, averaging over X days. 
-
 - Saves all settings and hashrates on exit and reloads them on launching the app.
 - Logs all activity per session, and explicitly shows when an API has errored out. 
 - Rightclick the list with results to copy the results to clipboard.
@@ -43,13 +40,13 @@ Supported APIs
 - Poloniex:		https://poloniex.com/
 - AllCoin:		https://allcoin.com/
 - AllCrypt:		https://allcrypt.com/
+- C-Cex:		https://c-cex.com/
 - WhatToMine:	http://whattomine.com/
 - CoinTweak:	https://cointweak.com/
 - CoinWarz:		http://coinwarz.com/
 - NiceHash:		https://nicehash.com
 - PoolPicker:	http://poolpicker.eu/
 - Cryp.Today:	http://cryp.today/
-- MoneroChain:	http://monerochain.info/
 - CoinDesk:		http://coindesk.com/
 
 
