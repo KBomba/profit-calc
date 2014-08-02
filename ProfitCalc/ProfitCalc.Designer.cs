@@ -1594,13 +1594,12 @@
             // chkComkort
             // 
             this.chkComkort.AutoSize = true;
-            this.chkComkort.Location = new System.Drawing.Point(6, 121);
+            this.chkComkort.Location = new System.Drawing.Point(101, 74);
             this.chkComkort.Name = "chkComkort";
             this.chkComkort.Size = new System.Drawing.Size(65, 17);
             this.chkComkort.TabIndex = 42;
             this.chkComkort.Text = "Comkort";
             this.chkComkort.UseVisualStyleBackColor = true;
-            this.chkComkort.Visible = false;
             // 
             // chkAllcrypt
             // 

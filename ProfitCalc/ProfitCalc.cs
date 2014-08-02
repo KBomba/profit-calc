@@ -148,41 +148,51 @@ namespace ProfitCalc
                 try
                 {
                     ApiSettingsJson apiSettings = JsonControl.GetSerializedApiFile<ApiSettingsJson>("apisettings.txt");
-                    txtCointweakApiKey.Text = apiSettings.ApiSettings["CoinTweak"];
-                    txtCoinwarzApiKey.Text = apiSettings.ApiSettings["CoinWarz"];
-                    nudCryptoday.Text = apiSettings.ApiSettings["CrypToday"];
-                    nudPoolpicker.Text = apiSettings.ApiSettings["PoolPicker"];
-                    txtProxy.Text = apiSettings.ApiSettings["ProxyURL"];
-                    int savedIndex; 
-                    int.TryParse(apiSettings.ApiSettings["BidRecentAsk"], out savedIndex);
-                    cbbBidRecentAsk.SelectedIndex = savedIndex;
+                    int savedIndex = 0;
 
-                    chkBittrex.Checked = apiSettings.CheckedApis["Bittrex"];
-                    chkMintpal.Checked = apiSettings.CheckedApis["Mintpal"];
-                    chkCryptsy.Checked = apiSettings.CheckedApis["Cryptsy"];
-                    chkPoloniex.Checked = apiSettings.CheckedApis["Poloniex"];
-                    chkAllcoin.Checked = apiSettings.CheckedApis["AllCoin"];
-                    chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"];
-                    chkCCex.Checked = apiSettings.CheckedApis["C-Cex"];
-                    chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"];
-                    chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"];
-                    chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"];
-                    chkCointweak.Checked = apiSettings.CheckedApis["CoinTweak"];
-                    chkCoinwarz.Checked = apiSettings.CheckedApis["CoinWarz"];
-                    chkCryptoday.Checked = apiSettings.CheckedApis["CrypToday"];
-                    chkPoolpicker.Checked = apiSettings.CheckedApis["PoolPicker"];
+                    List<Action> settingsToLoad = new List<Action>
+                    {
+                        () => txtCointweakApiKey.Text = apiSettings.ApiSettings["CoinTweak"],
+                        () => txtCoinwarzApiKey.Text = apiSettings.ApiSettings["CoinWarz"],
+                        () => nudCryptoday.Text = apiSettings.ApiSettings["CrypToday"],
+                        () => nudPoolpicker.Text = apiSettings.ApiSettings["PoolPicker"],
+                        () => txtProxy.Text = apiSettings.ApiSettings["ProxyURL"],
+                        () => int.TryParse(apiSettings.ApiSettings["BidRecentAsk"], out savedIndex),
+                        () => cbbBidRecentAsk.SelectedIndex = savedIndex,
+                        () => chkBittrex.Checked = apiSettings.CheckedApis["Bittrex"],
+                        () => chkMintpal.Checked = apiSettings.CheckedApis["Mintpal"],
+                        () => chkCryptsy.Checked = apiSettings.CheckedApis["Cryptsy"],
+                        () => chkPoloniex.Checked = apiSettings.CheckedApis["Poloniex"],
+                        () => chkAllcoin.Checked = apiSettings.CheckedApis["AllCoin"],
+                        () => chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"],
+                        () => chkCCex.Checked = apiSettings.CheckedApis["C-Cex"],
+                        () => chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"],
+                        () => chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"],
+                        () => chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"],
+                        () => chkCointweak.Checked = apiSettings.CheckedApis["CoinTweak"],
+                        () => chkCoinwarz.Checked = apiSettings.CheckedApis["CoinWarz"],
+                        () => chkCryptoday.Checked = apiSettings.CheckedApis["CrypToday"],
+                        () => chkPoolpicker.Checked = apiSettings.CheckedApis["PoolPicker"],
+                        () => chkRemoveUnlisted.Checked = apiSettings.CheckedMisc["RemoveUnlisted"],
+                        () => chkRemoveFrozenCoins.Checked = apiSettings.CheckedMisc["RemoveFrozen"],
+                        () => chkRemoveTooGoodToBeTrue.Checked = apiSettings.CheckedMisc["RemoveTooGoodToBeTrue"],
+                        () => chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"],
+                        () => chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"],
+                        () => chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"],
+                        () => chkProxy.Checked = apiSettings.CheckedMisc["Proxy"]
+                    };
 
-                    chkRemoveUnlisted.Checked = apiSettings.CheckedMisc["RemoveUnlisted"];
-                    chkRemoveFrozenCoins.Checked = apiSettings.CheckedMisc["RemoveFrozen"];
-                    chkRemoveTooGoodToBeTrue.Checked = apiSettings.CheckedMisc["RemoveTooGoodToBeTrue"];
-                    chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"];
-                    chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"];
-                    chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"];
-                    chkProxy.Checked = apiSettings.CheckedMisc["Proxy"];
-                }
-                catch (KeyNotFoundException)
-                {
-                    AppendToLog("KeyNotFoundException in apisettings.txt, probably due to upgrade to a newer version.");
+                    foreach (Action action in settingsToLoad)
+                    {
+                        try
+                        {
+                            action.Invoke();
+                        }
+                        catch (KeyNotFoundException)
+                        {
+                            AppendToLog("KeyNotFoundException in apisettings.txt, probably due to upgrade to a newer version.");
+                        }
+                    }
                 }
                 catch (Exception exception)
                 {

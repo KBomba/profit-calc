@@ -539,7 +539,7 @@ namespace ProfitCalc
             DateTime whenToEnd = DateTime.UtcNow - new TimeSpan((int) average, 0, 0,0);
 
             PoolPicker pp = JsonControl.DownloadSerializedApi<PoolPicker>(
-                _client.GetStreamAsync("http://poolpicker.eu/api").Result);
+                _client.GetStreamAsync("http://poolpicker.eu/fullapi").Result);
             foreach (PoolPicker.Pool pool in pp.Pools)
             {
                 double reviewPercentage, rating;
