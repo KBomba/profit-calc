@@ -187,23 +187,31 @@ namespace ProfitCalc
 
             Parallel.ForEach(List, c => Parallel.ForEach(cp.Returns.Markets, _po, cpCoin =>
             {
-                if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName &&
-                    cpCoin.Value.BuyOrders != null)
+                if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName)
                 {
                     double priceToUse;
                     switch (selectedIndex)
                     {
                         case 0:
-                            priceToUse = cpCoin.Value.BuyOrders[0].Price;
+                            priceToUse = cpCoin.Value.BuyOrders != null
+                                && cpCoin.Value.BuyOrders.Any()
+                                ? cpCoin.Value.BuyOrders[0].Price
+                                : cpCoin.Value.LastTradePrice;
                             break;
                         case 1:
                             priceToUse = cpCoin.Value.LastTradePrice;
                             break;
                         case 2:
-                            priceToUse = cpCoin.Value.SellOrders[0].Price;
+                            priceToUse = cpCoin.Value.SellOrders != null
+                                && cpCoin.Value.SellOrders.Any()
+                                ? cpCoin.Value.SellOrders[0].Price
+                                : cpCoin.Value.LastTradePrice;
                             break;
                         default:
-                            priceToUse = cpCoin.Value.BuyOrders[0].Price;
+                            priceToUse = cpCoin.Value.BuyOrders != null
+                                && cpCoin.Value.BuyOrders.Any()
+                                ? cpCoin.Value.BuyOrders[0].Price
+                                : cpCoin.Value.LastTradePrice;
                             break;
                     }
 
@@ -465,31 +473,25 @@ namespace ProfitCalc
             {
                 for(int i = 0; i < ccPairs.Count; i++)*/
                 {
-                    CCexPair ccPair = ccPairs.Values.ElementAt(i);
                     var splitPair = ccPairs.Keys.ElementAt(i).Split('-');
-
-                    if (c.TagName == "BTQ")
-                    {
-                        int itemp = 1;
-                        itemp++;
-                    }
 
                     if (splitPair[1] == "btc" && splitPair[0] == c.TagName.ToLowerInvariant())
                     {
+                        CCexPair ccPair = ccPairs.Values.ElementAt(i);
                         double priceToUse;
                         switch (selectedIndex)
                         {
                             case 0:
-                                priceToUse = ccPairs.Values.ElementAt(i).Buy;
+                                priceToUse = ccPair.Buy;
                                 break;
                             case 1:
-                                priceToUse = ccPairs.Values.ElementAt(i).Lastprice;
+                                priceToUse = ccPair.Lastprice;
                                 break;
                             case 2:
-                                priceToUse = ccPairs.Values.ElementAt(i).Sell;
+                                priceToUse = ccPair.Sell;
                                 break;
                             default:
-                                priceToUse = ccPairs.Values.ElementAt(i).Buy;
+                                priceToUse = ccPair.Buy;
                                 break;
                         }
                         
@@ -532,6 +534,70 @@ namespace ProfitCalc
                     }
                 //}
             }));
+        }
+
+        public void UpdateComkort(int selectedIndex)
+        {
+            Comkort com = JsonControl.DownloadSerializedApi<Comkort>(
+                _client.GetStreamAsync("https://api.comkort.com/v1/public/market/summary").Result);
+
+            Parallel.ForEach(List, c => Parallel.ForEach(com.Markets, _po, comCoin =>
+            {
+                /*foreach (Coin c in List)
+                {
+                    foreach (KeyValuePair<string, Comkort.Pair> comCoin in com.Markets)
+                    {*/
+                        if (comCoin.Value.CurrencyCode == "BTC" && comCoin.Value.ItemCode == c.TagName)
+                        {
+                            double priceToUse;
+                            switch (selectedIndex)
+                            {
+                                case 0:
+                                    priceToUse = comCoin.Value.BuyOrders != null
+                                        && comCoin.Value.BuyOrders.Any()
+                                        ? comCoin.Value.BuyOrders[0].Price
+                                        : comCoin.Value.LastPrice;
+                                    break;
+                                case 1:
+                                    priceToUse = comCoin.Value.LastPrice;
+                                    break;
+                                case 2:
+                                    priceToUse = comCoin.Value.SellOrders != null
+                                        && comCoin.Value.SellOrders.Any()
+                                        ? comCoin.Value.SellOrders[0].Price
+                                        : comCoin.Value.LastPrice;
+                                    break;
+                                default:
+                                    priceToUse = comCoin.Value.BuyOrders != null 
+                                        && comCoin.Value.BuyOrders.Any()
+                                        ? comCoin.Value.BuyOrders[0].Price
+                                        : comCoin.Value.LastPrice;
+                                    break;
+                            }
+
+                            Coin.Exchange comExchange = new Coin.Exchange
+                            {
+                                ExchangeName = "Comkort",
+                                BtcPrice = priceToUse,
+                                BtcVolume = (comCoin.Value.CurrencyVolume)
+                            };
+
+                            if (c.HasImplementedMarketApi)
+                            {
+                                c.Exchanges.Add(comExchange);
+                                c.TotalVolume += comExchange.BtcVolume;
+                            }
+                            else
+                            {
+                                c.Exchanges = new List<Coin.Exchange> {comExchange};
+                                c.TotalVolume = comExchange.BtcVolume;
+                                c.HasImplementedMarketApi = true;
+                            }
+
+                            _po.CancellationToken.ThrowIfCancellationRequested();
+                        }
+                    //}
+                }));
         }
         
         public void UpdatePoolPicker(decimal average, bool reviewCalc)
@@ -749,11 +815,10 @@ namespace ProfitCalc
         public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation, bool calcFiat)
         {
             double usdPrice = 0, eurPrice = 0, gbpPrice = 0, cnyPrice = 0;
-            CoinDesk cd;
 
             if (calcFiat)
             {
-                cd = JsonControl.DownloadSerializedApi<CoinDesk>(
+                CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(
                     _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice.json").Result);
                 usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
                 eurPrice = cd.BpiPrice.EurPrice.RateFloat;

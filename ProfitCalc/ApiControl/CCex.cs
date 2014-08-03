@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl
 {
     internal class CCexPair
     {
-        [JsonProperty("high")]
+        /*[JsonProperty("high")]
         public double High { get; set; }
 
         [JsonProperty("low")]
@@ -22,7 +18,7 @@ namespace ProfitCalc.ApiControl
         public double Lastbuy { get; set; }
 
         [JsonProperty("lastsell")]
-        public double Lastsell { get; set; }
+        public double Lastsell { get; set; }*/
 
         [JsonProperty("buy")]
         public double Buy { get; set; }
@@ -33,8 +29,8 @@ namespace ProfitCalc.ApiControl
         [JsonProperty("lastprice")]
         public double Lastprice { get; set; }
 
-        [JsonProperty("updated")]
-        public int Updated { get; set; }
+        /*[JsonProperty("updated")]
+        public int Updated { get; set; }*/
     }
 
     internal class CCexVolume

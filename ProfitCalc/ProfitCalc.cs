@@ -166,6 +166,7 @@ namespace ProfitCalc
                         () => chkAllcoin.Checked = apiSettings.CheckedApis["AllCoin"],
                         () => chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"],
                         () => chkCCex.Checked = apiSettings.CheckedApis["C-Cex"],
+                        () => chkComkort.Checked = apiSettings.CheckedApis["Comkort"],
                         () => chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"],
                         () => chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"],
                         () => chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"],
@@ -188,9 +189,10 @@ namespace ProfitCalc
                         {
                             action.Invoke();
                         }
-                        catch (KeyNotFoundException)
+                        catch (KeyNotFoundException knfException)
                         {
-                            AppendToLog("KeyNotFoundException in apisettings.txt, probably due to upgrade to a newer version.");
+                            AppendToLog("KeyNotFoundException in apisettings.txt, " +
+                                        "probably due to upgrade to a newer version.", knfException);
                         }
                     }
                 }
@@ -239,6 +241,7 @@ namespace ProfitCalc
             apiSettings.CheckedApis.Add("AllCoin", chkAllcoin.Checked);
             apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
             apiSettings.CheckedApis.Add("C-Cex", chkCCex.Checked);
+            apiSettings.CheckedApis.Add("Comkort", chkComkort.Checked);
 
             apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
             apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
@@ -682,6 +685,22 @@ namespace ProfitCalc
                     AppendToLog("Error while getting data from C-Cex. Will be retried.",
                         exception);
                     erroredActions.Add(() => _coinList.UpdateCCex(cbbBidRecentAsk.SelectedIndex));
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkComkort.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with Comkort prices...";
+                    _coinList.UpdateComkort(cbbBidRecentAsk.SelectedIndex);
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while getting data from Comkort. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateComkort(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 
