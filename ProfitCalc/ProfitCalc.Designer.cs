@@ -1594,7 +1594,7 @@
             // chkComkort
             // 
             this.chkComkort.AutoSize = true;
-            this.chkComkort.Location = new System.Drawing.Point(101, 74);
+            this.chkComkort.Location = new System.Drawing.Point(101, 75);
             this.chkComkort.Name = "chkComkort";
             this.chkComkort.Size = new System.Drawing.Size(65, 17);
             this.chkComkort.TabIndex = 42;
@@ -1604,7 +1604,7 @@
             // chkAllcrypt
             // 
             this.chkAllcrypt.AutoSize = true;
-            this.chkAllcrypt.Location = new System.Drawing.Point(101, 52);
+            this.chkAllcrypt.Location = new System.Drawing.Point(101, 29);
             this.chkAllcrypt.Name = "chkAllcrypt";
             this.chkAllcrypt.Size = new System.Drawing.Size(61, 17);
             this.chkAllcrypt.TabIndex = 41;
@@ -1614,7 +1614,7 @@
             // chkAllcoin
             // 
             this.chkAllcoin.AutoSize = true;
-            this.chkAllcoin.Location = new System.Drawing.Point(101, 29);
+            this.chkAllcoin.Location = new System.Drawing.Point(101, 6);
             this.chkAllcoin.Name = "chkAllcoin";
             this.chkAllcoin.Size = new System.Drawing.Size(58, 17);
             this.chkAllcoin.TabIndex = 40;
@@ -1636,7 +1636,7 @@
             // chkCryptsy
             // 
             this.chkCryptsy.AutoSize = true;
-            this.chkCryptsy.Location = new System.Drawing.Point(101, 6);
+            this.chkCryptsy.Location = new System.Drawing.Point(6, 75);
             this.chkCryptsy.Name = "chkCryptsy";
             this.chkCryptsy.Size = new System.Drawing.Size(60, 17);
             this.chkCryptsy.TabIndex = 38;
@@ -1764,9 +1764,7 @@
             // chkCCex
             // 
             this.chkCCex.AutoSize = true;
-            this.chkCCex.Checked = true;
-            this.chkCCex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCCex.Location = new System.Drawing.Point(6, 74);
+            this.chkCCex.Location = new System.Drawing.Point(101, 52);
             this.chkCCex.Name = "chkCCex";
             this.chkCCex.Size = new System.Drawing.Size(54, 17);
             this.chkCCex.TabIndex = 46;

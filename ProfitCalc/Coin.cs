@@ -111,7 +111,7 @@ namespace ProfitCalc
 
             Exchange nhExchange = new Exchange
             {
-                ExchangeName = "NiceHash",
+                ExchangeName = name,
                 BtcPrice = niceHashStat.Price,
                 BtcVolume = 0,
                 Weight = 1,
@@ -219,13 +219,20 @@ namespace ProfitCalc
                         break;
                 }
 
-                foreach (Exchange exchange in Exchanges)
+                if (TotalVolume > 0 && useWeightedCalculations)
                 {
-                    exchange.Weight = exchange.BtcVolume/TotalVolume;
-                    WeightedBtcPrice += (exchange.Weight*exchange.BtcPrice);
-                }
+                    foreach (Exchange exchange in Exchanges)
+                    {
+                        exchange.Weight = exchange.BtcVolume/TotalVolume;
+                        WeightedBtcPrice += (exchange.Weight*exchange.BtcPrice);
+                    }
 
-                BtcPerDay = !useWeightedCalculations ? CoinsPerDay*Exchanges[0].BtcPrice : CoinsPerDay*WeightedBtcPrice;
+                    BtcPerDay = CoinsPerDay*WeightedBtcPrice;
+                }
+                else
+                {
+                    BtcPerDay = CoinsPerDay * Exchanges[0].BtcPrice;
+                }
             }
         }
 
