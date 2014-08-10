@@ -1,38 +1,49 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace ProfitCalc
 {
-    internal class HashRateJson
+    internal class Profile
     {
-        [JsonProperty("HashRateList")]
-        public Dictionary<HashAlgo.Algo, double> ListHashRate { get; set; }
-
-        [JsonProperty("WattageList")]
-        public Dictionary<HashAlgo.Algo, double> ListWattage { get; set; }
-
-        [JsonProperty("CheckedHashRates")]
-        public Dictionary<string, bool> CheckedHashRates { get; set; }
-
-        [JsonProperty("FiatPerKwh")]
         public double FiatPerKwh { get; set; }
 
-        [JsonProperty("FiatOfChoice")]
         public int FiatOfChoice { get; set; }
 
-        [JsonProperty("Multiplier")]
         public int Multiplier { get; set; }
+
+        public BindingList<CustomAlgo> CustomAlgoList { get; set; } 
     }
 
     internal class ApiSettingsJson
     {
-        [JsonProperty("ApiSettings")]
         public Dictionary<string, string> ApiSettings { get; set; }
 
-        [JsonProperty("CheckedApis")]
         public Dictionary<string, bool> CheckedApis { get; set; }
 
-        [JsonProperty("CheckedMisc")]
         public Dictionary<string, bool> CheckedMisc { get; set; }
+    }
+
+    internal class CustomCoin
+    {
+        public bool Use { get; set; }
+        public string Tag { get; set; }
+        public string FullName { get; set; }
+
+        //public HashAlgo.Algo Algo { get; set; }
+        public string Algo { get; set; }
+        public double Difficulty { get; set; }
+        public double BlockReward { get; set; }
+    }
+
+    internal class CustomAlgo
+    {
+        public bool Use { get; set; }
+        public string Name { get; set; }
+        public string SynonymsCsv { get; set; }
+
+        public HashAlgo.Style Style { get; set; }
+
+        public double HashRate { get; set; }
+        public double Wattage { get; set; }
     }
 }

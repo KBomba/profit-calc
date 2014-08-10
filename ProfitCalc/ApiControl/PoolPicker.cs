@@ -29,9 +29,18 @@ namespace ProfitCalc.ApiControl
             public int Reviews { get; set; }*/
 
             [JsonProperty("profitability")]
-            public Profitability PoolProfitability { get; set; }
+            public Dictionary<string, List<Algo>> PoolProfitability { get; set; }
+            public class Algo
+                {
+                    [JsonProperty("date")]
+                    public string Date { get; set; }
 
-            public class Profitability
+                    [JsonProperty("btc")]
+                    public double Btc { get; set; }
+                }
+
+
+            /*public class Profitability
             {
                 [JsonProperty("Scrypt")]
                 public List<Algo> Scrypt { get; set; }
@@ -42,8 +51,8 @@ namespace ProfitCalc.ApiControl
                 [JsonProperty("X11")]
                 public List<Algo> X11 { get; set; }
 
-                /*[JsonProperty("SHA256")]
-                public List<Algo> Sha256 { get; set; }*/
+                [JsonProperty("SHA256")]
+                public List<Algo> Sha256 { get; set; }
 
                 [JsonProperty("X13")]
                 public List<Algo> X13 { get; set; }
@@ -56,16 +65,7 @@ namespace ProfitCalc.ApiControl
 
                 [JsonProperty("Nist5")]
                 public List<Algo> Nist5 { get; set; }
-
-                public class Algo
-                {
-                    [JsonProperty("date")]
-                    public string Date { get; set; }
-
-                    [JsonProperty("btc")]
-                    public double Btc { get; set; }
-                }
-            }
+            }*/
         }
     }
 }

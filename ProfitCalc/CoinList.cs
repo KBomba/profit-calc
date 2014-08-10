@@ -15,11 +15,13 @@ namespace ProfitCalc
         public List<Coin> List { get; set; }
         private readonly HttpClient _client;
         private readonly ParallelOptions _po;
+        public Profile UsedProfile { get; set; }
 
-        public CoinList(HttpClient client)
+        public CoinList(HttpClient client, Profile profile)
         {
             List = new List<Coin>();
             _client = client;
+            UsedProfile = profile;
 
             _po = new ParallelOptions
             {
@@ -48,18 +50,63 @@ namespace ProfitCalc
                 }
             }
 
-            if (!found && newCoin.Algo != HashAlgo.Algo.Unknown)
+            if (!found && UsedInProfile(newCoin.Algo))
             {
                 List.Add(newCoin);
             }
+        }
+
+        private bool UsedInProfile(string algo)
+        {
+            bool used = false;
+
+            Parallel.ForEach(UsedProfile.CustomAlgoList, _po, savedAlgo =>
+            {
+                if (savedAlgo.Name == algo && savedAlgo.Use)
+                {
+                    used = true;
+                    _po.CancellationToken.ThrowIfCancellationRequested();
+                }
+            });
+
+            return used;
         }
 
         public void AddCustomCoins(IEnumerable<CustomCoin> customCoins)
         {
             foreach (CustomCoin customCoin in customCoins)
             {
-                Add(new Coin(customCoin));
+                if (customCoin.Use)
+                {
+                    Add(new Coin(customCoin));
+                }
             }
+        }
+
+        private string GetCleanedAlgo(string algo)
+        {
+            string cleanAlgo = algo.Trim();
+            Parallel.ForEach(UsedProfile.CustomAlgoList, _po, savedAlgo =>
+            {
+                if (savedAlgo.Name == cleanAlgo)
+                {
+                    _po.CancellationToken.ThrowIfCancellationRequested();
+                }
+                else if (!string.IsNullOrWhiteSpace(savedAlgo.SynonymsCsv))
+                {
+                    string[] synonyms = savedAlgo.SynonymsCsv.Split(',');
+                    Parallel.ForEach(synonyms, synonym =>
+                    {
+                        if (synonym == cleanAlgo)
+                        {
+                            cleanAlgo = savedAlgo.Name;
+                            _po.CancellationToken.ThrowIfCancellationRequested();
+                        }
+                    });
+                }
+            });
+
+            return cleanAlgo;
         }
 
         public void UpdateNiceHash()
@@ -71,11 +118,8 @@ namespace ProfitCalc
 
             for (int i = 0; i < niceHashData.Results.Stats.Count; i++)
             {
-                if (i != 1)
-                {
                     Add(new Coin(niceHashData.Results.Stats[i], "NiceHash"));
                     Add(new Coin(westHashData.Results.Stats[i], "WestHash"));
-                }
             }
         }
 
@@ -85,6 +129,7 @@ namespace ProfitCalc
             foreach (KeyValuePair<string, WhatToMine.Coin> wtmCoin in wtmData.Coins)
             {
                 Coin c = new Coin(wtmCoin);
+                c.Algo = GetCleanedAlgo(c.Algo);
                 Add(c);
             }
         }
@@ -103,6 +148,7 @@ namespace ProfitCalc
                     {
                         c.TagName = "RBY";
                     }
+                    c.Algo = GetCleanedAlgo(c.Algo);
                     Add(c);
                 }
             }
@@ -122,6 +168,7 @@ namespace ProfitCalc
                 foreach (CoinWarz.Coin cwzCoin in cwzData.Data)
                 {
                     Coin c = new Coin(cwzCoin);
+                    c.Algo = GetCleanedAlgo(c.Algo);
                     Add(c);
                 }
             }
@@ -618,46 +665,14 @@ namespace ProfitCalc
                     reviewPercentage = 1;
                 }
 
-                if (pool.PoolProfitability.Scrypt != null)
+                foreach (KeyValuePair<string, List<PoolPicker.Pool.Algo>> algoResults in pool.PoolProfitability)
                 {
-                    AddPoolPickerPool(pool, pool.PoolProfitability.Scrypt, HashAlgo.Algo.Scrypt, whenToEnd, reviewCalc, reviewPercentage);
-                }
-
-
-                if (pool.PoolProfitability.ScryptN != null)
-                {
-                    AddPoolPickerPool(pool, pool.PoolProfitability.ScryptN, HashAlgo.Algo.ScryptN, whenToEnd, reviewCalc, reviewPercentage);
-                }
-
-                if (pool.PoolProfitability.X11 != null)
-                {
-                    AddPoolPickerPool(pool, pool.PoolProfitability.X11, HashAlgo.Algo.X11, whenToEnd, reviewCalc, reviewPercentage);
-                }
-
-
-                if (pool.PoolProfitability.X13 != null)
-                {
-                    AddPoolPickerPool(pool, pool.PoolProfitability.X13, HashAlgo.Algo.X13, whenToEnd, reviewCalc, reviewPercentage);
-                }
-
-                if (pool.PoolProfitability.Keccak != null)
-                {
-                    AddPoolPickerPool(pool, pool.PoolProfitability.Keccak, HashAlgo.Algo.Keccak, whenToEnd, reviewCalc, reviewPercentage);
-                }
-
-                if (pool.PoolProfitability.X15 != null)
-                {
-                    AddPoolPickerPool(pool, pool.PoolProfitability.X15, HashAlgo.Algo.Keccak, whenToEnd, reviewCalc, reviewPercentage);
-                }
-
-                if (pool.PoolProfitability.Nist5 != null)
-                {
-                    AddPoolPickerPool(pool, pool.PoolProfitability.Nist5, HashAlgo.Algo.Nist5, whenToEnd, reviewCalc, reviewPercentage);
+                    AddPoolPickerPool(pool,algoResults.Value, algoResults.Key.ToUpperInvariant(),  whenToEnd, reviewCalc, reviewPercentage);
                 }
             }
         }
 
-        private void AddPoolPickerPool(PoolPicker.Pool pool, List<PoolPicker.Pool.Profitability.Algo> profitList, HashAlgo.Algo algo, 
+        private void AddPoolPickerPool(PoolPicker.Pool pool, List<PoolPicker.Pool.Algo> profitList, string algo, 
             DateTime whenToEnd, bool reviewCalc, double reviewPercentage)
         {
             Coin c = new Coin
@@ -676,7 +691,7 @@ namespace ProfitCalc
             int iCounter;
             for (iCounter = 0; iCounter < profitList.Count; iCounter++)
             {
-                PoolPicker.Pool.Profitability.Algo profit = profitList[iCounter];
+                PoolPicker.Pool.Algo profit = profitList[iCounter];
                 DateTime profitDate = DateTime.ParseExact(profit.Date, "yyyy-MM-dd",
                     CultureInfo.InvariantCulture);
 
@@ -691,7 +706,7 @@ namespace ProfitCalc
             }
 
             c.Exchanges[0].BtcPrice = 
-                c.Algo == HashAlgo.Algo.Keccak
+                c.Algo == "KECCAK"
                 ? dAverage/(iCounter + 1)
                 : dAverage/(iCounter + 1)*1000;
 
@@ -716,17 +731,15 @@ namespace ProfitCalc
                 switch (splitNameAndAlgo[1])
                 {
                     case "X11":
-                        tempMultipools[i].Algo = HashAlgo.Algo.X11;
-                        break;
                     case "X13":
-                        tempMultipools[i].Algo = HashAlgo.Algo.X13;
+                        tempMultipools[i].Algo = splitNameAndAlgo[1];
                         break;
                     case "N":
-                        tempMultipools[i].Algo = HashAlgo.Algo.ScryptN;
+                        tempMultipools[i].Algo = "SCRYPTN";
                         break;
                     //case "S":
                     default:
-                        tempMultipools[i].Algo = HashAlgo.Algo.Scrypt;
+                        tempMultipools[i].Algo = "SCRYPT";
                         break;
                 }
 
@@ -761,13 +774,13 @@ namespace ProfitCalc
             {
                 switch (c.Algo)
                 {
-                    case HashAlgo.Algo.X11:
+                    case "X11":
                         c.Exchanges[0].BtcPrice /= 5.2;
                         break;
-                    case HashAlgo.Algo.X13:
+                    case "X13":
                         c.Exchanges[0].BtcPrice /= 3;
                         break;
-                    case HashAlgo.Algo.ScryptN:
+                    case "SCRYPTN":
                         c.Exchanges[0].BtcPrice /= 0.47;
                         break;
                 }
@@ -779,40 +792,7 @@ namespace ProfitCalc
             }
         }
 
-        /*public void AddMoneroWorkAround()
-        {
-            MoneroChain mon = JsonControl.DownloadSerializedApi<MoneroChain>(_client.GetStreamAsync("http://monerochain.info/api/stats").Result);
-            MoneroLatestBlock moneroLatest;
-            try
-            {
-                moneroLatest = JsonControl.DownloadSerializedApi<MoneroLatestBlock>(
-                    _client.GetStreamAsync("http://monerochain.info/api/block/").Result);
-            }
-            catch (Exception)
-            {
-                moneroLatest =
-                    JsonControl.DownloadSerializedApi<MoneroLatestBlock>(
-                    _client.GetStreamAsync("http://monerochain.info/api/block/" + (mon.Height - 1)).Result);
-            }
-
-            Coin c = new Coin
-            {
-                Algo = HashAlgo.Algo.CryptoNight,
-                FullName = "Monero",
-                TagName = "XMR",
-                Height = (uint) moneroLatest.Height,
-                Difficulty = moneroLatest.Difficulty,
-                BlockReward = moneroLatest.Reward,
-                Exchanges = new List<Coin.Exchange>(),
-                TotalVolume = 0,
-                IsMultiPool = false,
-                HasImplementedMarketApi = false
-            };
-
-            Add(c);
-        }*/
-
-        public void CalculatePrices(HashRateJson hashList, bool useWeightedCalculation, bool calcFiat)
+        public void CalculatePrices(bool useWeightedCalculation, bool calcFiat)
         {
             double usdPrice = 0, eurPrice = 0, gbpPrice = 0, cnyPrice = 0;
 
@@ -829,16 +809,16 @@ namespace ProfitCalc
                 cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
             }
 
-            Parallel.ForEach(List, coin =>
+            Parallel.ForEach(List, coin => Parallel.ForEach(UsedProfile.CustomAlgoList, _po, algo =>
             {
-                if (hashList.ListHashRate.ContainsKey(coin.Algo))
+                if (coin.Algo == algo.Name)
                 {
-                    coin.CalcProfitability(hashList.ListHashRate[coin.Algo], useWeightedCalculation, hashList.Multiplier);
+                    coin.CalcProfitability(algo.HashRate, useWeightedCalculation, UsedProfile.Multiplier, algo.Style);
 
                     if (calcFiat)
                     {
-                        double fiatElectricityCost = (hashList.ListWattage[coin.Algo]/1000)*24*hashList.FiatPerKwh;
-                        switch (hashList.FiatOfChoice)
+                        double fiatElectricityCost = (algo.Wattage / 1000) * 24 * UsedProfile.FiatPerKwh;
+                        switch (UsedProfile.FiatOfChoice)
                         {
                             case 1:
                                 coin.BtcPerDay -= (fiatElectricityCost/eurPrice);
@@ -860,8 +840,10 @@ namespace ProfitCalc
                         coin.GbpPerDay = coin.BtcPerDay*gbpPrice;
                         coin.CnyPerDay = coin.BtcPerDay*cnyPrice;
                     }
+
+                    _po.CancellationToken.ThrowIfCancellationRequested();
                 }
-            });
+            }));
 
             List = List.AsParallel().Where(o => o.BtcPerDay != 0).OrderByDescending(o => o.BtcPerDay).ToList();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using ProfitCalc.ApiControl;
 
@@ -11,7 +12,8 @@ namespace ProfitCalc
         public string FullName { get; set; }
         public string TagName { get; set; }
 
-        public HashAlgo.Algo Algo { get; set; }
+        //public HashAlgo.Algo Algo { get; set; }
+        public string Algo { get; set; }
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
         public uint Height { get; set; }
@@ -79,33 +81,36 @@ namespace ProfitCalc
             switch (niceHashStat.Algo)
             {
                 case 0:
-                    Algo = HashAlgo.Algo.Scrypt;
+                    Algo = "SCRYPT";
+                    break;
+                case 1:
+                    Algo = "SHA256";
                     break;
                 case 2:
-                    Algo = HashAlgo.Algo.ScryptN;
+                    Algo = "SCRYPTN";
                     break;
                 case 3:
-                    Algo = HashAlgo.Algo.X11;
+                    Algo = "X11";
                     break;
                 case 4:
-                    Algo = HashAlgo.Algo.X13;
+                    Algo = "X13";
                     break;
                 case 5:
-                    Algo = HashAlgo.Algo.Keccak;
+                    Algo = "KECCAK";
                     break;
                 case 6:
-                    Algo = HashAlgo.Algo.X15;
+                    Algo = "X15";
                     break;
                 case 7:
-                    Algo = HashAlgo.Algo.Nist5;
+                    Algo = "NIST5";
                     break;
                 default:
-                    Algo = HashAlgo.Algo.Unknown;
+                    Algo = "UNKNOWN";
                     break;
             }
 
             FullName = "Act. " + name + " " + Algo;
-            TagName = "NICE" + Algo.ToString().ToUpper();
+            TagName = name.Substring(0, 4).ToUpper() + Algo;
             Difficulty = 0;
             BlockReward = 0;
 
@@ -127,8 +132,12 @@ namespace ProfitCalc
         {
             FullName = wtmCoin.Key;
             TagName = wtmCoin.Value.Tag.ToUpper();
-            Algo = HashAlgo.GetAlgorithm(wtmCoin.Value.Algorithm);
-            if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
+            Algo = wtmCoin.Value.Algorithm.ToUpperInvariant();
+            if (TagName == "MYR" && Algo == "GROESTL")
+            {
+                Algo = "MYRIADGROESTL";
+            }
+
             Difficulty = wtmCoin.Value.Difficulty;
             BlockReward = wtmCoin.Value.BlockReward;
             Height = wtmCoin.Value.LastBlock;
@@ -150,8 +159,12 @@ namespace ProfitCalc
         {
             FullName = ctwCoin.CoinFullname;
             TagName = ctwCoin.CoinName.ToUpper();
-            Algo = HashAlgo.GetAlgorithm(ctwCoin.AlgoName);
-            if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
+            Algo = ctwCoin.AlgoName.ToUpperInvariant();
+            if (TagName == "MYR" && Algo == "GROESTL")
+            {
+                Algo = "MYRIADGROESTL";
+            }
+
             Difficulty = ctwCoin.Difficulty;
             BlockReward = ctwCoin.BlockCoins;
             Exchange ctwExchange = new Exchange
@@ -172,8 +185,12 @@ namespace ProfitCalc
         {
             FullName = cwzCoin.CoinName;
             TagName = cwzCoin.CoinTag.ToUpper();
-            Algo = HashAlgo.GetAlgorithm(cwzCoin.Algorithm);
-            if (TagName == "MYR" && Algo == HashAlgo.Algo.Groestl) Algo = HashAlgo.Algo.MyriadGroestl;
+            Algo = cwzCoin.Algorithm.ToUpperInvariant();
+            if (TagName == "MYR" && Algo == "GROESTL")
+            {
+                Algo = "MYRIADGROESTL";
+            }
+
             Difficulty = cwzCoin.Difficulty;
             BlockReward = cwzCoin.BlockReward;
             Height = cwzCoin.BlockCount;
@@ -191,7 +208,7 @@ namespace ProfitCalc
             HasImplementedMarketApi = false;
         }
 
-        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier)
+        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier, HashAlgo.Style diffCalculationStyle)
         {
             if (IsMultiPool)
             {
@@ -202,14 +219,14 @@ namespace ProfitCalc
             {
                 SortExchanges();
 
-                switch (Algo)
+                switch (diffCalculationStyle)
                 {
-                    case HashAlgo.Algo.CryptoNight:
+                    case HashAlgo.Style.CryptoNight:
                         //Cryptonight's difficulty is net hashrate * 60
                         CoinsPerDay = (BlockReward*24*60)*((hashRateMh*1000000)
                                                     /(Difficulty/60))*multiplier;
                         break;
-                    case HashAlgo.Algo.Quark:
+                    case HashAlgo.Style.Quark:
                         CoinsPerDay = (BlockReward/(Difficulty*Math.Pow(2, 24)
                                                     /(hashRateMh*1000000)/3600/24))*multiplier;
                         break;
@@ -264,15 +281,5 @@ namespace ProfitCalc
 
             return sb.ToString();
         }
-    }
-
-    internal class CustomCoin
-    {
-        public string Tag { get; set; }
-        public string FullName { get; set; }
-
-        public HashAlgo.Algo Algo { get; set; }
-        public double Difficulty { get; set; }
-        public double BlockReward { get; set; }
     }
 }

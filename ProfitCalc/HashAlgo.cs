@@ -4,7 +4,7 @@ namespace ProfitCalc
 {
     internal static class HashAlgo
     {
-        public enum Algo
+        /*public enum Algo
         {
             Scrypt,
             ScryptN,
@@ -27,9 +27,16 @@ namespace ProfitCalc
             X15,
             CryptoNight,
             Unknown
-        };
+        };*/
 
-        public static Algo GetAlgorithm(string algo)
+        public enum Style
+        {
+            Classic,
+            Quark,
+            CryptoNight
+        }
+
+        /*public static Algo GetAlgorithm(string algo)
         {
             Algo miningAlgo;
             if (Enum.TryParse(algo, out miningAlgo))
@@ -98,6 +105,6 @@ namespace ProfitCalc
                 default:
                     return algo.ToString().ToLowerInvariant();
             }
-        }
+        }*/
     }
 }

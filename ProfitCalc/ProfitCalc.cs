@@ -7,8 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Policy;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -17,8 +16,8 @@ namespace ProfitCalc
     public partial class ProfitCalc : Form
     {
         private CoinList _coinList;
-        private Dictionary<string,HashRateJson> _hashList;
-        private BindingList<CustomCoin> _customCoins; 
+        private Dictionary<string,Profile> _profileList;
+        private BindingList<CustomCoin> _customCoins;
 
         public ProfitCalc()
         {
@@ -26,8 +25,9 @@ namespace ProfitCalc
             InitializeOtherComponents();
 
             LoadSettings();
-            UpdateChkAllState();
+            UpdateFilterColors();
 
+            InitCustomAlgos();
             InitCustomCoins();
         }
 
@@ -62,83 +62,144 @@ namespace ProfitCalc
             }
         }
 
+        private void InitCustomAlgos()
+        {
+            dgvCustomAlgos.AutoGenerateColumns = false;
+
+            DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "Use",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            };
+            checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = "Name",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            DataGridViewTextBoxColumn synonymsColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SynonymsCsv",
+                HeaderText = "Synonyms",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            };
+
+            DataGridViewComboBoxColumn styleColumn = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "Style",
+                HeaderText = "Calc style",
+                DataSource = Enum.GetValues(typeof(HashAlgo.Style))
+            };
+
+            DataGridViewTextBoxColumn hashrateColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "HashRate",
+                HeaderText = "Hashrate (MH/s)",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                MinimumWidth = 120
+            };
+
+            DataGridViewTextBoxColumn wattageColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Wattage",
+                HeaderText = "Wattage (W)",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                MinimumWidth = 120
+            };
+
+            dgvCustomAlgos.Columns.Add(checkColumn);
+            dgvCustomAlgos.Columns.Add(nameColumn);
+            dgvCustomAlgos.Columns.Add(synonymsColumn);
+            dgvCustomAlgos.Columns.Add(styleColumn);
+            dgvCustomAlgos.Columns.Add(hashrateColumn);
+            dgvCustomAlgos.Columns.Add(wattageColumn);
+
+            dgvCustomAlgos.DataSource = _profileList.First().Value.CustomAlgoList;
+        }
+
         private void InitCustomCoins()
         {
+            _customCoins =
+                File.Exists("customcoins.txt")
+                    ? JsonControl.GetSerializedApiFile<BindingList<CustomCoin>>("customcoins.txt")
+                    : new BindingList<CustomCoin>();
+
             dgvCustomCoins.AutoGenerateColumns = false;
+
+            DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "Use",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            };
+            checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             DataGridViewTextBoxColumn tagColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Tag",
-                HeaderText = "Tag"
+                HeaderText = "Tag",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
 
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "FullName",
-                HeaderText = "Full Name"
+                HeaderText = "Full Name",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             };
 
             DataGridViewComboBoxColumn algoColumn = new DataGridViewComboBoxColumn
             {
                 DataPropertyName = "Algo",
                 HeaderText = "Algo",
-                DataSource = Enum.GetValues(typeof(HashAlgo.Algo))
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                MinimumWidth = 120
             };
+            foreach (CustomAlgo customAlgo in _profileList.First().Value.CustomAlgoList)
+            {
+                algoColumn.Items.Add(customAlgo.Name);
+            }
 
             DataGridViewTextBoxColumn diffColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Difficulty",
-                HeaderText = "Difficulty"
+                HeaderText = "Difficulty",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
             DataGridViewTextBoxColumn rewardColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "BlockReward",
-                HeaderText = "Block Reward"
+                HeaderText = "Block Reward",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
+            dgvCustomCoins.Columns.Add(checkColumn);
             dgvCustomCoins.Columns.Add(tagColumn);
             dgvCustomCoins.Columns.Add(nameColumn);
             dgvCustomCoins.Columns.Add(algoColumn);
             dgvCustomCoins.Columns.Add(diffColumn);
             dgvCustomCoins.Columns.Add(rewardColumn);
 
-            if (File.Exists("customcoins.txt"))
-            {
-                _customCoins = JsonControl.GetSerializedApiFile<BindingList<CustomCoin>>("customcoins.txt");
-            }
-            else
-            {
-                _customCoins = new BindingList<CustomCoin>();
-            }
-
-
             dgvCustomCoins.DataSource = _customCoins;
         }
 
         private void LoadSettings()
         {
-            if (File.Exists("profiles.txt"))
+            if (File.Exists("algos.txt"))
             {
-                _hashList = JsonControl.GetSerializedApiFile<Dictionary<string, HashRateJson>>("profiles.txt");
-                foreach (KeyValuePair<string, HashRateJson> hashRateJson in _hashList)
+                _profileList = JsonControl.GetSerializedApiFile<Dictionary<string, Profile>>("algos.txt");
+                foreach (KeyValuePair<string, Profile> hashRateJson in _profileList)
                 {
                     cbbProfiles.Items.Add(hashRateJson.Key);
                 }
                 cbbProfiles.SelectedIndex = 0;
-                UpdateGuiHashrates(_hashList.First().Value);
             } 
-            else if (File.Exists("hashrates.txt"))
-            {
-                HashRateJson rates = JsonControl.GetSerializedApiFile<HashRateJson>("hashrates.txt");
-                _hashList = new Dictionary<string, HashRateJson> {{"hashrates.txt", rates}};
-                cbbProfiles.Items.Add("hashrates.txt");
-                cbbProfiles.SelectedIndex = 0;
-                UpdateGuiHashrates(rates);
-            }
             else
             {
-                _hashList = new Dictionary<string, HashRateJson> { { "Default", ParseGuiHashrates(false)} };
+                _profileList = GetDefaultProfileList();
                 cbbProfiles.Items.Add("Default");
                 cbbProfiles.SelectedIndex = 0;
             }
@@ -205,20 +266,13 @@ namespace ProfitCalc
 
         private void SaveSettings()
         {
-            if (_hashList != null)
+            if (_profileList == null)
             {
-                if (_hashList.ContainsKey(cbbProfiles.Text))
-                {
-                    _hashList[cbbProfiles.Text] = ParseGuiHashrates(false);
-                }
+                _profileList = GetDefaultProfileList();
             }
-            else
-            {
-                _hashList = new Dictionary<string, HashRateJson> {{"Default", ParseGuiHashrates(false)}};
-            }
-            
-            File.WriteAllText(@"profiles.txt", 
-                JsonConvert.SerializeObject(_hashList, Formatting.Indented));
+
+            File.WriteAllText(@"algos.txt", 
+                JsonConvert.SerializeObject(_profileList, Formatting.Indented));
 
             ApiSettingsJson apiSettings = new ApiSettingsJson
             {
@@ -280,7 +334,6 @@ namespace ProfitCalc
             tsProgress.Value = 0;
 
             tsStatus.Text = "Parsing given hashrates...";
-            _hashList[cbbProfiles.Text] = ParseGuiHashrates(true);
 
             const int i = 6;
             GetCoinList(i);
@@ -303,7 +356,7 @@ namespace ProfitCalc
         {
             try
             {
-                _coinList.CalculatePrices(_hashList[cbbProfiles.Text], chkWeight.Checked, chkCoindesk.Checked);
+                _coinList.CalculatePrices(chkWeight.Checked, chkCoindesk.Checked);
             }
             catch (Exception exception)
             {
@@ -326,8 +379,8 @@ namespace ProfitCalc
             if (chkRemoveFrozenCoins.Checked)
             {
                 tsStatus.Text = "Removing coins that are frozen on supported exchanges...";
-                tempCoinList =
-                    tempCoinList.Where(coin => coin.Exchanges.Count(exchange => exchange.IsFrozen) == 0);
+                tempCoinList = tempCoinList.Where(coin => 
+                    coin.Exchanges.Count(exchange => exchange.IsFrozen) == 0);
             }
 
             if (chkRemoveTooGoodToBeTrue.Checked)
@@ -424,9 +477,9 @@ namespace ProfitCalc
                 hch.Proxy = null;
             }
 
-            _coinList = new CoinList(new HttpClient(hch, true));
+            _coinList = new CoinList(new HttpClient(hch, true), _profileList[cbbProfiles.Text]);
 
-            if (_customCoins.Count > 0)
+            if (chkCustomCoins.Checked && _customCoins.Count > 0)
             {
                 try
                 {
@@ -438,21 +491,6 @@ namespace ProfitCalc
                     AppendToLog("Error while adding custom coins",exception);
                 }
             }
-
-            /*if (chkCryptonight.Checked)
-            {
-                try
-                {
-                    tsStatus.Text = "Getting XMR diff, reward, ...";
-                    _coinList.AddMoneroWorkAround();
-                }
-                catch (Exception exception)
-                {
-                    AppendToLog("Error while getting data from MoneroChain. Will be retried.",
-                        exception);
-                    erroredActions.Add(_coinList.AddMoneroWorkAround);
-                }
-            }*/
 
             tsProgress.Value += progress;
             if (chkNiceHash.Checked)
@@ -731,711 +769,6 @@ namespace ProfitCalc
             }
         }
 
-        private void UpdateGuiHashrates(HashRateJson rates)
-        {
-            try
-            {
-                txtGroestl.Text = rates.ListHashRate[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
-                txtGroestlWattage.Text = rates.ListWattage[HashAlgo.Algo.Groestl].ToString(CultureInfo.InvariantCulture);
-                chkGroestl.Checked = rates.CheckedHashRates["Groestl"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Groestl settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Groestl settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtMyrGroestl.Text = rates.ListHashRate[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
-                txtMyrGroestlWattage.Text = rates.ListWattage[HashAlgo.Algo.MyriadGroestl].ToString(CultureInfo.InvariantCulture);
-                chkMyrGroestl.Checked = rates.CheckedHashRates["MyrGroestl"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Myriad-Groestl settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Myriad-Groestl settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtFugue.Text = rates.ListHashRate[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
-                txtFugueWattage.Text = rates.ListWattage[HashAlgo.Algo.Fugue256].ToString(CultureInfo.InvariantCulture);
-                chkFugue.Checked = rates.CheckedHashRates["Fugue256"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Fugue256 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Fugue256 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtKeccak.Text = rates.ListHashRate[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
-                txtKeccakWattage.Text = rates.ListWattage[HashAlgo.Algo.Keccak].ToString(CultureInfo.InvariantCulture);
-                chkKeccak.Checked = rates.CheckedHashRates["Keccak"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Keccak settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Keccak settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtJackpot.Text = rates.ListHashRate[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
-                txtJhaWattage.Text = rates.ListWattage[HashAlgo.Algo.JHA].ToString(CultureInfo.InvariantCulture);
-                chkJha.Checked = rates.CheckedHashRates["JHA"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved JackpotHash settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved JackpotHash settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtNist5.Text = rates.ListHashRate[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
-                txtNist5Wattage.Text = rates.ListWattage[HashAlgo.Algo.Nist5].ToString(CultureInfo.InvariantCulture);
-                chkNist5.Checked = rates.CheckedHashRates["NIST5"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved NIST5 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved NIST5 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtQuark.Text = rates.ListHashRate[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
-                txtQuarkWattage.Text = rates.ListWattage[HashAlgo.Algo.Quark].ToString(CultureInfo.InvariantCulture);
-                chkQuark.Checked = rates.CheckedHashRates["Quark"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Quark settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Quark settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtQubit.Text = rates.ListHashRate[HashAlgo.Algo.Qubit].ToString(CultureInfo.InvariantCulture);
-                txtQubitWattage.Text = rates.ListWattage[HashAlgo.Algo.Qubit].ToString(CultureInfo.InvariantCulture);
-                chkQubit.Checked = rates.CheckedHashRates["Qubit"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Qubit settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Qubit settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtScrypt.Text = rates.ListHashRate[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
-                txtScryptWattage.Text = rates.ListWattage[HashAlgo.Algo.Scrypt].ToString(CultureInfo.InvariantCulture);
-                chkScrypt.Checked = rates.CheckedHashRates["Scrypt"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Scrypt settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Scrypt settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtScryptN.Text = rates.ListHashRate[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
-                txtScryptNWattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptN].ToString(CultureInfo.InvariantCulture);
-                chkScryptN.Checked = rates.CheckedHashRates["ScryptN"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved ScryptN settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved ScryptN settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtHefty.Text = rates.ListHashRate[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
-                txtHeftyWattage.Text = rates.ListWattage[HashAlgo.Algo.Heavy].ToString(CultureInfo.InvariantCulture);
-                chkHefty.Checked = rates.CheckedHashRates["Hefty"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Hefty settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Hefty settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtX11.Text = rates.ListHashRate[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
-                txtX11Wattage.Text = rates.ListWattage[HashAlgo.Algo.X11].ToString(CultureInfo.InvariantCulture);
-                chkX11.Checked = rates.CheckedHashRates["X11"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved X11 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved X11 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtX13.Text = rates.ListHashRate[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
-                txtX13Wattage.Text = rates.ListWattage[HashAlgo.Algo.X13].ToString(CultureInfo.InvariantCulture);
-                chkX13.Checked = rates.CheckedHashRates["X13"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved X13 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved X13 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtX15.Text = rates.ListHashRate[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
-                txtX15Wattage.Text = rates.ListWattage[HashAlgo.Algo.X15].ToString(CultureInfo.InvariantCulture);
-                chkX15.Checked = rates.CheckedHashRates["X15"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved X15 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved X15 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtJane15.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
-                txtJane15Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane15].ToString(CultureInfo.InvariantCulture);
-                chkJane15.Checked = rates.CheckedHashRates["Jane15"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved ScryptJane15 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved ScryptJane15 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtJane14.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
-                txtJane14Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane14].ToString(CultureInfo.InvariantCulture);
-                chkJane14.Checked = rates.CheckedHashRates["Jane14"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved ScryptJane14 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved ScryptJane14 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtJane13.Text = rates.ListHashRate[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
-                txtJane13Wattage.Text = rates.ListWattage[HashAlgo.Algo.ScryptJane13].ToString(CultureInfo.InvariantCulture);
-                chkJane13.Checked = rates.CheckedHashRates["Jane13"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Jane13 settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved Jane13 settings.",
-                    exception);
-            }
-
-            try
-            {
-                txtCryptonight.Text = rates.ListHashRate[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
-                txtCryptonightWattage.Text = rates.ListWattage[HashAlgo.Algo.CryptoNight].ToString(CultureInfo.InvariantCulture);
-                chkCryptonight.Checked = rates.CheckedHashRates["CryptoNight"];
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved CryptoNight settings. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved CryptoNight settings.",
-                    exception);
-            }
-
-            try
-            {
-                cbbFiat.SelectedIndex = rates.FiatOfChoice;
-                txtFiatElectricityCost.Text = rates.FiatPerKwh.ToString(CultureInfo.InvariantCulture);
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved electricity cost and fiat of choice. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved electricity cost and fiat of choice.",
-                    exception);
-            }
-
-            try
-            {
-                nudAmount.Value = rates.Multiplier;
-            }
-            catch (KeyNotFoundException knfException)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved multiplier. Ignore this after an update.",
-                    knfException);
-            }
-            catch (Exception exception)
-            {
-                AppendToLog(
-                    "Something went wrong with loading your saved multiplier.",
-                    exception);
-            }
-        }
-        
-        private HashRateJson ParseGuiHashrates(bool checkChecked)
-        {
-            // checkChecked is false whenever all hashrates need to be saved to file
-            Dictionary<HashAlgo.Algo, double> hashList = new Dictionary<HashAlgo.Algo, double>();
-            Dictionary<HashAlgo.Algo, double> wattageList = new Dictionary<HashAlgo.Algo, double>();
-            Dictionary<string, bool> checkedHashRates = new Dictionary<string, bool>();
-            double dHashRate, dWattage, fiatElectricityCost;
-            int fiatOfChoice = cbbFiat.SelectedIndex;
-
-            if (!Double.TryParse(txtFiatElectricityCost.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                out fiatElectricityCost)) MessageBox.Show("Something wrong with your fiat/khw");
-
-            if (!checkChecked || chkGroestl.Checked)
-            {
-                if (Double.TryParse(txtGroestl.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtGroestlWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Groestl, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Groestl, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Groestl hashrate");
-                }
-            }
-
-            if (!checkChecked || chkMyrGroestl.Checked)
-            {
-                if (
-                    Double.TryParse(txtMyrGroestl.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtMyrGroestlWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.MyriadGroestl, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.MyriadGroestl, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your MyrGroestl hashrate");
-                }
-            }
-
-            if (!checkChecked || chkFugue.Checked)
-            {
-                if (Double.TryParse(txtFugue.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtFugueWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Fugue256, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Fugue256, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Fugue hashrate");
-                }
-            }
-
-            if (!checkChecked || chkJha.Checked)
-            {
-                if (Double.TryParse(txtJackpot.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtJhaWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.JHA, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.JHA, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your JHA hashrate");
-                }
-            }
-
-            if (!checkChecked || chkNist5.Checked)
-            {
-                if (Double.TryParse(txtNist5.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtNist5Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Nist5, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Nist5, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Nist5 hashrate");
-                }
-            }
-
-            if (!checkChecked || chkHefty.Checked)
-            {
-                if (Double.TryParse(txtHefty.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtHeftyWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Heavy, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Heavy, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Hefty hashrate");
-                }
-            }
-
-            if (!checkChecked || chkX11.Checked)
-            {
-                if (Double.TryParse(txtX11.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtX11Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.X11, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.X11, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your X11 hashrate");
-                }
-            }
-
-            if (!checkChecked || chkX13.Checked)
-            {
-                if (Double.TryParse(txtX13.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtX13Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.X13, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.X13, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your X13 hashrate");
-                }
-            }
-
-            if (!checkChecked || chkX15.Checked)
-            {
-                if (Double.TryParse(txtX15.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtX15Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.X15, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.X15, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your X15 hashrate");
-                }
-            }
-
-            if (!checkChecked || chkQuark.Checked)
-            {
-                if (Double.TryParse(txtQuark.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtQuarkWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Quark, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Quark, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Quark hashrate");
-                }
-            }
-
-            if (!checkChecked || chkQubit.Checked)
-            {
-                if (Double.TryParse(txtQubit.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtQubitWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Qubit, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Qubit, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Qubit hashrate");
-                }
-            }
-
-            if (!checkChecked || chkKeccak.Checked)
-            {
-                if (Double.TryParse(txtKeccak.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtKeccakWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Keccak, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Keccak, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Keccak hashrate");
-                }
-            }
-
-            if (!checkChecked || chkScrypt.Checked)
-            {
-                if (Double.TryParse(txtScrypt.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtScryptWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.Scrypt, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.Scrypt, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Scrypt hashrate");
-                }
-            }
-
-            if (!checkChecked || chkScryptN.Checked)
-            {
-                if (Double.TryParse(txtScryptN.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtScryptNWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.ScryptN, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.ScryptN, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your ScryptN hashrate");
-                }
-            }
-
-            if (!checkChecked || chkJane15.Checked)
-            {
-                if (Double.TryParse(txtJane15.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtJane15Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.ScryptJane15, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.ScryptJane15, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Jane15 hashrate");
-                }
-            }
-
-            if (!checkChecked || chkJane14.Checked)
-            {
-                if (Double.TryParse(txtJane14.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtJane14Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.ScryptJane14, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.ScryptJane14, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Jane14 hashrate");
-                }
-            }
-
-            if (!checkChecked || chkJane13.Checked)
-            {
-                if (Double.TryParse(txtJane13.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtJane13Wattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.ScryptJane13, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.ScryptJane13, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your Jane13 hashrate");
-                }
-            }
-
-            if (!checkChecked || chkCryptonight.Checked)
-            {
-                if (
-                    Double.TryParse(txtCryptonight.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out dHashRate) &&
-                    Double.TryParse(txtCryptonightWattage.Text, NumberStyles.Float, CultureInfo.InvariantCulture,
-                        out dWattage))
-                {
-                    hashList.Add(HashAlgo.Algo.CryptoNight, dHashRate);
-                    wattageList.Add(HashAlgo.Algo.CryptoNight, dWattage);
-                }
-                else
-                {
-                    UpdateErrorCounter();
-                    AppendToLog("[ERROR] Something wrong with your CryptoNight hashrate");
-                }
-            }
-
-            checkedHashRates.Add("Groestl", chkGroestl.Checked);
-            checkedHashRates.Add("MyrGroestl", chkMyrGroestl.Checked);
-            checkedHashRates.Add("Fugue256", chkFugue.Checked);
-            checkedHashRates.Add("JHA", chkJha.Checked);
-            checkedHashRates.Add("NIST5", chkNist5.Checked);
-            checkedHashRates.Add("Hefty", chkHefty.Checked);
-            checkedHashRates.Add("X11", chkX11.Checked);
-            checkedHashRates.Add("X13", chkX13.Checked);
-            checkedHashRates.Add("X15", chkX15.Checked);
-            checkedHashRates.Add("Quark", chkQuark.Checked);
-            checkedHashRates.Add("Qubit", chkQubit.Checked);
-            checkedHashRates.Add("Keccak", chkKeccak.Checked);
-            checkedHashRates.Add("Scrypt", chkScrypt.Checked);
-            checkedHashRates.Add("ScryptN", chkScryptN.Checked);
-            checkedHashRates.Add("Jane15", chkJane15.Checked);
-            checkedHashRates.Add("Jane14", chkJane14.Checked);
-            checkedHashRates.Add("Jane13", chkJane13.Checked);
-            checkedHashRates.Add("CryptoNight", chkCryptonight.Checked);
-
-
-            HashRateJson hashRateJson = new HashRateJson
-            {
-                ListHashRate = hashList,
-                ListWattage = wattageList,
-                FiatPerKwh = fiatElectricityCost,
-                FiatOfChoice = fiatOfChoice,
-                CheckedHashRates = checkedHashRates,
-                Multiplier = (int) nudAmount.Value
-            };
-            return hashRateJson;
-        }
-
         private void AppendToLog(string s)
         {
             txtLog.AppendText("[" + DateTime.Now + "] " + s + Environment.NewLine);
@@ -1460,6 +793,226 @@ namespace ProfitCalc
             }
         }
 
+        private Dictionary<string, Profile> GetDefaultProfileList()
+        {
+            CustomAlgo groestl = new CustomAlgo
+            {
+                Use = true,
+                Name = "GROESTL",
+                SynonymsCsv = "",
+                HashRate = 7.7,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo myrgroestl = new CustomAlgo
+            {
+                Use = true,
+                Name = "MYR-GROESTL",
+                SynonymsCsv = "MYRIADGROESTL",
+                HashRate = 12.9,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo fugue = new CustomAlgo
+            {
+                Use = true,
+                Name = "FUGUE",
+                SynonymsCsv = "FUGUE256",
+                HashRate = 93.9,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo jha = new CustomAlgo
+            {
+                Use = true,
+                Name = "JHA",
+                SynonymsCsv = "JACKPOT",
+                HashRate = 5.6,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo nist5 = new CustomAlgo
+            {
+                Use = true,
+                Name = "NIST5",
+                SynonymsCsv = "",
+                HashRate = 8.4,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo heavy = new CustomAlgo
+            {
+                Use = true,
+                Name = "HEAVY",
+                SynonymsCsv = "HEFTY,HEFTY1,HEAVYCOIN",
+                HashRate = 93.9,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo x11 = new CustomAlgo
+            {
+                Use = true,
+                Name = "X11",
+                SynonymsCsv = "",
+                HashRate = 2.6,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo x13 = new CustomAlgo
+            {
+                Use = true,
+                Name = "X13",
+                SynonymsCsv = "",
+                HashRate = 2.0,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo x15 = new CustomAlgo
+            {
+                Use = true,
+                Name = "X15",
+                SynonymsCsv = "",
+                HashRate = 1.5,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo quark = new CustomAlgo
+            {
+                Use = true,
+                Name = "QUARK",
+                SynonymsCsv = "",
+                HashRate = 4.5,
+                Wattage = 0,
+                Style = HashAlgo.Style.Quark
+            };
+
+            CustomAlgo qubit = new CustomAlgo
+            {
+                Use = true,
+                Name = "QUBIT",
+                SynonymsCsv = "",
+                HashRate = 3.9,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo keccak = new CustomAlgo
+            {
+                Use = true,
+                Name = "KECCAK",
+                SynonymsCsv = "",
+                HashRate = 163.1,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo scrypt = new CustomAlgo
+            {
+                Use = true,
+                Name = "SCRYPT",
+                SynonymsCsv = "",
+                HashRate = 0.28,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo scryptn = new CustomAlgo
+            {
+                Use = true,
+                Name = "SCRYPTN",
+                SynonymsCsv = "SCRYPT-N,SCRYPT-ADAPTIVE-NFACTOR",
+                HashRate = 0.14,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo scryptjane15 = new CustomAlgo
+            {
+                Use = true,
+                Name = "SCRYPTJANE15",
+                SynonymsCsv = "CHACHA (NF15)",
+                HashRate = 0.0009,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo scryptjane14 = new CustomAlgo
+            {
+                Use = true,
+                Name = "SCRYPTJANE14",
+                SynonymsCsv = "CHACHA (NF14)",
+                HashRate = 0.0034,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo scryptjane13 = new CustomAlgo
+            {
+                Use = true,
+                Name = "SCRYPTJANE13",
+                SynonymsCsv = "CHACHA (NF13)",
+                HashRate = 0.0095,
+                Wattage = 0,
+                Style = HashAlgo.Style.Classic
+            };
+
+            CustomAlgo cryptonight = new CustomAlgo
+            {
+                Use = true,
+                Name = "CRYPTONIGHT",
+                SynonymsCsv = "",
+                HashRate = 0.00022,
+                Wattage = 0,
+                Style = HashAlgo.Style.CryptoNight
+            };
+
+            BindingList<CustomAlgo> algoList = new BindingList<CustomAlgo>
+            {
+                groestl,
+                myrgroestl,
+                fugue,
+                jha,
+                nist5,
+                heavy,
+                x11,
+                x13,
+                x15,
+                quark,
+                qubit,
+                keccak,
+                scrypt,
+                scryptn,
+                scryptjane15,
+                scryptjane14,
+                scryptjane13,
+                cryptonight
+            };
+
+            Profile defaultProfile = new Profile
+            {
+                FiatOfChoice = 0,
+                FiatPerKwh = 0.1,
+                Multiplier = 1,
+                CustomAlgoList = algoList
+            };
+
+            Dictionary<string, Profile> defaultProfileList = new Dictionary<string, Profile>
+            {
+                {"Default", defaultProfile}
+            };
+
+            return defaultProfileList;
+        }
+
         private void tsmResultsToClipboard_Click(object sender, EventArgs e)
         {
             if (_coinList != null) Clipboard.SetText(_coinList.ToString());
@@ -1467,16 +1020,16 @@ namespace ProfitCalc
 
         private void tsmHashratesToClipboard_Click(object sender, EventArgs e)
         {
-            if (_hashList != null)
+            /*if (_profileList != null)
             {
                 StringBuilder sb = new StringBuilder();
-                foreach (KeyValuePair<HashAlgo.Algo, double> algo in _hashList[cbbProfiles.Text].ListHashRate)
+                foreach (KeyValuePair<HashAlgo.Algo, double> algo in _profileList[cbbProfiles.Text].ListHashRate)
                 {
                     sb.Append(algo.Key + ": " + algo.Value + " MH/s" + Environment.NewLine);
                 }
 
                 Clipboard.SetText(sb.ToString());
-            }
+            }*/
         }
 
         private void CudaProfitCalc_FormClosing(object sender, FormClosingEventArgs e)
@@ -1591,48 +1144,12 @@ namespace ProfitCalc
             AppendToLog(tsStatus.Text);
         }
 
-        private void checkAll_Click(object sender, EventArgs e)
-        {
-            foreach (CheckBox chkBox in grpHashrates.Controls.OfType<CheckBox>().AsParallel()
-                .Where(chkBox => chkAll != chkBox && chkCoindesk != chkBox))
-            {
-                chkBox.Checked = chkAll.Checked;
-            }
-        }
-
-        private void UpdateChkAllState()
-        {
-            int totalChkBoxes = 0, checkedChkBoxes = 0;
-            foreach (CheckBox chkBox in grpHashrates.Controls.OfType<CheckBox>().AsParallel()
-                .Where(chkBox => chkAll != chkBox && chkCoindesk != chkBox))
-            {
-                totalChkBoxes++;
-                if (chkBox.Checked)
-                {
-                    checkedChkBoxes++;
-                }
-            }
-
-            if (checkedChkBoxes == 0)
-            {
-                chkAll.CheckState = CheckState.Unchecked;
-            }
-            else if (checkedChkBoxes == totalChkBoxes)
-            {
-                chkAll.CheckState = CheckState.Checked;
-            }
-            else
-            {
-                chkAll.CheckState = CheckState.Indeterminate;
-            }
-        }
-
-        private void chkHashingalgo_Click(object sender, EventArgs e)
-        {
-            UpdateChkAllState();
-        }
-
         private void chkColor_CheckStateChanged(object sender, EventArgs e)
+        {
+             UpdateFilterColors();
+        }
+
+        private void UpdateFilterColors()
         {
             if (chkColor.Checked)
             {
@@ -1653,14 +1170,14 @@ namespace ProfitCalc
                 tabMultipool.BackColor = Color.Transparent;
                 tabCoinInfo.BackColor = Color.Transparent;
                 tabMarketApi.BackColor = Color.Transparent;
-            }   
+            }  
         }
 
         private void btnAddDeleteProfile_Click(object sender, EventArgs e)
         {
             if (btnAddDeleteProfile.Text.Contains("Remove"))
             {
-                _hashList.Remove(cbbProfiles.Text);
+                _profileList.Remove(cbbProfiles.Text);
                 foreach (var item in cbbProfiles.Items)
                 {
                     if (item.ToString() == cbbProfiles.Text)
@@ -1671,9 +1188,9 @@ namespace ProfitCalc
                 }
                 cbbProfiles.SelectedItem = cbbProfiles.Items[0];
             }
-            else if (!_hashList.ContainsKey(cbbProfiles.Text))
+            else if (!_profileList.ContainsKey(cbbProfiles.Text))
             {
-                _hashList.Add(cbbProfiles.Text, ParseGuiHashrates(true));
+                _profileList.Add(cbbProfiles.Text, GetDefaultProfileList()["Default"]);
                 cbbProfiles.Items.Add(cbbProfiles.Text);
 
                 btnAddDeleteProfile.Text = "Remove profile";
@@ -1697,34 +1214,9 @@ namespace ProfitCalc
 
         private void cbbProfiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            UpdateGuiHashrates(_hashList[cbbProfiles.Text]);
-        }
-
-        private void txtHashrateOrWattage_TextChanged(object sender, EventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                double result;
-                if (double.TryParse(textBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
-                {
-                    _hashList[cbbProfiles.Text] = ParseGuiHashrates(false);
-                }
-                else
-                {
-                    MessageBox.Show(textBox.Text + " isn't a valid option");
-                    textBox.Text = "";
-                }
-            }
-        }
-
-        private void txtHashrateOrWattage_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == ',')
-            {
-                e.KeyChar = '.';
-            }
+            dgvCustomAlgos.AutoGenerateColumns = false;
+            dgvCustomAlgos.DataSource = _profileList[cbbProfiles.Text].CustomAlgoList;
+            if (_coinList != null && _coinList.UsedProfile != null) _coinList.UsedProfile = _profileList[cbbProfiles.Text];
         }
 
         private void dgvCustomCoins_MouseUp(object sender, MouseEventArgs e)
@@ -1733,21 +1225,77 @@ namespace ProfitCalc
             {
                 DataGridView.HitTestInfo hitTestInfo = dgvCustomCoins.HitTest(e.X, e.Y);
                 if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+                {
                     dgvCustomCoins.BeginEdit(true);
+                }
                 else
+                {
                     dgvCustomCoins.EndEdit();
+                }
+            }
+        }
+
+        private void dgvCustomAlgos_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                DataGridView.HitTestInfo hitTestInfo = dgvCustomAlgos.HitTest(e.X, e.Y);
+                if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+                {
+                    dgvCustomAlgos.BeginEdit(true);
+                }
+                else
+                {
+                    dgvCustomAlgos.EndEdit();
+                }
             }
         }
 
         private void dgvCustomCoins_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            e.Control.KeyPress -= new KeyPressEventHandler(Column_KeyPress);
+            e.Control.KeyPress -= Column_KeyPress;
             if (dgvCustomCoins.CurrentCell.ColumnIndex == 3 || dgvCustomCoins.CurrentCell.ColumnIndex == 4) 
             {
                 TextBox tb = e.Control as TextBox;
                 if (tb != null)
                 {
-                    tb.KeyPress += new KeyPressEventHandler(Column_KeyPress);
+                    tb.KeyPress += Column_KeyPress;
+                }
+            }
+        }
+
+        private void dgvCustomAlgos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= Column_KeyPress;
+            e.Control.KeyPress -= NameOrSynonymColumn_KeyPress;
+            if (dgvCustomAlgos.CurrentCell.ColumnIndex == 4 || dgvCustomAlgos.CurrentCell.ColumnIndex == 5)
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += Column_KeyPress;
+                }
+            } else if (dgvCustomAlgos.CurrentCell.ColumnIndex == 1 || dgvCustomAlgos.CurrentCell.ColumnIndex == 2)
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += NameOrSynonymColumn_KeyPress;
+                }
+            }
+        }
+
+        private void NameOrSynonymColumn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && e.KeyChar != ',')
+            {
+                if (char.IsLetter(e.KeyChar))
+                {
+                    e.KeyChar = char.ToUpperInvariant(e.KeyChar);
+                }
+                else
+                {
+                    e.Handled = true;
                 }
             }
         }
@@ -1758,6 +1306,53 @@ namespace ProfitCalc
             {
                 e.Handled = true;
             }
+        }
+
+        private void dgvCustomCoins_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells[0].Value = true;
+        }
+
+        private void chkCustomCoins_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkCustomCoins.Checked)
+            {
+                tabControlSettings.TabPages.Insert(2, tabCustomCoins);
+            }
+            else
+            {
+                tabControlSettings.TabPages.Remove(tabCustomCoins);
+            }
+        }
+
+        private void chkCustomAlgo_CheckedChanged(object sender, EventArgs e)
+        {
+            /*if (chkCustomAlgo.Checked)
+            {
+                tabControlSettings.TabPages.Insert(tabControlSettings.TabPages.Contains(tabCustomCoins) ? 3 : 2,
+                    tabHashrates);
+            }
+            else
+            {
+                tabControlSettings.TabPages.Remove(tabHashrates);
+            }*/
+        }
+
+        private void dgvCustomAlgos_Validated(object sender, EventArgs e)
+        {
+            dgvCustomCoins.Columns.RemoveAt(3);
+            DataGridViewComboBoxColumn algoColumn = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "Algo",
+                HeaderText = "Algo",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                MinimumWidth = 120
+            };
+            foreach (CustomAlgo customAlgo in _profileList.First().Value.CustomAlgoList)
+            {
+                algoColumn.Items.Add(customAlgo.Name);
+            }
+            dgvCustomCoins.Columns.Insert(3, algoColumn);
         }
     }
 }
