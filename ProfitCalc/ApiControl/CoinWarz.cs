@@ -56,10 +56,10 @@ namespace ProfitCalc.ApiControl
             public bool IsExchangeOnline { get; set; }
 
             [JsonProperty("Message")]
-            public string Message { get; set; }
+            public string Message { get; set; }*/
 
             [JsonProperty("BlockTimeInSeconds")]
-            public uint BlockTimeInSeconds { get; set; }*/
+            public double BlockTimeInSeconds { get; set; }
 
             [JsonProperty("HealthStatus")]
             public string HealthStatus { get; set; }

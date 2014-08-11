@@ -18,8 +18,8 @@ namespace ProfitCalc.ApiControl
             [JsonProperty("block_reward")]
             public double BlockReward { get; set; }
 
-            /*[JsonProperty("block_time")]
-            public uint BlockTime { get; set; }*/
+            [JsonProperty("block_time")]
+            public double BlockTime { get; set; }
 
             [JsonProperty("last_block")]
             public uint LastBlock { get; set; }

@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -266,61 +265,69 @@ namespace ProfitCalc
 
         private void SaveSettings()
         {
-            if (_profileList == null)
+            try
             {
-                _profileList = GetDefaultProfileList();
+                if (_profileList == null)
+                {
+                    _profileList = GetDefaultProfileList();
+                }
+
+                File.WriteAllText(@"algos.txt",
+                    JsonConvert.SerializeObject(_profileList, Formatting.Indented));
+
+                ApiSettingsJson apiSettings = new ApiSettingsJson
+                {
+                    ApiSettings = new Dictionary<string, string>(),
+                    CheckedApis = new Dictionary<string, bool>(),
+                    CheckedMisc = new Dictionary<string, bool>(),
+                };
+
+                apiSettings.ApiSettings.Add("CoinTweak", txtCointweakApiKey.Text);
+                apiSettings.ApiSettings.Add("CoinWarz", txtCoinwarzApiKey.Text);
+                apiSettings.ApiSettings.Add("CrypToday", nudCryptoday.Text);
+                apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
+                apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
+                apiSettings.ApiSettings.Add("BidRecentAsk", cbbBidRecentAsk.SelectedIndex.ToString(CultureInfo.InvariantCulture));
+
+                apiSettings.CheckedApis.Add("Bittrex", chkBittrex.Checked);
+                apiSettings.CheckedApis.Add("Mintpal", chkMintpal.Checked);
+                apiSettings.CheckedApis.Add("Cryptsy", chkCryptsy.Checked);
+                apiSettings.CheckedApis.Add("Poloniex", chkPoloniex.Checked);
+                apiSettings.CheckedApis.Add("AllCoin", chkAllcoin.Checked);
+                apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
+                apiSettings.CheckedApis.Add("C-Cex", chkCCex.Checked);
+                apiSettings.CheckedApis.Add("Comkort", chkComkort.Checked);
+
+                apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
+                apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
+                apiSettings.CheckedApis.Add("WhatToMine", chkWhattomine.Checked);
+                apiSettings.CheckedApis.Add("CoinTweak", chkCointweak.Checked);
+                apiSettings.CheckedApis.Add("CoinWarz", chkCoinwarz.Checked);
+                apiSettings.CheckedApis.Add("CrypToday", chkCryptoday.Checked);
+                apiSettings.CheckedApis.Add("PoolPicker", chkPoolpicker.Checked);
+
+                apiSettings.CheckedMisc.Add("RemoveUnlisted", chkRemoveUnlisted.Checked);
+                apiSettings.CheckedMisc.Add("RemoveFrozen", chkRemoveUnlisted.Checked);
+                apiSettings.CheckedMisc.Add("RemoveTooGoodToBeTrue", chkRemoveTooGoodToBeTrue.Checked);
+                apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
+                apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
+                apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
+                apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
+
+                File.WriteAllText(@"apisettings.txt",
+                    JsonConvert.SerializeObject(apiSettings, Formatting.Indented));
+
+                File.WriteAllText(@"customcoins.txt",
+                    JsonConvert.SerializeObject(_customCoins, Formatting.Indented));
+
+                AppendToLog("Settings saved");
+                File.WriteAllText(@"log.txt", txtLog.Text);
             }
-
-            File.WriteAllText(@"algos.txt", 
-                JsonConvert.SerializeObject(_profileList, Formatting.Indented));
-
-            ApiSettingsJson apiSettings = new ApiSettingsJson
+            catch (Exception e)
             {
-                ApiSettings = new Dictionary<string, string>(),
-                CheckedApis = new Dictionary<string, bool>(),
-                CheckedMisc = new Dictionary<string, bool>(),
-            };
-
-            apiSettings.ApiSettings.Add("CoinTweak", txtCointweakApiKey.Text);
-            apiSettings.ApiSettings.Add("CoinWarz", txtCoinwarzApiKey.Text);
-            apiSettings.ApiSettings.Add("CrypToday", nudCryptoday.Text);
-            apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
-            apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
-            apiSettings.ApiSettings.Add("BidRecentAsk", cbbBidRecentAsk.SelectedIndex.ToString(CultureInfo.InvariantCulture));
-
-            apiSettings.CheckedApis.Add("Bittrex", chkBittrex.Checked);
-            apiSettings.CheckedApis.Add("Mintpal", chkMintpal.Checked);
-            apiSettings.CheckedApis.Add("Cryptsy", chkCryptsy.Checked);
-            apiSettings.CheckedApis.Add("Poloniex", chkPoloniex.Checked);
-            apiSettings.CheckedApis.Add("AllCoin", chkAllcoin.Checked);
-            apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
-            apiSettings.CheckedApis.Add("C-Cex", chkCCex.Checked);
-            apiSettings.CheckedApis.Add("Comkort", chkComkort.Checked);
-
-            apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
-            apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
-            apiSettings.CheckedApis.Add("WhatToMine", chkWhattomine.Checked);
-            apiSettings.CheckedApis.Add("CoinTweak", chkCointweak.Checked);
-            apiSettings.CheckedApis.Add("CoinWarz", chkCoinwarz.Checked);
-            apiSettings.CheckedApis.Add("CrypToday", chkCryptoday.Checked);
-            apiSettings.CheckedApis.Add("PoolPicker", chkPoolpicker.Checked);
-
-            apiSettings.CheckedMisc.Add("RemoveUnlisted", chkRemoveUnlisted.Checked);
-            apiSettings.CheckedMisc.Add("RemoveFrozen", chkRemoveUnlisted.Checked);
-            apiSettings.CheckedMisc.Add("RemoveTooGoodToBeTrue", chkRemoveTooGoodToBeTrue.Checked);
-            apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
-            apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
-            apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
-            apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
-
-            File.WriteAllText(@"apisettings.txt", 
-                JsonConvert.SerializeObject(apiSettings, Formatting.Indented));
-
-            File.WriteAllText(@"customcoins.txt", 
-                JsonConvert.SerializeObject(_customCoins, Formatting.Indented));
-
-            AppendToLog("Settings saved");
-            File.WriteAllText(@"log.txt", txtLog.Text);
+                MessageBox.Show("Oops, something went wrong while saving your setting. Try running as admin."
+                    + Environment.NewLine + e);
+            }
         }
 
         private void btnCalc_Click(object sender, EventArgs e)

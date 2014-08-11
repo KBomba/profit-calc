@@ -16,6 +16,7 @@ namespace ProfitCalc
         public string Algo { get; set; }
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
+        public double BlockTime { get; set; }
         public uint Height { get; set; }
 
         public List<Exchange> Exchanges { get; set; }
@@ -140,6 +141,7 @@ namespace ProfitCalc
 
             Difficulty = wtmCoin.Value.Difficulty;
             BlockReward = wtmCoin.Value.BlockReward;
+            BlockTime = wtmCoin.Value.BlockTime;
             Height = wtmCoin.Value.LastBlock;
             Exchange wtmExchange = new Exchange
             {
@@ -193,6 +195,7 @@ namespace ProfitCalc
 
             Difficulty = cwzCoin.Difficulty;
             BlockReward = cwzCoin.BlockReward;
+            BlockTime = cwzCoin.BlockTimeInSeconds;
             Height = cwzCoin.BlockCount;
             Exchange cwzExchange = new Exchange
             {
@@ -223,7 +226,7 @@ namespace ProfitCalc
                 {
                     case HashAlgo.Style.CryptoNight:
                         //Cryptonight's difficulty is net hashrate * 60
-                        CoinsPerDay = (BlockReward*24*60)*((hashRateMh*1000000)
+                        CoinsPerDay = (BlockReward*((24*60*60) / BlockTime))*((hashRateMh*1000000)
                                                     /(Difficulty/60))*multiplier;
                         break;
                     case HashAlgo.Style.Quark:

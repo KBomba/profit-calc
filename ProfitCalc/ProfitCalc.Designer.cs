@@ -999,6 +999,7 @@
             this.dgvCustomAlgos.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvCustomAlgos.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomAlgos.Name = "dgvCustomAlgos";
+            this.dgvCustomAlgos.RowHeadersVisible = false;
             this.dgvCustomAlgos.Size = new System.Drawing.Size(667, 135);
             this.dgvCustomAlgos.TabIndex = 1;
             this.dgvCustomAlgos.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
@@ -1023,6 +1024,7 @@
             this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";
+            this.dgvCustomCoins.RowHeadersVisible = false;
             this.dgvCustomCoins.Size = new System.Drawing.Size(667, 168);
             this.dgvCustomCoins.TabIndex = 0;
             this.dgvCustomCoins.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
