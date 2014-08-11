@@ -661,7 +661,8 @@ namespace ProfitCalc
                     switch (selectedIndex)
                     {
                         case 0:
-                            if (!double.TryParse(cryCoin.Value.Buy, out priceToUse))
+                            if (!double.TryParse(cryCoin.Value.Buy, NumberStyles.Float, 
+                                CultureInfo.InvariantCulture, out priceToUse))
                             {
                                 priceToUse = cryCoin.Value.Last;
                             }
@@ -670,13 +671,15 @@ namespace ProfitCalc
                             priceToUse = cryCoin.Value.Last;
                             break;
                         case 2:
-                            if (!double.TryParse(cryCoin.Value.Sell, out priceToUse))
+                            if (!double.TryParse(cryCoin.Value.Sell, NumberStyles.Float, 
+                                CultureInfo.InvariantCulture, out priceToUse))
                             {
                                 priceToUse = cryCoin.Value.Last;
                             }
                             break;
                         default:
-                            if (!double.TryParse(cryCoin.Value.Buy, out priceToUse))
+                            if (!double.TryParse(cryCoin.Value.Buy, NumberStyles.Float, 
+                                CultureInfo.InvariantCulture, out priceToUse))
                             {
                                 priceToUse = cryCoin.Value.Last;
                             }
