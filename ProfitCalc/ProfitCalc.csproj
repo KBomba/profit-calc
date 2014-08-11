@@ -100,8 +100,7 @@
     <Compile Include="ProfitCalc.Designer.cs">
       <DependentUpon>ProfitCalc.cs</DependentUpon>
     </Compile>
-    <Compile Include="HashAlgo.cs" />
-    <Compile Include="MiscJson.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ProfitCalc.resx">

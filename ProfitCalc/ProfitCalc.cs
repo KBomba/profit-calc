@@ -90,7 +90,7 @@ namespace ProfitCalc
             {
                 DataPropertyName = "Style",
                 HeaderText = "Calc style",
-                DataSource = Enum.GetValues(typeof(HashAlgo.Style))
+                DataSource = Enum.GetValues(typeof(CalcStyle))
             };
 
             DataGridViewTextBoxColumn hashrateColumn = new DataGridViewTextBoxColumn
@@ -809,7 +809,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 7.7,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo myrgroestl = new CustomAlgo
@@ -819,7 +819,7 @@ namespace ProfitCalc
                 SynonymsCsv = "MYRIADGROESTL",
                 HashRate = 12.9,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo fugue = new CustomAlgo
@@ -829,7 +829,7 @@ namespace ProfitCalc
                 SynonymsCsv = "FUGUE256",
                 HashRate = 93.9,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo jha = new CustomAlgo
@@ -839,7 +839,7 @@ namespace ProfitCalc
                 SynonymsCsv = "JACKPOT",
                 HashRate = 5.6,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo nist5 = new CustomAlgo
@@ -849,7 +849,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 8.4,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo heavy = new CustomAlgo
@@ -859,7 +859,7 @@ namespace ProfitCalc
                 SynonymsCsv = "HEFTY,HEFTY1,HEAVYCOIN",
                 HashRate = 93.9,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo x11 = new CustomAlgo
@@ -869,7 +869,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 2.6,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo x13 = new CustomAlgo
@@ -879,7 +879,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 2.0,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo x15 = new CustomAlgo
@@ -889,7 +889,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 1.5,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo quark = new CustomAlgo
@@ -899,7 +899,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 4.5,
                 Wattage = 0,
-                Style = HashAlgo.Style.Quark
+                Style = CalcStyle.Quark
             };
 
             CustomAlgo qubit = new CustomAlgo
@@ -909,7 +909,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 3.9,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo keccak = new CustomAlgo
@@ -919,7 +919,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 163.1,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo scrypt = new CustomAlgo
@@ -929,7 +929,7 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 0.28,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo scryptn = new CustomAlgo
@@ -939,7 +939,7 @@ namespace ProfitCalc
                 SynonymsCsv = "SCRYPT-N,SCRYPT-ADAPTIVE-NFACTOR",
                 HashRate = 0.14,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo scryptjane15 = new CustomAlgo
@@ -949,7 +949,7 @@ namespace ProfitCalc
                 SynonymsCsv = "CHACHA (NF15)",
                 HashRate = 0.0009,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo scryptjane14 = new CustomAlgo
@@ -959,7 +959,7 @@ namespace ProfitCalc
                 SynonymsCsv = "CHACHA (NF14)",
                 HashRate = 0.0034,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo scryptjane13 = new CustomAlgo
@@ -969,7 +969,7 @@ namespace ProfitCalc
                 SynonymsCsv = "CHACHA (NF13)",
                 HashRate = 0.0095,
                 Wattage = 0,
-                Style = HashAlgo.Style.Classic
+                Style = CalcStyle.Classic
             };
 
             CustomAlgo cryptonight = new CustomAlgo
@@ -979,7 +979,17 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 0.00022,
                 Wattage = 0,
-                Style = HashAlgo.Style.CryptoNight
+                Style = CalcStyle.CryptoNight
+            };
+
+            CustomAlgo sha256 = new CustomAlgo
+            {
+                Use = false,
+                Name = "SHA256",
+                SynonymsCsv = "SHA-256",
+                HashRate = 0,
+                Wattage = 0,
+                Style = CalcStyle.Classic
             };
 
             BindingList<CustomAlgo> algoList = new BindingList<CustomAlgo>

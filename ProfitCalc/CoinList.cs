@@ -706,7 +706,7 @@ namespace ProfitCalc
             }
 
             c.Exchanges[0].BtcPrice = 
-                c.Algo == "KECCAK"
+                c.Algo == "KECCAK" || c.Algo == "SHA256"
                 ? dAverage/(iCounter + 1)
                 : dAverage/(iCounter + 1)*1000;
 
@@ -845,7 +845,7 @@ namespace ProfitCalc
                 }
             }));
 
-            List = List.AsParallel().Where(o => o.BtcPerDay != 0).OrderByDescending(o => o.BtcPerDay).ToList();
+            List = List.AsParallel().OrderByDescending(o => o.BtcPerDay).ToList();
         }
 
         public override string ToString()

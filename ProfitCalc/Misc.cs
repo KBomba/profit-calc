@@ -29,7 +29,6 @@ namespace ProfitCalc
         public string Tag { get; set; }
         public string FullName { get; set; }
 
-        //public HashAlgo.Algo Algo { get; set; }
         public string Algo { get; set; }
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
@@ -41,9 +40,16 @@ namespace ProfitCalc
         public string Name { get; set; }
         public string SynonymsCsv { get; set; }
 
-        public HashAlgo.Style Style { get; set; }
-
+        public CalcStyle Style { get; set; }
         public double HashRate { get; set; }
         public double Wattage { get; set; }
+    }
+
+    public enum CalcStyle
+    {
+        Classic,
+        Quark,
+        CryptoNight,
+        NetHashRate
     }
 }
