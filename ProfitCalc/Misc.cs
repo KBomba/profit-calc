@@ -11,7 +11,12 @@ namespace ProfitCalc
 
         public int Multiplier { get; set; }
 
-        public BindingList<CustomAlgo> CustomAlgoList { get; set; } 
+        public BindingList<CustomAlgo> CustomAlgoList { get; set; }
+
+        public Profile()
+        {
+            CustomAlgoList = new BindingList<CustomAlgo>();
+        }
     }
 
     internal class ApiSettingsJson
@@ -32,6 +37,8 @@ namespace ProfitCalc
         public string Algo { get; set; }
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
+        public double BlockTime { get; set; }
+        public double CustomPrice { get; set; }
     }
 
     internal class CustomAlgo
@@ -51,5 +58,18 @@ namespace ProfitCalc
         Quark,
         CryptoNight,
         NetHashRate
+    }
+
+    internal class OldHashrates
+    {
+        public Dictionary<string, double> HashRateList { get; set; }
+
+        public Dictionary<string, double> WattageList { get; set; }
+
+        public Dictionary<string, bool> CheckedHashRates { get; set; }
+
+        public double FiatPerKwh { get; set; }
+
+        public int FiatOfChoice { get; set; }
     }
 }

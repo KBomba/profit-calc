@@ -81,6 +81,7 @@
     <Compile Include="ApiControl\CoinDesk.cs" />
     <Compile Include="ApiControl\Comkort.cs" />
     <Compile Include="ApiControl\CrypToday.cs" />
+    <Compile Include="ApiControl\Cryptoine.cs" />
     <Compile Include="ApiControl\MoneroChain.cs" />
     <Compile Include="ApiControl\Poloniex.cs" />
     <Compile Include="ApiControl\JsonControl.cs" />

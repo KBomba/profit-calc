@@ -67,6 +67,8 @@
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabMisc = new System.Windows.Forms.TabPage();
+            this.lblTimeout = new System.Windows.Forms.Label();
+            this.nudTimeout = new System.Windows.Forms.NumericUpDown();
             this.txtProxy = new System.Windows.Forms.TextBox();
             this.chkProxy = new System.Windows.Forms.CheckBox();
             this.chkColor = new System.Windows.Forms.CheckBox();
@@ -95,7 +97,7 @@
             this.tabMarketApi = new System.Windows.Forms.TabPage();
             this.chkCCex = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkCryptoine = new System.Windows.Forms.CheckBox();
             this.chkAtomictrade = new System.Windows.Forms.CheckBox();
             this.chkComkort = new System.Windows.Forms.CheckBox();
             this.chkAllcrypt = new System.Windows.Forms.CheckBox();
@@ -113,13 +115,12 @@
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
             this.tabReadme = new System.Windows.Forms.TabPage();
             this.txtReadme = new System.Windows.Forms.TextBox();
-            this.nudTimeout = new System.Windows.Forms.NumericUpDown();
-            this.lblTimeout = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.ctxtStrip.SuspendLayout();
             this.stStatusStrip.SuspendLayout();
             this.tabLog.SuspendLayout();
             this.tabMisc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
             this.tabMultipool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).BeginInit();
@@ -134,13 +135,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).BeginInit();
             this.tabFilters.SuspendLayout();
             this.tabReadme.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddDeleteProfile
             // 
             this.btnAddDeleteProfile.Enabled = false;
-            this.btnAddDeleteProfile.Location = new System.Drawing.Point(101, 139);
+            this.btnAddDeleteProfile.Location = new System.Drawing.Point(105, 199);
             this.btnAddDeleteProfile.Name = "btnAddDeleteProfile";
             this.btnAddDeleteProfile.Size = new System.Drawing.Size(87, 23);
             this.btnAddDeleteProfile.TabIndex = 80;
@@ -151,7 +151,7 @@
             // cbbProfiles
             // 
             this.cbbProfiles.FormattingEnabled = true;
-            this.cbbProfiles.Location = new System.Drawing.Point(8, 141);
+            this.cbbProfiles.Location = new System.Drawing.Point(12, 200);
             this.cbbProfiles.Name = "cbbProfiles";
             this.cbbProfiles.Size = new System.Drawing.Size(87, 21);
             this.cbbProfiles.TabIndex = 79;
@@ -161,7 +161,7 @@
             // btnCalc
             // 
             this.btnCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCalc.Location = new System.Drawing.Point(579, 139);
+            this.btnCalc.Location = new System.Drawing.Point(521, 199);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(80, 23);
             this.btnCalc.TabIndex = 26;
@@ -248,12 +248,12 @@
             this.BlockReward});
             this.dgView.ContextMenuStrip = this.ctxtStrip;
             this.dgView.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dgView.Location = new System.Drawing.Point(0, 200);
+            this.dgView.Location = new System.Drawing.Point(0, 229);
             this.dgView.Name = "dgView";
             this.dgView.ReadOnly = true;
             this.dgView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgView.Size = new System.Drawing.Size(675, 404);
+            this.dgView.Size = new System.Drawing.Size(613, 375);
             this.dgView.TabIndex = 1;
             // 
             // Tag
@@ -404,7 +404,7 @@
             this.tsErrors});
             this.stStatusStrip.Location = new System.Drawing.Point(0, 604);
             this.stStatusStrip.Name = "stStatusStrip";
-            this.stStatusStrip.Size = new System.Drawing.Size(675, 22);
+            this.stStatusStrip.Size = new System.Drawing.Size(613, 22);
             this.stStatusStrip.TabIndex = 3;
             this.stStatusStrip.Text = "Status Striper";
             // 
@@ -429,7 +429,7 @@
             // tsSpace
             // 
             this.tsSpace.Name = "tsSpace";
-            this.tsSpace.Size = new System.Drawing.Size(407, 17);
+            this.tsSpace.Size = new System.Drawing.Size(345, 17);
             this.tsSpace.Spring = true;
             // 
             // tsErrors
@@ -443,7 +443,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(667, 168);
+            this.tabLog.Size = new System.Drawing.Size(703, 168);
             this.tabLog.TabIndex = 5;
             this.tabLog.Text = "Log";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -456,7 +456,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(661, 162);
+            this.txtLog.Size = new System.Drawing.Size(697, 162);
             this.txtLog.TabIndex = 0;
             this.txtLog.WordWrap = false;
             // 
@@ -468,10 +468,41 @@
             this.tabMisc.Controls.Add(this.chkProxy);
             this.tabMisc.Location = new System.Drawing.Point(4, 22);
             this.tabMisc.Name = "tabMisc";
-            this.tabMisc.Size = new System.Drawing.Size(667, 168);
+            this.tabMisc.Size = new System.Drawing.Size(606, 168);
             this.tabMisc.TabIndex = 3;
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
+            // 
+            // lblTimeout
+            // 
+            this.lblTimeout.AutoSize = true;
+            this.lblTimeout.Location = new System.Drawing.Point(6, 32);
+            this.lblTimeout.Name = "lblTimeout";
+            this.lblTimeout.Size = new System.Drawing.Size(45, 13);
+            this.lblTimeout.TabIndex = 35;
+            this.lblTimeout.Text = "Timeout";
+            // 
+            // nudTimeout
+            // 
+            this.nudTimeout.Location = new System.Drawing.Point(57, 30);
+            this.nudTimeout.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudTimeout.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudTimeout.Name = "nudTimeout";
+            this.nudTimeout.Size = new System.Drawing.Size(58, 20);
+            this.nudTimeout.TabIndex = 34;
+            this.nudTimeout.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // txtProxy
             // 
@@ -517,7 +548,7 @@
             this.tabMultipool.Location = new System.Drawing.Point(4, 22);
             this.tabMultipool.Name = "tabMultipool";
             this.tabMultipool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMultipool.Size = new System.Drawing.Size(667, 168);
+            this.tabMultipool.Size = new System.Drawing.Size(606, 168);
             this.tabMultipool.TabIndex = 2;
             this.tabMultipool.Text = "Multipools";
             this.tabMultipool.UseVisualStyleBackColor = true;
@@ -620,7 +651,7 @@
             this.tabPriceCalc.Location = new System.Drawing.Point(4, 22);
             this.tabPriceCalc.Name = "tabPriceCalc";
             this.tabPriceCalc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPriceCalc.Size = new System.Drawing.Size(667, 168);
+            this.tabPriceCalc.Size = new System.Drawing.Size(606, 168);
             this.tabPriceCalc.TabIndex = 4;
             this.tabPriceCalc.Text = "Coin Price Calc";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
@@ -737,7 +768,7 @@
             this.tabCoinInfo.Location = new System.Drawing.Point(4, 22);
             this.tabCoinInfo.Name = "tabCoinInfo";
             this.tabCoinInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCoinInfo.Size = new System.Drawing.Size(667, 168);
+            this.tabCoinInfo.Size = new System.Drawing.Size(606, 168);
             this.tabCoinInfo.TabIndex = 1;
             this.tabCoinInfo.Text = "Coin Info";
             this.tabCoinInfo.UseVisualStyleBackColor = true;
@@ -798,7 +829,7 @@
             // 
             this.tabMarketApi.Controls.Add(this.chkCCex);
             this.tabMarketApi.Controls.Add(this.checkBox2);
-            this.tabMarketApi.Controls.Add(this.checkBox1);
+            this.tabMarketApi.Controls.Add(this.chkCryptoine);
             this.tabMarketApi.Controls.Add(this.chkAtomictrade);
             this.tabMarketApi.Controls.Add(this.chkComkort);
             this.tabMarketApi.Controls.Add(this.chkAllcrypt);
@@ -810,7 +841,7 @@
             this.tabMarketApi.Location = new System.Drawing.Point(4, 22);
             this.tabMarketApi.Name = "tabMarketApi";
             this.tabMarketApi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMarketApi.Size = new System.Drawing.Size(667, 168);
+            this.tabMarketApi.Size = new System.Drawing.Size(606, 168);
             this.tabMarketApi.TabIndex = 0;
             this.tabMarketApi.Text = "Market API";
             this.tabMarketApi.UseVisualStyleBackColor = true;
@@ -818,7 +849,7 @@
             // chkCCex
             // 
             this.chkCCex.AutoSize = true;
-            this.chkCCex.Location = new System.Drawing.Point(101, 52);
+            this.chkCCex.Location = new System.Drawing.Point(6, 98);
             this.chkCCex.Name = "chkCCex";
             this.chkCCex.Size = new System.Drawing.Size(54, 17);
             this.chkCCex.TabIndex = 46;
@@ -836,16 +867,15 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.Visible = false;
             // 
-            // checkBox1
+            // chkCryptoine
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(101, 121);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(70, 17);
-            this.checkBox1.TabIndex = 44;
-            this.checkBox1.Text = "Swisscex";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Visible = false;
+            this.chkCryptoine.AutoSize = true;
+            this.chkCryptoine.Location = new System.Drawing.Point(101, 75);
+            this.chkCryptoine.Name = "chkCryptoine";
+            this.chkCryptoine.Size = new System.Drawing.Size(70, 17);
+            this.chkCryptoine.TabIndex = 44;
+            this.chkCryptoine.Text = "Cryptoine";
+            this.chkCryptoine.UseVisualStyleBackColor = true;
             // 
             // chkAtomictrade
             // 
@@ -861,7 +891,7 @@
             // chkComkort
             // 
             this.chkComkort.AutoSize = true;
-            this.chkComkort.Location = new System.Drawing.Point(101, 75);
+            this.chkComkort.Location = new System.Drawing.Point(101, 52);
             this.chkComkort.Name = "chkComkort";
             this.chkComkort.Size = new System.Drawing.Size(65, 17);
             this.chkComkort.TabIndex = 42;
@@ -936,6 +966,8 @@
             // 
             // tabControlSettings
             // 
+            this.tabControlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlSettings.Controls.Add(this.tabHashrates);
             this.tabControlSettings.Controls.Add(this.tabMarketApi);
             this.tabControlSettings.Controls.Add(this.tabCoinInfo);
@@ -946,23 +978,19 @@
             this.tabControlSettings.Controls.Add(this.tabMisc);
             this.tabControlSettings.Controls.Add(this.tabLog);
             this.tabControlSettings.Controls.Add(this.tabReadme);
-            this.tabControlSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControlSettings.Location = new System.Drawing.Point(0, 0);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(675, 194);
+            this.tabControlSettings.Size = new System.Drawing.Size(614, 194);
             this.tabControlSettings.TabIndex = 6;
             this.tabControlSettings.TabStop = false;
             // 
             // tabHashrates
             // 
-            this.tabHashrates.Controls.Add(this.btnAddDeleteProfile);
             this.tabHashrates.Controls.Add(this.dgvCustomAlgos);
-            this.tabHashrates.Controls.Add(this.cbbProfiles);
-            this.tabHashrates.Controls.Add(this.btnCalc);
             this.tabHashrates.Location = new System.Drawing.Point(4, 22);
             this.tabHashrates.Name = "tabHashrates";
-            this.tabHashrates.Size = new System.Drawing.Size(667, 168);
+            this.tabHashrates.Size = new System.Drawing.Size(606, 168);
             this.tabHashrates.TabIndex = 9;
             this.tabHashrates.Text = "Hashrates";
             this.tabHashrates.UseVisualStyleBackColor = true;
@@ -971,11 +999,11 @@
             // 
             this.dgvCustomAlgos.AllowUserToOrderColumns = true;
             this.dgvCustomAlgos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCustomAlgos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dgvCustomAlgos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCustomAlgos.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomAlgos.Name = "dgvCustomAlgos";
             this.dgvCustomAlgos.RowHeadersVisible = false;
-            this.dgvCustomAlgos.Size = new System.Drawing.Size(667, 135);
+            this.dgvCustomAlgos.Size = new System.Drawing.Size(606, 168);
             this.dgvCustomAlgos.TabIndex = 1;
             this.dgvCustomAlgos.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
             this.dgvCustomAlgos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomAlgos_EditingControlShowing);
@@ -987,7 +1015,7 @@
             this.tabCustomCoins.Controls.Add(this.dgvCustomCoins);
             this.tabCustomCoins.Location = new System.Drawing.Point(4, 22);
             this.tabCustomCoins.Name = "tabCustomCoins";
-            this.tabCustomCoins.Size = new System.Drawing.Size(667, 168);
+            this.tabCustomCoins.Size = new System.Drawing.Size(606, 168);
             this.tabCustomCoins.TabIndex = 8;
             this.tabCustomCoins.Text = "Custom Coins";
             this.tabCustomCoins.UseVisualStyleBackColor = true;
@@ -1000,7 +1028,7 @@
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";
             this.dgvCustomCoins.RowHeadersVisible = false;
-            this.dgvCustomCoins.Size = new System.Drawing.Size(667, 168);
+            this.dgvCustomCoins.Size = new System.Drawing.Size(606, 168);
             this.dgvCustomCoins.TabIndex = 0;
             this.dgvCustomCoins.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
             this.dgvCustomCoins.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomCoins_EditingControlShowing);
@@ -1016,7 +1044,7 @@
             this.tabFilters.Location = new System.Drawing.Point(4, 22);
             this.tabFilters.Name = "tabFilters";
             this.tabFilters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilters.Size = new System.Drawing.Size(667, 168);
+            this.tabFilters.Size = new System.Drawing.Size(606, 168);
             this.tabFilters.TabIndex = 6;
             this.tabFilters.Text = "Filters";
             this.tabFilters.UseVisualStyleBackColor = true;
@@ -1041,7 +1069,7 @@
             this.tabReadme.Location = new System.Drawing.Point(4, 22);
             this.tabReadme.Name = "tabReadme";
             this.tabReadme.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReadme.Size = new System.Drawing.Size(667, 168);
+            this.tabReadme.Size = new System.Drawing.Size(606, 168);
             this.tabReadme.TabIndex = 7;
             this.tabReadme.Text = "Readme";
             this.tabReadme.UseVisualStyleBackColor = true;
@@ -1055,48 +1083,20 @@
             this.txtReadme.Name = "txtReadme";
             this.txtReadme.ReadOnly = true;
             this.txtReadme.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtReadme.Size = new System.Drawing.Size(661, 162);
+            this.txtReadme.Size = new System.Drawing.Size(600, 162);
             this.txtReadme.TabIndex = 0;
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
     "aVu8BZL5K44CCq7E ";
-            // 
-            // nudTimeout
-            // 
-            this.nudTimeout.Location = new System.Drawing.Point(57, 30);
-            this.nudTimeout.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudTimeout.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudTimeout.Name = "nudTimeout";
-            this.nudTimeout.Size = new System.Drawing.Size(58, 20);
-            this.nudTimeout.TabIndex = 34;
-            this.nudTimeout.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // lblTimeout
-            // 
-            this.lblTimeout.AutoSize = true;
-            this.lblTimeout.Location = new System.Drawing.Point(6, 32);
-            this.lblTimeout.Name = "lblTimeout";
-            this.lblTimeout.Size = new System.Drawing.Size(45, 13);
-            this.lblTimeout.TabIndex = 35;
-            this.lblTimeout.Text = "Timeout";
             // 
             // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(675, 626);
+            this.ClientSize = new System.Drawing.Size(613, 626);
+            this.Controls.Add(this.btnAddDeleteProfile);
+            this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.dgView);
+            this.Controls.Add(this.cbbProfiles);
             this.Controls.Add(this.stStatusStrip);
             this.Controls.Add(this.tabControlSettings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1111,6 +1111,7 @@
             this.tabLog.PerformLayout();
             this.tabMisc.ResumeLayout(false);
             this.tabMisc.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.tabMultipool.ResumeLayout(false);
             this.tabMultipool.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).EndInit();
@@ -1131,7 +1132,6 @@
             this.tabFilters.PerformLayout();
             this.tabReadme.ResumeLayout(false);
             this.tabReadme.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1196,7 +1196,7 @@
         private System.Windows.Forms.CheckBox chkCointweak;
         private System.Windows.Forms.TabPage tabMarketApi;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkCryptoine;
         private System.Windows.Forms.CheckBox chkAtomictrade;
         private System.Windows.Forms.CheckBox chkComkort;
         private System.Windows.Forms.CheckBox chkAllcrypt;

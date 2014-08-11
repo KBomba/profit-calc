@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using ProfitCalc.ApiControl;
 
 namespace ProfitCalc
 {
@@ -175,12 +176,28 @@ namespace ProfitCalc
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
+            DataGridViewTextBoxColumn timeColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "BlockTime",
+                HeaderText = "Block Time",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            };
+
+            DataGridViewTextBoxColumn priceColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "CustomPrice",
+                HeaderText = "Price",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            };
+
             dgvCustomCoins.Columns.Add(checkColumn);
             dgvCustomCoins.Columns.Add(tagColumn);
             dgvCustomCoins.Columns.Add(nameColumn);
             dgvCustomCoins.Columns.Add(algoColumn);
             dgvCustomCoins.Columns.Add(diffColumn);
             dgvCustomCoins.Columns.Add(rewardColumn);
+            dgvCustomCoins.Columns.Add(timeColumn);
+            dgvCustomCoins.Columns.Add(priceColumn);
 
             dgvCustomCoins.DataSource = _customCoins;
         }
@@ -194,14 +211,33 @@ namespace ProfitCalc
                 {
                     cbbProfiles.Items.Add(hashRateJson.Key);
                 }
-                cbbProfiles.SelectedIndex = 0;
+                
             } 
+            else if (File.Exists("profiles.txt"))
+            {
+                _profileList = new Dictionary<string, Profile>();
+                Dictionary<string, OldHashrates> oldProfileList = 
+                    JsonControl.GetSerializedApiFile<Dictionary<string, OldHashrates>>("profiles.txt");
+                foreach (KeyValuePair<string, OldHashrates> oldHashrates in oldProfileList)
+                {
+                    _profileList.Add(oldHashrates.Key, GetProfileFromOldHashrates(oldHashrates.Value));
+                    cbbProfiles.Items.Add(oldHashrates.Key);
+                }
+            }
+            else if (File.Exists("hashrates.txt"))
+            {
+                _profileList = new Dictionary<string, Profile>
+                {
+                    {"hashrates.txt",GetProfileFromOldHashrates(JsonControl.GetSerializedApiFile<OldHashrates>("hashrates.txt"))}
+                };
+                cbbProfiles.Items.Add("hashrates.txt");
+            }
             else
             {
                 _profileList = GetDefaultProfileList();
                 cbbProfiles.Items.Add("Default");
-                cbbProfiles.SelectedIndex = 0;
             }
+            cbbProfiles.SelectedIndex = 0;
             
             if (File.Exists("apisettings.txt"))
             {
@@ -228,6 +264,7 @@ namespace ProfitCalc
                         () => chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"],
                         () => chkCCex.Checked = apiSettings.CheckedApis["C-Cex"],
                         () => chkComkort.Checked = apiSettings.CheckedApis["Comkort"],
+                        () => chkCryptoine.Checked = apiSettings.CheckedApis["Cryptoine"],
                         () => chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"],
                         () => chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"],
                         () => chkWhattomine.Checked = apiSettings.CheckedApis["WhatToMine"],
@@ -262,6 +299,60 @@ namespace ProfitCalc
                     AppendToLog("Error in apisettings.txt", exception);
                 }
             }
+        }
+
+        private Profile GetProfileFromOldHashrates(OldHashrates hashratesTxt)
+        {
+            Profile profile = new Profile();
+            foreach (KeyValuePair<string, double> hashrate in hashratesTxt.HashRateList)
+            {
+                CustomAlgo algo = new CustomAlgo
+                {
+                    Name = hashrate.Key.ToUpperInvariant(),
+                    HashRate = hashrate.Value,
+                    Wattage = hashratesTxt.WattageList[hashrate.Key],
+                };
+
+                // I was a fool for naming the keys differently :D
+                switch (hashrate.Key)
+                {
+                    case "MyriadGroestl":
+                        algo.Use = hashratesTxt.CheckedHashRates["MyrGroestl"];
+                        break;
+                    case "Nist5":
+                        algo.Use = hashratesTxt.CheckedHashRates["NIST5"];
+                        break;
+                    case "Heavy":
+                        algo.Use = hashratesTxt.CheckedHashRates["Hefty"];
+                        break;
+                    case "ScryptJane15":
+                        algo.Use = hashratesTxt.CheckedHashRates["Jane15"];
+                        break;
+                    case "ScryptJane14":
+                        algo.Use = hashratesTxt.CheckedHashRates["Jane14"];
+                        break;
+                    case "ScryptJane13":
+                        algo.Use = hashratesTxt.CheckedHashRates["Jane13"];
+                        break;
+                    default:
+                        algo.Use = hashratesTxt.CheckedHashRates[hashrate.Key];
+                        break;
+                }
+                
+                // Grabbing these new items from the default list
+                foreach (CustomAlgo defaultAlgo in GetDefaultProfileList()["Default"].CustomAlgoList)
+                {
+                    if (defaultAlgo.Name == algo.Name)
+                    {
+                        algo.SynonymsCsv = defaultAlgo.SynonymsCsv;
+                        algo.Style = defaultAlgo.Style;
+                    }
+                }
+
+                profile.CustomAlgoList.Add(algo);
+            }
+
+            return profile;
         }
 
         private void SaveSettings()
@@ -299,6 +390,7 @@ namespace ProfitCalc
                 apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
                 apiSettings.CheckedApis.Add("C-Cex", chkCCex.Checked);
                 apiSettings.CheckedApis.Add("Comkort", chkComkort.Checked);
+                apiSettings.CheckedApis.Add("Cryptoine", chkCryptoine.Checked);
 
                 apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
                 apiSettings.CheckedApis.Add("Nicehash", chkNiceHash.Checked);
@@ -336,6 +428,7 @@ namespace ProfitCalc
         {
             // Actual process starts here ^^"
             DateTime start = DateTime.Now;
+            Cursor = Cursors.AppStarting;
 
             tsStatus.Text = "Starting new profit calculation...";
             tsErrors.Text = "0 errors";
@@ -344,7 +437,7 @@ namespace ProfitCalc
 
             tsStatus.Text = "Parsing given hashrates...";
 
-            const int i = 6;
+            const int i = 5;
             GetCoinList(i);
             tsProgress.Value += i;
 
@@ -359,6 +452,7 @@ namespace ProfitCalc
             tsStatus.Text = "Completed in " + end.TotalSeconds.ToString("0.##") + " seconds";
 
             File.WriteAllText(@"log.txt", txtLog.Text);
+            Cursor = Cursors.Default;
         }
 
         private void CalculatePrices()
@@ -486,7 +580,7 @@ namespace ProfitCalc
                 hch.Proxy = null;
             }
 
-            HttpClient client = new HttpClient(hch, true)
+            HttpClient client = new HttpClient(hch, false)
             {
                 Timeout = TimeSpan.FromSeconds((double) nudTimeout.Value)
             };
@@ -755,6 +849,22 @@ namespace ProfitCalc
                 }
             }
 
+            tsProgress.Value += progress;
+            if (chkCryptoine.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with Cryptoine prices...";
+                    _coinList.UpdateCryptoine(cbbBidRecentAsk.SelectedIndex);
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while getting data from Cryptoine. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateCryptoine(cbbBidRecentAsk.SelectedIndex));
+                }
+            }
+
             if (erroredActions.Count > 0)
             {
                 tsStatus.Text = "Retrying errored market API's";
@@ -1017,7 +1127,8 @@ namespace ProfitCalc
                 scryptjane15,
                 scryptjane14,
                 scryptjane13,
-                cryptonight
+                cryptonight,
+                sha256
             };
 
             Profile defaultProfile = new Profile
@@ -1277,7 +1388,8 @@ namespace ProfitCalc
         private void dgvCustomCoins_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= Column_KeyPress;
-            if (dgvCustomCoins.CurrentCell.ColumnIndex == 3 || dgvCustomCoins.CurrentCell.ColumnIndex == 4) 
+            if (dgvCustomCoins.CurrentCell.ColumnIndex == 3 || dgvCustomCoins.CurrentCell.ColumnIndex == 4
+                || dgvCustomCoins.CurrentCell.ColumnIndex == 5 || dgvCustomCoins.CurrentCell.ColumnIndex == 6) 
             {
                 TextBox tb = e.Control as TextBox;
                 if (tb != null)

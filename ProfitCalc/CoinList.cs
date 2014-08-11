@@ -646,7 +646,68 @@ namespace ProfitCalc
                     //}
                 }));
         }
-        
+
+        public void UpdateCryptoine(int selectedIndex)
+        {
+            Cryptoine cry = JsonControl.DownloadSerializedApi<Cryptoine>(
+                _client.GetStreamAsync("https://cryptoine.com/api/1/markets").Result);
+
+            Parallel.ForEach(List, c => Parallel.ForEach(cry.Data, _po, cryCoin =>
+            {
+                string[] split = cryCoin.Key.Split('_');
+                if (split[1] == "btc" && split[0] == c.TagName.ToLowerInvariant())
+                {
+                    double priceToUse;
+                    switch (selectedIndex)
+                    {
+                        case 0:
+                            if (!double.TryParse(cryCoin.Value.Buy, out priceToUse))
+                            {
+                                priceToUse = cryCoin.Value.Last;
+                            }
+                            break;
+                        case 1:
+                            priceToUse = cryCoin.Value.Last;
+                            break;
+                        case 2:
+                            if (!double.TryParse(cryCoin.Value.Sell, out priceToUse))
+                            {
+                                priceToUse = cryCoin.Value.Last;
+                            }
+                            break;
+                        default:
+                            if (!double.TryParse(cryCoin.Value.Buy, out priceToUse))
+                            {
+                                priceToUse = cryCoin.Value.Last;
+                            }
+                            break;
+                    }
+
+                    Coin.Exchange cryExchange = new Coin.Exchange
+                    {
+                        ExchangeName = "Cryptoine",
+                        BtcPrice = priceToUse,
+                        BtcVolume = (cryCoin.Value.VolBase)
+                    };
+
+                    if (c.HasImplementedMarketApi)
+                    {
+                        c.Exchanges.Add(cryExchange);
+                        c.TotalVolume += cryExchange.BtcVolume;
+                    }
+                    else
+                    {
+                        c.Exchanges = new List<Coin.Exchange> { cryExchange };
+                        c.TotalVolume = cryExchange.BtcVolume;
+                        c.HasImplementedMarketApi = true;
+                    }
+
+                    _po.CancellationToken.ThrowIfCancellationRequested();
+                }
+                //}
+            }));
+        }
+
         public void UpdatePoolPicker(decimal average, bool reviewCalc)
         {
             DateTime whenToEnd = DateTime.UtcNow - new TimeSpan((int) average, 0, 0,0);

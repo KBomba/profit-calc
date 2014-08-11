@@ -62,11 +62,12 @@ namespace ProfitCalc
             Algo = customCoin.Algo;
             Difficulty = customCoin.Difficulty;
             BlockReward = customCoin.BlockReward;
+            BlockTime = customCoin.BlockTime;
             Height = 0;
             Exchange customExchange = new Exchange
             {
                 ExchangeName = "Unknown (Custom coin)",
-                BtcPrice = 0,
+                BtcPrice = customCoin.CustomPrice,
                 BtcVolume = 0,
                 Weight = 1,
                 IsFrozen = false
