@@ -216,6 +216,7 @@ namespace ProfitCalc
                         () => txtCoinwarzApiKey.Text = apiSettings.ApiSettings["CoinWarz"],
                         () => nudCryptoday.Text = apiSettings.ApiSettings["CrypToday"],
                         () => nudPoolpicker.Text = apiSettings.ApiSettings["PoolPicker"],
+                        () => nudTimeout.Text = apiSettings.ApiSettings["Timeout"],
                         () => txtProxy.Text = apiSettings.ApiSettings["ProxyURL"],
                         () => int.TryParse(apiSettings.ApiSettings["BidRecentAsk"], out savedIndex),
                         () => cbbBidRecentAsk.SelectedIndex = savedIndex,
@@ -286,6 +287,7 @@ namespace ProfitCalc
                 apiSettings.ApiSettings.Add("CoinWarz", txtCoinwarzApiKey.Text);
                 apiSettings.ApiSettings.Add("CrypToday", nudCryptoday.Text);
                 apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
+                apiSettings.ApiSettings.Add("Timeout", nudTimeout.Text);
                 apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
                 apiSettings.ApiSettings.Add("BidRecentAsk", cbbBidRecentAsk.SelectedIndex.ToString(CultureInfo.InvariantCulture));
 
@@ -484,9 +486,13 @@ namespace ProfitCalc
                 hch.Proxy = null;
             }
 
-            _coinList = new CoinList(new HttpClient(hch, true), _profileList[cbbProfiles.Text]);
+            HttpClient client = new HttpClient(hch, true)
+            {
+                Timeout = TimeSpan.FromSeconds((double) nudTimeout.Value)
+            };
+            _coinList = new CoinList(client, _profileList[cbbProfiles.Text]);
 
-            if (chkCustomCoins.Checked && _customCoins.Count > 0)
+            if (_customCoins.Count > 0)
             {
                 try
                 {
@@ -1328,31 +1334,6 @@ namespace ProfitCalc
         private void dgvCustomCoins_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells[0].Value = true;
-        }
-
-        private void chkCustomCoins_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkCustomCoins.Checked)
-            {
-                tabControlSettings.TabPages.Insert(2, tabCustomCoins);
-            }
-            else
-            {
-                tabControlSettings.TabPages.Remove(tabCustomCoins);
-            }
-        }
-
-        private void chkCustomAlgo_CheckedChanged(object sender, EventArgs e)
-        {
-            /*if (chkCustomAlgo.Checked)
-            {
-                tabControlSettings.TabPages.Insert(tabControlSettings.TabPages.Contains(tabCustomCoins) ? 3 : 2,
-                    tabHashrates);
-            }
-            else
-            {
-                tabControlSettings.TabPages.Remove(tabHashrates);
-            }*/
         }
 
         private void dgvCustomAlgos_Validated(object sender, EventArgs e)

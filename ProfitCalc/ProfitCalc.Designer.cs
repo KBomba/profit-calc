@@ -87,8 +87,6 @@
             this.chkRemoveNegative = new System.Windows.Forms.CheckBox();
             this.chkRemoveUnlisted = new System.Windows.Forms.CheckBox();
             this.tabCoinInfo = new System.Windows.Forms.TabPage();
-            this.chkCustomAlgo = new System.Windows.Forms.CheckBox();
-            this.chkCustomCoins = new System.Windows.Forms.CheckBox();
             this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
             this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
             this.chkWhattomine = new System.Windows.Forms.CheckBox();
@@ -115,6 +113,8 @@
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
             this.tabReadme = new System.Windows.Forms.TabPage();
             this.txtReadme = new System.Windows.Forms.TextBox();
+            this.nudTimeout = new System.Windows.Forms.NumericUpDown();
+            this.lblTimeout = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.ctxtStrip.SuspendLayout();
             this.stStatusStrip.SuspendLayout();
@@ -134,6 +134,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).BeginInit();
             this.tabFilters.SuspendLayout();
             this.tabReadme.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddDeleteProfile
@@ -461,6 +462,8 @@
             // 
             // tabMisc
             // 
+            this.tabMisc.Controls.Add(this.lblTimeout);
+            this.tabMisc.Controls.Add(this.nudTimeout);
             this.tabMisc.Controls.Add(this.txtProxy);
             this.tabMisc.Controls.Add(this.chkProxy);
             this.tabMisc.Location = new System.Drawing.Point(4, 22);
@@ -473,7 +476,7 @@
             // txtProxy
             // 
             this.txtProxy.Enabled = false;
-            this.txtProxy.Location = new System.Drawing.Point(63, 4);
+            this.txtProxy.Location = new System.Drawing.Point(64, 4);
             this.txtProxy.Name = "txtProxy";
             this.txtProxy.Size = new System.Drawing.Size(282, 20);
             this.txtProxy.TabIndex = 32;
@@ -726,8 +729,6 @@
             // 
             // tabCoinInfo
             // 
-            this.tabCoinInfo.Controls.Add(this.chkCustomAlgo);
-            this.tabCoinInfo.Controls.Add(this.chkCustomCoins);
             this.tabCoinInfo.Controls.Add(this.txtCointweakApiKey);
             this.tabCoinInfo.Controls.Add(this.txtCoinwarzApiKey);
             this.tabCoinInfo.Controls.Add(this.chkWhattomine);
@@ -740,32 +741,6 @@
             this.tabCoinInfo.TabIndex = 1;
             this.tabCoinInfo.Text = "Coin Info";
             this.tabCoinInfo.UseVisualStyleBackColor = true;
-            // 
-            // chkCustomAlgo
-            // 
-            this.chkCustomAlgo.AutoSize = true;
-            this.chkCustomAlgo.Checked = true;
-            this.chkCustomAlgo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCustomAlgo.Location = new System.Drawing.Point(6, 123);
-            this.chkCustomAlgo.Name = "chkCustomAlgo";
-            this.chkCustomAlgo.Size = new System.Drawing.Size(132, 17);
-            this.chkCustomAlgo.TabIndex = 33;
-            this.chkCustomAlgo.Text = "Use custom algorithms";
-            this.chkCustomAlgo.UseVisualStyleBackColor = true;
-            this.chkCustomAlgo.CheckedChanged += new System.EventHandler(this.chkCustomAlgo_CheckedChanged);
-            // 
-            // chkCustomCoins
-            // 
-            this.chkCustomCoins.AutoSize = true;
-            this.chkCustomCoins.Checked = true;
-            this.chkCustomCoins.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCustomCoins.Location = new System.Drawing.Point(6, 100);
-            this.chkCustomCoins.Name = "chkCustomCoins";
-            this.chkCustomCoins.Size = new System.Drawing.Size(110, 17);
-            this.chkCustomCoins.TabIndex = 32;
-            this.chkCustomCoins.Text = "Use custom coins";
-            this.chkCustomCoins.UseVisualStyleBackColor = true;
-            this.chkCustomCoins.CheckedChanged += new System.EventHandler(this.chkCustomCoins_CheckedChanged);
             // 
             // txtCointweakApiKey
             // 
@@ -1085,6 +1060,37 @@
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
     "aVu8BZL5K44CCq7E ";
             // 
+            // nudTimeout
+            // 
+            this.nudTimeout.Location = new System.Drawing.Point(57, 30);
+            this.nudTimeout.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudTimeout.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudTimeout.Name = "nudTimeout";
+            this.nudTimeout.Size = new System.Drawing.Size(58, 20);
+            this.nudTimeout.TabIndex = 34;
+            this.nudTimeout.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // lblTimeout
+            // 
+            this.lblTimeout.AutoSize = true;
+            this.lblTimeout.Location = new System.Drawing.Point(6, 32);
+            this.lblTimeout.Name = "lblTimeout";
+            this.lblTimeout.Size = new System.Drawing.Size(45, 13);
+            this.lblTimeout.TabIndex = 35;
+            this.lblTimeout.Text = "Timeout";
+            // 
             // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1125,6 +1131,7 @@
             this.tabFilters.PerformLayout();
             this.tabReadme.ResumeLayout(false);
             this.tabReadme.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1210,12 +1217,12 @@
         private System.Windows.Forms.TabPage tabCustomCoins;
         private System.Windows.Forms.DataGridView dgvCustomCoins;
         private System.Windows.Forms.CheckBox chkCCex;
-        private System.Windows.Forms.CheckBox chkCustomAlgo;
-        private System.Windows.Forms.CheckBox chkCustomCoins;
         private System.Windows.Forms.TabPage tabHashrates;
         private System.Windows.Forms.DataGridView dgvCustomAlgos;
         private System.Windows.Forms.NumericUpDown nudAmount;
         private System.Windows.Forms.Label lblAmountOfGpu;
+        private System.Windows.Forms.NumericUpDown nudTimeout;
+        private System.Windows.Forms.Label lblTimeout;
     }
 }
 
