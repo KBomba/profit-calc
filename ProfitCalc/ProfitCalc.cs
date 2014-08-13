@@ -110,7 +110,9 @@ namespace ProfitCalc
                 DataPropertyName = "HashRate",
                 HeaderText = "Hashrate (MH/s)",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                DefaultCellStyle = { Format = "#0.#########" }
             };
+
 
             DataGridViewTextBoxColumn wattageColumn = new DataGridViewTextBoxColumn
             {
@@ -200,7 +202,8 @@ namespace ProfitCalc
             {
                 DataPropertyName = "CustomPrice",
                 HeaderText = "Price",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                DefaultCellStyle = {Format = "N8"}
             };
 
             dgvCustomCoins.Columns.Add(checkColumn);
