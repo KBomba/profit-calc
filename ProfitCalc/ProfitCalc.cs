@@ -1565,5 +1565,23 @@ namespace ProfitCalc
                 }
             }
         }
+
+        private void chkAllHashrates_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (CustomAlgo algo in _profileList[cbbProfiles.Text].CustomAlgoList)
+            {
+                algo.Use = chkAllHashrates.Checked;
+            }
+            dgvCustomAlgos.Refresh();
+        }
+
+        private void chkAllCustomCoins_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (CustomCoin customCoin in _customCoins)
+            {
+                customCoin.Use = chkAllCustomCoins.Checked;
+            }
+            dgvCustomCoins.Refresh();
+        }
     }
 }
