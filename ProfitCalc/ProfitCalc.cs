@@ -18,6 +18,8 @@ namespace ProfitCalc
         private CoinList _coinList;
         private Dictionary<string,Profile> _profileList;
         private BindingList<CustomCoin> _customCoins;
+        private AutoCompleteStringCollection _historicAlgoList;
+
 
         public ProfitCalc()
         {
@@ -29,6 +31,13 @@ namespace ProfitCalc
 
             InitCustomAlgos();
             InitCustomCoins();
+
+            if (_historicAlgoList == null)
+            {
+                _historicAlgoList = new AutoCompleteStringCollection();
+            }
+            UpdateHistoricAlgo(_profileList[cbbProfiles.Items[0].ToString()].CustomAlgoList);
+
         }
 
         private void InitializeOtherComponents()
@@ -91,15 +100,16 @@ namespace ProfitCalc
             {
                 DataPropertyName = "Style",
                 HeaderText = "Calc style",
-                DataSource = Enum.GetValues(typeof(CalcStyle))
             };
+            styleColumn.Items.Add("Classic");
+            styleColumn.Items.Add("NetHashRate");
+            styleColumn.Items.Add("CryptoNight");
 
             DataGridViewTextBoxColumn hashrateColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "HashRate",
                 HeaderText = "Hashrate (MH/s)",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
-                MinimumWidth = 120
             };
 
             DataGridViewTextBoxColumn wattageColumn = new DataGridViewTextBoxColumn
@@ -107,7 +117,13 @@ namespace ProfitCalc
                 DataPropertyName = "Wattage",
                 HeaderText = "Wattage (W)",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
-                MinimumWidth = 120
+            };
+
+            DataGridViewTextBoxColumn targetColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Target",
+                HeaderText = "Target",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
             };
 
             dgvCustomAlgos.Columns.Add(checkColumn);
@@ -116,6 +132,7 @@ namespace ProfitCalc
             dgvCustomAlgos.Columns.Add(styleColumn);
             dgvCustomAlgos.Columns.Add(hashrateColumn);
             dgvCustomAlgos.Columns.Add(wattageColumn);
+            dgvCustomAlgos.Columns.Add(targetColumn);
 
             dgvCustomAlgos.DataSource = _profileList.First().Value.CustomAlgoList;
         }
@@ -150,17 +167,13 @@ namespace ProfitCalc
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             };
 
-            DataGridViewComboBoxColumn algoColumn = new DataGridViewComboBoxColumn
+
+            DataGridViewTextBoxColumn algoColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Algo",
                 HeaderText = "Algo",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                MinimumWidth = 120
             };
-            foreach (CustomAlgo customAlgo in _profileList.First().Value.CustomAlgoList)
-            {
-                algoColumn.Items.Add(customAlgo.Name);
-            }
 
             DataGridViewTextBoxColumn diffColumn = new DataGridViewTextBoxColumn
             {
@@ -248,6 +261,7 @@ namespace ProfitCalc
 
                     List<Action> settingsToLoad = new List<Action>
                     {
+                        () => _historicAlgoList = apiSettings.AllAlgoList,
                         () => txtCointweakApiKey.Text = apiSettings.ApiSettings["CoinTweak"],
                         () => txtCoinwarzApiKey.Text = apiSettings.ApiSettings["CoinWarz"],
                         () => nudCryptoday.Text = apiSettings.ApiSettings["CrypToday"],
@@ -301,6 +315,17 @@ namespace ProfitCalc
             }
         }
 
+        private void UpdateHistoricAlgo(IEnumerable<CustomAlgo> customAlgoList)
+        {
+            foreach (CustomAlgo customAlgo in customAlgoList)
+            {
+                if (!_historicAlgoList.Contains(customAlgo.Name))
+                {
+                    _historicAlgoList.Add(customAlgo.Name);
+                }
+            }
+        }
+
         private Profile GetProfileFromOldHashrates(OldHashrates hashratesTxt)
         {
             Profile profile = new Profile();
@@ -346,6 +371,7 @@ namespace ProfitCalc
                     {
                         algo.SynonymsCsv = defaultAlgo.SynonymsCsv;
                         algo.Style = defaultAlgo.Style;
+                        algo.Target = defaultAlgo.Target;
                     }
                 }
 
@@ -372,6 +398,7 @@ namespace ProfitCalc
                     ApiSettings = new Dictionary<string, string>(),
                     CheckedApis = new Dictionary<string, bool>(),
                     CheckedMisc = new Dictionary<string, bool>(),
+                    AllAlgoList = _historicAlgoList
                 };
 
                 apiSettings.ApiSettings.Add("CoinTweak", txtCointweakApiKey.Text);
@@ -925,7 +952,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 7.7,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo myrgroestl = new CustomAlgo
@@ -935,7 +963,8 @@ namespace ProfitCalc
                 SynonymsCsv = "MYRIADGROESTL",
                 HashRate = 12.9,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo fugue = new CustomAlgo
@@ -945,7 +974,8 @@ namespace ProfitCalc
                 SynonymsCsv = "FUGUE256",
                 HashRate = 93.9,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo jha = new CustomAlgo
@@ -955,7 +985,8 @@ namespace ProfitCalc
                 SynonymsCsv = "JACKPOT",
                 HashRate = 5.6,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo nist5 = new CustomAlgo
@@ -965,7 +996,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 8.4,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo heavy = new CustomAlgo
@@ -975,7 +1007,8 @@ namespace ProfitCalc
                 SynonymsCsv = "HEFTY,HEFTY1,HEAVYCOIN",
                 HashRate = 93.9,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo x11 = new CustomAlgo
@@ -985,7 +1018,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 2.6,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo x13 = new CustomAlgo
@@ -995,7 +1029,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 2.0,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo x15 = new CustomAlgo
@@ -1005,7 +1040,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 1.5,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo quark = new CustomAlgo
@@ -1015,7 +1051,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 4.5,
                 Wattage = 0,
-                Style = CalcStyle.Quark
+                Style = "Classic",
+                Target = 24
             };
 
             CustomAlgo qubit = new CustomAlgo
@@ -1025,7 +1062,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 3.9,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo keccak = new CustomAlgo
@@ -1035,7 +1073,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 163.1,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo scrypt = new CustomAlgo
@@ -1045,7 +1084,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 0.28,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo scryptn = new CustomAlgo
@@ -1055,7 +1095,8 @@ namespace ProfitCalc
                 SynonymsCsv = "SCRYPT-N,SCRYPT-ADAPTIVE-NFACTOR",
                 HashRate = 0.14,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo scryptjane15 = new CustomAlgo
@@ -1065,7 +1106,8 @@ namespace ProfitCalc
                 SynonymsCsv = "CHACHA (NF15)",
                 HashRate = 0.0009,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo scryptjane14 = new CustomAlgo
@@ -1075,7 +1117,8 @@ namespace ProfitCalc
                 SynonymsCsv = "CHACHA (NF14)",
                 HashRate = 0.0034,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo scryptjane13 = new CustomAlgo
@@ -1085,7 +1128,8 @@ namespace ProfitCalc
                 SynonymsCsv = "CHACHA (NF13)",
                 HashRate = 0.0095,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             CustomAlgo cryptonight = new CustomAlgo
@@ -1095,7 +1139,8 @@ namespace ProfitCalc
                 SynonymsCsv = "",
                 HashRate = 0.00022,
                 Wattage = 0,
-                Style = CalcStyle.CryptoNight
+                Style = "CryptoNight",
+                Target = 0
             };
 
             CustomAlgo sha256 = new CustomAlgo
@@ -1105,7 +1150,8 @@ namespace ProfitCalc
                 SynonymsCsv = "SHA-256",
                 HashRate = 0,
                 Wattage = 0,
-                Style = CalcStyle.Classic
+                Style = "Classic",
+                Target = 32
             };
 
             BindingList<CustomAlgo> algoList = new BindingList<CustomAlgo>
@@ -1215,6 +1261,11 @@ namespace ProfitCalc
         private void cbbFiat_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetVisibleFiatColumn();
+
+            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.SelectedText))
+            {
+                _profileList[cbbProfiles.SelectedText].FiatOfChoice = cbbFiat.SelectedIndex;
+            }
         }
 
         private void SetVisibleFiatColumn()
@@ -1349,8 +1400,16 @@ namespace ProfitCalc
         private void cbbProfiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             dgvCustomAlgos.AutoGenerateColumns = false;
-            dgvCustomAlgos.DataSource = _profileList[cbbProfiles.Text].CustomAlgoList;
-            if (_coinList != null && _coinList.UsedProfile != null) _coinList.UsedProfile = _profileList[cbbProfiles.Text];
+            
+            if (_coinList != null && _coinList.UsedProfile != null)
+            {
+                dgvCustomAlgos.DataSource = _profileList[cbbProfiles.Text].CustomAlgoList;
+                _coinList.UsedProfile = _profileList[cbbProfiles.Text];
+                nudAmount.Value = _coinList.UsedProfile.Multiplier;
+                cbbFiat.SelectedIndex = _coinList.UsedProfile.FiatOfChoice;
+                txtFiatElectricityCost.Text = _coinList.UsedProfile.FiatPerKwh.ToString(CultureInfo.InvariantCulture);
+                UpdateHistoricAlgo(_profileList[cbbProfiles.SelectedText].CustomAlgoList);
+            }
         }
 
         private void dgvCustomCoins_MouseUp(object sender, MouseEventArgs e)
@@ -1388,13 +1447,23 @@ namespace ProfitCalc
         private void dgvCustomCoins_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= Column_KeyPress;
-            if (dgvCustomCoins.CurrentCell.ColumnIndex == 3 || dgvCustomCoins.CurrentCell.ColumnIndex == 4
-                || dgvCustomCoins.CurrentCell.ColumnIndex == 5 || dgvCustomCoins.CurrentCell.ColumnIndex == 6) 
+            e.Control.KeyPress -= AlgoColumn_KeyPress;
+            TextBox tb = e.Control as TextBox;
+            if (tb != null)
             {
-                TextBox tb = e.Control as TextBox;
-                if (tb != null)
+                switch (dgvCustomCoins.CurrentCell.ColumnIndex)
                 {
-                    tb.KeyPress += Column_KeyPress;
+                    case 3:
+                        tb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        tb.AutoCompleteCustomSource = _historicAlgoList;
+                        tb.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                        tb.KeyPress += AlgoColumn_KeyPress;
+                        break;
+                    case 6:
+                    case 5:
+                    case 4:
+                        tb.KeyPress += Column_KeyPress;
+                        break;
                 }
             }
         }
@@ -1403,20 +1472,29 @@ namespace ProfitCalc
         {
             e.Control.KeyPress -= Column_KeyPress;
             e.Control.KeyPress -= NameOrSynonymColumn_KeyPress;
-            if (dgvCustomAlgos.CurrentCell.ColumnIndex == 4 || dgvCustomAlgos.CurrentCell.ColumnIndex == 5)
+
+            TextBox tb = e.Control as TextBox;
+            if (tb != null)
             {
-                TextBox tb = e.Control as TextBox;
-                if (tb != null)
+                switch (dgvCustomAlgos.CurrentCell.ColumnIndex)
                 {
-                    tb.KeyPress += Column_KeyPress;
+                    case 5:
+                    case 4:
+                        tb.KeyPress += Column_KeyPress;
+                        break;
+                    case 2:
+                    case 1:
+                        tb.KeyPress += NameOrSynonymColumn_KeyPress;
+                        break;
                 }
-            } else if (dgvCustomAlgos.CurrentCell.ColumnIndex == 1 || dgvCustomAlgos.CurrentCell.ColumnIndex == 2)
+            }
+        }
+
+        private void AlgoColumn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && char.IsLetterOrDigit(e.KeyChar))
             {
-                TextBox tb = e.Control as TextBox;
-                if (tb != null)
-                {
-                    tb.KeyPress += NameOrSynonymColumn_KeyPress;
-                }
+                e.KeyChar = char.ToUpperInvariant(e.KeyChar);
             }
         }
 
@@ -1424,7 +1502,7 @@ namespace ProfitCalc
         {
             if (!char.IsControl(e.KeyChar) && e.KeyChar != ',')
             {
-                if (char.IsLetter(e.KeyChar))
+                if (char.IsLetterOrDigit(e.KeyChar))
                 {
                     e.KeyChar = char.ToUpperInvariant(e.KeyChar);
                 }
@@ -1446,23 +1524,46 @@ namespace ProfitCalc
         private void dgvCustomCoins_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells[0].Value = true;
+            e.Row.Cells[3].Value = _profileList[cbbProfiles.Text]
+                .CustomAlgoList[_profileList[cbbProfiles.Text].CustomAlgoList.Count - 1].Name;
+        }
+
+
+        private void dgvCustomAlgos_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells[0].Value = true;
+            e.Row.Cells[3].Value = "Classic";
+            e.Row.Cells[6].Value = 32;
         }
 
         private void dgvCustomAlgos_Validated(object sender, EventArgs e)
         {
-            dgvCustomCoins.Columns.RemoveAt(3);
-            DataGridViewComboBoxColumn algoColumn = new DataGridViewComboBoxColumn
+            UpdateHistoricAlgo(_profileList[cbbProfiles.Text].CustomAlgoList);
+        }
+
+        private void nudAmount_ValueChanged(object sender, EventArgs e)
+        {
+            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.SelectedText))
             {
-                DataPropertyName = "Algo",
-                HeaderText = "Algo",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                MinimumWidth = 120
-            };
-            foreach (CustomAlgo customAlgo in _profileList.First().Value.CustomAlgoList)
-            {
-                algoColumn.Items.Add(customAlgo.Name);
+                _profileList[cbbProfiles.SelectedText].Multiplier = (int) nudAmount.Value;
             }
-            dgvCustomCoins.Columns.Insert(3, algoColumn);
+        }
+
+        private void txtFiatElectricityCost_TextChanged(object sender, EventArgs e)
+        {
+            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.SelectedText))
+            {
+                double fiatPerKwh = 0;
+                if (double.TryParse(txtFiatElectricityCost.Text, NumberStyles.Any,
+                    CultureInfo.InvariantCulture, out fiatPerKwh))
+                {
+                    _profileList[cbbProfiles.SelectedText].FiatPerKwh = fiatPerKwh;
+                }
+                else
+                {
+                    txtFiatElectricityCost.Text = "0";
+                }
+            }
         }
     }
 }

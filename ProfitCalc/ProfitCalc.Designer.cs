@@ -115,6 +115,7 @@
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
             this.tabReadme = new System.Windows.Forms.TabPage();
             this.txtReadme = new System.Windows.Forms.TextBox();
+            this.chkAllHashrates = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.ctxtStrip.SuspendLayout();
             this.stStatusStrip.SuspendLayout();
@@ -202,6 +203,7 @@
             this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
             this.txtFiatElectricityCost.TabIndex = 67;
             this.txtFiatElectricityCost.Text = "0.1";
+            this.txtFiatElectricityCost.TextChanged += new System.EventHandler(this.txtFiatElectricityCost_TextChanged);
             // 
             // chkCoindesk
             // 
@@ -443,7 +445,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(703, 168);
+            this.tabLog.Size = new System.Drawing.Size(606, 168);
             this.tabLog.TabIndex = 5;
             this.tabLog.Text = "Log";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -456,7 +458,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(697, 162);
+            this.txtLog.Size = new System.Drawing.Size(600, 162);
             this.txtLog.TabIndex = 0;
             this.txtLog.WordWrap = false;
             // 
@@ -698,6 +700,7 @@
             0,
             0,
             0});
+            this.nudAmount.ValueChanged += new System.EventHandler(this.nudAmount_ValueChanged);
             // 
             // chkWeight
             // 
@@ -987,6 +990,7 @@
             // 
             // tabHashrates
             // 
+            this.tabHashrates.Controls.Add(this.chkAllHashrates);
             this.tabHashrates.Controls.Add(this.dgvCustomAlgos);
             this.tabHashrates.Location = new System.Drawing.Point(4, 22);
             this.tabHashrates.Name = "tabHashrates";
@@ -998,14 +1002,13 @@
             // dgvCustomAlgos
             // 
             this.dgvCustomAlgos.AllowUserToOrderColumns = true;
-            this.dgvCustomAlgos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomAlgos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCustomAlgos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCustomAlgos.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomAlgos.Name = "dgvCustomAlgos";
-            this.dgvCustomAlgos.RowHeadersVisible = false;
             this.dgvCustomAlgos.Size = new System.Drawing.Size(606, 168);
             this.dgvCustomAlgos.TabIndex = 1;
-            this.dgvCustomAlgos.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
+            this.dgvCustomAlgos.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomAlgos_DefaultValuesNeeded);
             this.dgvCustomAlgos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomAlgos_EditingControlShowing);
             this.dgvCustomAlgos.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvCustomAlgos_MouseUp);
             this.dgvCustomAlgos.Validated += new System.EventHandler(this.dgvCustomAlgos_Validated);
@@ -1027,7 +1030,6 @@
             this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";
-            this.dgvCustomCoins.RowHeadersVisible = false;
             this.dgvCustomCoins.Size = new System.Drawing.Size(606, 168);
             this.dgvCustomCoins.TabIndex = 0;
             this.dgvCustomCoins.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
@@ -1088,6 +1090,17 @@
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
     "aVu8BZL5K44CCq7E ";
             // 
+            // chkAllHashrates
+            // 
+            this.chkAllHashrates.AutoSize = true;
+            this.chkAllHashrates.Checked = true;
+            this.chkAllHashrates.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAllHashrates.Location = new System.Drawing.Point(45, 6);
+            this.chkAllHashrates.Name = "chkAllHashrates";
+            this.chkAllHashrates.Size = new System.Drawing.Size(15, 14);
+            this.chkAllHashrates.TabIndex = 2;
+            this.chkAllHashrates.UseVisualStyleBackColor = true;
+            // 
             // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1125,6 +1138,7 @@
             this.tabMarketApi.PerformLayout();
             this.tabControlSettings.ResumeLayout(false);
             this.tabHashrates.ResumeLayout(false);
+            this.tabHashrates.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomAlgos)).EndInit();
             this.tabCustomCoins.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).EndInit();
@@ -1223,6 +1237,7 @@
         private System.Windows.Forms.Label lblAmountOfGpu;
         private System.Windows.Forms.NumericUpDown nudTimeout;
         private System.Windows.Forms.Label lblTimeout;
+        private System.Windows.Forms.CheckBox chkAllHashrates;
     }
 }
 

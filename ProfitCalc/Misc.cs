@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace ProfitCalc
 {
@@ -26,6 +27,8 @@ namespace ProfitCalc
         public Dictionary<string, bool> CheckedApis { get; set; }
 
         public Dictionary<string, bool> CheckedMisc { get; set; }
+
+        public AutoCompleteStringCollection AllAlgoList { get; set; }
     }
 
     internal class CustomCoin
@@ -47,17 +50,11 @@ namespace ProfitCalc
         public string Name { get; set; }
         public string SynonymsCsv { get; set; }
 
-        public CalcStyle Style { get; set; }
+        public string Style { get; set; }
         public double HashRate { get; set; }
         public double Wattage { get; set; }
-    }
-
-    public enum CalcStyle
-    {
-        Classic,
-        Quark,
-        CryptoNight,
-        NetHashRate
+        // Target = log2 diff 1 target
+        public double Target { get; set; }
     }
 
     internal class OldHashrates
@@ -67,9 +64,5 @@ namespace ProfitCalc
         public Dictionary<string, double> WattageList { get; set; }
 
         public Dictionary<string, bool> CheckedHashRates { get; set; }
-
-        public double FiatPerKwh { get; set; }
-
-        public int FiatOfChoice { get; set; }
     }
 }

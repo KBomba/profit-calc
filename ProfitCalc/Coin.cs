@@ -10,9 +10,8 @@ namespace ProfitCalc
     {
         public string FullName { get; set; }
         public string TagName { get; set; }
-
-        //public HashAlgo.Algo Algo { get; set; }
         public string Algo { get; set; }
+
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
         public double BlockTime { get; set; }
@@ -211,7 +210,7 @@ namespace ProfitCalc
             HasImplementedMarketApi = false;
         }
 
-        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier, CalcStyle diffCalculationCalcStyle)
+        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier, string diffCalculationCalcStyle, double target)
         {
             if (IsMultiPool)
             {
@@ -224,21 +223,17 @@ namespace ProfitCalc
 
                 switch (diffCalculationCalcStyle)
                 {
-                    case CalcStyle.CryptoNight:
+                    case "CryptoNight":
                         //Cryptonight's difficulty is net hashrate * 60
                         CoinsPerDay = (BlockReward * ((24 * 60 * 60) / BlockTime)) 
                             * ((hashRateMh * 1000000) / (Difficulty / 60)) * multiplier;
                         break;
-                    case CalcStyle.Quark:
-                        CoinsPerDay = (BlockReward / (Difficulty * Math.Pow(2, 24)
-                            / (hashRateMh * 1000000) / 3600 / 24)) * multiplier;
-                        break;
-                    case CalcStyle.NetHashRate:
+                    case "NetHashRate":
                         CoinsPerDay = (BlockReward * ((24 * 60 * 60) / BlockTime))
-                            * ((hashRateMh * 1000000) / (Difficulty * Math.Pow(2, 32) / BlockTime)) * multiplier;
+                            * ((hashRateMh * 1000000) / (Difficulty * Math.Pow(2, target) / BlockTime)) * multiplier;
                         break;
                     default:
-                        CoinsPerDay = (BlockReward / (Difficulty * Math.Pow(2, 32)
+                        CoinsPerDay = (BlockReward / (Difficulty * Math.Pow(2, target)
                             / (hashRateMh * 1000000) / 3600 / 24)) * multiplier;
                         break;
                 }

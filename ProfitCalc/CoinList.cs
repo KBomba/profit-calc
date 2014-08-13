@@ -50,17 +50,17 @@ namespace ProfitCalc
                 }
             }
 
-            if (!found && UsedInProfile(newCoin.Algo))
+            if (!found && UsedInProfile(newCoin.Algo, UsedProfile.CustomAlgoList))
             {
                 List.Add(newCoin);
             }
         }
 
-        private bool UsedInProfile(string algo)
+        private bool UsedInProfile(string algo, IEnumerable<CustomAlgo> customAlgoList)
         {
             bool used = false;
 
-            Parallel.ForEach(UsedProfile.CustomAlgoList, _po, savedAlgo =>
+            Parallel.ForEach(customAlgoList, _po, savedAlgo =>
             {
                 if (savedAlgo.Name == algo && savedAlgo.Use)
                 {
@@ -83,7 +83,7 @@ namespace ProfitCalc
             }
         }
 
-        private string GetCleanedAlgo(string algo)
+        public string GetCleanedAlgo(string algo)
         {
             string cleanAlgo = algo.Trim();
             Parallel.ForEach(UsedProfile.CustomAlgoList, _po, savedAlgo =>
@@ -877,7 +877,7 @@ namespace ProfitCalc
             {
                 if (coin.Algo == algo.Name)
                 {
-                    coin.CalcProfitability(algo.HashRate, useWeightedCalculation, UsedProfile.Multiplier, algo.Style);
+                    coin.CalcProfitability(algo.HashRate, useWeightedCalculation, UsedProfile.Multiplier, algo.Style, algo.Target);
 
                     if (calcFiat)
                     {
