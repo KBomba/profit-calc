@@ -1586,5 +1586,9 @@ namespace ProfitCalc
             }
             dgvCustomCoins.Refresh();
         }
+
+        private void picDonate_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

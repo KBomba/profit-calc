@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
             this.cbbProfiles = new System.Windows.Forms.ComboBox();
@@ -112,12 +112,13 @@
             this.chkAllHashrates = new System.Windows.Forms.CheckBox();
             this.dgvCustomAlgos = new System.Windows.Forms.DataGridView();
             this.tabCustomCoins = new System.Windows.Forms.TabPage();
+            this.chkAllCustomCoins = new System.Windows.Forms.CheckBox();
             this.dgvCustomCoins = new System.Windows.Forms.DataGridView();
             this.tabFilters = new System.Windows.Forms.TabPage();
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
             this.tabReadme = new System.Windows.Forms.TabPage();
             this.txtReadme = new System.Windows.Forms.TextBox();
-            this.chkAllCustomCoins = new System.Windows.Forms.CheckBox();
+            this.picDonate = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.ctxtStrip.SuspendLayout();
             this.stStatusStrip.SuspendLayout();
@@ -138,6 +139,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).BeginInit();
             this.tabFilters.SuspendLayout();
             this.tabReadme.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDonate)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddDeleteProfile
@@ -224,9 +226,9 @@
             // 
             this.dgView.AllowUserToAddRows = false;
             this.dgView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -728,8 +730,6 @@
             // chkRemoveTooGoodToBeTrue
             // 
             this.chkRemoveTooGoodToBeTrue.AutoSize = true;
-            this.chkRemoveTooGoodToBeTrue.Checked = true;
-            this.chkRemoveTooGoodToBeTrue.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveTooGoodToBeTrue.Location = new System.Drawing.Point(6, 52);
             this.chkRemoveTooGoodToBeTrue.Name = "chkRemoveTooGoodToBeTrue";
             this.chkRemoveTooGoodToBeTrue.Size = new System.Drawing.Size(287, 17);
@@ -753,8 +753,6 @@
             // 
             this.chkRemoveUnlisted.AutoSize = true;
             this.chkRemoveUnlisted.BackColor = System.Drawing.Color.Transparent;
-            this.chkRemoveUnlisted.Checked = true;
-            this.chkRemoveUnlisted.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveUnlisted.Location = new System.Drawing.Point(6, 6);
             this.chkRemoveUnlisted.Name = "chkRemoveUnlisted";
             this.chkRemoveUnlisted.Size = new System.Drawing.Size(291, 17);
@@ -1038,19 +1036,31 @@
             this.tabCustomCoins.Text = "Custom Coins";
             this.tabCustomCoins.UseVisualStyleBackColor = true;
             // 
+            // chkAllCustomCoins
+            // 
+            this.chkAllCustomCoins.AutoSize = true;
+            this.chkAllCustomCoins.Checked = true;
+            this.chkAllCustomCoins.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAllCustomCoins.Location = new System.Drawing.Point(45, 6);
+            this.chkAllCustomCoins.Name = "chkAllCustomCoins";
+            this.chkAllCustomCoins.Size = new System.Drawing.Size(15, 14);
+            this.chkAllCustomCoins.TabIndex = 81;
+            this.chkAllCustomCoins.UseVisualStyleBackColor = true;
+            this.chkAllCustomCoins.CheckedChanged += new System.EventHandler(this.chkAllCustomCoins_CheckedChanged);
+            // 
             // dgvCustomCoins
             // 
             this.dgvCustomCoins.AllowUserToOrderColumns = true;
             this.dgvCustomCoins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.NullValue = "0";
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCustomCoins.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.NullValue = "0";
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCustomCoins.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";
@@ -1079,8 +1089,6 @@
             // 
             this.chkRemoveFrozenCoins.AutoSize = true;
             this.chkRemoveFrozenCoins.BackColor = System.Drawing.Color.Transparent;
-            this.chkRemoveFrozenCoins.Checked = true;
-            this.chkRemoveFrozenCoins.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoveFrozenCoins.Location = new System.Drawing.Point(6, 29);
             this.chkRemoveFrozenCoins.Name = "chkRemoveFrozenCoins";
             this.chkRemoveFrozenCoins.Size = new System.Drawing.Size(285, 17);
@@ -1114,23 +1122,23 @@
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
     "aVu8BZL5K44CCq7E ";
             // 
-            // chkAllCustomCoins
+            // picDonate
             // 
-            this.chkAllCustomCoins.AutoSize = true;
-            this.chkAllCustomCoins.Checked = true;
-            this.chkAllCustomCoins.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAllCustomCoins.Location = new System.Drawing.Point(45, 6);
-            this.chkAllCustomCoins.Name = "chkAllCustomCoins";
-            this.chkAllCustomCoins.Size = new System.Drawing.Size(15, 14);
-            this.chkAllCustomCoins.TabIndex = 81;
-            this.chkAllCustomCoins.UseVisualStyleBackColor = true;
-            this.chkAllCustomCoins.CheckedChanged += new System.EventHandler(this.chkAllCustomCoins_CheckedChanged);
+            this.picDonate.Image = ((System.Drawing.Image)(resources.GetObject("picDonate.Image")));
+            this.picDonate.Location = new System.Drawing.Point(451, 202);
+            this.picDonate.Name = "picDonate";
+            this.picDonate.Size = new System.Drawing.Size(64, 17);
+            this.picDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picDonate.TabIndex = 81;
+            this.picDonate.TabStop = false;
+            this.picDonate.Click += new System.EventHandler(this.picDonate_Click);
             // 
             // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 626);
+            this.Controls.Add(this.picDonate);
             this.Controls.Add(this.btnAddDeleteProfile);
             this.Controls.Add(this.btnCalc);
             this.Controls.Add(this.dgView);
@@ -1172,6 +1180,7 @@
             this.tabFilters.PerformLayout();
             this.tabReadme.ResumeLayout(false);
             this.tabReadme.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDonate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1265,6 +1274,7 @@
         private System.Windows.Forms.Label lblTimeout;
         private System.Windows.Forms.CheckBox chkAllHashrates;
         private System.Windows.Forms.CheckBox chkAllCustomCoins;
+        private System.Windows.Forms.PictureBox picDonate;
     }
 }
 
