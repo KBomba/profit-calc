@@ -28,10 +28,10 @@ namespace ProfitCalc.ApiControl
             public double Difficulty { get; set; }
 
             /*[JsonProperty("difficulty24")]
-            public double Difficulty24 { get; set; }
+            public double Difficulty24 { get; set; }*/
 
             [JsonProperty("nethash")]
-            public double Nethash { get; set; }*/
+            public double Nethash { get; set; }
 
             [JsonProperty("exchange_rate")]
             public double ExchangeRate { get; set; }

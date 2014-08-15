@@ -1437,8 +1437,8 @@ namespace ProfitCalc
         {
             if (e.Button == MouseButtons.Left)
             {
-                DataGridView.HitTestInfo hitTestInfo = dgvCustomCoins.HitTest(e.X, e.Y);
-                if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+                if (dgvCustomCoins.HitTest(e.X, e.Y).Type 
+                    == DataGridViewHitTestType.Cell)
                 {
                     dgvCustomCoins.BeginEdit(true);
                 }
@@ -1453,8 +1453,8 @@ namespace ProfitCalc
         {
             if (e.Button == MouseButtons.Left)
             {
-                DataGridView.HitTestInfo hitTestInfo = dgvCustomAlgos.HitTest(e.X, e.Y);
-                if (hitTestInfo.Type == DataGridViewHitTestType.Cell)
+                if (dgvCustomAlgos.HitTest(e.X, e.Y).Type 
+                    == DataGridViewHitTestType.Cell)
                 {
                     dgvCustomAlgos.BeginEdit(true);
                 }
@@ -1467,7 +1467,7 @@ namespace ProfitCalc
 
         private void dgvCustomCoins_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            e.Control.KeyPress -= Column_KeyPress;
+            e.Control.KeyPress -= NumberColumn_KeyPress;
             e.Control.KeyPress -= AlgoColumn_KeyPress;
             TextBox tb = e.Control as TextBox;
             if (tb != null)
@@ -1480,10 +1480,10 @@ namespace ProfitCalc
                         tb.AutoCompleteSource = AutoCompleteSource.CustomSource;
                         tb.KeyPress += AlgoColumn_KeyPress;
                         break;
-                    case 6:
-                    case 5:
                     case 4:
-                        tb.KeyPress += Column_KeyPress;
+                    case 5:
+                    case 6:
+                        tb.KeyPress += NumberColumn_KeyPress;
                         break;
                 }
             }
@@ -1491,7 +1491,7 @@ namespace ProfitCalc
 
         private void dgvCustomAlgos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            e.Control.KeyPress -= Column_KeyPress;
+            e.Control.KeyPress -= NumberColumn_KeyPress;
             e.Control.KeyPress -= NameOrSynonymColumn_KeyPress;
 
             TextBox tb = e.Control as TextBox;
@@ -1499,13 +1499,13 @@ namespace ProfitCalc
             {
                 switch (dgvCustomAlgos.CurrentCell.ColumnIndex)
                 {
-                    case 5:
-                    case 4:
-                        tb.KeyPress += Column_KeyPress;
-                        break;
-                    case 2:
                     case 1:
+                    case 2:
                         tb.KeyPress += NameOrSynonymColumn_KeyPress;
+                        break;
+                    case 4:
+                    case 5:
+                        tb.KeyPress += NumberColumn_KeyPress;
                         break;
                 }
             }
@@ -1534,7 +1534,7 @@ namespace ProfitCalc
             }
         }
 
-        private void Column_KeyPress(object sender, KeyPressEventArgs e)
+        private void NumberColumn_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != ',')
             {
@@ -1545,8 +1545,7 @@ namespace ProfitCalc
         private void dgvCustomCoins_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells[0].Value = true;
-            e.Row.Cells[3].Value = _profileList[cbbProfiles.Text]
-                .CustomAlgoList[_profileList[cbbProfiles.Text].CustomAlgoList.Count - 1].Name;
+            e.Row.Cells[3].Value = _profileList[cbbProfiles.Text].CustomAlgoList[_profileList[cbbProfiles.Text].CustomAlgoList.Count - 1].Name;
         }
 
 
@@ -1574,7 +1573,7 @@ namespace ProfitCalc
         {
             if (_profileList != null && _profileList.ContainsKey(cbbProfiles.SelectedText))
             {
-                double fiatPerKwh = 0;
+                double fiatPerKwh;
                 if (double.TryParse(txtFiatElectricityCost.Text, NumberStyles.Any,
                     CultureInfo.InvariantCulture, out fiatPerKwh))
                 {

@@ -15,6 +15,7 @@ namespace ProfitCalc
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
         public double BlockTime { get; set; }
+        public double NetHashRate { get; set; }
         public uint Height { get; set; }
 
         public List<Exchange> Exchanges { get; set; }
@@ -35,8 +36,7 @@ namespace ProfitCalc
 
         public double WeightedBtcPrice { get; set; }
         public double TotalVolume { get; set; }
-
-
+        
         public double CoinsPerDay { get; set; }
         public double BtcPerDay { get; set; }
 
@@ -141,7 +141,9 @@ namespace ProfitCalc
             Difficulty = wtmCoin.Value.Difficulty;
             BlockReward = wtmCoin.Value.BlockReward;
             BlockTime = wtmCoin.Value.BlockTime;
+            NetHashRate = wtmCoin.Value.Nethash;
             Height = wtmCoin.Value.LastBlock;
+
             Exchange wtmExchange = new Exchange
             {
                 ExchangeName = "Unknown (WhatToMine)",
@@ -168,6 +170,7 @@ namespace ProfitCalc
 
             Difficulty = ctwCoin.Difficulty;
             BlockReward = ctwCoin.BlockCoins;
+
             Exchange ctwExchange = new Exchange
             {
                 ExchangeName = ctwCoin.ExName + " (CoinTweak)",
@@ -196,6 +199,7 @@ namespace ProfitCalc
             BlockReward = cwzCoin.BlockReward;
             BlockTime = cwzCoin.BlockTimeInSeconds;
             Height = cwzCoin.BlockCount;
+
             Exchange cwzExchange = new Exchange
             {
                 ExchangeName = cwzCoin.Exchange + " (CoinWarz)",
@@ -229,8 +233,11 @@ namespace ProfitCalc
                             * ((hashRateMh * 1000000) / (Difficulty / 60)) * multiplier;
                         break;
                     case "NetHashRate":
+                        double netHash = NetHashRate != 0
+                            ? NetHashRate
+                            : Difficulty*Math.Pow(2, target)/BlockTime;
                         CoinsPerDay = (BlockReward * ((24 * 60 * 60) / BlockTime))
-                            * ((hashRateMh * 1000000) / (Difficulty * Math.Pow(2, target) / BlockTime)) * multiplier;
+                            * ((hashRateMh * 1000000) / netHash) * multiplier;
                         break;
                     default:
                         CoinsPerDay = (BlockReward / (Difficulty * Math.Pow(2, target)
