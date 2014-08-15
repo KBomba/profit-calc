@@ -294,6 +294,7 @@ namespace ProfitCalc
                         () => chkRemoveUnlisted.Checked = apiSettings.CheckedMisc["RemoveUnlisted"],
                         () => chkRemoveFrozenCoins.Checked = apiSettings.CheckedMisc["RemoveFrozen"],
                         () => chkRemoveTooGoodToBeTrue.Checked = apiSettings.CheckedMisc["RemoveTooGoodToBeTrue"],
+                        () => chkRemoveZeroVolume.Checked = apiSettings.CheckedMisc["RemoveZeroVolume"],
                         () => chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"],
                         () => chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"],
                         () => chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"],
@@ -437,6 +438,7 @@ namespace ProfitCalc
                 apiSettings.CheckedMisc.Add("RemoveUnlisted", chkRemoveUnlisted.Checked);
                 apiSettings.CheckedMisc.Add("RemoveFrozen", chkRemoveUnlisted.Checked);
                 apiSettings.CheckedMisc.Add("RemoveTooGoodToBeTrue", chkRemoveTooGoodToBeTrue.Checked);
+                apiSettings.CheckedMisc.Add("RemoveZeroVolume", chkRemoveZeroVolume.Checked);
                 apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
                 apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
                 apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
@@ -524,14 +526,21 @@ namespace ProfitCalc
             {
                 tsStatus.Text = "Removing coins with a volume lower than you can earn..";
                 tempCoinList = tempCoinList.Where(coin =>
-                    coin.TotalVolume > coin.BtcPerDay || coin.IsMultiPool || Double.IsNaN(coin.BtcPerDay));
+                    coin.TotalVolume > coin.BtcPerDay || coin.IsMultiPool);
+            }
+
+            if (chkRemoveZeroVolume.Checked)
+            {
+                tsStatus.Text = "Removing coins with zero volume..";
+                tempCoinList = tempCoinList.Where(coin =>
+                    coin.TotalVolume > 0 || coin.IsMultiPool || Double.IsNaN(coin.TotalVolume));
             }
 
             if (chkRemoveNegative.Checked)
             {
                 tsStatus.Text = "Removing results with a negative profit..";
                 tempCoinList = tempCoinList.Where(coin =>
-                    coin.BtcPerDay >= 0);
+                    coin.BtcPerDay > 0);
             }
 
             return new List<Coin>(tempCoinList.OrderByDescending(o => o.BtcPerDay));
@@ -588,6 +597,11 @@ namespace ProfitCalc
             if (coin.IsMultiPool)
             {
                 return Color.YellowGreen;
+            }
+
+            if (coin.TotalVolume == 0)
+            {
+                return Color.BurlyWood;
             }
 
             if (coin.TotalVolume < coin.BtcPerDay)
@@ -1380,6 +1394,7 @@ namespace ProfitCalc
                 chkRemoveUnlisted.BackColor = Color.Plum;
                 chkRemoveFrozenCoins.BackColor = Color.DeepSkyBlue;
                 chkRemoveTooGoodToBeTrue.BackColor = Color.PaleTurquoise;
+                chkRemoveZeroVolume.BackColor = Color.BurlyWood;
                 chkRemoveNegative.BackColor = Color.Red;
                 tabMultipool.BackColor = Color.YellowGreen;
                 tabCoinInfo.BackColor = Color.GreenYellow;
@@ -1390,6 +1405,7 @@ namespace ProfitCalc
                 chkRemoveUnlisted.BackColor = Color.Transparent;
                 chkRemoveFrozenCoins.BackColor = Color.Transparent;
                 chkRemoveTooGoodToBeTrue.BackColor = Color.Transparent;
+                chkRemoveZeroVolume.BackColor = Color.Transparent;
                 chkRemoveNegative.BackColor = Color.Transparent;
                 tabMultipool.BackColor = Color.Transparent;
                 tabCoinInfo.BackColor = Color.Transparent;
