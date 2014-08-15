@@ -711,6 +711,84 @@ namespace ProfitCalc
             }));
         }
 
+        public void UpdateBTer(int selectedIndex)
+        {
+            Dictionary<string, BTer> btPairs = JsonControl.DownloadSerializedApi<Dictionary<string, BTer>>(
+                _client.GetStreamAsync("http://data.bter.com/api/1/tickers").Result);
+
+            Parallel.ForEach(List, c => Parallel.ForEach(btPairs, _po, btCoin =>
+            {
+                /*foreach (Coin c in List)
+                {
+                    foreach (KeyValuePair<string, ...)
+                    {*/
+                string[] split = btCoin.Key.Split('_');
+                if (split[1] == "btc" && split[0].ToUpperInvariant() == c.TagName)
+                {
+                    double priceToUse;
+                    switch (selectedIndex)
+                    {
+                        case 0:
+                            if (!double.TryParse(btCoin.Value.Buy, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out priceToUse)
+                                && !double.TryParse(btCoin.Value.Last, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out priceToUse))
+                            {
+                                priceToUse = 0;
+                            }
+                            break;
+                        case 1:
+                            if (!double.TryParse(btCoin.Value.Last, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out priceToUse))
+                            {
+                                priceToUse = 0;
+                            }
+                            break;
+                        case 2:
+                            if (!double.TryParse(btCoin.Value.Sell, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out priceToUse)
+                                && !double.TryParse(btCoin.Value.Last, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out priceToUse))
+                            {
+                                priceToUse = 0;
+                            }
+                            break;
+                        default:
+                            if (!double.TryParse(btCoin.Value.Buy, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out priceToUse)
+                                && !double.TryParse(btCoin.Value.Last, NumberStyles.Float,
+                                CultureInfo.InvariantCulture, out priceToUse))
+                            {
+                                priceToUse = 0;
+                            }
+                            break;
+                    }
+
+                    Coin.Exchange btExchange = new Coin.Exchange
+                    {
+                        ExchangeName = "BTer",
+                        BtcPrice = priceToUse,
+                        BtcVolume = Convert.ToDouble(btCoin.Value.Vols["vol_btc"].ToString())
+                    };
+
+                    if (c.HasImplementedMarketApi)
+                    {
+                        c.Exchanges.Add(btExchange);
+                        c.TotalVolume += btExchange.BtcVolume;
+                    }
+                    else
+                    {
+                        c.Exchanges = new List<Coin.Exchange> { btExchange };
+                        c.TotalVolume = btExchange.BtcVolume;
+                        c.HasImplementedMarketApi = true;
+                    }
+
+                    _po.CancellationToken.ThrowIfCancellationRequested();
+                }
+                //}
+            }));
+        }
+
         public void UpdatePoolPicker(decimal average, bool reviewCalc)
         {
             DateTime whenToEnd = DateTime.UtcNow - new TimeSpan((int) average, 0, 0,0);

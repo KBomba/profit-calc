@@ -277,6 +277,7 @@ namespace ProfitCalc
                         () => chkMintpal.Checked = apiSettings.CheckedApis["Mintpal"],
                         () => chkCryptsy.Checked = apiSettings.CheckedApis["Cryptsy"],
                         () => chkPoloniex.Checked = apiSettings.CheckedApis["Poloniex"],
+                        () => chkBTer.Checked = apiSettings.CheckedApis["BTer"],
                         () => chkAllcoin.Checked = apiSettings.CheckedApis["AllCoin"],
                         () => chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"],
                         () => chkCCex.Checked = apiSettings.CheckedApis["C-Cex"],
@@ -416,6 +417,7 @@ namespace ProfitCalc
                 apiSettings.CheckedApis.Add("Mintpal", chkMintpal.Checked);
                 apiSettings.CheckedApis.Add("Cryptsy", chkCryptsy.Checked);
                 apiSettings.CheckedApis.Add("Poloniex", chkPoloniex.Checked);
+                apiSettings.CheckedApis.Add("BTer", chkBTer.Checked);
                 apiSettings.CheckedApis.Add("AllCoin", chkAllcoin.Checked);
                 apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
                 apiSettings.CheckedApis.Add("C-Cex", chkCCex.Checked);
@@ -812,6 +814,22 @@ namespace ProfitCalc
                     AppendToLog("Error while getting data from Poloniex. Will be retried.",
                         exception);
                     erroredActions.Add(() => _coinList.UpdatePoloniex(cbbBidRecentAsk.SelectedIndex));
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkBTer.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with BTer prices...";
+                    _coinList.UpdateBTer(cbbBidRecentAsk.SelectedIndex);
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while getting data from BTer. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateBTer(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 

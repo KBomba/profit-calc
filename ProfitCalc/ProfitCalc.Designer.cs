@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
             this.cbbProfiles = new System.Windows.Forms.ComboBox();
@@ -97,7 +97,7 @@
             this.chkCointweak = new System.Windows.Forms.CheckBox();
             this.tabMarketApi = new System.Windows.Forms.TabPage();
             this.chkCCex = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.chkBTer = new System.Windows.Forms.CheckBox();
             this.chkCryptoine = new System.Windows.Forms.CheckBox();
             this.chkAtomictrade = new System.Windows.Forms.CheckBox();
             this.chkComkort = new System.Windows.Forms.CheckBox();
@@ -226,9 +226,9 @@
             // 
             this.dgView.AllowUserToAddRows = false;
             this.dgView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -831,7 +831,7 @@
             // tabMarketApi
             // 
             this.tabMarketApi.Controls.Add(this.chkCCex);
-            this.tabMarketApi.Controls.Add(this.checkBox2);
+            this.tabMarketApi.Controls.Add(this.chkBTer);
             this.tabMarketApi.Controls.Add(this.chkCryptoine);
             this.tabMarketApi.Controls.Add(this.chkAtomictrade);
             this.tabMarketApi.Controls.Add(this.chkComkort);
@@ -852,28 +852,27 @@
             // chkCCex
             // 
             this.chkCCex.AutoSize = true;
-            this.chkCCex.Location = new System.Drawing.Point(6, 98);
+            this.chkCCex.Location = new System.Drawing.Point(106, 52);
             this.chkCCex.Name = "chkCCex";
             this.chkCCex.Size = new System.Drawing.Size(54, 17);
             this.chkCCex.TabIndex = 46;
             this.chkCCex.Text = "C-Cex";
             this.chkCCex.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // chkBTer
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(272, 121);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(61, 17);
-            this.checkBox2.TabIndex = 45;
-            this.checkBox2.Text = "Alcurex";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.Visible = false;
+            this.chkBTer.AutoSize = true;
+            this.chkBTer.Location = new System.Drawing.Point(106, 29);
+            this.chkBTer.Name = "chkBTer";
+            this.chkBTer.Size = new System.Drawing.Size(49, 17);
+            this.chkBTer.TabIndex = 45;
+            this.chkBTer.Text = "BTer";
+            this.chkBTer.UseVisualStyleBackColor = true;
             // 
             // chkCryptoine
             // 
             this.chkCryptoine.AutoSize = true;
-            this.chkCryptoine.Location = new System.Drawing.Point(101, 75);
+            this.chkCryptoine.Location = new System.Drawing.Point(306, 6);
             this.chkCryptoine.Name = "chkCryptoine";
             this.chkCryptoine.Size = new System.Drawing.Size(70, 17);
             this.chkCryptoine.TabIndex = 44;
@@ -883,7 +882,7 @@
             // chkAtomictrade
             // 
             this.chkAtomictrade.AutoSize = true;
-            this.chkAtomictrade.Location = new System.Drawing.Point(177, 121);
+            this.chkAtomictrade.Location = new System.Drawing.Point(291, 134);
             this.chkAtomictrade.Name = "chkAtomictrade";
             this.chkAtomictrade.Size = new System.Drawing.Size(89, 17);
             this.chkAtomictrade.TabIndex = 43;
@@ -894,7 +893,7 @@
             // chkComkort
             // 
             this.chkComkort.AutoSize = true;
-            this.chkComkort.Location = new System.Drawing.Point(101, 52);
+            this.chkComkort.Location = new System.Drawing.Point(206, 6);
             this.chkComkort.Name = "chkComkort";
             this.chkComkort.Size = new System.Drawing.Size(65, 17);
             this.chkComkort.TabIndex = 42;
@@ -904,7 +903,7 @@
             // chkAllcrypt
             // 
             this.chkAllcrypt.AutoSize = true;
-            this.chkAllcrypt.Location = new System.Drawing.Point(101, 29);
+            this.chkAllcrypt.Location = new System.Drawing.Point(206, 52);
             this.chkAllcrypt.Name = "chkAllcrypt";
             this.chkAllcrypt.Size = new System.Drawing.Size(61, 17);
             this.chkAllcrypt.TabIndex = 41;
@@ -914,7 +913,7 @@
             // chkAllcoin
             // 
             this.chkAllcoin.AutoSize = true;
-            this.chkAllcoin.Location = new System.Drawing.Point(101, 6);
+            this.chkAllcoin.Location = new System.Drawing.Point(206, 29);
             this.chkAllcoin.Name = "chkAllcoin";
             this.chkAllcoin.Size = new System.Drawing.Size(58, 17);
             this.chkAllcoin.TabIndex = 40;
@@ -936,7 +935,7 @@
             // chkCryptsy
             // 
             this.chkCryptsy.AutoSize = true;
-            this.chkCryptsy.Location = new System.Drawing.Point(6, 75);
+            this.chkCryptsy.Location = new System.Drawing.Point(106, 6);
             this.chkCryptsy.Name = "chkCryptsy";
             this.chkCryptsy.Size = new System.Drawing.Size(60, 17);
             this.chkCryptsy.TabIndex = 38;
@@ -1052,15 +1051,15 @@
             // 
             this.dgvCustomCoins.AllowUserToOrderColumns = true;
             this.dgvCustomCoins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.NullValue = "0";
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCustomCoins.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = "0";
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCustomCoins.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";
@@ -1131,6 +1130,7 @@
             this.picDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picDonate.TabIndex = 81;
             this.picDonate.TabStop = false;
+            this.picDonate.Visible = false;
             this.picDonate.Click += new System.EventHandler(this.picDonate_Click);
             // 
             // ProfitCalc
@@ -1244,7 +1244,7 @@
         private System.Windows.Forms.CheckBox chkCoinwarz;
         private System.Windows.Forms.CheckBox chkCointweak;
         private System.Windows.Forms.TabPage tabMarketApi;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox chkBTer;
         private System.Windows.Forms.CheckBox chkCryptoine;
         private System.Windows.Forms.CheckBox chkAtomictrade;
         private System.Windows.Forms.CheckBox chkComkort;
