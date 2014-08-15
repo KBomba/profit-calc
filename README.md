@@ -21,13 +21,15 @@ Supported APIs
 ================
 - Bittrex:		https://bittrex.com/
 - Mintpal:		https://mintpal.com/
-- Cryptsy:		https://cryptsy.com/
 - Poloniex:	https://poloniex.com/
+- Cryptsy:		https://cryptsy.com/
+- BTer:		https://bter.com/
 - AllCoin:		https://allcoin.com/
 - AllCrypt:	https://allcrypt.com/
 - C-Cex:		https://c-cex.com/
-- Cryptoine: 	https://cryptoine.com/
 - Comkort:		https://comkort.com/
+- AtomicTrade:	https://www.atomic-trade.com/
+- Cryptoine: 	https://cryptoine.com/
 - WhatToMine:	http://whattomine.com/
 - CoinTweak:	https://cointweak.com/
 - CoinWarz:	http://coinwarz.com/

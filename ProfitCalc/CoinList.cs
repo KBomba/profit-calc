@@ -794,12 +794,12 @@ namespace ProfitCalc
             List<AtomicTradePair> atPairs = JsonControl.DownloadSerializedApi<List<AtomicTradePair>>(
                 _client.GetStreamAsync("https://www.atomic-trade.com/SimpleAPI?a=marketsv2").Result);
 
-            /*Parallel.ForEach(List, c => Parallel.ForEach(atPairs, _po, atCoin =>
-            {*/
-            foreach (Coin c in List)
+            Parallel.ForEach(List, c => Parallel.ForEach(atPairs, _po, atCoin =>
+            {
+            /*foreach (Coin c in List)
             {
                 foreach (var atCoin in atPairs)
-                {
+                {*/
                     string[] split = atCoin.Market.Split('/');
                     if (split[1] == "BTC" && split[0] == c.TagName)
                     {
@@ -864,9 +864,8 @@ namespace ProfitCalc
 
                         _po.CancellationToken.ThrowIfCancellationRequested();
                     }
-                }
-            }
-            //}));
+                //}}
+            }));
         }
 
         public void UpdatePoolPicker(decimal average, bool reviewCalc)
