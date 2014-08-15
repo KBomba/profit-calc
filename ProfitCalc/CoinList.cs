@@ -789,6 +789,86 @@ namespace ProfitCalc
             }));
         }
 
+        public void UpdateAtomicTrade(int selectedIndex)
+        {
+            List<AtomicTradePair> atPairs = JsonControl.DownloadSerializedApi<List<AtomicTradePair>>(
+                _client.GetStreamAsync("https://www.atomic-trade.com/SimpleAPI?a=marketsv2").Result);
+
+            /*Parallel.ForEach(List, c => Parallel.ForEach(atPairs, _po, atCoin =>
+            {*/
+            foreach (Coin c in List)
+            {
+                foreach (var atCoin in atPairs)
+                {
+                    string[] split = atCoin.Market.Split('/');
+                    if (split[1] == "BTC" && split[0] == c.TagName)
+                    {
+                        AtomicTradeOrders atOrders = JsonControl.DownloadSerializedApi<AtomicTradeOrders>(
+                            _client.GetStreamAsync("https://www.atomic-trade.com/SimpleAPI?a=orderbook&p=BTC&c=" +
+                                                   c.TagName).Result);
+
+                        double priceToUse;
+                        switch (selectedIndex)
+                        {
+                            case 0:
+                                if (atOrders.Market.Buyorders == null || !atOrders.Market.Buyorders.Any()
+                                    || !double.TryParse(atOrders.Market.Buyorders[0].Price,
+                                        NumberStyles.Float, CultureInfo.InvariantCulture, out priceToUse))
+                                {
+                                    priceToUse = 0;
+                                }
+                                break;
+                            case 1:
+                                if (!double.TryParse(atCoin.Price, NumberStyles.Float, 
+                                    CultureInfo.InvariantCulture, out priceToUse))
+                                {
+                                    priceToUse = 0;
+                                }
+                                break;
+                            case 2:
+                                if (atOrders.Market.Sellorders == null || !atOrders.Market.Sellorders.Any()
+                                    || !double.TryParse(atOrders.Market.Sellorders[0].Price,
+                                        NumberStyles.Float, CultureInfo.InvariantCulture, out priceToUse))
+                                {
+                                    priceToUse = 0;
+                                }
+                                break;
+                            default:
+                                if (atOrders.Market.Buyorders == null || !atOrders.Market.Buyorders.Any()
+                                    || !double.TryParse(atOrders.Market.Buyorders[0].Price,
+                                        NumberStyles.Float, CultureInfo.InvariantCulture, out priceToUse))
+                                {
+                                    priceToUse = 0;
+                                }
+                                break;
+                        }
+
+                        Coin.Exchange atExchange = new Coin.Exchange
+                        {
+                            ExchangeName = "Atomic Trade",
+                            BtcPrice = priceToUse,
+                            BtcVolume = double.Parse(atCoin.Volume, NumberStyles.Float, CultureInfo.InvariantCulture)*priceToUse
+                        };
+
+                        if (c.HasImplementedMarketApi)
+                        {
+                            c.Exchanges.Add(atExchange);
+                            c.TotalVolume += atExchange.BtcVolume;
+                        }
+                        else
+                        {
+                            c.Exchanges = new List<Coin.Exchange> {atExchange};
+                            c.TotalVolume = atExchange.BtcVolume;
+                            c.HasImplementedMarketApi = true;
+                        }
+
+                        _po.CancellationToken.ThrowIfCancellationRequested();
+                    }
+                }
+            }
+            //}));
+        }
+
         public void UpdatePoolPicker(decimal average, bool reviewCalc)
         {
             DateTime whenToEnd = DateTime.UtcNow - new TimeSpan((int) average, 0, 0,0);

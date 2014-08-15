@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
             this.cbbProfiles = new System.Windows.Forms.ComboBox();
@@ -872,7 +871,7 @@
             // chkCryptoine
             // 
             this.chkCryptoine.AutoSize = true;
-            this.chkCryptoine.Location = new System.Drawing.Point(306, 6);
+            this.chkCryptoine.Location = new System.Drawing.Point(306, 29);
             this.chkCryptoine.Name = "chkCryptoine";
             this.chkCryptoine.Size = new System.Drawing.Size(70, 17);
             this.chkCryptoine.TabIndex = 44;
@@ -882,13 +881,12 @@
             // chkAtomictrade
             // 
             this.chkAtomictrade.AutoSize = true;
-            this.chkAtomictrade.Location = new System.Drawing.Point(291, 134);
+            this.chkAtomictrade.Location = new System.Drawing.Point(306, 6);
             this.chkAtomictrade.Name = "chkAtomictrade";
             this.chkAtomictrade.Size = new System.Drawing.Size(89, 17);
             this.chkAtomictrade.TabIndex = 43;
             this.chkAtomictrade.Text = "Atomic Trade";
             this.chkAtomictrade.UseVisualStyleBackColor = true;
-            this.chkAtomictrade.Visible = false;
             // 
             // chkComkort
             // 
@@ -1051,7 +1049,6 @@
             // 
             this.dgvCustomCoins.AllowUserToOrderColumns = true;
             this.dgvCustomCoins.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvCustomCoins.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCustomCoins.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";

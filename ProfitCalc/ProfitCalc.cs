@@ -282,6 +282,7 @@ namespace ProfitCalc
                         () => chkAllcrypt.Checked = apiSettings.CheckedApis["AllCrypt"],
                         () => chkCCex.Checked = apiSettings.CheckedApis["C-Cex"],
                         () => chkComkort.Checked = apiSettings.CheckedApis["Comkort"],
+                        () => chkAtomictrade.Checked = apiSettings.CheckedApis["AtomicTrade"],
                         () => chkCryptoine.Checked = apiSettings.CheckedApis["Cryptoine"],
                         () => chkCoindesk.Checked = apiSettings.CheckedApis["CoinDesk"],
                         () => chkNiceHash.Checked = apiSettings.CheckedApis["Nicehash"],
@@ -422,6 +423,7 @@ namespace ProfitCalc
                 apiSettings.CheckedApis.Add("AllCrypt", chkAllcrypt.Checked);
                 apiSettings.CheckedApis.Add("C-Cex", chkCCex.Checked);
                 apiSettings.CheckedApis.Add("Comkort", chkComkort.Checked);
+                apiSettings.CheckedApis.Add("AtomicTrade", chkAtomictrade.Checked);
                 apiSettings.CheckedApis.Add("Cryptoine", chkCryptoine.Checked);
 
                 apiSettings.CheckedApis.Add("CoinDesk", chkCoindesk.Checked);
@@ -894,6 +896,22 @@ namespace ProfitCalc
                     AppendToLog("Error while getting data from Comkort. Will be retried.",
                         exception);
                     erroredActions.Add(() => _coinList.UpdateComkort(cbbBidRecentAsk.SelectedIndex));
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkAtomictrade.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with Atomic Trade prices...";
+                    _coinList.UpdateAtomicTrade(cbbBidRecentAsk.SelectedIndex);
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while getting data from Comkort. Will be retried.",
+                        exception);
+                    erroredActions.Add(() => _coinList.UpdateAtomicTrade(cbbBidRecentAsk.SelectedIndex));
                 }
             }
 
