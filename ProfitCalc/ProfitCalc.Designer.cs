@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
             this.cbbProfiles = new System.Windows.Forms.ComboBox();
@@ -114,11 +114,11 @@
             this.chkAllCustomCoins = new System.Windows.Forms.CheckBox();
             this.dgvCustomCoins = new System.Windows.Forms.DataGridView();
             this.tabFilters = new System.Windows.Forms.TabPage();
+            this.chkRemoveZeroVolume = new System.Windows.Forms.CheckBox();
             this.chkRemoveFrozenCoins = new System.Windows.Forms.CheckBox();
             this.tabReadme = new System.Windows.Forms.TabPage();
             this.txtReadme = new System.Windows.Forms.TextBox();
             this.picDonate = new System.Windows.Forms.PictureBox();
-            this.chkRemoveZeroVolume = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.ctxtStrip.SuspendLayout();
             this.stStatusStrip.SuspendLayout();
@@ -226,9 +226,9 @@
             // 
             this.dgView.AllowUserToAddRows = false;
             this.dgView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1076,6 +1076,17 @@
             this.tabFilters.Text = "Filters";
             this.tabFilters.UseVisualStyleBackColor = true;
             // 
+            // chkRemoveZeroVolume
+            // 
+            this.chkRemoveZeroVolume.AutoSize = true;
+            this.chkRemoveZeroVolume.Location = new System.Drawing.Point(6, 75);
+            this.chkRemoveZeroVolume.Name = "chkRemoveZeroVolume";
+            this.chkRemoveZeroVolume.Size = new System.Drawing.Size(200, 17);
+            this.chkRemoveZeroVolume.TabIndex = 43;
+            this.chkRemoveZeroVolume.Text = "Remove coins with zero daily volume";
+            this.chkRemoveZeroVolume.UseVisualStyleBackColor = true;
+            this.chkRemoveZeroVolume.CheckedChanged += new System.EventHandler(this.reasonToUpdateDgv_CheckedChanged);
+            // 
             // chkRemoveFrozenCoins
             // 
             this.chkRemoveFrozenCoins.AutoSize = true;
@@ -1110,8 +1121,8 @@
             this.txtReadme.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtReadme.Size = new System.Drawing.Size(600, 162);
             this.txtReadme.TabIndex = 0;
-            this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate @ 1MVBPhMaeuj5daZtaK" +
-    "aVu8BZL5K44CCq7E ";
+            this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate some BTC @ 1MVBPhMae" +
+    "uj5daZtaKaVu8BZL5K44CCq7E ";
             // 
             // picDonate
             // 
@@ -1124,17 +1135,6 @@
             this.picDonate.TabStop = false;
             this.picDonate.Visible = false;
             this.picDonate.Click += new System.EventHandler(this.picDonate_Click);
-            // 
-            // chkRemoveZeroVolume
-            // 
-            this.chkRemoveZeroVolume.AutoSize = true;
-            this.chkRemoveZeroVolume.Location = new System.Drawing.Point(6, 75);
-            this.chkRemoveZeroVolume.Name = "chkRemoveZeroVolume";
-            this.chkRemoveZeroVolume.Size = new System.Drawing.Size(200, 17);
-            this.chkRemoveZeroVolume.TabIndex = 43;
-            this.chkRemoveZeroVolume.Text = "Remove coins with zero daily volume";
-            this.chkRemoveZeroVolume.UseVisualStyleBackColor = true;
-            this.chkRemoveZeroVolume.CheckedChanged += new System.EventHandler(this.reasonToUpdateDgv_CheckedChanged);
             // 
             // ProfitCalc
             // 
