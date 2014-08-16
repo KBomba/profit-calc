@@ -62,6 +62,7 @@ namespace ProfitCalc
             Difficulty = customCoin.Difficulty;
             BlockReward = customCoin.BlockReward;
             BlockTime = customCoin.BlockTime;
+            NetHashRate = customCoin.NetHashRate*1000000;
             Height = 0;
             Exchange customExchange = new Exchange
             {
@@ -189,6 +190,10 @@ namespace ProfitCalc
         {
             FullName = cwzCoin.CoinName;
             TagName = cwzCoin.CoinTag.ToUpper();
+            if (FullName == "Starcoin" && TagName == "STR") 
+            {
+                TagName = "STAR";
+            }
             Algo = cwzCoin.Algorithm.ToUpperInvariant();
             if (TagName == "MYR" && Algo == "GROESTL")
             {

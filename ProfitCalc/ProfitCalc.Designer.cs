@@ -166,7 +166,7 @@
             // btnCalc
             // 
             this.btnCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCalc.Location = new System.Drawing.Point(521, 199);
+            this.btnCalc.Location = new System.Drawing.Point(653, 199);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(80, 23);
             this.btnCalc.TabIndex = 26;
@@ -259,7 +259,7 @@
             this.dgView.ReadOnly = true;
             this.dgView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgView.Size = new System.Drawing.Size(614, 375);
+            this.dgView.Size = new System.Drawing.Size(746, 375);
             this.dgView.TabIndex = 1;
             // 
             // Tag
@@ -410,7 +410,7 @@
             this.tsErrors});
             this.stStatusStrip.Location = new System.Drawing.Point(0, 604);
             this.stStatusStrip.Name = "stStatusStrip";
-            this.stStatusStrip.Size = new System.Drawing.Size(613, 22);
+            this.stStatusStrip.Size = new System.Drawing.Size(745, 22);
             this.stStatusStrip.TabIndex = 3;
             this.stStatusStrip.Text = "Status Striper";
             // 
@@ -435,7 +435,7 @@
             // tsSpace
             // 
             this.tsSpace.Name = "tsSpace";
-            this.tsSpace.Size = new System.Drawing.Size(345, 17);
+            this.tsSpace.Size = new System.Drawing.Size(477, 17);
             this.tsSpace.Spring = true;
             // 
             // tsErrors
@@ -982,7 +982,7 @@
             this.tabControlSettings.Location = new System.Drawing.Point(0, 0);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(614, 194);
+            this.tabControlSettings.Size = new System.Drawing.Size(746, 194);
             this.tabControlSettings.TabIndex = 6;
             this.tabControlSettings.TabStop = false;
             // 
@@ -992,7 +992,7 @@
             this.tabHashrates.Controls.Add(this.dgvCustomAlgos);
             this.tabHashrates.Location = new System.Drawing.Point(4, 22);
             this.tabHashrates.Name = "tabHashrates";
-            this.tabHashrates.Size = new System.Drawing.Size(606, 168);
+            this.tabHashrates.Size = new System.Drawing.Size(738, 168);
             this.tabHashrates.TabIndex = 9;
             this.tabHashrates.Text = "Hashrates";
             this.tabHashrates.UseVisualStyleBackColor = true;
@@ -1016,7 +1016,7 @@
             this.dgvCustomAlgos.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomAlgos.Name = "dgvCustomAlgos";
             this.dgvCustomAlgos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvCustomAlgos.Size = new System.Drawing.Size(606, 168);
+            this.dgvCustomAlgos.Size = new System.Drawing.Size(738, 168);
             this.dgvCustomAlgos.TabIndex = 1;
             this.dgvCustomAlgos.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomAlgos_DefaultValuesNeeded);
             this.dgvCustomAlgos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomAlgos_EditingControlShowing);
@@ -1126,8 +1126,9 @@
             // 
             // picDonate
             // 
+            this.picDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDonate.Image = ((System.Drawing.Image)(resources.GetObject("picDonate.Image")));
-            this.picDonate.Location = new System.Drawing.Point(451, 202);
+            this.picDonate.Location = new System.Drawing.Point(583, 201);
             this.picDonate.Name = "picDonate";
             this.picDonate.Size = new System.Drawing.Size(64, 17);
             this.picDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -1140,7 +1141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(613, 626);
+            this.ClientSize = new System.Drawing.Size(745, 626);
             this.Controls.Add(this.picDonate);
             this.Controls.Add(this.btnAddDeleteProfile);
             this.Controls.Add(this.btnCalc);

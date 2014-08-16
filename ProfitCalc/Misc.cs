@@ -41,6 +41,7 @@ namespace ProfitCalc
         public double Difficulty { get; set; }
         public double BlockReward { get; set; }
         public double BlockTime { get; set; }
+        public double NetHashRate { get; set; }
         public double CustomPrice { get; set; }
     }
 

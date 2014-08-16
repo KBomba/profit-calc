@@ -191,6 +191,13 @@ namespace ProfitCalc
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
+            DataGridViewTextBoxColumn nethashColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NetHashRate",
+                HeaderText = "Net Hashrate (MH/s)",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            };
+
             DataGridViewTextBoxColumn timeColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "BlockTime",
@@ -213,6 +220,7 @@ namespace ProfitCalc
             dgvCustomCoins.Columns.Add(diffColumn);
             dgvCustomCoins.Columns.Add(rewardColumn);
             dgvCustomCoins.Columns.Add(timeColumn);
+            dgvCustomCoins.Columns.Add(nethashColumn);
             dgvCustomCoins.Columns.Add(priceColumn);
 
             dgvCustomCoins.DataSource = _customCoins;
@@ -254,6 +262,10 @@ namespace ProfitCalc
                 cbbProfiles.Items.Add("Default");
             }
             cbbProfiles.SelectedIndex = 0;
+            nudAmount.Value = _profileList[cbbProfiles.Text].Multiplier;
+            cbbFiat.SelectedIndex = _profileList[cbbProfiles.Text].FiatOfChoice;
+            txtFiatElectricityCost.Text = _profileList[cbbProfiles.Text].FiatPerKwh.ToString(CultureInfo.InvariantCulture);
+            
             
             if (File.Exists("apisettings.txt"))
             {
@@ -1315,9 +1327,9 @@ namespace ProfitCalc
         {
             SetVisibleFiatColumn();
 
-            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.SelectedText))
+            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.Text))
             {
-                _profileList[cbbProfiles.SelectedText].FiatOfChoice = cbbFiat.SelectedIndex;
+                _profileList[cbbProfiles.Text].FiatOfChoice = cbbFiat.SelectedIndex;
             }
         }
 
@@ -1597,21 +1609,21 @@ namespace ProfitCalc
 
         private void nudAmount_ValueChanged(object sender, EventArgs e)
         {
-            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.SelectedText))
+            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.Text))
             {
-                _profileList[cbbProfiles.SelectedText].Multiplier = (int) nudAmount.Value;
+                _profileList[cbbProfiles.Text].Multiplier = (int) nudAmount.Value;
             }
         }
 
         private void txtFiatElectricityCost_TextChanged(object sender, EventArgs e)
         {
-            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.SelectedText))
+            if (_profileList != null && _profileList.ContainsKey(cbbProfiles.Text))
             {
                 double fiatPerKwh;
                 if (double.TryParse(txtFiatElectricityCost.Text, NumberStyles.Any,
                     CultureInfo.InvariantCulture, out fiatPerKwh))
                 {
-                    _profileList[cbbProfiles.SelectedText].FiatPerKwh = fiatPerKwh;
+                    _profileList[cbbProfiles.Text].FiatPerKwh = fiatPerKwh;
                 }
                 else
                 {

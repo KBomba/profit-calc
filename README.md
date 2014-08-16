@@ -10,6 +10,12 @@ This give the possibility to add your own algorithms but preloaded with a defaul
 Synonyms is a csv string with any other name your algo might appear in the used APIs.
 Target is a magic number (log 2 diff 1 target), set to 32 for most algos but some use other values, like quark => 24. Play with this number if you think an algo's calculation is off. 
 
+STYLES:
+For a correct calculation to happen, each style needs it own variables, taken from both the algo and the (custom) coin, for their own formula:
+* "Classic" : Used in most cases. (Algo) Your hashrate & target. (Coin) Difficulty & block reward.
+* "NetHashRate" : Used when Target is unknown. (A	lgo) Your hashrate. (Coin) Block reward, block time & net hashrate.
+* "CryptoNight" : Used only for CryptoNight coins. (Algo) Your hashrate. (Coin) Difficulty, block reward and block time.
+
 - Market API:
 Uncheck/check the markets from which you want to check the prices. Beware: Some are very slow, especially Cryptsy.
 
