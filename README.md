@@ -12,9 +12,9 @@ Target is a magic number (log 2 diff 1 target), set to 32 for most algos but som
 
 - STYLES:
 For a correct calculation to happen, each style needs it own variables, taken from both the algo and the (custom) coin, for their own formula:
-1. "Classic" : Used in most cases. (Algo) Your hashrate & target. (Coin) Difficulty & block reward.
-2. "NetHashRate" : Used when Target is unknown. (Algo) Your hashrate. (Coin) Block reward, block time & net hashrate.
-3. "CryptoNight" : Used only for CryptoNight coins. (Algo) Your hashrate. (Coin) Difficulty, block reward and block time.
+  - "Classic" : Used in most cases. (Algo) Your hashrate & target. (Coin) Difficulty & block reward.
+  - "NetHashRate" : Used when Target is unknown. (Algo) Your hashrate. (Coin) Block reward, block time & net hashrate.
+  - "CryptoNight" : Used only for CryptoNight coins. (Algo) Your hashrate. (Coin) Difficulty, block reward and block time.
 
 - Market API:
 Uncheck/check the markets from which you want to check the prices. Beware: Some are very slow, especially Cryptsy.
