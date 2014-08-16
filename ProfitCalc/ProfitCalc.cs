@@ -42,12 +42,10 @@ namespace ProfitCalc
 
         private void InitializeOtherComponents()
         {
-            foreach (TabPage page in tabControlSettings.TabPages)
-            {
-                page.BackColor = SystemColors.Menu;
-                //They're white by default, and VS keeps on reverting my changes in the designer file
-                //Screw you Visual Studio :D
-            }
+            MakeTabPagesMenuGrey(tbcControlSettings);
+            MakeTabPagesMenuGrey(tbcInnerCoinMultipool);
+            MakeTabPagesMenuGrey(tbcInnerSettings);
+
             txtLog.BackColor = SystemColors.Window;
             txtReadme.BackColor = SystemColors.Window;
             AppendToLog("Loading settings");
@@ -68,6 +66,14 @@ namespace ProfitCalc
             catch (Exception e)
             {
                 AppendToLog("Unable to read README.txt", e);
+            }
+        }
+
+        private void MakeTabPagesMenuGrey(TabControl tbc)
+        {
+            foreach (TabPage page in tbc.TabPages)
+            {
+                page.BackColor = SystemColors.Menu;
             }
         }
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ProfitCalc.ApiControl;
+using ProfitCalc.ApiControl.TemplateClasses;
 
 namespace ProfitCalc
 {

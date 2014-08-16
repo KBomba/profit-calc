@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl.TemplateClasses
 {
     class BTer
     {

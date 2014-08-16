@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace ProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    class AtomicTradePair
+    internal class AtomicTradePair
     {
         [JsonProperty("market")]
         public string Market { get; set; }
@@ -18,10 +18,11 @@ namespace ProfitCalc.ApiControl
         public string Error { get; set; }
     }
 
-    class AtomicTradeOrders
+    internal class AtomicTradeOrders
     {
         [JsonProperty("market")]
         public MarketData Market { get; set; }
+
         internal class MarketData
         {
             /*[JsonProperty("name")]
@@ -35,6 +36,7 @@ namespace ProfitCalc.ApiControl
 
             [JsonProperty("buyorders")]
             public List<Order> Buyorders { get; set; }
+
             internal class Order
             {
                 /*[JsonProperty("id")]

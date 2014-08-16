@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace ProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl.TemplateClasses
 {
     internal class WhatToMine
     {
-        [JsonProperty("coins")] public Dictionary<string, Coin> Coins;
+        [JsonProperty("coins")] 
+        public Dictionary<string, Coin> Coins;
 
         public class Coin
         {

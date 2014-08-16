@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace ProfitCalc.ApiControl
+namespace ProfitCalc.ApiControl.TemplateClasses
 {
     internal class PoolPicker
     {
