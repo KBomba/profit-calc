@@ -210,7 +210,7 @@ namespace ProfitCalc
             DataGridViewTextBoxColumn timeColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "BlockTime",
-                HeaderText = "Block Time",
+                HeaderText = "Block Time (s)",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
@@ -254,6 +254,13 @@ namespace ProfitCalc
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
 
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FullName",
+                HeaderText = "Full Name",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            };
+
             DataGridViewCheckBoxColumn useRpcColumn = new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = "UseRpc",
@@ -286,11 +293,18 @@ namespace ProfitCalc
             };
             checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            DataGridViewTextBoxColumn urlColumn = new DataGridViewTextBoxColumn
+            DataGridViewTextBoxColumn ipColumn = new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "RpcUrl",
-                HeaderText = "URL (IP:Port)",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                DataPropertyName = "RpcIp",
+                HeaderText = "IP Address",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            DataGridViewTextBoxColumn portColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "RpcPort",
+                HeaderText = "RPC Port",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
 
             DataGridViewTextBoxColumn userColumn = new DataGridViewTextBoxColumn
@@ -309,11 +323,13 @@ namespace ProfitCalc
 
             dgvJsonRpc.Columns.Add(checkColumn);
             dgvJsonRpc.Columns.Add(tagColumn);
+            dgvJsonRpc.Columns.Add(nameColumn);
             dgvJsonRpc.Columns.Add(useRpcColumn);
             dgvJsonRpc.Columns.Add(lockDiffColumn);
             dgvJsonRpc.Columns.Add(lockRewardColumn);
             dgvJsonRpc.Columns.Add(lockNetHashColumn);
-            dgvJsonRpc.Columns.Add(urlColumn);
+            dgvJsonRpc.Columns.Add(ipColumn);
+            dgvJsonRpc.Columns.Add(portColumn);
             dgvJsonRpc.Columns.Add(userColumn);
             dgvJsonRpc.Columns.Add(passColumn);
 
@@ -746,6 +762,8 @@ namespace ProfitCalc
                 {
                     tsStatus.Text = "Adding custom coins...";
                     _coinList.AddCustomCoins(_customCoins);
+                    // Refresh so it shows updated custom coin params through rpc
+                    dgvCustomCoins.Refresh();
                 }
                 catch (Exception exception)
                 {
@@ -1573,34 +1591,42 @@ namespace ProfitCalc
             }
         }
 
-        private void dgvCustomCoins_MouseUp(object sender, MouseEventArgs e)
+        private void dgvNeedsEdit_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            DataGridView dgv = sender as DataGridView;
+
+            if (e.Button == MouseButtons.Left && dgv != null)
             {
-                if (dgvCustomCoins.HitTest(e.X, e.Y).Type 
+                if (dgv.HitTest(e.X, e.Y).Type
                     == DataGridViewHitTestType.Cell)
                 {
-                    dgvCustomCoins.BeginEdit(true);
+                    dgv.BeginEdit(true);
                 }
                 else
                 {
-                    dgvCustomCoins.EndEdit();
+                    dgv.EndEdit();
                 }
             }
         }
 
-        private void dgvCustomAlgos_MouseUp(object sender, MouseEventArgs e)
+        private void dgvCustomAlgos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            e.Control.KeyPress -= NumberColumn_KeyPress;
+            e.Control.KeyPress -= NameOrSynonymColumn_KeyPress;
+
+            TextBox tb = e.Control as TextBox;
+            if (tb != null)
             {
-                if (dgvCustomAlgos.HitTest(e.X, e.Y).Type 
-                    == DataGridViewHitTestType.Cell)
+                switch (dgvCustomAlgos.CurrentCell.ColumnIndex)
                 {
-                    dgvCustomAlgos.BeginEdit(true);
-                }
-                else
-                {
-                    dgvCustomAlgos.EndEdit();
+                    case 1:
+                    case 2:
+                        tb.KeyPress += NameOrSynonymColumn_KeyPress;
+                        break;
+                    case 4:
+                    case 5:
+                        tb.KeyPress += NumberColumn_KeyPress;
+                        break;
                 }
             }
         }
@@ -1629,25 +1655,22 @@ namespace ProfitCalc
             }
         }
 
-        private void dgvCustomAlgos_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private void dgvJsonRpc_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            e.Control.KeyPress -= NumberColumn_KeyPress;
-            e.Control.KeyPress -= NameOrSynonymColumn_KeyPress;
+            e.Control.KeyPress -= PortColumn_KeyPress;
 
             TextBox tb = e.Control as TextBox;
-            if (tb != null)
+            if (tb != null && dgvJsonRpc.CurrentCell.ColumnIndex == 8)
             {
-                switch (dgvCustomAlgos.CurrentCell.ColumnIndex)
-                {
-                    case 1:
-                    case 2:
-                        tb.KeyPress += NameOrSynonymColumn_KeyPress;
-                        break;
-                    case 4:
-                    case 5:
-                        tb.KeyPress += NumberColumn_KeyPress;
-                        break;
-                }
+                tb.KeyPress += PortColumn_KeyPress;
+            }
+        }
+
+        private void PortColumn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
 
@@ -1694,6 +1717,16 @@ namespace ProfitCalc
             e.Row.Cells[0].Value = true;
             e.Row.Cells[3].Value = "Classic";
             e.Row.Cells[6].Value = 32;
+        }
+
+        private void dgvJsonRpc_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells[0].Value = true;
+            e.Row.Cells[3].Value = true;
+            e.Row.Cells[4].Value = true;
+            e.Row.Cells[5].Value = true;
+            e.Row.Cells[6].Value = true;
+            e.Row.Cells[7].Value = "127.0.0.1";
         }
 
         private void dgvCustomAlgos_Validated(object sender, EventArgs e)

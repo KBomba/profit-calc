@@ -49,7 +49,8 @@ namespace ProfitCalc
         public bool GetDiff { get; set; }
         public bool GetReward { get; set; }
         public bool GetNetHash { get; set; }
-        public string RpcUrl { get; set; }
+        public string RpcIp { get; set; }
+        public string RpcPort { get; set; }
         public string RpcUser { get; set; }
         public string RpcPass { get; set; }
     }
