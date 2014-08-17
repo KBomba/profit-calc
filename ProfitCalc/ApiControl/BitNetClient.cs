@@ -93,9 +93,9 @@ namespace ProfitCalc.ApiControl
             return (int)InvokeMethod("getconnectioncount")["result"];
         }
 
-        public float GetDifficulty()
+        public double GetDifficulty()
         {
-            return (float)InvokeMethod("getdifficulty")["result"];
+            return (double)InvokeMethod("getdifficulty")["result"];
         }
 
         public bool GetGenerate()
@@ -108,9 +108,19 @@ namespace ProfitCalc.ApiControl
             return (float)InvokeMethod("gethashespersec")["result"];
         }
 
+        public double GetNetworkHashesPerSec()
+        {
+            return (double)InvokeMethod("getnetworkhashps")["result"];
+        }
+        
         public JObject GetInfo()
         {
             return InvokeMethod("getinfo")["result"] as JObject;
+        }
+
+        public JObject GetMiningInfo()
+        {
+            return InvokeMethod("getmininginfo")["result"] as JObject;
         }
 
         public JObject GetWork()

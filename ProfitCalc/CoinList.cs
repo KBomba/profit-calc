@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using ProfitCalc.ApiControl;
 using ProfitCalc.ApiControl.TemplateClasses;
 
@@ -79,12 +81,62 @@ namespace ProfitCalc
             {
                 if (customCoin.Use)
                 {
+                    if (customCoin.UseRpc)
+                    {
+                        try
+                        {
+                            BitnetClient bc = new BitnetClient(customCoin.RpcUrl)
+                            {
+                                Credentials = new NetworkCredential(
+                                    customCoin.RpcUser, customCoin.RpcPass)
+                            };
+                            JObject info = bc.GetMiningInfo();
+                            JToken height;
+                            if (info.TryGetValue("blocks", out height))
+                            {
+                                customCoin.Height = height.Value<uint>();
+                            } 
+
+                            if (customCoin.GetDiff)
+                            {
+                                JToken diff;
+                                if (info.TryGetValue("difficulty", out diff))
+                                {
+                                    customCoin.Difficulty = diff.Value<float>();
+                                } 
+                            }
+
+                            if (customCoin.GetReward)
+                            {
+                                JToken reward;
+                                if (info.TryGetValue("reward", out reward))
+                                {
+                                    customCoin.BlockReward = reward.Value<float>();
+                                }
+                            }
+
+                            if (customCoin.GetNetHash)
+                            {
+                                JToken networkHashPs;
+                                if (info.TryGetValue("networkhashps", out networkHashPs))
+                                {
+                                    customCoin.NetHashRate = networkHashPs.Value<float>() / 1000000;
+                                }
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            
+                        }
+                    }
+
                     Add(new Coin(customCoin));
                 }
             }
         }
 
-        public string GetCleanedAlgo(string algo)
+        private string GetCleanedAlgo(string algo)
         {
             string cleanAlgo = algo.Trim();
             Parallel.ForEach(UsedProfile.CustomAlgoList, _po, savedAlgo =>

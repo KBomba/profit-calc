@@ -64,7 +64,7 @@ namespace ProfitCalc
             BlockReward = customCoin.BlockReward;
             BlockTime = customCoin.BlockTime;
             NetHashRate = customCoin.NetHashRate*1000000;
-            Height = 0;
+            Height = customCoin.Height;
             Exchange customExchange = new Exchange
             {
                 ExchangeName = "Unknown (Custom coin)",

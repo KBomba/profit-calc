@@ -106,10 +106,8 @@
             this.dgvCustomAlgos = new System.Windows.Forms.DataGridView();
             this.chkAllHashrates = new System.Windows.Forms.CheckBox();
             this.tbcControlSettings = new System.Windows.Forms.TabControl();
-            this.tabJsonRpcSettings = new System.Windows.Forms.TabPage();
             this.tabCustomCoins = new System.Windows.Forms.TabPage();
             this.dgvCustomCoins = new System.Windows.Forms.DataGridView();
-            this.chkAllCustomCoins = new System.Windows.Forms.CheckBox();
             this.tabMultipool = new System.Windows.Forms.TabPage();
             this.chkPoolpicker = new System.Windows.Forms.CheckBox();
             this.nudPoolpicker = new System.Windows.Forms.NumericUpDown();
@@ -124,6 +122,8 @@
             this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
             this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
             this.tbcInnerCoinMultipool = new System.Windows.Forms.TabControl();
+            this.tabJsonRpc = new System.Windows.Forms.TabPage();
+            this.dgvJsonRpc = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.ctxtStrip.SuspendLayout();
             this.stStatusStrip.SuspendLayout();
@@ -149,6 +149,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).BeginInit();
             this.tabCoinInfo.SuspendLayout();
             this.tbcInnerCoinMultipool.SuspendLayout();
+            this.tabJsonRpc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJsonRpc)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddDeleteProfile
@@ -972,19 +974,8 @@
             this.tbcControlSettings.TabIndex = 6;
             this.tbcControlSettings.TabStop = false;
             // 
-            // tabJsonRpcSettings
-            // 
-            this.tabJsonRpcSettings.Location = new System.Drawing.Point(4, 22);
-            this.tabJsonRpcSettings.Name = "tabJsonRpcSettings";
-            this.tabJsonRpcSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabJsonRpcSettings.Size = new System.Drawing.Size(987, 185);
-            this.tabJsonRpcSettings.TabIndex = 14;
-            this.tabJsonRpcSettings.Text = "RPC Live Coin Update";
-            this.tabJsonRpcSettings.UseVisualStyleBackColor = true;
-            // 
             // tabCustomCoins
             // 
-            this.tabCustomCoins.Controls.Add(this.chkAllCustomCoins);
             this.tabCustomCoins.Controls.Add(this.dgvCustomCoins);
             this.tabCustomCoins.Location = new System.Drawing.Point(4, 22);
             this.tabCustomCoins.Name = "tabCustomCoins";
@@ -1004,18 +995,6 @@
             this.dgvCustomCoins.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
             this.dgvCustomCoins.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomCoins_EditingControlShowing);
             this.dgvCustomCoins.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvCustomCoins_MouseUp);
-            // 
-            // chkAllCustomCoins
-            // 
-            this.chkAllCustomCoins.AutoSize = true;
-            this.chkAllCustomCoins.Checked = true;
-            this.chkAllCustomCoins.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAllCustomCoins.Location = new System.Drawing.Point(45, 6);
-            this.chkAllCustomCoins.Name = "chkAllCustomCoins";
-            this.chkAllCustomCoins.Size = new System.Drawing.Size(15, 14);
-            this.chkAllCustomCoins.TabIndex = 81;
-            this.chkAllCustomCoins.UseVisualStyleBackColor = true;
-            this.chkAllCustomCoins.CheckedChanged += new System.EventHandler(this.chkAllCustomCoins_CheckedChanged);
             // 
             // tabMultipool
             // 
@@ -1189,13 +1168,32 @@
             this.tbcInnerCoinMultipool.Controls.Add(this.tabCoinInfo);
             this.tbcInnerCoinMultipool.Controls.Add(this.tabMultipool);
             this.tbcInnerCoinMultipool.Controls.Add(this.tabCustomCoins);
-            this.tbcInnerCoinMultipool.Controls.Add(this.tabJsonRpcSettings);
+            this.tbcInnerCoinMultipool.Controls.Add(this.tabJsonRpc);
             this.tbcInnerCoinMultipool.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbcInnerCoinMultipool.Location = new System.Drawing.Point(3, 3);
             this.tbcInnerCoinMultipool.Name = "tbcInnerCoinMultipool";
             this.tbcInnerCoinMultipool.SelectedIndex = 0;
             this.tbcInnerCoinMultipool.Size = new System.Drawing.Size(995, 211);
             this.tbcInnerCoinMultipool.TabIndex = 0;
+            // 
+            // tabJsonRpc
+            // 
+            this.tabJsonRpc.Controls.Add(this.dgvJsonRpc);
+            this.tabJsonRpc.Location = new System.Drawing.Point(4, 22);
+            this.tabJsonRpc.Name = "tabJsonRpc";
+            this.tabJsonRpc.Size = new System.Drawing.Size(987, 185);
+            this.tabJsonRpc.TabIndex = 11;
+            this.tabJsonRpc.Text = "Live JSON-RPC Update";
+            this.tabJsonRpc.UseVisualStyleBackColor = true;
+            // 
+            // dgvJsonRpc
+            // 
+            this.dgvJsonRpc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvJsonRpc.Location = new System.Drawing.Point(0, 0);
+            this.dgvJsonRpc.Name = "dgvJsonRpc";
+            this.dgvJsonRpc.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvJsonRpc.Size = new System.Drawing.Size(987, 185);
+            this.dgvJsonRpc.TabIndex = 0;
             // 
             // ProfitCalc
             // 
@@ -1242,7 +1240,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomAlgos)).EndInit();
             this.tbcControlSettings.ResumeLayout(false);
             this.tabCustomCoins.ResumeLayout(false);
-            this.tabCustomCoins.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).EndInit();
             this.tabMultipool.ResumeLayout(false);
             this.tabMultipool.PerformLayout();
@@ -1251,6 +1248,8 @@
             this.tabCoinInfo.ResumeLayout(false);
             this.tabCoinInfo.PerformLayout();
             this.tbcInnerCoinMultipool.ResumeLayout(false);
+            this.tabJsonRpc.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJsonRpc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1348,9 +1347,9 @@
         private System.Windows.Forms.NumericUpDown nudPoolpicker;
         private System.Windows.Forms.CheckBox chkPoolpicker;
         private System.Windows.Forms.TabPage tabCustomCoins;
-        private System.Windows.Forms.CheckBox chkAllCustomCoins;
         private System.Windows.Forms.DataGridView dgvCustomCoins;
-        private System.Windows.Forms.TabPage tabJsonRpcSettings;
+        private System.Windows.Forms.TabPage tabJsonRpc;
+        private System.Windows.Forms.DataGridView dgvJsonRpc;
     }
 }
 

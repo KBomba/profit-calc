@@ -31,6 +31,8 @@ namespace ProfitCalc
 
             InitCustomAlgos();
             InitCustomCoins();
+            InitJsonRpcSettings();
+            dgvJsonRpc.DataSource = _customCoins;
 
             if (_historicAlgoList == null)
             {
@@ -157,6 +159,7 @@ namespace ProfitCalc
             DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = "Use",
+                HeaderText = "Include",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             };
             checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -230,6 +233,91 @@ namespace ProfitCalc
             dgvCustomCoins.Columns.Add(priceColumn);
 
             dgvCustomCoins.DataSource = _customCoins;
+        }
+
+        private void InitJsonRpcSettings()
+        {
+            dgvJsonRpc.AutoGenerateColumns = false;
+
+            DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "Use",
+                HeaderText = "Include",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            };
+            checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            DataGridViewTextBoxColumn tagColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Tag",
+                HeaderText = "Tag",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            DataGridViewCheckBoxColumn useRpcColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "UseRpc",
+                HeaderText = "Use RPC",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            };
+            checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            DataGridViewCheckBoxColumn lockDiffColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "GetDiff",
+                HeaderText = "Get Difficulty",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            };
+            checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            DataGridViewCheckBoxColumn lockRewardColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "GetReward",
+                HeaderText = "Get Block Reward",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            };
+            checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            DataGridViewCheckBoxColumn lockNetHashColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "GetNetHash",
+                HeaderText = "Get NetHashRate",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+            };
+            checkColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            DataGridViewTextBoxColumn urlColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "RpcUrl",
+                HeaderText = "URL (IP:Port)",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            };
+
+            DataGridViewTextBoxColumn userColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "RpcUser",
+                HeaderText = "Username",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            DataGridViewTextBoxColumn passColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "RpcPass",
+                HeaderText = "Password",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            dgvJsonRpc.Columns.Add(checkColumn);
+            dgvJsonRpc.Columns.Add(tagColumn);
+            dgvJsonRpc.Columns.Add(useRpcColumn);
+            dgvJsonRpc.Columns.Add(lockDiffColumn);
+            dgvJsonRpc.Columns.Add(lockRewardColumn);
+            dgvJsonRpc.Columns.Add(lockNetHashColumn);
+            dgvJsonRpc.Columns.Add(urlColumn);
+            dgvJsonRpc.Columns.Add(userColumn);
+            dgvJsonRpc.Columns.Add(passColumn);
+
+            dgvJsonRpc.DataSource = _customCoins;
         }
 
         private void LoadSettings()
@@ -1645,15 +1733,6 @@ namespace ProfitCalc
                 algo.Use = chkAllHashrates.Checked;
             }
             dgvCustomAlgos.Refresh();
-        }
-
-        private void chkAllCustomCoins_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (CustomCoin customCoin in _customCoins)
-            {
-                customCoin.Use = chkAllCustomCoins.Checked;
-            }
-            dgvCustomCoins.Refresh();
         }
 
         private void picDonate_Click(object sender, EventArgs e)

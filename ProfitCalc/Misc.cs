@@ -43,6 +43,15 @@ namespace ProfitCalc
         public double BlockTime { get; set; }
         public double NetHashRate { get; set; }
         public double CustomPrice { get; set; }
+
+        public uint Height { get; set; }
+        public bool UseRpc { get; set; }
+        public bool GetDiff { get; set; }
+        public bool GetReward { get; set; }
+        public bool GetNetHash { get; set; }
+        public string RpcUrl { get; set; }
+        public string RpcUser { get; set; }
+        public string RpcPass { get; set; }
     }
 
     internal class CustomAlgo
