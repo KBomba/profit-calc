@@ -46,7 +46,6 @@ namespace ProfitCalc
         {
             MakeTabPagesMenuGrey(tbcControlSettings);
             MakeTabPagesMenuGrey(tbcInnerCoinMultipool);
-            MakeTabPagesMenuGrey(tbcInnerSettings);
 
             txtLog.BackColor = SystemColors.Window;
             txtReadme.BackColor = SystemColors.Window;
@@ -183,14 +182,22 @@ namespace ProfitCalc
             {
                 DataPropertyName = "Algo",
                 HeaderText = "Algo",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            DataGridViewTextBoxColumn heightColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Height",
+                HeaderText = "Height",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
 
             DataGridViewTextBoxColumn diffColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Difficulty",
                 HeaderText = "Difficulty",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                DefaultCellStyle = { Format = "#0.####" }
             };
 
             DataGridViewTextBoxColumn rewardColumn = new DataGridViewTextBoxColumn
@@ -204,7 +211,8 @@ namespace ProfitCalc
             {
                 DataPropertyName = "NetHashRate",
                 HeaderText = "Net Hashrate (MH/s)",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                DefaultCellStyle = { Format = "#0.####" }
             };
 
             DataGridViewTextBoxColumn timeColumn = new DataGridViewTextBoxColumn
@@ -226,6 +234,7 @@ namespace ProfitCalc
             dgvCustomCoins.Columns.Add(tagColumn);
             dgvCustomCoins.Columns.Add(nameColumn);
             dgvCustomCoins.Columns.Add(algoColumn);
+            dgvCustomCoins.Columns.Add(heightColumn);
             dgvCustomCoins.Columns.Add(diffColumn);
             dgvCustomCoins.Columns.Add(rewardColumn);
             dgvCustomCoins.Columns.Add(timeColumn);
@@ -1649,6 +1658,9 @@ namespace ProfitCalc
                     case 4:
                     case 5:
                     case 6:
+                    case 7:
+                    case 8:
+                    case 9:
                         tb.KeyPress += NumberColumn_KeyPress;
                         break;
                 }
