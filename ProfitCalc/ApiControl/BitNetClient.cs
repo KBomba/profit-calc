@@ -73,64 +73,9 @@ namespace ProfitCalc.ApiControl
             }
         }
 
-        public string GetBlockByCount(int aHeight)
-        {
-            return InvokeMethod("getblockbycount", aHeight)["result"].ToString();
-        }
-
-        public int GetBlockCount()
-        {
-            return (int)InvokeMethod("getblockcount")["result"];
-        }
-
-        public int GetBlockNumber()
-        {
-            return (int)InvokeMethod("getblocknumber")["result"];
-        }
-
-        public int GetConnectionCount()
-        {
-            return (int)InvokeMethod("getconnectioncount")["result"];
-        }
-
-        public double GetDifficulty()
-        {
-            return (double)InvokeMethod("getdifficulty")["result"];
-        }
-
-        public bool GetGenerate()
-        {
-            return (bool)InvokeMethod("getgenerate")["result"];
-        }
-
-        public float GetHashesPerSec()
-        {
-            return (float)InvokeMethod("gethashespersec")["result"];
-        }
-
-        public double GetNetworkHashesPerSec()
-        {
-            return (double)InvokeMethod("getnetworkhashps")["result"];
-        }
-        
-        public JObject GetInfo()
-        {
-            return InvokeMethod("getinfo")["result"] as JObject;
-        }
-
         public JObject GetMiningInfo()
         {
             return InvokeMethod("getmininginfo")["result"] as JObject;
-        }
-
-        public JObject GetWork()
-        {
-            return InvokeMethod("getwork")["result"] as JObject;
-        }
-
-        public bool GetWork(string aData)
-        {
-            return (bool)InvokeMethod("getwork", aData)["result"];
         }
     }
 }

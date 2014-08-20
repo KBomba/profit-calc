@@ -19,12 +19,14 @@ namespace ProfitCalc
         private readonly HttpClient _client;
         private readonly ParallelOptions _po;
         public Profile UsedProfile { get; set; }
+        private int BidRecentAsk { get; set; }
 
-        public CoinList(HttpClient client, Profile profile)
+        public CoinList(HttpClient client, Profile profile, int index)
         {
             List = new List<Coin>();
             _client = client;
             UsedProfile = profile;
+            BidRecentAsk = index;
 
             _po = new ParallelOptions
             {
@@ -83,7 +85,8 @@ namespace ProfitCalc
                 {
                     if (customCoin.UseRpc)
                     {
-                        BitnetClient bc = new BitnetClient("http://" + customCoin.RpcIp + ":" + customCoin.RpcPort + "/")
+                        BitnetClient bc = new BitnetClient(
+                            "http://" + customCoin.RpcIp + ":" + customCoin.RpcPort + "/")
                         {
                             Credentials = new NetworkCredential(
                                 customCoin.RpcUser, customCoin.RpcPass)
@@ -94,7 +97,7 @@ namespace ProfitCalc
                         {
                             customCoin.Height = height.Value<uint>();
                         }
-
+                        
                         if (customCoin.GetDiff)
                         {
                             JToken diff;
@@ -112,7 +115,7 @@ namespace ProfitCalc
                                 customCoin.BlockReward = reward.Value<float>();
                             }
                         }
-
+                        
                         if (customCoin.GetNetHash)
                         {
                             JToken networkHashPs;
@@ -228,7 +231,7 @@ namespace ProfitCalc
             }
         }
 
-        public void UpdateMintPal(int selectedIndex)
+        public void UpdateMintPal()
         {
             MintPal mp = JsonControl.DownloadSerializedApi<MintPal>(
                 _client.GetStreamAsync("https://api.mintpal.com/v2/market/summary/BTC").Result);
@@ -238,7 +241,7 @@ namespace ProfitCalc
                 if (mpCoin.Exchange == "BTC" && mpCoin.Code == c.TagName)
                 {
                     double priceToUse;
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             priceToUse = mpCoin.TopBid;
@@ -278,7 +281,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateCryptsy(int selectedIndex)
+        public void UpdateCryptsy()
         {
             Cryptsy cp = JsonControl.DownloadSerializedApi<Cryptsy>(_client.GetStreamAsync("http://pubapi.cryptsy.com/api.php?method=marketdatav2").Result);
 
@@ -287,7 +290,7 @@ namespace ProfitCalc
                 if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName)
                 {
                     double priceToUse;
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             priceToUse = cpCoin.Value.BuyOrders != null
@@ -336,7 +339,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateBittrex(int selectedIndex)
+        public void UpdateBittrex()
         {
             Bittrex bt = JsonControl.DownloadSerializedApi<Bittrex>(
                 _client.GetStreamAsync("http://bittrex.com/api/v1.1/public/getmarketsummaries").Result);
@@ -347,7 +350,7 @@ namespace ProfitCalc
                 if (splitMarket[0] == "BTC" && splitMarket[1] == c.TagName)
                 {
                     double priceToUse;
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             priceToUse = btCoin.Bid;
@@ -387,7 +390,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdatePoloniex(int selectedIndex)
+        public void UpdatePoloniex()
         {
             Dictionary<string, Poloniex> pol = JsonControl.DownloadSerializedApi<Dictionary<string, Poloniex>>(
                 _client.GetStreamAsync("http://poloniex.com/public?command=returnTicker").Result);
@@ -398,7 +401,7 @@ namespace ProfitCalc
                 if (splitMarket[0] == "BTC" && splitMarket[1] == c.TagName)
                 {
                     double priceToUse;
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             priceToUse = polCoin.Value.HighestBid;
@@ -420,6 +423,7 @@ namespace ProfitCalc
                         BtcPrice = priceToUse,
                         BtcVolume = polCoin.Value.BaseVolume
                     };
+
                     if (polCoin.Value.IsFrozen == "1")
                     {
                         polExchange.IsFrozen = true;
@@ -442,7 +446,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateAllCoin(int selectedIndex)
+        public void UpdateAllCoin()
         {
             AllCoin ac = JsonControl.DownloadSerializedApi<AllCoin>(
                 _client.GetStreamAsync("https://www.allcoin.com/api2/pairs").Result);
@@ -455,7 +459,7 @@ namespace ProfitCalc
                     double volume, price;
                     bool hasOrder;
 
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             hasOrder = Double.TryParse(acCoin.Value.TopBid, NumberStyles.Float,
@@ -508,7 +512,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateAllCrypt(int selectedIndex)
+        public void UpdateAllCrypt()
         {
             AllCrypt ac = JsonControl.DownloadSerializedApi<AllCrypt>(
                 _client.GetStreamAsync("http://www.allcrypt.com/api?method=cmcmarketdata").Result);
@@ -518,7 +522,7 @@ namespace ProfitCalc
                 if (acCoin.Value.SecondaryCode == "BTC" && acCoin.Value.PrimaryCode == c.TagName)
                 {
                     double priceToUse;
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             priceToUse = acCoin.Value.HighBuy;
@@ -558,7 +562,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateCCex(int selectedIndex)
+        public void UpdateCCex()
         {
             Dictionary<string, CCexPair> ccPairs = JsonControl.DownloadSerializedApi<Dictionary<string, CCexPair>>(
                 _client.GetStreamAsync("https://c-cex.com/t/prices.json").Result);
@@ -576,7 +580,7 @@ namespace ProfitCalc
                     {
                         CCexPair ccPair = ccPairs.Values.ElementAt(i);
                         double priceToUse;
-                        switch (selectedIndex)
+                        switch (BidRecentAsk)
                         {
                             case 0:
                                 priceToUse = ccPair.Buy;
@@ -633,7 +637,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateComkort(int selectedIndex)
+        public void UpdateComkort()
         {
             Comkort com = JsonControl.DownloadSerializedApi<Comkort>(
                 _client.GetStreamAsync("https://api.comkort.com/v1/public/market/summary").Result);
@@ -647,7 +651,7 @@ namespace ProfitCalc
                         if (comCoin.Value.CurrencyCode == "BTC" && comCoin.Value.ItemCode == c.TagName)
                         {
                             double priceToUse;
-                            switch (selectedIndex)
+                            switch (BidRecentAsk)
                             {
                                 case 0:
                                     priceToUse = comCoin.Value.BuyOrders != null
@@ -697,7 +701,7 @@ namespace ProfitCalc
                 }));
         }
 
-        public void UpdateCryptoine(int selectedIndex)
+        public void UpdateCryptoine()
         {
             Cryptoine cry = JsonControl.DownloadSerializedApi<Cryptoine>(
                 _client.GetStreamAsync("https://cryptoine.com/api/1/markets").Result);
@@ -708,7 +712,7 @@ namespace ProfitCalc
                 if (split[1] == "btc" && split[0] == c.TagName.ToLowerInvariant())
                 {
                     double priceToUse;
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             if (!double.TryParse(cryCoin.Value.Buy, NumberStyles.Float, 
@@ -761,7 +765,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateBTer(int selectedIndex)
+        public void UpdateBTer()
         {
             Dictionary<string, BTer> btPairs = JsonControl.DownloadSerializedApi<Dictionary<string, BTer>>(
                 _client.GetStreamAsync("http://data.bter.com/api/1/tickers").Result);
@@ -776,7 +780,7 @@ namespace ProfitCalc
                 if (split[1] == "btc" && split[0].ToUpperInvariant() == c.TagName)
                 {
                     double priceToUse;
-                    switch (selectedIndex)
+                    switch (BidRecentAsk)
                     {
                         case 0:
                             if (!double.TryParse(btCoin.Value.Buy, NumberStyles.Float,
@@ -839,7 +843,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateAtomicTrade(int selectedIndex)
+        public void UpdateAtomicTrade()
         {
             List<AtomicTradePair> atPairs = JsonControl.DownloadSerializedApi<List<AtomicTradePair>>(
                 _client.GetStreamAsync("https://www.atomic-trade.com/SimpleAPI?a=marketsv2").Result);
@@ -858,7 +862,7 @@ namespace ProfitCalc
                                                    c.TagName).Result);
 
                         double priceToUse;
-                        switch (selectedIndex)
+                        switch (BidRecentAsk)
                         {
                             case 0:
                                 if (atOrders.Market.Buyorders == null || !atOrders.Market.Buyorders.Any()
@@ -899,6 +903,11 @@ namespace ProfitCalc
                             BtcPrice = priceToUse,
                             BtcVolume = double.Parse(atCoin.Volume, NumberStyles.Float, CultureInfo.InvariantCulture)*priceToUse
                         };
+
+                        if (atCoin.Error == "1")
+                        {
+                            atExchange.IsFrozen = true;
+                        }
 
                         if (c.HasImplementedMarketApi)
                         {

@@ -6,20 +6,20 @@ namespace ProfitCalc.ApiControl.TemplateClasses
 {
     class BTer
     {
-        [JsonProperty("result")]
-        public string Result { get; set; }
+        /*[JsonProperty("result")]
+        public string Result { get; set; }*/
 
         [JsonProperty("last")]
         public string Last { get; set; }
 
-        [JsonProperty("high")]
+        /*[JsonProperty("high")]
         public string High { get; set; }
 
         [JsonProperty("low")]
         public string Low { get; set; }
 
         [JsonProperty("avg")]
-        public string Avg { get; set; }
+        public string Avg { get; set; }*/
 
         [JsonProperty("sell")]
         public string Sell { get; set; }

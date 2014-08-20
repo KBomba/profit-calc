@@ -763,7 +763,8 @@ namespace ProfitCalc
             {
                 Timeout = TimeSpan.FromSeconds((double) nudTimeout.Value)
             };
-            _coinList = new CoinList(client, _profileList[cbbProfiles.Text]);
+
+            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex);
 
             if (_customCoins.Count > 0)
             {
@@ -908,13 +909,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Bittrex prices...";
-                    _coinList.UpdateBittrex(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateBittrex();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Bittrex. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateBittrex(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateBittrex());
                 }
             }
 
@@ -924,13 +925,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with MintPal prices...";
-                    _coinList.UpdateMintPal(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateMintPal();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Mintpal. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateMintPal(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateMintPal());
                 }
             }
 
@@ -940,13 +941,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Cryptsy prices...";
-                    _coinList.UpdateCryptsy(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateCryptsy();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Cryptsy. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCryptsy(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateCryptsy());
                 }
             }
 
@@ -956,13 +957,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Poloniex prices...";
-                    _coinList.UpdatePoloniex(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdatePoloniex();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Poloniex. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdatePoloniex(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdatePoloniex());
                 }
             }
 
@@ -972,13 +973,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with BTer prices...";
-                    _coinList.UpdateBTer(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateBTer();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from BTer. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateBTer(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateBTer());
                 }
             }
 
@@ -988,13 +989,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCoin prices...";
-                    _coinList.UpdateAllCoin(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateAllCoin();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from AllCoin. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateAllCoin(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateAllCoin());
                 }
             }
 
@@ -1004,13 +1005,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCrypt prices...";
-                    _coinList.UpdateAllCrypt(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateAllCrypt();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from AllCrypt. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateAllCrypt(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateAllCrypt());
                 }
             }
 
@@ -1020,13 +1021,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with C-Cex prices...";
-                    _coinList.UpdateCCex(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateCCex();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from C-Cex. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCCex(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateCCex());
                 }
             }
 
@@ -1036,13 +1037,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Comkort prices...";
-                    _coinList.UpdateComkort(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateComkort();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Comkort. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateComkort(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateComkort());
                 }
             }
 
@@ -1052,13 +1053,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Atomic Trade prices...";
-                    _coinList.UpdateAtomicTrade(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateAtomicTrade();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Comkort. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateAtomicTrade(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateAtomicTrade());
                 }
             }
 
@@ -1068,13 +1069,13 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Cryptoine prices...";
-                    _coinList.UpdateCryptoine(cbbBidRecentAsk.SelectedIndex);
+                    _coinList.UpdateCryptoine();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Cryptoine. Will be retried.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCryptoine(cbbBidRecentAsk.SelectedIndex));
+                    erroredActions.Add(() => _coinList.UpdateCryptoine());
                 }
             }
 

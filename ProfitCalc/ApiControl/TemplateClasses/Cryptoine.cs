@@ -5,8 +5,8 @@ namespace ProfitCalc.ApiControl.TemplateClasses
 {
     class Cryptoine
     {
-        [JsonProperty("result")]
-        public bool Result { get; set; }
+        /*[JsonProperty("result")]
+        public bool Result { get; set; }*/
 
         [JsonProperty("data")]
         public Dictionary<string, CryptoineCoin> Data { get; set; }
