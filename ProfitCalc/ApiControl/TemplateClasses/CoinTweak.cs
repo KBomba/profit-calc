@@ -43,8 +43,8 @@ namespace ProfitCalc.ApiControl.TemplateClasses
             [JsonProperty("difficulty")]
             public double Difficulty { get; set; }
 
-            /*[JsonProperty("avg_diff")]
-            public double AvgDiff { get; set; }*/
+            [JsonProperty("avg_diff")]
+            public double AvgDiff { get; set; }
 
             [JsonProperty("blockCoins")]
             public double BlockCoins { get; set; }

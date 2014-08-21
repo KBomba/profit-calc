@@ -63,6 +63,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Extensions">
@@ -73,6 +74,7 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControl\BitNetClient.cs" />
@@ -135,7 +137,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
+    <None Include="ApiControl\App.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

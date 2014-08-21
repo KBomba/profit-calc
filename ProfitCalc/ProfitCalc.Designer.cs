@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
@@ -51,9 +50,6 @@
             this.TotalVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ctxtStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmResultsToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmHashratesToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.stStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
@@ -66,49 +62,49 @@
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPriceCalc = new System.Windows.Forms.TabPage();
-            this.lblElectricityCost = new System.Windows.Forms.Label();
-            this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
-            this.chkCoindesk = new System.Windows.Forms.CheckBox();
-            this.lblAmountOfGpu = new System.Windows.Forms.Label();
-            this.cbbFiat = new System.Windows.Forms.ComboBox();
-            this.chkWeight = new System.Windows.Forms.CheckBox();
-            this.nudAmount = new System.Windows.Forms.NumericUpDown();
-            this.lblBidRecentAsk = new System.Windows.Forms.Label();
             this.cbbBidRecentAsk = new System.Windows.Forms.ComboBox();
+            this.lblBidRecentAsk = new System.Windows.Forms.Label();
+            this.nudAmount = new System.Windows.Forms.NumericUpDown();
+            this.chkWeight = new System.Windows.Forms.CheckBox();
+            this.cbbFiat = new System.Windows.Forms.ComboBox();
+            this.lblAmountOfGpu = new System.Windows.Forms.Label();
+            this.chkCoindesk = new System.Windows.Forms.CheckBox();
+            this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
+            this.lblElectricityCost = new System.Windows.Forms.Label();
             this.tabMarketApi = new System.Windows.Forms.TabPage();
-            this.chkBittrex = new System.Windows.Forms.CheckBox();
-            this.chkMintpal = new System.Windows.Forms.CheckBox();
-            this.chkCryptsy = new System.Windows.Forms.CheckBox();
-            this.chkPoloniex = new System.Windows.Forms.CheckBox();
-            this.chkAllcoin = new System.Windows.Forms.CheckBox();
-            this.chkAllcrypt = new System.Windows.Forms.CheckBox();
-            this.chkComkort = new System.Windows.Forms.CheckBox();
-            this.chkAtomictrade = new System.Windows.Forms.CheckBox();
-            this.chkCryptoine = new System.Windows.Forms.CheckBox();
-            this.chkBTer = new System.Windows.Forms.CheckBox();
             this.chkCCex = new System.Windows.Forms.CheckBox();
+            this.chkBTer = new System.Windows.Forms.CheckBox();
+            this.chkCryptoine = new System.Windows.Forms.CheckBox();
+            this.chkAtomictrade = new System.Windows.Forms.CheckBox();
+            this.chkComkort = new System.Windows.Forms.CheckBox();
+            this.chkAllcrypt = new System.Windows.Forms.CheckBox();
+            this.chkAllcoin = new System.Windows.Forms.CheckBox();
+            this.chkPoloniex = new System.Windows.Forms.CheckBox();
+            this.chkCryptsy = new System.Windows.Forms.CheckBox();
+            this.chkMintpal = new System.Windows.Forms.CheckBox();
+            this.chkBittrex = new System.Windows.Forms.CheckBox();
             this.tabOuterCoinMultipool = new System.Windows.Forms.TabPage();
             this.tbcInnerCoinMultipool = new System.Windows.Forms.TabControl();
-            this.tabJsonRpc = new System.Windows.Forms.TabPage();
-            this.dgvJsonRpc = new System.Windows.Forms.DataGridView();
+            this.tabCoinInfo = new System.Windows.Forms.TabPage();
+            this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
+            this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
+            this.chkWhattomine = new System.Windows.Forms.CheckBox();
+            this.chkCoinwarz = new System.Windows.Forms.CheckBox();
+            this.chkCointweak = new System.Windows.Forms.CheckBox();
+            this.tabMultipool = new System.Windows.Forms.TabPage();
+            this.nudCryptoday = new System.Windows.Forms.NumericUpDown();
+            this.chkCryptoday = new System.Windows.Forms.CheckBox();
+            this.chkReviewCalc = new System.Windows.Forms.CheckBox();
+            this.chkNiceHash = new System.Windows.Forms.CheckBox();
+            this.nudPoolpicker = new System.Windows.Forms.NumericUpDown();
+            this.chkPoolpicker = new System.Windows.Forms.CheckBox();
             this.tabCustomCoins = new System.Windows.Forms.TabPage();
             this.dgvCustomCoins = new System.Windows.Forms.DataGridView();
-            this.tabMultipool = new System.Windows.Forms.TabPage();
-            this.chkPoolpicker = new System.Windows.Forms.CheckBox();
-            this.nudPoolpicker = new System.Windows.Forms.NumericUpDown();
-            this.chkNiceHash = new System.Windows.Forms.CheckBox();
-            this.chkReviewCalc = new System.Windows.Forms.CheckBox();
-            this.chkCryptoday = new System.Windows.Forms.CheckBox();
-            this.nudCryptoday = new System.Windows.Forms.NumericUpDown();
-            this.tabCoinInfo = new System.Windows.Forms.TabPage();
-            this.chkCointweak = new System.Windows.Forms.CheckBox();
-            this.chkCoinwarz = new System.Windows.Forms.CheckBox();
-            this.chkWhattomine = new System.Windows.Forms.CheckBox();
-            this.txtCoinwarzApiKey = new System.Windows.Forms.TextBox();
-            this.txtCointweakApiKey = new System.Windows.Forms.TextBox();
+            this.tabJsonRpc = new System.Windows.Forms.TabPage();
+            this.dgvJsonRpc = new System.Windows.Forms.DataGridView();
             this.tabHashrates = new System.Windows.Forms.TabPage();
-            this.dgvCustomAlgos = new System.Windows.Forms.DataGridView();
             this.chkAllHashrates = new System.Windows.Forms.CheckBox();
+            this.dgvCustomAlgos = new System.Windows.Forms.DataGridView();
             this.tbcControlSettings = new System.Windows.Forms.TabControl();
             this.tabFilters = new System.Windows.Forms.TabPage();
             this.chkRemoveZeroVolume = new System.Windows.Forms.CheckBox();
@@ -122,8 +118,8 @@
             this.nudTimeout = new System.Windows.Forms.NumericUpDown();
             this.txtProxy = new System.Windows.Forms.TextBox();
             this.chkProxy = new System.Windows.Forms.CheckBox();
+            this.chk24hDiff = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
-            this.ctxtStrip.SuspendLayout();
             this.stStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).BeginInit();
             this.tabReadme.SuspendLayout();
@@ -133,14 +129,14 @@
             this.tabMarketApi.SuspendLayout();
             this.tabOuterCoinMultipool.SuspendLayout();
             this.tbcInnerCoinMultipool.SuspendLayout();
-            this.tabJsonRpc.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvJsonRpc)).BeginInit();
+            this.tabCoinInfo.SuspendLayout();
+            this.tabMultipool.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).BeginInit();
             this.tabCustomCoins.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).BeginInit();
-            this.tabMultipool.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).BeginInit();
-            this.tabCoinInfo.SuspendLayout();
+            this.tabJsonRpc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJsonRpc)).BeginInit();
             this.tabHashrates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomAlgos)).BeginInit();
             this.tbcControlSettings.SuspendLayout();
@@ -211,7 +207,6 @@
             this.TotalVolume,
             this.Difficulty,
             this.BlockReward});
-            this.dgView.ContextMenuStrip = this.ctxtStrip;
             this.dgView.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dgView.Location = new System.Drawing.Point(0, 278);
             this.dgView.Name = "dgView";
@@ -220,6 +215,7 @@
             this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgView.Size = new System.Drawing.Size(1009, 429);
             this.dgView.TabIndex = 1;
+            this.dgView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
             // 
             // Tag
             // 
@@ -336,28 +332,6 @@
             this.BlockReward.ReadOnly = true;
             this.BlockReward.Width = 87;
             // 
-            // ctxtStrip
-            // 
-            this.ctxtStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmResultsToClipboard,
-            this.tsmHashratesToClipboard});
-            this.ctxtStrip.Name = "ctxtStrip";
-            this.ctxtStrip.Size = new System.Drawing.Size(156, 48);
-            // 
-            // tsmResultsToClipboard
-            // 
-            this.tsmResultsToClipboard.Name = "tsmResultsToClipboard";
-            this.tsmResultsToClipboard.Size = new System.Drawing.Size(155, 22);
-            this.tsmResultsToClipboard.Text = "Copy all results";
-            this.tsmResultsToClipboard.Click += new System.EventHandler(this.tsmResultsToClipboard_Click);
-            // 
-            // tsmHashratesToClipboard
-            // 
-            this.tsmHashratesToClipboard.Name = "tsmHashratesToClipboard";
-            this.tsmHashratesToClipboard.Size = new System.Drawing.Size(155, 22);
-            this.tsmHashratesToClipboard.Text = "Copy hashrates";
-            this.tsmHashratesToClipboard.Click += new System.EventHandler(this.tsmHashratesToClipboard_Click);
-            // 
             // stStatusStrip
             // 
             this.stStatusStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
@@ -465,6 +439,7 @@
             // 
             // tabPriceCalc
             // 
+            this.tabPriceCalc.Controls.Add(this.chk24hDiff);
             this.tabPriceCalc.Controls.Add(this.cbbBidRecentAsk);
             this.tabPriceCalc.Controls.Add(this.lblBidRecentAsk);
             this.tabPriceCalc.Controls.Add(this.nudAmount);
@@ -479,81 +454,33 @@
             this.tabPriceCalc.Padding = new System.Windows.Forms.Padding(3);
             this.tabPriceCalc.Size = new System.Drawing.Size(1001, 217);
             this.tabPriceCalc.TabIndex = 12;
-            this.tabPriceCalc.Text = "Coin Price Calc";
+            this.tabPriceCalc.Text = "Price Calc Settings";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
             // 
-            // lblElectricityCost
+            // cbbBidRecentAsk
             // 
-            this.lblElectricityCost.AutoSize = true;
-            this.lblElectricityCost.Location = new System.Drawing.Point(4, 86);
-            this.lblElectricityCost.Name = "lblElectricityCost";
-            this.lblElectricityCost.Size = new System.Drawing.Size(58, 13);
-            this.lblElectricityCost.TabIndex = 68;
-            this.lblElectricityCost.Text = "USD/kWh";
+            this.cbbBidRecentAsk.FormattingEnabled = true;
+            this.cbbBidRecentAsk.Items.AddRange(new object[] {
+            " highest bid",
+            " recent trade",
+            " lowest ask"});
+            this.cbbBidRecentAsk.Location = new System.Drawing.Point(31, 29);
+            this.cbbBidRecentAsk.Name = "cbbBidRecentAsk";
+            this.cbbBidRecentAsk.Size = new System.Drawing.Size(87, 21);
+            this.cbbBidRecentAsk.TabIndex = 39;
             // 
-            // txtFiatElectricityCost
+            // lblBidRecentAsk
             // 
-            this.txtFiatElectricityCost.Location = new System.Drawing.Point(68, 83);
-            this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
-            this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
-            this.txtFiatElectricityCost.TabIndex = 67;
-            this.txtFiatElectricityCost.Text = "0.1";
-            this.txtFiatElectricityCost.TextChanged += new System.EventHandler(this.txtFiatElectricityCost_TextChanged);
-            // 
-            // chkCoindesk
-            // 
-            this.chkCoindesk.AutoSize = true;
-            this.chkCoindesk.Checked = true;
-            this.chkCoindesk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCoindesk.Location = new System.Drawing.Point(6, 58);
-            this.chkCoindesk.Name = "chkCoindesk";
-            this.chkCoindesk.Size = new System.Drawing.Size(126, 17);
-            this.chkCoindesk.TabIndex = 39;
-            this.chkCoindesk.Text = "Calc                  /day.";
-            this.chkCoindesk.UseVisualStyleBackColor = true;
-            this.chkCoindesk.CheckedChanged += new System.EventHandler(this.chkCoindesk_CheckedChanged);
-            // 
-            // lblAmountOfGpu
-            // 
-            this.lblAmountOfGpu.AutoSize = true;
-            this.lblAmountOfGpu.Location = new System.Drawing.Point(3, 111);
-            this.lblAmountOfGpu.Name = "lblAmountOfGpu";
-            this.lblAmountOfGpu.Size = new System.Drawing.Size(196, 13);
-            this.lblAmountOfGpu.TabIndex = 32;
-            this.lblAmountOfGpu.Text = "Amount of GPUs, multiplier for hashrates";
-            // 
-            // cbbFiat
-            // 
-            this.cbbFiat.AllowDrop = true;
-            this.cbbFiat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbFiat.FormattingEnabled = true;
-            this.cbbFiat.Items.AddRange(new object[] {
-            "USD",
-            "EUR",
-            "GBP",
-            "CNY",
-            "ALL"});
-            this.cbbFiat.Location = new System.Drawing.Point(49, 56);
-            this.cbbFiat.Name = "cbbFiat";
-            this.cbbFiat.Size = new System.Drawing.Size(48, 21);
-            this.cbbFiat.TabIndex = 35;
-            this.cbbFiat.SelectedIndexChanged += new System.EventHandler(this.cbbFiat_SelectedIndexChanged);
-            // 
-            // chkWeight
-            // 
-            this.chkWeight.AutoSize = true;
-            this.chkWeight.Checked = true;
-            this.chkWeight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWeight.Location = new System.Drawing.Point(6, 6);
-            this.chkWeight.Name = "chkWeight";
-            this.chkWeight.Size = new System.Drawing.Size(237, 17);
-            this.chkWeight.TabIndex = 37;
-            this.chkWeight.Text = "Use the weighted price across all exchanges";
-            this.chkWeight.UseVisualStyleBackColor = true;
+            this.lblBidRecentAsk.AutoSize = true;
+            this.lblBidRecentAsk.Location = new System.Drawing.Point(4, 32);
+            this.lblBidRecentAsk.Name = "lblBidRecentAsk";
+            this.lblBidRecentAsk.Size = new System.Drawing.Size(235, 13);
+            this.lblBidRecentAsk.TabIndex = 38;
+            this.lblBidRecentAsk.Text = "Use                                 price for all calculations";
             // 
             // nudAmount
             // 
-            this.nudAmount.Location = new System.Drawing.Point(205, 109);
+            this.nudAmount.Location = new System.Drawing.Point(205, 153);
             this.nudAmount.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -574,26 +501,74 @@
             0});
             this.nudAmount.ValueChanged += new System.EventHandler(this.nudAmount_ValueChanged);
             // 
-            // lblBidRecentAsk
+            // chkWeight
             // 
-            this.lblBidRecentAsk.AutoSize = true;
-            this.lblBidRecentAsk.Location = new System.Drawing.Point(4, 32);
-            this.lblBidRecentAsk.Name = "lblBidRecentAsk";
-            this.lblBidRecentAsk.Size = new System.Drawing.Size(235, 13);
-            this.lblBidRecentAsk.TabIndex = 38;
-            this.lblBidRecentAsk.Text = "Use                                 price for all calculations";
+            this.chkWeight.AutoSize = true;
+            this.chkWeight.Checked = true;
+            this.chkWeight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWeight.Location = new System.Drawing.Point(6, 6);
+            this.chkWeight.Name = "chkWeight";
+            this.chkWeight.Size = new System.Drawing.Size(237, 17);
+            this.chkWeight.TabIndex = 37;
+            this.chkWeight.Text = "Use the weighted price across all exchanges";
+            this.chkWeight.UseVisualStyleBackColor = true;
             // 
-            // cbbBidRecentAsk
+            // cbbFiat
             // 
-            this.cbbBidRecentAsk.FormattingEnabled = true;
-            this.cbbBidRecentAsk.Items.AddRange(new object[] {
-            " highest bid",
-            " recent trade",
-            " lowest ask"});
-            this.cbbBidRecentAsk.Location = new System.Drawing.Point(31, 29);
-            this.cbbBidRecentAsk.Name = "cbbBidRecentAsk";
-            this.cbbBidRecentAsk.Size = new System.Drawing.Size(87, 21);
-            this.cbbBidRecentAsk.TabIndex = 39;
+            this.cbbFiat.AllowDrop = true;
+            this.cbbFiat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbFiat.FormattingEnabled = true;
+            this.cbbFiat.Items.AddRange(new object[] {
+            "USD",
+            "EUR",
+            "GBP",
+            "CNY",
+            "ALL"});
+            this.cbbFiat.Location = new System.Drawing.Point(49, 100);
+            this.cbbFiat.Name = "cbbFiat";
+            this.cbbFiat.Size = new System.Drawing.Size(48, 21);
+            this.cbbFiat.TabIndex = 35;
+            this.cbbFiat.SelectedIndexChanged += new System.EventHandler(this.cbbFiat_SelectedIndexChanged);
+            // 
+            // lblAmountOfGpu
+            // 
+            this.lblAmountOfGpu.AutoSize = true;
+            this.lblAmountOfGpu.Location = new System.Drawing.Point(3, 155);
+            this.lblAmountOfGpu.Name = "lblAmountOfGpu";
+            this.lblAmountOfGpu.Size = new System.Drawing.Size(196, 13);
+            this.lblAmountOfGpu.TabIndex = 32;
+            this.lblAmountOfGpu.Text = "Amount of GPUs, multiplier for hashrates";
+            // 
+            // chkCoindesk
+            // 
+            this.chkCoindesk.AutoSize = true;
+            this.chkCoindesk.Checked = true;
+            this.chkCoindesk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCoindesk.Location = new System.Drawing.Point(6, 102);
+            this.chkCoindesk.Name = "chkCoindesk";
+            this.chkCoindesk.Size = new System.Drawing.Size(126, 17);
+            this.chkCoindesk.TabIndex = 39;
+            this.chkCoindesk.Text = "Calc                  /day.";
+            this.chkCoindesk.UseVisualStyleBackColor = true;
+            this.chkCoindesk.CheckedChanged += new System.EventHandler(this.chkCoindesk_CheckedChanged);
+            // 
+            // txtFiatElectricityCost
+            // 
+            this.txtFiatElectricityCost.Location = new System.Drawing.Point(68, 127);
+            this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
+            this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
+            this.txtFiatElectricityCost.TabIndex = 67;
+            this.txtFiatElectricityCost.Text = "0.1";
+            this.txtFiatElectricityCost.TextChanged += new System.EventHandler(this.txtFiatElectricityCost_TextChanged);
+            // 
+            // lblElectricityCost
+            // 
+            this.lblElectricityCost.AutoSize = true;
+            this.lblElectricityCost.Location = new System.Drawing.Point(4, 130);
+            this.lblElectricityCost.Name = "lblElectricityCost";
+            this.lblElectricityCost.Size = new System.Drawing.Size(58, 13);
+            this.lblElectricityCost.TabIndex = 68;
+            this.lblElectricityCost.Text = "USD/kWh";
             // 
             // tabMarketApi
             // 
@@ -616,39 +591,75 @@
             this.tabMarketApi.Text = "Market API";
             this.tabMarketApi.UseVisualStyleBackColor = true;
             // 
-            // chkBittrex
+            // chkCCex
             // 
-            this.chkBittrex.AutoSize = true;
-            this.chkBittrex.Checked = true;
-            this.chkBittrex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBittrex.Location = new System.Drawing.Point(6, 6);
-            this.chkBittrex.Name = "chkBittrex";
-            this.chkBittrex.Size = new System.Drawing.Size(55, 17);
-            this.chkBittrex.TabIndex = 36;
-            this.chkBittrex.Text = "Bittrex";
-            this.chkBittrex.UseVisualStyleBackColor = true;
+            this.chkCCex.AutoSize = true;
+            this.chkCCex.Location = new System.Drawing.Point(6, 121);
+            this.chkCCex.Name = "chkCCex";
+            this.chkCCex.Size = new System.Drawing.Size(54, 17);
+            this.chkCCex.TabIndex = 46;
+            this.chkCCex.Text = "C-Cex";
+            this.chkCCex.UseVisualStyleBackColor = true;
             // 
-            // chkMintpal
+            // chkBTer
             // 
-            this.chkMintpal.AutoSize = true;
-            this.chkMintpal.Checked = true;
-            this.chkMintpal.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMintpal.Location = new System.Drawing.Point(6, 29);
-            this.chkMintpal.Name = "chkMintpal";
-            this.chkMintpal.Size = new System.Drawing.Size(60, 17);
-            this.chkMintpal.TabIndex = 37;
-            this.chkMintpal.Text = "Mintpal";
-            this.chkMintpal.UseVisualStyleBackColor = true;
+            this.chkBTer.AutoSize = true;
+            this.chkBTer.Location = new System.Drawing.Point(6, 98);
+            this.chkBTer.Name = "chkBTer";
+            this.chkBTer.Size = new System.Drawing.Size(49, 17);
+            this.chkBTer.TabIndex = 45;
+            this.chkBTer.Text = "BTer";
+            this.chkBTer.UseVisualStyleBackColor = true;
             // 
-            // chkCryptsy
+            // chkCryptoine
             // 
-            this.chkCryptsy.AutoSize = true;
-            this.chkCryptsy.Location = new System.Drawing.Point(6, 75);
-            this.chkCryptsy.Name = "chkCryptsy";
-            this.chkCryptsy.Size = new System.Drawing.Size(60, 17);
-            this.chkCryptsy.TabIndex = 38;
-            this.chkCryptsy.Text = "Cryptsy";
-            this.chkCryptsy.UseVisualStyleBackColor = true;
+            this.chkCryptoine.AutoSize = true;
+            this.chkCryptoine.Location = new System.Drawing.Point(123, 98);
+            this.chkCryptoine.Name = "chkCryptoine";
+            this.chkCryptoine.Size = new System.Drawing.Size(70, 17);
+            this.chkCryptoine.TabIndex = 44;
+            this.chkCryptoine.Text = "Cryptoine";
+            this.chkCryptoine.UseVisualStyleBackColor = true;
+            // 
+            // chkAtomictrade
+            // 
+            this.chkAtomictrade.AutoSize = true;
+            this.chkAtomictrade.Location = new System.Drawing.Point(123, 75);
+            this.chkAtomictrade.Name = "chkAtomictrade";
+            this.chkAtomictrade.Size = new System.Drawing.Size(89, 17);
+            this.chkAtomictrade.TabIndex = 43;
+            this.chkAtomictrade.Text = "Atomic Trade";
+            this.chkAtomictrade.UseVisualStyleBackColor = true;
+            // 
+            // chkComkort
+            // 
+            this.chkComkort.AutoSize = true;
+            this.chkComkort.Location = new System.Drawing.Point(123, 6);
+            this.chkComkort.Name = "chkComkort";
+            this.chkComkort.Size = new System.Drawing.Size(65, 17);
+            this.chkComkort.TabIndex = 42;
+            this.chkComkort.Text = "Comkort";
+            this.chkComkort.UseVisualStyleBackColor = true;
+            // 
+            // chkAllcrypt
+            // 
+            this.chkAllcrypt.AutoSize = true;
+            this.chkAllcrypt.Location = new System.Drawing.Point(123, 52);
+            this.chkAllcrypt.Name = "chkAllcrypt";
+            this.chkAllcrypt.Size = new System.Drawing.Size(61, 17);
+            this.chkAllcrypt.TabIndex = 41;
+            this.chkAllcrypt.Text = "AllCrypt";
+            this.chkAllcrypt.UseVisualStyleBackColor = true;
+            // 
+            // chkAllcoin
+            // 
+            this.chkAllcoin.AutoSize = true;
+            this.chkAllcoin.Location = new System.Drawing.Point(123, 29);
+            this.chkAllcoin.Name = "chkAllcoin";
+            this.chkAllcoin.Size = new System.Drawing.Size(58, 17);
+            this.chkAllcoin.TabIndex = 40;
+            this.chkAllcoin.Text = "AllCoin";
+            this.chkAllcoin.UseVisualStyleBackColor = true;
             // 
             // chkPoloniex
             // 
@@ -662,75 +673,39 @@
             this.chkPoloniex.Text = "Poloniex";
             this.chkPoloniex.UseVisualStyleBackColor = true;
             // 
-            // chkAllcoin
+            // chkCryptsy
             // 
-            this.chkAllcoin.AutoSize = true;
-            this.chkAllcoin.Location = new System.Drawing.Point(123, 29);
-            this.chkAllcoin.Name = "chkAllcoin";
-            this.chkAllcoin.Size = new System.Drawing.Size(58, 17);
-            this.chkAllcoin.TabIndex = 40;
-            this.chkAllcoin.Text = "AllCoin";
-            this.chkAllcoin.UseVisualStyleBackColor = true;
+            this.chkCryptsy.AutoSize = true;
+            this.chkCryptsy.Location = new System.Drawing.Point(6, 75);
+            this.chkCryptsy.Name = "chkCryptsy";
+            this.chkCryptsy.Size = new System.Drawing.Size(60, 17);
+            this.chkCryptsy.TabIndex = 38;
+            this.chkCryptsy.Text = "Cryptsy";
+            this.chkCryptsy.UseVisualStyleBackColor = true;
             // 
-            // chkAllcrypt
+            // chkMintpal
             // 
-            this.chkAllcrypt.AutoSize = true;
-            this.chkAllcrypt.Location = new System.Drawing.Point(123, 52);
-            this.chkAllcrypt.Name = "chkAllcrypt";
-            this.chkAllcrypt.Size = new System.Drawing.Size(61, 17);
-            this.chkAllcrypt.TabIndex = 41;
-            this.chkAllcrypt.Text = "AllCrypt";
-            this.chkAllcrypt.UseVisualStyleBackColor = true;
+            this.chkMintpal.AutoSize = true;
+            this.chkMintpal.Checked = true;
+            this.chkMintpal.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMintpal.Location = new System.Drawing.Point(6, 29);
+            this.chkMintpal.Name = "chkMintpal";
+            this.chkMintpal.Size = new System.Drawing.Size(60, 17);
+            this.chkMintpal.TabIndex = 37;
+            this.chkMintpal.Text = "Mintpal";
+            this.chkMintpal.UseVisualStyleBackColor = true;
             // 
-            // chkComkort
+            // chkBittrex
             // 
-            this.chkComkort.AutoSize = true;
-            this.chkComkort.Location = new System.Drawing.Point(123, 6);
-            this.chkComkort.Name = "chkComkort";
-            this.chkComkort.Size = new System.Drawing.Size(65, 17);
-            this.chkComkort.TabIndex = 42;
-            this.chkComkort.Text = "Comkort";
-            this.chkComkort.UseVisualStyleBackColor = true;
-            // 
-            // chkAtomictrade
-            // 
-            this.chkAtomictrade.AutoSize = true;
-            this.chkAtomictrade.Location = new System.Drawing.Point(123, 75);
-            this.chkAtomictrade.Name = "chkAtomictrade";
-            this.chkAtomictrade.Size = new System.Drawing.Size(89, 17);
-            this.chkAtomictrade.TabIndex = 43;
-            this.chkAtomictrade.Text = "Atomic Trade";
-            this.chkAtomictrade.UseVisualStyleBackColor = true;
-            // 
-            // chkCryptoine
-            // 
-            this.chkCryptoine.AutoSize = true;
-            this.chkCryptoine.Location = new System.Drawing.Point(123, 98);
-            this.chkCryptoine.Name = "chkCryptoine";
-            this.chkCryptoine.Size = new System.Drawing.Size(70, 17);
-            this.chkCryptoine.TabIndex = 44;
-            this.chkCryptoine.Text = "Cryptoine";
-            this.chkCryptoine.UseVisualStyleBackColor = true;
-            // 
-            // chkBTer
-            // 
-            this.chkBTer.AutoSize = true;
-            this.chkBTer.Location = new System.Drawing.Point(6, 98);
-            this.chkBTer.Name = "chkBTer";
-            this.chkBTer.Size = new System.Drawing.Size(49, 17);
-            this.chkBTer.TabIndex = 45;
-            this.chkBTer.Text = "BTer";
-            this.chkBTer.UseVisualStyleBackColor = true;
-            // 
-            // chkCCex
-            // 
-            this.chkCCex.AutoSize = true;
-            this.chkCCex.Location = new System.Drawing.Point(6, 121);
-            this.chkCCex.Name = "chkCCex";
-            this.chkCCex.Size = new System.Drawing.Size(54, 17);
-            this.chkCCex.TabIndex = 46;
-            this.chkCCex.Text = "C-Cex";
-            this.chkCCex.UseVisualStyleBackColor = true;
+            this.chkBittrex.AutoSize = true;
+            this.chkBittrex.Checked = true;
+            this.chkBittrex.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBittrex.Location = new System.Drawing.Point(6, 6);
+            this.chkBittrex.Name = "chkBittrex";
+            this.chkBittrex.Size = new System.Drawing.Size(55, 17);
+            this.chkBittrex.TabIndex = 36;
+            this.chkBittrex.Text = "Bittrex";
+            this.chkBittrex.UseVisualStyleBackColor = true;
             // 
             // tabOuterCoinMultipool
             // 
@@ -756,28 +731,172 @@
             this.tbcInnerCoinMultipool.Size = new System.Drawing.Size(995, 211);
             this.tbcInnerCoinMultipool.TabIndex = 0;
             // 
-            // tabJsonRpc
+            // tabCoinInfo
             // 
-            this.tabJsonRpc.Controls.Add(this.dgvJsonRpc);
-            this.tabJsonRpc.Location = new System.Drawing.Point(4, 22);
-            this.tabJsonRpc.Name = "tabJsonRpc";
-            this.tabJsonRpc.Size = new System.Drawing.Size(987, 185);
-            this.tabJsonRpc.TabIndex = 11;
-            this.tabJsonRpc.Text = "Live JSON-RPC Update";
-            this.tabJsonRpc.UseVisualStyleBackColor = true;
+            this.tabCoinInfo.Controls.Add(this.txtCointweakApiKey);
+            this.tabCoinInfo.Controls.Add(this.txtCoinwarzApiKey);
+            this.tabCoinInfo.Controls.Add(this.chkWhattomine);
+            this.tabCoinInfo.Controls.Add(this.chkCoinwarz);
+            this.tabCoinInfo.Controls.Add(this.chkCointweak);
+            this.tabCoinInfo.Location = new System.Drawing.Point(4, 22);
+            this.tabCoinInfo.Name = "tabCoinInfo";
+            this.tabCoinInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCoinInfo.Size = new System.Drawing.Size(987, 185);
+            this.tabCoinInfo.TabIndex = 2;
+            this.tabCoinInfo.Text = "Coin Info APIs";
+            this.tabCoinInfo.UseVisualStyleBackColor = true;
             // 
-            // dgvJsonRpc
+            // txtCointweakApiKey
             // 
-            this.dgvJsonRpc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvJsonRpc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvJsonRpc.Location = new System.Drawing.Point(0, 0);
-            this.dgvJsonRpc.Name = "dgvJsonRpc";
-            this.dgvJsonRpc.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvJsonRpc.Size = new System.Drawing.Size(987, 185);
-            this.dgvJsonRpc.TabIndex = 0;
-            this.dgvJsonRpc.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvJsonRpc_DefaultValuesNeeded);
-            this.dgvJsonRpc.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvJsonRpc_EditingControlShowing);
-            this.dgvJsonRpc.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvNeedsEdit_MouseUp);
+            this.txtCointweakApiKey.Enabled = false;
+            this.txtCointweakApiKey.Location = new System.Drawing.Point(114, 30);
+            this.txtCointweakApiKey.Name = "txtCointweakApiKey";
+            this.txtCointweakApiKey.Size = new System.Drawing.Size(371, 20);
+            this.txtCointweakApiKey.TabIndex = 30;
+            this.txtCointweakApiKey.Text = "Enter your CoinTweak API key here.";
+            // 
+            // txtCoinwarzApiKey
+            // 
+            this.txtCoinwarzApiKey.Enabled = false;
+            this.txtCoinwarzApiKey.Location = new System.Drawing.Point(114, 51);
+            this.txtCoinwarzApiKey.Name = "txtCoinwarzApiKey";
+            this.txtCoinwarzApiKey.Size = new System.Drawing.Size(371, 20);
+            this.txtCoinwarzApiKey.TabIndex = 27;
+            this.txtCoinwarzApiKey.Text = "Enter your CoinWarz API key here.";
+            // 
+            // chkWhattomine
+            // 
+            this.chkWhattomine.AutoSize = true;
+            this.chkWhattomine.Checked = true;
+            this.chkWhattomine.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWhattomine.Location = new System.Drawing.Point(6, 6);
+            this.chkWhattomine.Name = "chkWhattomine";
+            this.chkWhattomine.Size = new System.Drawing.Size(110, 17);
+            this.chkWhattomine.TabIndex = 3;
+            this.chkWhattomine.Text = "Use WhatToMine";
+            this.chkWhattomine.UseVisualStyleBackColor = true;
+            // 
+            // chkCoinwarz
+            // 
+            this.chkCoinwarz.AutoSize = true;
+            this.chkCoinwarz.Location = new System.Drawing.Point(6, 52);
+            this.chkCoinwarz.Name = "chkCoinwarz";
+            this.chkCoinwarz.Size = new System.Drawing.Size(94, 17);
+            this.chkCoinwarz.TabIndex = 29;
+            this.chkCoinwarz.Text = "Use CoinWarz";
+            this.chkCoinwarz.UseVisualStyleBackColor = true;
+            this.chkCoinwarz.CheckedChanged += new System.EventHandler(this.chkCoinwarz_CheckedChanged);
+            // 
+            // chkCointweak
+            // 
+            this.chkCointweak.AutoSize = true;
+            this.chkCointweak.Location = new System.Drawing.Point(6, 29);
+            this.chkCointweak.Name = "chkCointweak";
+            this.chkCointweak.Size = new System.Drawing.Size(102, 17);
+            this.chkCointweak.TabIndex = 28;
+            this.chkCointweak.Text = "Use CoinTweak";
+            this.chkCointweak.UseVisualStyleBackColor = true;
+            this.chkCointweak.CheckedChanged += new System.EventHandler(this.chkCointweak_CheckedChanged);
+            // 
+            // tabMultipool
+            // 
+            this.tabMultipool.Controls.Add(this.nudCryptoday);
+            this.tabMultipool.Controls.Add(this.chkCryptoday);
+            this.tabMultipool.Controls.Add(this.chkReviewCalc);
+            this.tabMultipool.Controls.Add(this.chkNiceHash);
+            this.tabMultipool.Controls.Add(this.nudPoolpicker);
+            this.tabMultipool.Controls.Add(this.chkPoolpicker);
+            this.tabMultipool.Location = new System.Drawing.Point(4, 22);
+            this.tabMultipool.Name = "tabMultipool";
+            this.tabMultipool.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMultipool.Size = new System.Drawing.Size(987, 185);
+            this.tabMultipool.TabIndex = 10;
+            this.tabMultipool.Text = "Multipool APIs";
+            this.tabMultipool.UseVisualStyleBackColor = true;
+            // 
+            // nudCryptoday
+            // 
+            this.nudCryptoday.Location = new System.Drawing.Point(178, 27);
+            this.nudCryptoday.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCryptoday.Name = "nudCryptoday";
+            this.nudCryptoday.Size = new System.Drawing.Size(38, 20);
+            this.nudCryptoday.TabIndex = 36;
+            this.nudCryptoday.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // chkCryptoday
+            // 
+            this.chkCryptoday.AutoSize = true;
+            this.chkCryptoday.Checked = true;
+            this.chkCryptoday.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCryptoday.Location = new System.Drawing.Point(6, 29);
+            this.chkCryptoday.Name = "chkCryptoday";
+            this.chkCryptoday.Size = new System.Drawing.Size(246, 17);
+            this.chkCryptoday.TabIndex = 37;
+            this.chkCryptoday.Text = "Use CrypToday, averaging over               days.";
+            this.chkCryptoday.UseVisualStyleBackColor = true;
+            this.chkCryptoday.CheckedChanged += new System.EventHandler(this.chkCryptoday_CheckedChanged);
+            // 
+            // chkReviewCalc
+            // 
+            this.chkReviewCalc.AutoSize = true;
+            this.chkReviewCalc.Checked = true;
+            this.chkReviewCalc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkReviewCalc.Location = new System.Drawing.Point(6, 75);
+            this.chkReviewCalc.Name = "chkReviewCalc";
+            this.chkReviewCalc.Size = new System.Drawing.Size(221, 17);
+            this.chkReviewCalc.TabIndex = 35;
+            this.chkReviewCalc.Text = "Calculate PP reviews into multipool prices";
+            this.chkReviewCalc.UseVisualStyleBackColor = true;
+            // 
+            // chkNiceHash
+            // 
+            this.chkNiceHash.AutoSize = true;
+            this.chkNiceHash.Checked = true;
+            this.chkNiceHash.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNiceHash.Location = new System.Drawing.Point(6, 6);
+            this.chkNiceHash.Name = "chkNiceHash";
+            this.chkNiceHash.Size = new System.Drawing.Size(156, 17);
+            this.chkNiceHash.TabIndex = 31;
+            this.chkNiceHash.Text = "Get actual NiceHash prices";
+            this.chkNiceHash.UseVisualStyleBackColor = true;
+            // 
+            // nudPoolpicker
+            // 
+            this.nudPoolpicker.Location = new System.Drawing.Point(178, 50);
+            this.nudPoolpicker.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudPoolpicker.Name = "nudPoolpicker";
+            this.nudPoolpicker.Size = new System.Drawing.Size(38, 20);
+            this.nudPoolpicker.TabIndex = 33;
+            this.nudPoolpicker.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // chkPoolpicker
+            // 
+            this.chkPoolpicker.AutoSize = true;
+            this.chkPoolpicker.Checked = true;
+            this.chkPoolpicker.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPoolpicker.Location = new System.Drawing.Point(6, 52);
+            this.chkPoolpicker.Name = "chkPoolpicker";
+            this.chkPoolpicker.Size = new System.Drawing.Size(246, 17);
+            this.chkPoolpicker.TabIndex = 33;
+            this.chkPoolpicker.Text = "Use PoolPicker, averaging over               days.";
+            this.chkPoolpicker.UseVisualStyleBackColor = true;
+            this.chkPoolpicker.CheckedChanged += new System.EventHandler(this.chkPoolpicker_CheckedChanged);
             // 
             // tabCustomCoins
             // 
@@ -802,172 +921,28 @@
             this.dgvCustomCoins.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomCoins_EditingControlShowing);
             this.dgvCustomCoins.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvNeedsEdit_MouseUp);
             // 
-            // tabMultipool
+            // tabJsonRpc
             // 
-            this.tabMultipool.Controls.Add(this.nudCryptoday);
-            this.tabMultipool.Controls.Add(this.chkCryptoday);
-            this.tabMultipool.Controls.Add(this.chkReviewCalc);
-            this.tabMultipool.Controls.Add(this.chkNiceHash);
-            this.tabMultipool.Controls.Add(this.nudPoolpicker);
-            this.tabMultipool.Controls.Add(this.chkPoolpicker);
-            this.tabMultipool.Location = new System.Drawing.Point(4, 22);
-            this.tabMultipool.Name = "tabMultipool";
-            this.tabMultipool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMultipool.Size = new System.Drawing.Size(987, 185);
-            this.tabMultipool.TabIndex = 10;
-            this.tabMultipool.Text = "Multipool APIs";
-            this.tabMultipool.UseVisualStyleBackColor = true;
+            this.tabJsonRpc.Controls.Add(this.dgvJsonRpc);
+            this.tabJsonRpc.Location = new System.Drawing.Point(4, 22);
+            this.tabJsonRpc.Name = "tabJsonRpc";
+            this.tabJsonRpc.Size = new System.Drawing.Size(987, 185);
+            this.tabJsonRpc.TabIndex = 11;
+            this.tabJsonRpc.Text = "Live JSON-RPC Update";
+            this.tabJsonRpc.UseVisualStyleBackColor = true;
             // 
-            // chkPoolpicker
+            // dgvJsonRpc
             // 
-            this.chkPoolpicker.AutoSize = true;
-            this.chkPoolpicker.Checked = true;
-            this.chkPoolpicker.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPoolpicker.Location = new System.Drawing.Point(6, 52);
-            this.chkPoolpicker.Name = "chkPoolpicker";
-            this.chkPoolpicker.Size = new System.Drawing.Size(246, 17);
-            this.chkPoolpicker.TabIndex = 33;
-            this.chkPoolpicker.Text = "Use PoolPicker, averaging over               days.";
-            this.chkPoolpicker.UseVisualStyleBackColor = true;
-            this.chkPoolpicker.CheckedChanged += new System.EventHandler(this.chkPoolpicker_CheckedChanged);
-            // 
-            // nudPoolpicker
-            // 
-            this.nudPoolpicker.Location = new System.Drawing.Point(178, 50);
-            this.nudPoolpicker.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudPoolpicker.Name = "nudPoolpicker";
-            this.nudPoolpicker.Size = new System.Drawing.Size(38, 20);
-            this.nudPoolpicker.TabIndex = 33;
-            this.nudPoolpicker.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // chkNiceHash
-            // 
-            this.chkNiceHash.AutoSize = true;
-            this.chkNiceHash.Checked = true;
-            this.chkNiceHash.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNiceHash.Location = new System.Drawing.Point(6, 6);
-            this.chkNiceHash.Name = "chkNiceHash";
-            this.chkNiceHash.Size = new System.Drawing.Size(156, 17);
-            this.chkNiceHash.TabIndex = 31;
-            this.chkNiceHash.Text = "Get actual NiceHash prices";
-            this.chkNiceHash.UseVisualStyleBackColor = true;
-            // 
-            // chkReviewCalc
-            // 
-            this.chkReviewCalc.AutoSize = true;
-            this.chkReviewCalc.Checked = true;
-            this.chkReviewCalc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkReviewCalc.Location = new System.Drawing.Point(6, 75);
-            this.chkReviewCalc.Name = "chkReviewCalc";
-            this.chkReviewCalc.Size = new System.Drawing.Size(221, 17);
-            this.chkReviewCalc.TabIndex = 35;
-            this.chkReviewCalc.Text = "Calculate PP reviews into multipool prices";
-            this.chkReviewCalc.UseVisualStyleBackColor = true;
-            // 
-            // chkCryptoday
-            // 
-            this.chkCryptoday.AutoSize = true;
-            this.chkCryptoday.Checked = true;
-            this.chkCryptoday.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCryptoday.Location = new System.Drawing.Point(6, 29);
-            this.chkCryptoday.Name = "chkCryptoday";
-            this.chkCryptoday.Size = new System.Drawing.Size(246, 17);
-            this.chkCryptoday.TabIndex = 37;
-            this.chkCryptoday.Text = "Use CrypToday, averaging over               days.";
-            this.chkCryptoday.UseVisualStyleBackColor = true;
-            this.chkCryptoday.CheckedChanged += new System.EventHandler(this.chkCryptoday_CheckedChanged);
-            // 
-            // nudCryptoday
-            // 
-            this.nudCryptoday.Location = new System.Drawing.Point(178, 27);
-            this.nudCryptoday.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudCryptoday.Name = "nudCryptoday";
-            this.nudCryptoday.Size = new System.Drawing.Size(38, 20);
-            this.nudCryptoday.TabIndex = 36;
-            this.nudCryptoday.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // tabCoinInfo
-            // 
-            this.tabCoinInfo.Controls.Add(this.txtCointweakApiKey);
-            this.tabCoinInfo.Controls.Add(this.txtCoinwarzApiKey);
-            this.tabCoinInfo.Controls.Add(this.chkWhattomine);
-            this.tabCoinInfo.Controls.Add(this.chkCoinwarz);
-            this.tabCoinInfo.Controls.Add(this.chkCointweak);
-            this.tabCoinInfo.Location = new System.Drawing.Point(4, 22);
-            this.tabCoinInfo.Name = "tabCoinInfo";
-            this.tabCoinInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCoinInfo.Size = new System.Drawing.Size(987, 185);
-            this.tabCoinInfo.TabIndex = 2;
-            this.tabCoinInfo.Text = "Coin Info APIs";
-            this.tabCoinInfo.UseVisualStyleBackColor = true;
-            // 
-            // chkCointweak
-            // 
-            this.chkCointweak.AutoSize = true;
-            this.chkCointweak.Location = new System.Drawing.Point(6, 29);
-            this.chkCointweak.Name = "chkCointweak";
-            this.chkCointweak.Size = new System.Drawing.Size(102, 17);
-            this.chkCointweak.TabIndex = 28;
-            this.chkCointweak.Text = "Use CoinTweak";
-            this.chkCointweak.UseVisualStyleBackColor = true;
-            this.chkCointweak.CheckedChanged += new System.EventHandler(this.chkCointweak_CheckedChanged);
-            // 
-            // chkCoinwarz
-            // 
-            this.chkCoinwarz.AutoSize = true;
-            this.chkCoinwarz.Location = new System.Drawing.Point(6, 52);
-            this.chkCoinwarz.Name = "chkCoinwarz";
-            this.chkCoinwarz.Size = new System.Drawing.Size(94, 17);
-            this.chkCoinwarz.TabIndex = 29;
-            this.chkCoinwarz.Text = "Use CoinWarz";
-            this.chkCoinwarz.UseVisualStyleBackColor = true;
-            this.chkCoinwarz.CheckedChanged += new System.EventHandler(this.chkCoinwarz_CheckedChanged);
-            // 
-            // chkWhattomine
-            // 
-            this.chkWhattomine.AutoSize = true;
-            this.chkWhattomine.Checked = true;
-            this.chkWhattomine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWhattomine.Location = new System.Drawing.Point(6, 6);
-            this.chkWhattomine.Name = "chkWhattomine";
-            this.chkWhattomine.Size = new System.Drawing.Size(110, 17);
-            this.chkWhattomine.TabIndex = 3;
-            this.chkWhattomine.Text = "Use WhatToMine";
-            this.chkWhattomine.UseVisualStyleBackColor = true;
-            // 
-            // txtCoinwarzApiKey
-            // 
-            this.txtCoinwarzApiKey.Enabled = false;
-            this.txtCoinwarzApiKey.Location = new System.Drawing.Point(114, 51);
-            this.txtCoinwarzApiKey.Name = "txtCoinwarzApiKey";
-            this.txtCoinwarzApiKey.Size = new System.Drawing.Size(371, 20);
-            this.txtCoinwarzApiKey.TabIndex = 27;
-            this.txtCoinwarzApiKey.Text = "Enter your CoinWarz API key here.";
-            // 
-            // txtCointweakApiKey
-            // 
-            this.txtCointweakApiKey.Enabled = false;
-            this.txtCointweakApiKey.Location = new System.Drawing.Point(114, 30);
-            this.txtCointweakApiKey.Name = "txtCointweakApiKey";
-            this.txtCointweakApiKey.Size = new System.Drawing.Size(371, 20);
-            this.txtCointweakApiKey.TabIndex = 30;
-            this.txtCointweakApiKey.Text = "Enter your CoinTweak API key here.";
+            this.dgvJsonRpc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvJsonRpc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvJsonRpc.Location = new System.Drawing.Point(0, 0);
+            this.dgvJsonRpc.Name = "dgvJsonRpc";
+            this.dgvJsonRpc.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvJsonRpc.Size = new System.Drawing.Size(987, 185);
+            this.dgvJsonRpc.TabIndex = 0;
+            this.dgvJsonRpc.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvJsonRpc_DefaultValuesNeeded);
+            this.dgvJsonRpc.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvJsonRpc_EditingControlShowing);
+            this.dgvJsonRpc.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvNeedsEdit_MouseUp);
             // 
             // tabHashrates
             // 
@@ -979,6 +954,18 @@
             this.tabHashrates.TabIndex = 9;
             this.tabHashrates.Text = "Hashrates";
             this.tabHashrates.UseVisualStyleBackColor = true;
+            // 
+            // chkAllHashrates
+            // 
+            this.chkAllHashrates.AutoSize = true;
+            this.chkAllHashrates.Checked = true;
+            this.chkAllHashrates.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAllHashrates.Location = new System.Drawing.Point(45, 6);
+            this.chkAllHashrates.Name = "chkAllHashrates";
+            this.chkAllHashrates.Size = new System.Drawing.Size(15, 14);
+            this.chkAllHashrates.TabIndex = 2;
+            this.chkAllHashrates.UseVisualStyleBackColor = true;
+            this.chkAllHashrates.CheckedChanged += new System.EventHandler(this.chkAllHashrates_CheckedChanged);
             // 
             // dgvCustomAlgos
             // 
@@ -993,18 +980,6 @@
             this.dgvCustomAlgos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomAlgos_EditingControlShowing);
             this.dgvCustomAlgos.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvNeedsEdit_MouseUp);
             this.dgvCustomAlgos.Validated += new System.EventHandler(this.dgvCustomAlgos_Validated);
-            // 
-            // chkAllHashrates
-            // 
-            this.chkAllHashrates.AutoSize = true;
-            this.chkAllHashrates.Checked = true;
-            this.chkAllHashrates.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAllHashrates.Location = new System.Drawing.Point(45, 6);
-            this.chkAllHashrates.Name = "chkAllHashrates";
-            this.chkAllHashrates.Size = new System.Drawing.Size(15, 14);
-            this.chkAllHashrates.TabIndex = 2;
-            this.chkAllHashrates.UseVisualStyleBackColor = true;
-            this.chkAllHashrates.CheckedChanged += new System.EventHandler(this.chkAllHashrates_CheckedChanged);
             // 
             // tbcControlSettings
             // 
@@ -1175,6 +1150,18 @@
             this.chkProxy.UseVisualStyleBackColor = true;
             this.chkProxy.CheckedChanged += new System.EventHandler(this.chkProxy_CheckedChanged);
             // 
+            // chk24hDiff
+            // 
+            this.chk24hDiff.AutoSize = true;
+            this.chk24hDiff.Checked = true;
+            this.chk24hDiff.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk24hDiff.Location = new System.Drawing.Point(6, 56);
+            this.chk24hDiff.Name = "chk24hDiff";
+            this.chk24hDiff.Size = new System.Drawing.Size(211, 17);
+            this.chk24hDiff.TabIndex = 69;
+            this.chk24hDiff.Text = "Use 24hr difficulty average (if available)";
+            this.chk24hDiff.UseVisualStyleBackColor = true;
+            // 
             // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1192,7 +1179,6 @@
             this.Text = "Profit Calculator~ By KBomba";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CudaProfitCalc_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).EndInit();
-            this.ctxtStrip.ResumeLayout(false);
             this.stStatusStrip.ResumeLayout(false);
             this.stStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).EndInit();
@@ -1207,16 +1193,16 @@
             this.tabMarketApi.PerformLayout();
             this.tabOuterCoinMultipool.ResumeLayout(false);
             this.tbcInnerCoinMultipool.ResumeLayout(false);
-            this.tabJsonRpc.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvJsonRpc)).EndInit();
-            this.tabCustomCoins.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).EndInit();
-            this.tabMultipool.ResumeLayout(false);
-            this.tabMultipool.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).EndInit();
             this.tabCoinInfo.ResumeLayout(false);
             this.tabCoinInfo.PerformLayout();
+            this.tabMultipool.ResumeLayout(false);
+            this.tabMultipool.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCryptoday)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPoolpicker)).EndInit();
+            this.tabCustomCoins.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomCoins)).EndInit();
+            this.tabJsonRpc.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJsonRpc)).EndInit();
             this.tabHashrates.ResumeLayout(false);
             this.tabHashrates.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomAlgos)).EndInit();
@@ -1239,9 +1225,6 @@
         private System.Windows.Forms.ToolStripProgressBar tsProgress;
         private System.Windows.Forms.ToolStripStatusLabel tsProgressText;
         private System.Windows.Forms.ToolStripStatusLabel tsStatus;
-        private System.Windows.Forms.ContextMenuStrip ctxtStrip;
-        private System.Windows.Forms.ToolStripMenuItem tsmResultsToClipboard;
-        private System.Windows.Forms.ToolStripMenuItem tsmHashratesToClipboard;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
         private System.Windows.Forms.DataGridViewTextBoxColumn CoinName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Algo;
@@ -1324,6 +1307,7 @@
         private System.Windows.Forms.NumericUpDown nudTimeout;
         private System.Windows.Forms.TextBox txtProxy;
         private System.Windows.Forms.CheckBox chkProxy;
+        private System.Windows.Forms.CheckBox chk24hDiff;
     }
 }
 

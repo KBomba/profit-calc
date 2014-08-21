@@ -7,7 +7,6 @@ namespace ProfitCalc.ApiControl.TemplateClasses
     {
         [JsonProperty("coins")] 
         public Dictionary<string, Coin> Coins;
-
         public class Coin
         {
             [JsonProperty("tag")]
@@ -28,8 +27,8 @@ namespace ProfitCalc.ApiControl.TemplateClasses
             [JsonProperty("difficulty")]
             public double Difficulty { get; set; }
 
-            /*[JsonProperty("difficulty24")]
-            public double Difficulty24 { get; set; }*/
+            [JsonProperty("difficulty24")]
+            public double Difficulty24 { get; set; }
 
             [JsonProperty("nethash")]
             public double Nethash { get; set; }

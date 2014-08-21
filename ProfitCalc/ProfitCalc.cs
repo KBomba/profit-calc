@@ -428,6 +428,7 @@ namespace ProfitCalc
                         () => chkRemoveZeroVolume.Checked = apiSettings.CheckedMisc["RemoveZeroVolume"],
                         () => chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"],
                         () => chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"],
+                        () => chk24hDiff.Checked = apiSettings.CheckedMisc["Use24hDiff"],
                         () => chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"],
                         () => chkProxy.Checked = apiSettings.CheckedMisc["Proxy"]
                     };
@@ -572,6 +573,7 @@ namespace ProfitCalc
                 apiSettings.CheckedMisc.Add("RemoveZeroVolume", chkRemoveZeroVolume.Checked);
                 apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
                 apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
+                apiSettings.CheckedMisc.Add("Use24hDiff", chk24hDiff.Checked);
                 apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
                 apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
 
@@ -626,7 +628,7 @@ namespace ProfitCalc
         {
             try
             {
-                _coinList.CalculatePrices(chkWeight.Checked, chkCoindesk.Checked);
+                _coinList.CalculatePrices(chkWeight.Checked, chkCoindesk.Checked, chk24hDiff.Checked);
             }
             catch (Exception exception)
             {
@@ -637,7 +639,7 @@ namespace ProfitCalc
 
         private List<Coin> GetCleanedCoinList()
         {
-            ParallelQuery<Coin> tempCoinList = _coinList.List.AsParallel();
+            ParallelQuery<Coin> tempCoinList = _coinList.ListOfCoins.AsParallel();
 
             if (chkRemoveUnlisted.Checked)
             {
@@ -764,7 +766,7 @@ namespace ProfitCalc
                 Timeout = TimeSpan.FromSeconds((double) nudTimeout.Value)
             };
 
-            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex);
+            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex, chk24hDiff.Checked);
 
             if (_customCoins.Count > 0)
             {
@@ -1192,7 +1194,7 @@ namespace ProfitCalc
                 Use = true,
                 Name = "HEAVY",
                 SynonymsCsv = "HEFTY,HEFTY1,HEAVYCOIN",
-                HashRate = 93.9,
+                HashRate = 13.1,
                 Wattage = 0,
                 Style = "Classic",
                 Target = 32
@@ -1432,7 +1434,7 @@ namespace ProfitCalc
 
         private void reasonToUpdateDgv_CheckedChanged(object sender, EventArgs e)
         {
-            if (_coinList != null && _coinList.List != null)
+            if (_coinList != null && _coinList.ListOfCoins != null)
             {
                 UpdateDataGridView(GetCleanedCoinList());
             }
@@ -1783,6 +1785,14 @@ namespace ProfitCalc
 
         private void picDonate_Click(object sender, EventArgs e)
         {
+        }
+
+        private void dgView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                
+            }
         }
     }
 }

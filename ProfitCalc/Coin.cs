@@ -13,13 +13,13 @@ namespace ProfitCalc
         public string Algo { get; set; }
 
         public double Difficulty { get; set; }
+        public double Avg24HDifficulty { get;set;}
         public double BlockReward { get; set; }
         public double BlockTime { get; set; }
         public double NetHashRate { get; set; }
         public uint Height { get; set; }
 
         public List<Exchange> Exchanges { get; set; }
-
         internal class Exchange
         {
             public string ExchangeName { get; set; }
@@ -140,6 +140,7 @@ namespace ProfitCalc
             }
 
             Difficulty = wtmCoin.Value.Difficulty;
+            Avg24HDifficulty = wtmCoin.Value.Difficulty24;
             BlockReward = wtmCoin.Value.BlockReward;
             BlockTime = wtmCoin.Value.BlockTime;
             NetHashRate = wtmCoin.Value.Nethash;
@@ -170,6 +171,7 @@ namespace ProfitCalc
             }
 
             Difficulty = ctwCoin.Difficulty;
+            Avg24HDifficulty = ctwCoin.AvgDiff;
             BlockReward = ctwCoin.BlockCoins;
 
             Exchange ctwExchange = new Exchange
@@ -219,7 +221,7 @@ namespace ProfitCalc
             HasImplementedMarketApi = false;
         }
 
-        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier, string diffCalculationCalcStyle, double target)
+        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier, string diffCalculationCalcStyle, double target, bool use24HDiff)
         {
             if (IsMultiPool)
             {
@@ -229,24 +231,25 @@ namespace ProfitCalc
             else
             {
                 SortExchanges();
-                
+
+                double diff = use24HDiff && Avg24HDifficulty != 0 ? Avg24HDifficulty : Difficulty;
 
                 switch (diffCalculationCalcStyle)
                 {
                     case "CryptoNight":
                         //Cryptonight's difficulty is net hashrate * 60
                         CoinsPerDay = (BlockReward * ((24 * 60 * 60) / BlockTime)) 
-                            * ((hashRateMh * 1000000) / (Difficulty / 60)) * multiplier;
+                            * ((hashRateMh * 1000000) / (diff / 60)) * multiplier;
                         break;
                     case "NetHashRate":
                         double netHash = NetHashRate != 0
                             ? NetHashRate
-                            : Difficulty*Math.Pow(2, target)/BlockTime;
+                            : diff*Math.Pow(2, target)/BlockTime;
                         CoinsPerDay = (BlockReward * ((24 * 60 * 60) / BlockTime))
                             * ((hashRateMh * 1000000) / netHash) * multiplier;
                         break;
                     default:
-                        CoinsPerDay = (BlockReward / (Difficulty * Math.Pow(2, target)
+                        CoinsPerDay = (BlockReward / (diff* Math.Pow(2, target)
                             / (hashRateMh * 1000000) / 3600 / 24)) * multiplier;
                         break;
                 }
