@@ -19,11 +19,9 @@ namespace ProfitCalc
         private readonly HttpClient _client;
         private readonly ParallelOptions _po;
         public Profile UsedProfile { get; set; }
-
         private readonly int _bidRecentAsk;
-        private readonly bool _get24HDiff;
 
-        public CoinList(HttpClient client, Profile profile, int index, bool get24HDiff)
+        public CoinList(HttpClient client, Profile profile, int index)
         {
             ListOfCoins = new List<Coin>();
             _client = client;
@@ -31,7 +29,6 @@ namespace ProfitCalc
 
             // 0 == highest bid price, 1 == recent trade price, 2 = lowest ask price
             _bidRecentAsk = index;
-            _get24HDiff = get24HDiff;
 
             _po = new ParallelOptions
             {
@@ -293,7 +290,7 @@ namespace ProfitCalc
 
             Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(cp.Returns.Markets, _po, cpCoin =>
             {
-                if (cpCoin.Value.SecondaryCode == "BTC" && cpCoin.Value.PrimaryCode == c.TagName)
+                if (cpCoin.Value.SecondaryCode == "BTC" && ((cpCoin.Value.PrimaryCode == c.TagName) || (cpCoin.Value.PrimaryCode == "STR" && c.TagName == "STAR")))
                 {
                     double priceToUse;
                     switch (_bidRecentAsk)

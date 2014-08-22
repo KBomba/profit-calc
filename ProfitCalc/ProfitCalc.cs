@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using ProfitCalc.ApiControl;
+using ProfitCalc.ApiControl.TemplateClasses;
 
 namespace ProfitCalc
 {
@@ -683,6 +684,7 @@ namespace ProfitCalc
         {
             tsStatus.Text = "Writing data to table...";
 
+            dgView.SuspendLayout();
             dgView.Rows.Clear();
             DataGridViewRow[] arrCoinRows = new DataGridViewRow[listCoins.Count];
 
@@ -708,6 +710,7 @@ namespace ProfitCalc
             }//);
 
             dgView.Rows.AddRange(arrCoinRows);
+            dgView.ResumeLayout();
         }
 
         private Color GetRowColor(Coin coin)
@@ -766,7 +769,7 @@ namespace ProfitCalc
                 Timeout = TimeSpan.FromSeconds((double) nudTimeout.Value)
             };
 
-            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex, chk24hDiff.Checked);
+            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex);
 
             if (_customCoins.Count > 0)
             {
@@ -1380,25 +1383,6 @@ namespace ProfitCalc
             };
 
             return defaultProfileList;
-        }
-
-        private void tsmResultsToClipboard_Click(object sender, EventArgs e)
-        {
-            if (_coinList != null) Clipboard.SetText(_coinList.ToString());
-        }
-
-        private void tsmHashratesToClipboard_Click(object sender, EventArgs e)
-        {
-            /*if (_profileList != null)
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (KeyValuePair<HashAlgo.Algo, double> algo in _profileList[cbbProfiles.Text].ListHashRate)
-                {
-                    sb.Append(algo.Key + ": " + algo.Value + " MH/s" + Environment.NewLine);
-                }
-
-                Clipboard.SetText(sb.ToString());
-            }*/
         }
 
         private void CudaProfitCalc_FormClosing(object sender, FormClosingEventArgs e)
