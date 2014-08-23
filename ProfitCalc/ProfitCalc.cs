@@ -614,7 +614,7 @@ namespace ProfitCalc
             CalculatePrices();
 
             tsProgress.Value += i;
-            UpdateDataGridView();
+            UpdateResultsDgv();
 
             tsProgress.Value = 100;
             TimeSpan end = DateTime.Now.Subtract(start);
@@ -679,7 +679,7 @@ namespace ProfitCalc
             return new List<Coin>(tempCoinList.OrderByDescending(o => o.BtcPerDay));
         }
 
-        private void UpdateDataGridView()
+        private void UpdateResultsDgv()
         {
             tsStatus.Text = "Writing data to table...";
 
@@ -1405,7 +1405,7 @@ namespace ProfitCalc
         {
             if (_coinList != null && _coinList.ListOfCoins != null)
             {
-                UpdateDataGridView();
+                UpdateResultsDgv();
             }
         }
 

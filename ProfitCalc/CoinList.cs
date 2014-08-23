@@ -81,55 +81,68 @@ namespace ProfitCalc
 
         public void AddCustomCoins(IEnumerable<CustomCoin> customCoins)
         {
+            int errorCount = 0;
             foreach (CustomCoin customCoin in customCoins)
             {
                 if (customCoin.Use)
                 {
                     if (customCoin.UseRpc)
                     {
-                        BitnetClient bc = new BitnetClient(
-                            "http://" + customCoin.RpcIp + ":" + customCoin.RpcPort + "/")
+                        try
                         {
-                            Credentials = new NetworkCredential(
-                                customCoin.RpcUser, customCoin.RpcPass)
-                        };
-                        JObject info = bc.GetMiningInfo();
-                        JToken height;
-                        if (info.TryGetValue("blocks", out height))
-                        {
-                            customCoin.Height = height.Value<uint>();
-                        }
-                        
-                        if (customCoin.GetDiff)
-                        {
-                            JToken diff;
-                            if (info.TryGetValue("difficulty", out diff))
+                            BitnetClient bc = new BitnetClient(
+                                "http://" + customCoin.RpcIp + ":" + customCoin.RpcPort + "/")
                             {
-                                customCoin.Difficulty = diff.Value<float>();
+                                Credentials = new NetworkCredential(
+                                    customCoin.RpcUser, customCoin.RpcPass)
+                            };
+                            JObject info = bc.GetMiningInfo();
+                            JToken height;
+                            if (info.TryGetValue("blocks", out height))
+                            {
+                                customCoin.Height = height.Value<uint>();
                             }
-                        }
 
-                        if (customCoin.GetReward)
-                        {
-                            JToken reward;
-                            if (info.TryGetValue("reward", out reward))
+                            if (customCoin.GetDiff)
                             {
-                                customCoin.BlockReward = reward.Value<float>();
+                                JToken diff;
+                                if (info.TryGetValue("difficulty", out diff))
+                                {
+                                    customCoin.Difficulty = diff.Value<float>();
+                                }
+                            }
+
+                            if (customCoin.GetReward)
+                            {
+                                JToken reward;
+                                if (info.TryGetValue("reward", out reward))
+                                {
+                                    customCoin.BlockReward = reward.Value<float>();
+                                }
+                            }
+
+                            if (customCoin.GetNetHash)
+                            {
+                                JToken networkHashPs;
+                                if (info.TryGetValue("networkhashps", out networkHashPs))
+                                {
+                                    customCoin.NetHashRate = networkHashPs.Value<float>()/1000000;
+                                }
                             }
                         }
-                        
-                        if (customCoin.GetNetHash)
+                        catch
                         {
-                            JToken networkHashPs;
-                            if (info.TryGetValue("networkhashps", out networkHashPs))
-                            {
-                                customCoin.NetHashRate = networkHashPs.Value<float>()/1000000;
-                            }
+                            errorCount++;
                         }
                     }
 
                     Add(new Coin(customCoin));
                 }
+            }
+
+            if (errorCount > 0)
+            {
+                throw new Exception("Cannot connect with one or more daemons/wallet-qts");
             }
         }
 
