@@ -30,26 +30,22 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
             this.cbbProfiles = new System.Windows.Forms.ComboBox();
             this.btnCalc = new System.Windows.Forms.Button();
-            this.dgView = new System.Windows.Forms.DataGridView();
-            this.Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CoinName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsdPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EurPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GbpPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CnyPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BtcPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CoinsPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchange = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ExchangeVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WeightedPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvResults = new System.Windows.Forms.DataGridView();
             this.stStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
@@ -62,6 +58,7 @@
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPriceCalc = new System.Windows.Forms.TabPage();
+            this.chk24hDiff = new System.Windows.Forms.CheckBox();
             this.cbbBidRecentAsk = new System.Windows.Forms.ComboBox();
             this.lblBidRecentAsk = new System.Windows.Forms.Label();
             this.nudAmount = new System.Windows.Forms.NumericUpDown();
@@ -118,8 +115,23 @@
             this.nudTimeout = new System.Windows.Forms.NumericUpDown();
             this.txtProxy = new System.Windows.Forms.TextBox();
             this.chkProxy = new System.Windows.Forms.CheckBox();
-            this.chk24hDiff = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
+            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsdPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EurPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GbpPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CnyPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtcPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CoinsPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangeVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WeightedBtcPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.stStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).BeginInit();
             this.tabReadme.SuspendLayout();
@@ -177,22 +189,22 @@
             this.btnCalc.UseVisualStyleBackColor = true;
             this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
             // 
-            // dgView
+            // dgvResults
             // 
-            this.dgView.AllowUserToAddRows = false;
-            this.dgView.AllowUserToDeleteRows = false;
+            this.dgvResults.AllowUserToAddRows = false;
+            this.dgvResults.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.dgView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Tag,
-            this.CoinName,
+            this.dgvResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvResults.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResults.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TagName,
+            this.FullName,
             this.Algo,
             this.UsdPerDay,
             this.EurPerDay,
@@ -200,137 +212,22 @@
             this.CnyPerDay,
             this.BtcPerDay,
             this.CoinsPerDay,
-            this.BestExchange,
+            this.BestExchangeName,
             this.BestExchangePrice,
-            this.ExchangeVolume,
-            this.WeightedPrice,
+            this.BestExchangeVolume,
+            this.WeightedBtcPrice,
             this.TotalVolume,
             this.Difficulty,
             this.BlockReward});
-            this.dgView.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dgView.Location = new System.Drawing.Point(0, 278);
-            this.dgView.Name = "dgView";
-            this.dgView.ReadOnly = true;
-            this.dgView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dgView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgView.Size = new System.Drawing.Size(1009, 429);
-            this.dgView.TabIndex = 1;
-            this.dgView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
-            // 
-            // Tag
-            // 
-            this.Tag.HeaderText = "Tag";
-            this.Tag.Name = "Tag";
-            this.Tag.ReadOnly = true;
-            this.Tag.Width = 51;
-            // 
-            // CoinName
-            // 
-            this.CoinName.HeaderText = "Name";
-            this.CoinName.Name = "CoinName";
-            this.CoinName.ReadOnly = true;
-            this.CoinName.Width = 60;
-            // 
-            // Algo
-            // 
-            this.Algo.HeaderText = "Algo";
-            this.Algo.Name = "Algo";
-            this.Algo.ReadOnly = true;
-            this.Algo.Width = 53;
-            // 
-            // UsdPerDay
-            // 
-            this.UsdPerDay.HeaderText = "USD per day";
-            this.UsdPerDay.Name = "UsdPerDay";
-            this.UsdPerDay.ReadOnly = true;
-            this.UsdPerDay.Width = 70;
-            // 
-            // EurPerDay
-            // 
-            this.EurPerDay.HeaderText = "EUR per day";
-            this.EurPerDay.Name = "EurPerDay";
-            this.EurPerDay.ReadOnly = true;
-            this.EurPerDay.Visible = false;
-            this.EurPerDay.Width = 93;
-            // 
-            // GbpPerDay
-            // 
-            this.GbpPerDay.HeaderText = "GBP per day";
-            this.GbpPerDay.Name = "GbpPerDay";
-            this.GbpPerDay.ReadOnly = true;
-            this.GbpPerDay.Visible = false;
-            this.GbpPerDay.Width = 92;
-            // 
-            // CnyPerDay
-            // 
-            this.CnyPerDay.HeaderText = "CNY per day";
-            this.CnyPerDay.Name = "CnyPerDay";
-            this.CnyPerDay.ReadOnly = true;
-            this.CnyPerDay.Visible = false;
-            this.CnyPerDay.Width = 92;
-            // 
-            // BtcPerDay
-            // 
-            this.BtcPerDay.HeaderText = "BTC per day";
-            this.BtcPerDay.Name = "BtcPerDay";
-            this.BtcPerDay.ReadOnly = true;
-            this.BtcPerDay.Width = 69;
-            // 
-            // CoinsPerDay
-            // 
-            this.CoinsPerDay.HeaderText = "Coins per day";
-            this.CoinsPerDay.Name = "CoinsPerDay";
-            this.CoinsPerDay.ReadOnly = true;
-            this.CoinsPerDay.Width = 73;
-            // 
-            // BestExchange
-            // 
-            this.BestExchange.HeaderText = "Best exchange";
-            this.BestExchange.Name = "BestExchange";
-            this.BestExchange.ReadOnly = true;
-            this.BestExchange.Width = 95;
-            // 
-            // BestExchangePrice
-            // 
-            this.BestExchangePrice.HeaderText = "Best exchange\'s price";
-            this.BestExchangePrice.Name = "BestExchangePrice";
-            this.BestExchangePrice.ReadOnly = true;
-            this.BestExchangePrice.Width = 124;
-            // 
-            // ExchangeVolume
-            // 
-            this.ExchangeVolume.HeaderText = "Best exchange\'s volume";
-            this.ExchangeVolume.Name = "ExchangeVolume";
-            this.ExchangeVolume.ReadOnly = true;
-            this.ExchangeVolume.Width = 134;
-            // 
-            // WeightedPrice
-            // 
-            this.WeightedPrice.HeaderText = "Weighted price";
-            this.WeightedPrice.Name = "WeightedPrice";
-            this.WeightedPrice.ReadOnly = true;
-            this.WeightedPrice.Width = 96;
-            // 
-            // TotalVolume
-            // 
-            this.TotalVolume.HeaderText = "Total Volume";
-            this.TotalVolume.Name = "TotalVolume";
-            this.TotalVolume.ReadOnly = true;
-            this.TotalVolume.Width = 87;
-            // 
-            // Difficulty
-            // 
-            this.Difficulty.HeaderText = "Difficulty";
-            this.Difficulty.Name = "Difficulty";
-            this.Difficulty.ReadOnly = true;
-            this.Difficulty.Width = 72;
-            // 
-            // BlockReward
-            // 
-            this.BlockReward.HeaderText = "Block reward";
-            this.BlockReward.Name = "BlockReward";
-            this.BlockReward.ReadOnly = true;
-            this.BlockReward.Width = 87;
+            this.dgvResults.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dgvResults.Location = new System.Drawing.Point(0, 278);
+            this.dgvResults.Name = "dgvResults";
+            this.dgvResults.ReadOnly = true;
+            this.dgvResults.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgvResults.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvResults.Size = new System.Drawing.Size(1009, 429);
+            this.dgvResults.TabIndex = 1;
+            this.dgvResults.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
             // 
             // stStatusStrip
             // 
@@ -456,6 +353,18 @@
             this.tabPriceCalc.TabIndex = 12;
             this.tabPriceCalc.Text = "Price Calc Settings";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
+            // 
+            // chk24hDiff
+            // 
+            this.chk24hDiff.AutoSize = true;
+            this.chk24hDiff.Checked = true;
+            this.chk24hDiff.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk24hDiff.Location = new System.Drawing.Point(6, 56);
+            this.chk24hDiff.Name = "chk24hDiff";
+            this.chk24hDiff.Size = new System.Drawing.Size(211, 17);
+            this.chk24hDiff.TabIndex = 69;
+            this.chk24hDiff.Text = "Use 24hr difficulty average (if available)";
+            this.chk24hDiff.UseVisualStyleBackColor = true;
             // 
             // cbbBidRecentAsk
             // 
@@ -1150,17 +1059,163 @@
             this.chkProxy.UseVisualStyleBackColor = true;
             this.chkProxy.CheckedChanged += new System.EventHandler(this.chkProxy_CheckedChanged);
             // 
-            // chk24hDiff
+            // TagName
             // 
-            this.chk24hDiff.AutoSize = true;
-            this.chk24hDiff.Checked = true;
-            this.chk24hDiff.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk24hDiff.Location = new System.Drawing.Point(6, 56);
-            this.chk24hDiff.Name = "chk24hDiff";
-            this.chk24hDiff.Size = new System.Drawing.Size(211, 17);
-            this.chk24hDiff.TabIndex = 69;
-            this.chk24hDiff.Text = "Use 24hr difficulty average (if available)";
-            this.chk24hDiff.UseVisualStyleBackColor = true;
+            this.TagName.DataPropertyName = "TagName";
+            this.TagName.HeaderText = "Tag";
+            this.TagName.Name = "TagName";
+            this.TagName.ReadOnly = true;
+            this.TagName.Width = 51;
+            // 
+            // FullName
+            // 
+            this.FullName.DataPropertyName = "FullName";
+            this.FullName.HeaderText = "Name";
+            this.FullName.MinimumWidth = 200;
+            this.FullName.Name = "FullName";
+            this.FullName.ReadOnly = true;
+            this.FullName.Width = 200;
+            // 
+            // Algo
+            // 
+            this.Algo.DataPropertyName = "Algo";
+            this.Algo.HeaderText = "Algo";
+            this.Algo.Name = "Algo";
+            this.Algo.ReadOnly = true;
+            this.Algo.Width = 53;
+            // 
+            // UsdPerDay
+            // 
+            this.UsdPerDay.DataPropertyName = "UsdPerDay";
+            dataGridViewCellStyle2.Format = "N3";
+            dataGridViewCellStyle2.NullValue = null;
+            this.UsdPerDay.DefaultCellStyle = dataGridViewCellStyle2;
+            this.UsdPerDay.HeaderText = "USD per day";
+            this.UsdPerDay.Name = "UsdPerDay";
+            this.UsdPerDay.ReadOnly = true;
+            this.UsdPerDay.Width = 93;
+            // 
+            // EurPerDay
+            // 
+            this.EurPerDay.DataPropertyName = "EurPerDay";
+            dataGridViewCellStyle3.Format = "N3";
+            this.EurPerDay.DefaultCellStyle = dataGridViewCellStyle3;
+            this.EurPerDay.HeaderText = "EUR per day";
+            this.EurPerDay.Name = "EurPerDay";
+            this.EurPerDay.ReadOnly = true;
+            this.EurPerDay.Visible = false;
+            this.EurPerDay.Width = 93;
+            // 
+            // GbpPerDay
+            // 
+            this.GbpPerDay.DataPropertyName = "GbpPerDay";
+            dataGridViewCellStyle4.Format = "N3";
+            this.GbpPerDay.DefaultCellStyle = dataGridViewCellStyle4;
+            this.GbpPerDay.HeaderText = "GBP per day";
+            this.GbpPerDay.Name = "GbpPerDay";
+            this.GbpPerDay.ReadOnly = true;
+            this.GbpPerDay.Visible = false;
+            this.GbpPerDay.Width = 92;
+            // 
+            // CnyPerDay
+            // 
+            this.CnyPerDay.DataPropertyName = "CnyPerDay";
+            dataGridViewCellStyle5.Format = "N3";
+            this.CnyPerDay.DefaultCellStyle = dataGridViewCellStyle5;
+            this.CnyPerDay.HeaderText = "CNY per day";
+            this.CnyPerDay.Name = "CnyPerDay";
+            this.CnyPerDay.ReadOnly = true;
+            this.CnyPerDay.Visible = false;
+            this.CnyPerDay.Width = 92;
+            // 
+            // BtcPerDay
+            // 
+            this.BtcPerDay.DataPropertyName = "BtcPerDay";
+            dataGridViewCellStyle6.Format = "N8";
+            this.BtcPerDay.DefaultCellStyle = dataGridViewCellStyle6;
+            this.BtcPerDay.HeaderText = "BTC per day";
+            this.BtcPerDay.Name = "BtcPerDay";
+            this.BtcPerDay.ReadOnly = true;
+            this.BtcPerDay.Width = 91;
+            // 
+            // CoinsPerDay
+            // 
+            this.CoinsPerDay.DataPropertyName = "CoinsPerDay";
+            dataGridViewCellStyle7.Format = "N5";
+            dataGridViewCellStyle7.NullValue = null;
+            this.CoinsPerDay.DefaultCellStyle = dataGridViewCellStyle7;
+            this.CoinsPerDay.HeaderText = "Coins per day";
+            this.CoinsPerDay.Name = "CoinsPerDay";
+            this.CoinsPerDay.ReadOnly = true;
+            this.CoinsPerDay.Width = 96;
+            // 
+            // BestExchangeName
+            // 
+            this.BestExchangeName.DataPropertyName = "BestExchangeName";
+            this.BestExchangeName.HeaderText = "Best exchange";
+            this.BestExchangeName.Name = "BestExchangeName";
+            this.BestExchangeName.ReadOnly = true;
+            this.BestExchangeName.Width = 95;
+            // 
+            // BestExchangePrice
+            // 
+            this.BestExchangePrice.DataPropertyName = "BestExchangePrice";
+            dataGridViewCellStyle8.Format = "N8";
+            this.BestExchangePrice.DefaultCellStyle = dataGridViewCellStyle8;
+            this.BestExchangePrice.HeaderText = "Best exchange\'s price";
+            this.BestExchangePrice.Name = "BestExchangePrice";
+            this.BestExchangePrice.ReadOnly = true;
+            this.BestExchangePrice.Width = 124;
+            // 
+            // BestExchangeVolume
+            // 
+            this.BestExchangeVolume.DataPropertyName = "BestExchangeVolume";
+            dataGridViewCellStyle9.Format = "N3";
+            this.BestExchangeVolume.DefaultCellStyle = dataGridViewCellStyle9;
+            this.BestExchangeVolume.HeaderText = "Best exchange\'s volume";
+            this.BestExchangeVolume.Name = "BestExchangeVolume";
+            this.BestExchangeVolume.ReadOnly = true;
+            this.BestExchangeVolume.Width = 134;
+            // 
+            // WeightedBtcPrice
+            // 
+            this.WeightedBtcPrice.DataPropertyName = "WeightedBtcPrice";
+            dataGridViewCellStyle10.Format = "N8";
+            this.WeightedBtcPrice.DefaultCellStyle = dataGridViewCellStyle10;
+            this.WeightedBtcPrice.HeaderText = "Weighted price";
+            this.WeightedBtcPrice.Name = "WeightedBtcPrice";
+            this.WeightedBtcPrice.ReadOnly = true;
+            this.WeightedBtcPrice.Width = 96;
+            // 
+            // TotalVolume
+            // 
+            this.TotalVolume.DataPropertyName = "TotalVolume";
+            dataGridViewCellStyle11.Format = "N3";
+            this.TotalVolume.DefaultCellStyle = dataGridViewCellStyle11;
+            this.TotalVolume.HeaderText = "Total Volume";
+            this.TotalVolume.Name = "TotalVolume";
+            this.TotalVolume.ReadOnly = true;
+            this.TotalVolume.Width = 87;
+            // 
+            // Difficulty
+            // 
+            this.Difficulty.DataPropertyName = "Difficulty";
+            dataGridViewCellStyle12.Format = "N4";
+            this.Difficulty.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Difficulty.HeaderText = "Difficulty";
+            this.Difficulty.Name = "Difficulty";
+            this.Difficulty.ReadOnly = true;
+            this.Difficulty.Width = 72;
+            // 
+            // BlockReward
+            // 
+            this.BlockReward.DataPropertyName = "BlockReward";
+            dataGridViewCellStyle13.Format = "N4";
+            this.BlockReward.DefaultCellStyle = dataGridViewCellStyle13;
+            this.BlockReward.HeaderText = "Block reward";
+            this.BlockReward.Name = "BlockReward";
+            this.BlockReward.ReadOnly = true;
+            this.BlockReward.Width = 87;
             // 
             // ProfitCalc
             // 
@@ -1170,7 +1225,7 @@
             this.Controls.Add(this.picDonate);
             this.Controls.Add(this.btnAddDeleteProfile);
             this.Controls.Add(this.btnCalc);
-            this.Controls.Add(this.dgView);
+            this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.cbbProfiles);
             this.Controls.Add(this.stStatusStrip);
             this.Controls.Add(this.tbcControlSettings);
@@ -1178,7 +1233,7 @@
             this.Name = "ProfitCalc";
             this.Text = "Profit Calculator~ By KBomba";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CudaProfitCalc_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.dgView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.stStatusStrip.ResumeLayout(false);
             this.stStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).EndInit();
@@ -1219,28 +1274,12 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgView;
+        private System.Windows.Forms.DataGridView dgvResults;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.StatusStrip stStatusStrip;
         private System.Windows.Forms.ToolStripProgressBar tsProgress;
         private System.Windows.Forms.ToolStripStatusLabel tsProgressText;
         private System.Windows.Forms.ToolStripStatusLabel tsStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CoinName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Algo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsdPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EurPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GbpPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CnyPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BtcPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CoinsPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchange;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangePrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ExchangeVolume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WeightedPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalVolume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Difficulty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
         private System.Windows.Forms.ToolStripStatusLabel tsSpace;
         private System.Windows.Forms.ToolStripStatusLabel tsErrors;
         private System.Windows.Forms.ComboBox cbbProfiles;
@@ -1308,6 +1347,22 @@
         private System.Windows.Forms.TextBox txtProxy;
         private System.Windows.Forms.CheckBox chkProxy;
         private System.Windows.Forms.CheckBox chk24hDiff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TagName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Algo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsdPerDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EurPerDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GbpPerDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CnyPerDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BtcPerDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CoinsPerDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangePrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangeVolume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WeightedBtcPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalVolume;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Difficulty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
     }
 }
 

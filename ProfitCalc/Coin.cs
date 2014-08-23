@@ -28,11 +28,23 @@ namespace ProfitCalc
             public double Weight { get; set; }
             public bool IsFrozen { get; set; }
 
+            public List<Order> BuyOrders { get; set; }
+            public List<Order> SellOrders { get; set; }
+            internal class Order
+            {
+                public double BtcPrice { get; set; }
+                public double BtcVolume { get; set; }
+            }
+
             public override string ToString()
             {
                 return ExchangeName + " | BTC Price: " + BtcPrice + " | BTC Volume: " + BtcVolume;
             }
         }
+
+        public string BestExchangeName { get; set; }
+        public double BestExchangePrice { get; set; }
+        public double BestExchangeVolume { get; set; }
 
         public double WeightedBtcPrice { get; set; }
         public double TotalVolume { get; set; }
@@ -230,7 +242,10 @@ namespace ProfitCalc
             }
             else
             {
-                SortExchanges();
+                Exchanges = Exchanges.OrderByDescending(exchange => exchange.BtcVolume).ToList();
+                BestExchangeName = Exchanges[0].ExchangeName;
+                BestExchangePrice = Exchanges[0].BtcPrice;
+                BestExchangeVolume = Exchanges[0].BtcVolume;
 
                 double diff = use24HDiff && Avg24HDifficulty != 0 ? Avg24HDifficulty : Difficulty;
 
@@ -271,11 +286,6 @@ namespace ProfitCalc
 
                 if (TagName == "BTC") BtcPerDay = CoinsPerDay;
             }
-        }
-
-        public void SortExchanges()
-        {
-            Exchanges = Exchanges.OrderByDescending(exchange => exchange.BtcVolume).ToList();
         }
 
         public override string ToString()

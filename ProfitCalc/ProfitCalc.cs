@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using ProfitCalc.ApiControl;
@@ -33,14 +34,12 @@ namespace ProfitCalc
             InitCustomAlgos();
             InitCustomCoins();
             InitJsonRpcSettings();
-            dgvJsonRpc.DataSource = _customCoins;
 
             if (_historicAlgoList == null)
             {
                 _historicAlgoList = new AutoCompleteStringCollection();
             }
             UpdateHistoricAlgo(_profileList[cbbProfiles.Items[0].ToString()].CustomAlgoList);
-
         }
 
         private void InitializeOtherComponents()
@@ -615,7 +614,7 @@ namespace ProfitCalc
             CalculatePrices();
 
             tsProgress.Value += i;
-            UpdateDataGridView(GetCleanedCoinList());
+            UpdateDataGridView();
 
             tsProgress.Value = 100;
             TimeSpan end = DateTime.Now.Subtract(start);
@@ -680,37 +679,23 @@ namespace ProfitCalc
             return new List<Coin>(tempCoinList.OrderByDescending(o => o.BtcPerDay));
         }
 
-        private void UpdateDataGridView(List<Coin> listCoins)
+        private void UpdateDataGridView()
         {
             tsStatus.Text = "Writing data to table...";
 
-            dgView.SuspendLayout();
-            dgView.Rows.Clear();
-            DataGridViewRow[] arrCoinRows = new DataGridViewRow[listCoins.Count];
+            List<Coin> sourceList = GetCleanedCoinList();
 
-            //Parallel.For(0, listCoins.Count, index =>
-            for (int index = 0; index < listCoins.Count; index++)
+            dgvResults.SuspendLayout();
+            dgvResults.DataSource = null;
+            dgvResults.AutoGenerateColumns = false;
+            dgvResults.DataSource = sourceList;
+            dgvResults.ResumeLayout();
+
+            foreach (DataGridViewRow row in dgvResults.Rows)
             {
-                Coin coin = listCoins[index];
-                
-                arrCoinRows[index] = new DataGridViewRow {HeaderCell = {Value = String.Format("{0}", index + 1)}};
-                arrCoinRows[index].CreateCells(dgView, coin.TagName, coin.FullName, coin.Algo,
-                    coin.UsdPerDay.ToString("0.000"), coin.EurPerDay.ToString("0.000"),
-                    coin.GbpPerDay.ToString("0.000"), coin.CnyPerDay.ToString("0.000"),
-                    coin.BtcPerDay.ToString("0.00000000"), coin.CoinsPerDay.ToString("0.00000"),
-                    coin.Exchanges[0].ExchangeName, coin.Exchanges[0].BtcPrice.ToString("0.00000000"),
-                    coin.Exchanges[0].BtcVolume.ToString("0.000"), coin.WeightedBtcPrice.ToString("0.00000000"),
-                    coin.TotalVolume.ToString("0.000"), coin.Difficulty, coin.BlockReward
-                    );
-
-                if (chkColor.Checked)
-                {
-                    arrCoinRows[index].DefaultCellStyle.BackColor = GetRowColor(coin);
-                }
-            }//);
-
-            dgView.Rows.AddRange(arrCoinRows);
-            dgView.ResumeLayout();
+                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
+                row.DefaultCellStyle.BackColor = GetRowColor(sourceList[row.Index]);
+            }
         }
 
         private Color GetRowColor(Coin coin)
@@ -786,7 +771,7 @@ namespace ProfitCalc
                 }
             }
 
-            tsProgress.Value += progress;
+                        tsProgress.Value += progress;
             if (chkNiceHash.Checked)
             {
                 try
@@ -1420,7 +1405,7 @@ namespace ProfitCalc
         {
             if (_coinList != null && _coinList.ListOfCoins != null)
             {
-                UpdateDataGridView(GetCleanedCoinList());
+                UpdateDataGridView();
             }
         }
 
@@ -1449,48 +1434,48 @@ namespace ProfitCalc
                 {
                     case 0:
                         lblElectricityCost.Text = "USD/kWh";
-                        dgView.Columns[3].Visible = true;
-                        dgView.Columns[4].Visible = false;
-                        dgView.Columns[5].Visible = false;
-                        dgView.Columns[6].Visible = false;
+                        dgvResults.Columns[3].Visible = true;
+                        dgvResults.Columns[4].Visible = false;
+                        dgvResults.Columns[5].Visible = false;
+                        dgvResults.Columns[6].Visible = false;
                         break;
                     case 1:
                         lblElectricityCost.Text = "EUR/kWh";
-                        dgView.Columns[3].Visible = false;
-                        dgView.Columns[4].Visible = true;
-                        dgView.Columns[5].Visible = false;
-                        dgView.Columns[6].Visible = false;
+                        dgvResults.Columns[3].Visible = false;
+                        dgvResults.Columns[4].Visible = true;
+                        dgvResults.Columns[5].Visible = false;
+                        dgvResults.Columns[6].Visible = false;
                         break;
                     case 2:
                         lblElectricityCost.Text = "GBP/kWh";
-                        dgView.Columns[3].Visible = false;
-                        dgView.Columns[4].Visible = false;
-                        dgView.Columns[5].Visible = true;
-                        dgView.Columns[6].Visible = false;
+                        dgvResults.Columns[3].Visible = false;
+                        dgvResults.Columns[4].Visible = false;
+                        dgvResults.Columns[5].Visible = true;
+                        dgvResults.Columns[6].Visible = false;
                         break;
                     case 3:
                         lblElectricityCost.Text = "CNY/kWh";
-                        dgView.Columns[3].Visible = false;
-                        dgView.Columns[4].Visible = false;
-                        dgView.Columns[5].Visible = false;
-                        dgView.Columns[6].Visible = true;
+                        dgvResults.Columns[3].Visible = false;
+                        dgvResults.Columns[4].Visible = false;
+                        dgvResults.Columns[5].Visible = false;
+                        dgvResults.Columns[6].Visible = true;
                         break;
                     default:
                         lblElectricityCost.Text = "USD/kWh";
-                        dgView.Columns[3].Visible = true;
-                        dgView.Columns[4].Visible = true;
-                        dgView.Columns[5].Visible = true;
-                        dgView.Columns[6].Visible = true;
+                        dgvResults.Columns[3].Visible = true;
+                        dgvResults.Columns[4].Visible = true;
+                        dgvResults.Columns[5].Visible = true;
+                        dgvResults.Columns[6].Visible = true;
                         break;
                 }
             }
             else
             {
                 lblElectricityCost.Text = "Disabled";
-                dgView.Columns[3].Visible = false;
-                dgView.Columns[4].Visible = false;
-                dgView.Columns[5].Visible = false;
-                dgView.Columns[6].Visible = false;
+                dgvResults.Columns[3].Visible = false;
+                dgvResults.Columns[4].Visible = false;
+                dgvResults.Columns[5].Visible = false;
+                dgvResults.Columns[6].Visible = false;
             }
 
             int x = txtFiatElectricityCost.Location.X - 6 - lblElectricityCost.Size.Width;
