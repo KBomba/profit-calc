@@ -100,6 +100,12 @@
     <Compile Include="ApiControl\TemplateClasses\WhatToMine.cs" />
     <Compile Include="Coin.cs" />
     <Compile Include="CoinList.cs" />
+    <Compile Include="DetailedResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailedResult.Designer.cs">
+      <DependentUpon>DetailedResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProfitCalc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DetailedResult.resx">
+      <DependentUpon>DetailedResult.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProfitCalc.resx">
       <DependentUpon>ProfitCalc.cs</DependentUpon>
     </EmbeddedResource>

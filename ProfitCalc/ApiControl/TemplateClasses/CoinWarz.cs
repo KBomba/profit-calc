@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    internal class CoinWarz
+    public class CoinWarz
     {
         [JsonProperty("Success")]
         public bool Success { get; set; }

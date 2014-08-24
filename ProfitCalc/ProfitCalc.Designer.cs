@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -42,10 +41,27 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
             this.cbbProfiles = new System.Windows.Forms.ComboBox();
             this.btnCalc = new System.Windows.Forms.Button();
             this.dgvResults = new System.Windows.Forms.DataGridView();
+            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsdPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EurPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GbpPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CnyPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtcPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CoinsPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BestExchangeVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WeightedBtcPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
@@ -115,22 +131,7 @@
             this.nudTimeout = new System.Windows.Forms.NumericUpDown();
             this.txtProxy = new System.Windows.Forms.TextBox();
             this.chkProxy = new System.Windows.Forms.CheckBox();
-            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsdPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EurPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GbpPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CnyPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BtcPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CoinsPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangeVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WeightedBtcPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spcMain = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.stStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).BeginInit();
@@ -155,12 +156,17 @@
             this.tabFilters.SuspendLayout();
             this.tabMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spcMain)).BeginInit();
+            this.spcMain.Panel1.SuspendLayout();
+            this.spcMain.Panel2.SuspendLayout();
+            this.spcMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddDeleteProfile
             // 
+            this.btnAddDeleteProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddDeleteProfile.Enabled = false;
-            this.btnAddDeleteProfile.Location = new System.Drawing.Point(105, 249);
+            this.btnAddDeleteProfile.Location = new System.Drawing.Point(105, 175);
             this.btnAddDeleteProfile.Name = "btnAddDeleteProfile";
             this.btnAddDeleteProfile.Size = new System.Drawing.Size(87, 23);
             this.btnAddDeleteProfile.TabIndex = 80;
@@ -170,8 +176,9 @@
             // 
             // cbbProfiles
             // 
+            this.cbbProfiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbbProfiles.FormattingEnabled = true;
-            this.cbbProfiles.Location = new System.Drawing.Point(12, 250);
+            this.cbbProfiles.Location = new System.Drawing.Point(12, 175);
             this.cbbProfiles.Name = "cbbProfiles";
             this.cbbProfiles.Size = new System.Drawing.Size(87, 21);
             this.cbbProfiles.TabIndex = 79;
@@ -180,8 +187,8 @@
             // 
             // btnCalc
             // 
-            this.btnCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCalc.Location = new System.Drawing.Point(916, 249);
+            this.btnCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCalc.Location = new System.Drawing.Point(892, 175);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(80, 23);
             this.btnCalc.TabIndex = 26;
@@ -196,9 +203,6 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             this.dgvResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvResults.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -219,15 +223,174 @@
             this.TotalVolume,
             this.Difficulty,
             this.BlockReward});
+            this.dgvResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvResults.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dgvResults.Location = new System.Drawing.Point(0, 278);
+            this.dgvResults.Location = new System.Drawing.Point(0, 0);
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.ReadOnly = true;
             this.dgvResults.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvResults.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvResults.Size = new System.Drawing.Size(1009, 429);
+            this.dgvResults.Size = new System.Drawing.Size(984, 434);
             this.dgvResults.TabIndex = 1;
             this.dgvResults.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
+            // 
+            // TagName
+            // 
+            this.TagName.DataPropertyName = "TagName";
+            this.TagName.HeaderText = "Tag";
+            this.TagName.Name = "TagName";
+            this.TagName.ReadOnly = true;
+            this.TagName.Width = 51;
+            // 
+            // FullName
+            // 
+            this.FullName.DataPropertyName = "FullName";
+            this.FullName.HeaderText = "Name";
+            this.FullName.MinimumWidth = 200;
+            this.FullName.Name = "FullName";
+            this.FullName.ReadOnly = true;
+            this.FullName.Width = 200;
+            // 
+            // Algo
+            // 
+            this.Algo.DataPropertyName = "Algo";
+            this.Algo.HeaderText = "Algo";
+            this.Algo.Name = "Algo";
+            this.Algo.ReadOnly = true;
+            this.Algo.Width = 53;
+            // 
+            // UsdPerDay
+            // 
+            this.UsdPerDay.DataPropertyName = "UsdPerDay";
+            dataGridViewCellStyle2.Format = "N3";
+            dataGridViewCellStyle2.NullValue = null;
+            this.UsdPerDay.DefaultCellStyle = dataGridViewCellStyle2;
+            this.UsdPerDay.HeaderText = "USD per day";
+            this.UsdPerDay.Name = "UsdPerDay";
+            this.UsdPerDay.ReadOnly = true;
+            this.UsdPerDay.Width = 70;
+            // 
+            // EurPerDay
+            // 
+            this.EurPerDay.DataPropertyName = "EurPerDay";
+            dataGridViewCellStyle3.Format = "N3";
+            this.EurPerDay.DefaultCellStyle = dataGridViewCellStyle3;
+            this.EurPerDay.HeaderText = "EUR per day";
+            this.EurPerDay.Name = "EurPerDay";
+            this.EurPerDay.ReadOnly = true;
+            this.EurPerDay.Visible = false;
+            this.EurPerDay.Width = 93;
+            // 
+            // GbpPerDay
+            // 
+            this.GbpPerDay.DataPropertyName = "GbpPerDay";
+            dataGridViewCellStyle4.Format = "N3";
+            this.GbpPerDay.DefaultCellStyle = dataGridViewCellStyle4;
+            this.GbpPerDay.HeaderText = "GBP per day";
+            this.GbpPerDay.Name = "GbpPerDay";
+            this.GbpPerDay.ReadOnly = true;
+            this.GbpPerDay.Visible = false;
+            this.GbpPerDay.Width = 92;
+            // 
+            // CnyPerDay
+            // 
+            this.CnyPerDay.DataPropertyName = "CnyPerDay";
+            dataGridViewCellStyle5.Format = "N3";
+            this.CnyPerDay.DefaultCellStyle = dataGridViewCellStyle5;
+            this.CnyPerDay.HeaderText = "CNY per day";
+            this.CnyPerDay.Name = "CnyPerDay";
+            this.CnyPerDay.ReadOnly = true;
+            this.CnyPerDay.Visible = false;
+            this.CnyPerDay.Width = 92;
+            // 
+            // BtcPerDay
+            // 
+            this.BtcPerDay.DataPropertyName = "BtcPerDay";
+            dataGridViewCellStyle6.Format = "N8";
+            this.BtcPerDay.DefaultCellStyle = dataGridViewCellStyle6;
+            this.BtcPerDay.HeaderText = "BTC per day";
+            this.BtcPerDay.Name = "BtcPerDay";
+            this.BtcPerDay.ReadOnly = true;
+            this.BtcPerDay.Width = 69;
+            // 
+            // CoinsPerDay
+            // 
+            this.CoinsPerDay.DataPropertyName = "CoinsPerDay";
+            dataGridViewCellStyle7.Format = "N5";
+            dataGridViewCellStyle7.NullValue = null;
+            this.CoinsPerDay.DefaultCellStyle = dataGridViewCellStyle7;
+            this.CoinsPerDay.HeaderText = "Coins per day";
+            this.CoinsPerDay.Name = "CoinsPerDay";
+            this.CoinsPerDay.ReadOnly = true;
+            this.CoinsPerDay.Width = 73;
+            // 
+            // BestExchangeName
+            // 
+            this.BestExchangeName.DataPropertyName = "BestExchangeName";
+            this.BestExchangeName.HeaderText = "Best exchange";
+            this.BestExchangeName.Name = "BestExchangeName";
+            this.BestExchangeName.ReadOnly = true;
+            this.BestExchangeName.Width = 95;
+            // 
+            // BestExchangePrice
+            // 
+            this.BestExchangePrice.DataPropertyName = "BestExchangePrice";
+            dataGridViewCellStyle8.Format = "N8";
+            this.BestExchangePrice.DefaultCellStyle = dataGridViewCellStyle8;
+            this.BestExchangePrice.HeaderText = "Best exchange\'s price";
+            this.BestExchangePrice.Name = "BestExchangePrice";
+            this.BestExchangePrice.ReadOnly = true;
+            this.BestExchangePrice.Width = 124;
+            // 
+            // BestExchangeVolume
+            // 
+            this.BestExchangeVolume.DataPropertyName = "BestExchangeVolume";
+            dataGridViewCellStyle9.Format = "N3";
+            this.BestExchangeVolume.DefaultCellStyle = dataGridViewCellStyle9;
+            this.BestExchangeVolume.HeaderText = "Best exchange\'s volume";
+            this.BestExchangeVolume.Name = "BestExchangeVolume";
+            this.BestExchangeVolume.ReadOnly = true;
+            this.BestExchangeVolume.Width = 134;
+            // 
+            // WeightedBtcPrice
+            // 
+            this.WeightedBtcPrice.DataPropertyName = "WeightedBtcPrice";
+            dataGridViewCellStyle10.Format = "N8";
+            this.WeightedBtcPrice.DefaultCellStyle = dataGridViewCellStyle10;
+            this.WeightedBtcPrice.HeaderText = "Weighted price";
+            this.WeightedBtcPrice.Name = "WeightedBtcPrice";
+            this.WeightedBtcPrice.ReadOnly = true;
+            this.WeightedBtcPrice.Width = 96;
+            // 
+            // TotalVolume
+            // 
+            this.TotalVolume.DataPropertyName = "TotalVolume";
+            dataGridViewCellStyle11.Format = "N3";
+            this.TotalVolume.DefaultCellStyle = dataGridViewCellStyle11;
+            this.TotalVolume.HeaderText = "Total Volume";
+            this.TotalVolume.Name = "TotalVolume";
+            this.TotalVolume.ReadOnly = true;
+            this.TotalVolume.Width = 87;
+            // 
+            // Difficulty
+            // 
+            this.Difficulty.DataPropertyName = "Difficulty";
+            dataGridViewCellStyle12.Format = "N4";
+            this.Difficulty.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Difficulty.HeaderText = "Difficulty";
+            this.Difficulty.Name = "Difficulty";
+            this.Difficulty.ReadOnly = true;
+            this.Difficulty.Width = 72;
+            // 
+            // BlockReward
+            // 
+            this.BlockReward.DataPropertyName = "BlockReward";
+            dataGridViewCellStyle13.Format = "N4";
+            this.BlockReward.DefaultCellStyle = dataGridViewCellStyle13;
+            this.BlockReward.HeaderText = "Block reward";
+            this.BlockReward.Name = "BlockReward";
+            this.BlockReward.ReadOnly = true;
+            this.BlockReward.Width = 87;
             // 
             // stStatusStrip
             // 
@@ -238,9 +401,9 @@
             this.tsStatus,
             this.tsSpace,
             this.tsErrors});
-            this.stStatusStrip.Location = new System.Drawing.Point(0, 708);
+            this.stStatusStrip.Location = new System.Drawing.Point(0, 640);
             this.stStatusStrip.Name = "stStatusStrip";
-            this.stStatusStrip.Size = new System.Drawing.Size(1008, 22);
+            this.stStatusStrip.Size = new System.Drawing.Size(984, 22);
             this.stStatusStrip.TabIndex = 3;
             this.stStatusStrip.Text = "Status Striper";
             // 
@@ -265,7 +428,7 @@
             // tsSpace
             // 
             this.tsSpace.Name = "tsSpace";
-            this.tsSpace.Size = new System.Drawing.Size(740, 17);
+            this.tsSpace.Size = new System.Drawing.Size(716, 17);
             this.tsSpace.Spring = true;
             // 
             // tsErrors
@@ -275,9 +438,9 @@
             // 
             // picDonate
             // 
-            this.picDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.picDonate.Image = ((System.Drawing.Image)(resources.GetObject("picDonate.Image")));
-            this.picDonate.Location = new System.Drawing.Point(846, 251);
+            this.picDonate.Location = new System.Drawing.Point(822, 178);
             this.picDonate.Name = "picDonate";
             this.picDonate.Size = new System.Drawing.Size(64, 17);
             this.picDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -292,7 +455,7 @@
             this.tabReadme.Location = new System.Drawing.Point(4, 22);
             this.tabReadme.Name = "tabReadme";
             this.tabReadme.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReadme.Size = new System.Drawing.Size(1001, 217);
+            this.tabReadme.Size = new System.Drawing.Size(973, 140);
             this.tabReadme.TabIndex = 7;
             this.tabReadme.Text = "Readme";
             this.tabReadme.UseVisualStyleBackColor = true;
@@ -306,7 +469,7 @@
             this.txtReadme.Name = "txtReadme";
             this.txtReadme.ReadOnly = true;
             this.txtReadme.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtReadme.Size = new System.Drawing.Size(995, 211);
+            this.txtReadme.Size = new System.Drawing.Size(967, 134);
             this.txtReadme.TabIndex = 0;
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate some BTC @ 1MVBPhMae" +
     "uj5daZtaKaVu8BZL5K44CCq7E ";
@@ -317,7 +480,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(1001, 217);
+            this.tabLog.Size = new System.Drawing.Size(973, 140);
             this.tabLog.TabIndex = 5;
             this.tabLog.Text = "Log";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -330,7 +493,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(995, 211);
+            this.txtLog.Size = new System.Drawing.Size(967, 134);
             this.txtLog.TabIndex = 0;
             this.txtLog.WordWrap = false;
             // 
@@ -349,7 +512,7 @@
             this.tabPriceCalc.Location = new System.Drawing.Point(4, 22);
             this.tabPriceCalc.Name = "tabPriceCalc";
             this.tabPriceCalc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPriceCalc.Size = new System.Drawing.Size(1001, 217);
+            this.tabPriceCalc.Size = new System.Drawing.Size(973, 140);
             this.tabPriceCalc.TabIndex = 12;
             this.tabPriceCalc.Text = "Price Calc Settings";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
@@ -495,7 +658,7 @@
             this.tabMarketApi.Location = new System.Drawing.Point(4, 22);
             this.tabMarketApi.Name = "tabMarketApi";
             this.tabMarketApi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMarketApi.Size = new System.Drawing.Size(1001, 217);
+            this.tabMarketApi.Size = new System.Drawing.Size(973, 140);
             this.tabMarketApi.TabIndex = 0;
             this.tabMarketApi.Text = "Market API";
             this.tabMarketApi.UseVisualStyleBackColor = true;
@@ -622,7 +785,7 @@
             this.tabOuterCoinMultipool.Location = new System.Drawing.Point(4, 22);
             this.tabOuterCoinMultipool.Name = "tabOuterCoinMultipool";
             this.tabOuterCoinMultipool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOuterCoinMultipool.Size = new System.Drawing.Size(1001, 217);
+            this.tabOuterCoinMultipool.Size = new System.Drawing.Size(973, 140);
             this.tabOuterCoinMultipool.TabIndex = 10;
             this.tabOuterCoinMultipool.Text = "Coin & Multipool Input";
             this.tabOuterCoinMultipool.UseVisualStyleBackColor = true;
@@ -637,7 +800,7 @@
             this.tbcInnerCoinMultipool.Location = new System.Drawing.Point(3, 3);
             this.tbcInnerCoinMultipool.Name = "tbcInnerCoinMultipool";
             this.tbcInnerCoinMultipool.SelectedIndex = 0;
-            this.tbcInnerCoinMultipool.Size = new System.Drawing.Size(995, 211);
+            this.tbcInnerCoinMultipool.Size = new System.Drawing.Size(967, 134);
             this.tbcInnerCoinMultipool.TabIndex = 0;
             // 
             // tabCoinInfo
@@ -650,7 +813,7 @@
             this.tabCoinInfo.Location = new System.Drawing.Point(4, 22);
             this.tabCoinInfo.Name = "tabCoinInfo";
             this.tabCoinInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCoinInfo.Size = new System.Drawing.Size(987, 185);
+            this.tabCoinInfo.Size = new System.Drawing.Size(959, 108);
             this.tabCoinInfo.TabIndex = 2;
             this.tabCoinInfo.Text = "Coin Info APIs";
             this.tabCoinInfo.UseVisualStyleBackColor = true;
@@ -718,7 +881,7 @@
             this.tabMultipool.Location = new System.Drawing.Point(4, 22);
             this.tabMultipool.Name = "tabMultipool";
             this.tabMultipool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMultipool.Size = new System.Drawing.Size(987, 185);
+            this.tabMultipool.Size = new System.Drawing.Size(959, 108);
             this.tabMultipool.TabIndex = 10;
             this.tabMultipool.Text = "Multipool APIs";
             this.tabMultipool.UseVisualStyleBackColor = true;
@@ -812,7 +975,7 @@
             this.tabCustomCoins.Controls.Add(this.dgvCustomCoins);
             this.tabCustomCoins.Location = new System.Drawing.Point(4, 22);
             this.tabCustomCoins.Name = "tabCustomCoins";
-            this.tabCustomCoins.Size = new System.Drawing.Size(987, 185);
+            this.tabCustomCoins.Size = new System.Drawing.Size(959, 108);
             this.tabCustomCoins.TabIndex = 9;
             this.tabCustomCoins.Text = "Custom Coins";
             this.tabCustomCoins.UseVisualStyleBackColor = true;
@@ -824,7 +987,7 @@
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";
             this.dgvCustomCoins.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvCustomCoins.Size = new System.Drawing.Size(987, 185);
+            this.dgvCustomCoins.Size = new System.Drawing.Size(959, 108);
             this.dgvCustomCoins.TabIndex = 0;
             this.dgvCustomCoins.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
             this.dgvCustomCoins.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomCoins_EditingControlShowing);
@@ -835,7 +998,7 @@
             this.tabJsonRpc.Controls.Add(this.dgvJsonRpc);
             this.tabJsonRpc.Location = new System.Drawing.Point(4, 22);
             this.tabJsonRpc.Name = "tabJsonRpc";
-            this.tabJsonRpc.Size = new System.Drawing.Size(987, 185);
+            this.tabJsonRpc.Size = new System.Drawing.Size(959, 108);
             this.tabJsonRpc.TabIndex = 11;
             this.tabJsonRpc.Text = "Live JSON-RPC Update";
             this.tabJsonRpc.UseVisualStyleBackColor = true;
@@ -847,7 +1010,7 @@
             this.dgvJsonRpc.Location = new System.Drawing.Point(0, 0);
             this.dgvJsonRpc.Name = "dgvJsonRpc";
             this.dgvJsonRpc.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvJsonRpc.Size = new System.Drawing.Size(987, 185);
+            this.dgvJsonRpc.Size = new System.Drawing.Size(959, 108);
             this.dgvJsonRpc.TabIndex = 0;
             this.dgvJsonRpc.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvJsonRpc_DefaultValuesNeeded);
             this.dgvJsonRpc.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvJsonRpc_EditingControlShowing);
@@ -859,7 +1022,7 @@
             this.tabHashrates.Controls.Add(this.dgvCustomAlgos);
             this.tabHashrates.Location = new System.Drawing.Point(4, 22);
             this.tabHashrates.Name = "tabHashrates";
-            this.tabHashrates.Size = new System.Drawing.Size(1001, 217);
+            this.tabHashrates.Size = new System.Drawing.Size(973, 140);
             this.tabHashrates.TabIndex = 9;
             this.tabHashrates.Text = "Hashrates";
             this.tabHashrates.UseVisualStyleBackColor = true;
@@ -883,7 +1046,7 @@
             this.dgvCustomAlgos.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomAlgos.Name = "dgvCustomAlgos";
             this.dgvCustomAlgos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvCustomAlgos.Size = new System.Drawing.Size(1001, 217);
+            this.dgvCustomAlgos.Size = new System.Drawing.Size(973, 140);
             this.dgvCustomAlgos.TabIndex = 1;
             this.dgvCustomAlgos.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomAlgos_DefaultValuesNeeded);
             this.dgvCustomAlgos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomAlgos_EditingControlShowing);
@@ -892,7 +1055,8 @@
             // 
             // tbcControlSettings
             // 
-            this.tbcControlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbcControlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbcControlSettings.Controls.Add(this.tabHashrates);
             this.tbcControlSettings.Controls.Add(this.tabOuterCoinMultipool);
@@ -902,10 +1066,10 @@
             this.tbcControlSettings.Controls.Add(this.tabMisc);
             this.tbcControlSettings.Controls.Add(this.tabLog);
             this.tbcControlSettings.Controls.Add(this.tabReadme);
-            this.tbcControlSettings.Location = new System.Drawing.Point(0, 0);
+            this.tbcControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tbcControlSettings.Name = "tbcControlSettings";
             this.tbcControlSettings.SelectedIndex = 0;
-            this.tbcControlSettings.Size = new System.Drawing.Size(1009, 243);
+            this.tbcControlSettings.Size = new System.Drawing.Size(981, 166);
             this.tbcControlSettings.TabIndex = 6;
             this.tbcControlSettings.TabStop = false;
             // 
@@ -920,7 +1084,7 @@
             this.tabFilters.Location = new System.Drawing.Point(4, 22);
             this.tabFilters.Name = "tabFilters";
             this.tabFilters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilters.Size = new System.Drawing.Size(1001, 217);
+            this.tabFilters.Size = new System.Drawing.Size(973, 140);
             this.tabFilters.TabIndex = 13;
             this.tabFilters.Text = "Filters";
             this.tabFilters.UseVisualStyleBackColor = true;
@@ -1004,7 +1168,7 @@
             this.tabMisc.Controls.Add(this.chkProxy);
             this.tabMisc.Location = new System.Drawing.Point(4, 22);
             this.tabMisc.Name = "tabMisc";
-            this.tabMisc.Size = new System.Drawing.Size(1001, 217);
+            this.tabMisc.Size = new System.Drawing.Size(973, 140);
             this.tabMisc.TabIndex = 14;
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
@@ -1059,176 +1223,39 @@
             this.chkProxy.UseVisualStyleBackColor = true;
             this.chkProxy.CheckedChanged += new System.EventHandler(this.chkProxy_CheckedChanged);
             // 
-            // TagName
+            // spcMain
             // 
-            this.TagName.DataPropertyName = "TagName";
-            this.TagName.HeaderText = "Tag";
-            this.TagName.Name = "TagName";
-            this.TagName.ReadOnly = true;
-            this.TagName.Width = 51;
+            this.spcMain.BackColor = System.Drawing.Color.Gainsboro;
+            this.spcMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spcMain.Location = new System.Drawing.Point(0, 0);
+            this.spcMain.Name = "spcMain";
+            this.spcMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // FullName
+            // spcMain.Panel1
             // 
-            this.FullName.DataPropertyName = "FullName";
-            this.FullName.HeaderText = "Name";
-            this.FullName.MinimumWidth = 200;
-            this.FullName.Name = "FullName";
-            this.FullName.ReadOnly = true;
-            this.FullName.Width = 200;
+            this.spcMain.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.spcMain.Panel1.Controls.Add(this.tbcControlSettings);
+            this.spcMain.Panel1.Controls.Add(this.picDonate);
+            this.spcMain.Panel1.Controls.Add(this.cbbProfiles);
+            this.spcMain.Panel1.Controls.Add(this.btnAddDeleteProfile);
+            this.spcMain.Panel1.Controls.Add(this.btnCalc);
             // 
-            // Algo
+            // spcMain.Panel2
             // 
-            this.Algo.DataPropertyName = "Algo";
-            this.Algo.HeaderText = "Algo";
-            this.Algo.Name = "Algo";
-            this.Algo.ReadOnly = true;
-            this.Algo.Width = 53;
-            // 
-            // UsdPerDay
-            // 
-            this.UsdPerDay.DataPropertyName = "UsdPerDay";
-            dataGridViewCellStyle2.Format = "N3";
-            dataGridViewCellStyle2.NullValue = null;
-            this.UsdPerDay.DefaultCellStyle = dataGridViewCellStyle2;
-            this.UsdPerDay.HeaderText = "USD per day";
-            this.UsdPerDay.Name = "UsdPerDay";
-            this.UsdPerDay.ReadOnly = true;
-            this.UsdPerDay.Width = 93;
-            // 
-            // EurPerDay
-            // 
-            this.EurPerDay.DataPropertyName = "EurPerDay";
-            dataGridViewCellStyle3.Format = "N3";
-            this.EurPerDay.DefaultCellStyle = dataGridViewCellStyle3;
-            this.EurPerDay.HeaderText = "EUR per day";
-            this.EurPerDay.Name = "EurPerDay";
-            this.EurPerDay.ReadOnly = true;
-            this.EurPerDay.Visible = false;
-            this.EurPerDay.Width = 93;
-            // 
-            // GbpPerDay
-            // 
-            this.GbpPerDay.DataPropertyName = "GbpPerDay";
-            dataGridViewCellStyle4.Format = "N3";
-            this.GbpPerDay.DefaultCellStyle = dataGridViewCellStyle4;
-            this.GbpPerDay.HeaderText = "GBP per day";
-            this.GbpPerDay.Name = "GbpPerDay";
-            this.GbpPerDay.ReadOnly = true;
-            this.GbpPerDay.Visible = false;
-            this.GbpPerDay.Width = 92;
-            // 
-            // CnyPerDay
-            // 
-            this.CnyPerDay.DataPropertyName = "CnyPerDay";
-            dataGridViewCellStyle5.Format = "N3";
-            this.CnyPerDay.DefaultCellStyle = dataGridViewCellStyle5;
-            this.CnyPerDay.HeaderText = "CNY per day";
-            this.CnyPerDay.Name = "CnyPerDay";
-            this.CnyPerDay.ReadOnly = true;
-            this.CnyPerDay.Visible = false;
-            this.CnyPerDay.Width = 92;
-            // 
-            // BtcPerDay
-            // 
-            this.BtcPerDay.DataPropertyName = "BtcPerDay";
-            dataGridViewCellStyle6.Format = "N8";
-            this.BtcPerDay.DefaultCellStyle = dataGridViewCellStyle6;
-            this.BtcPerDay.HeaderText = "BTC per day";
-            this.BtcPerDay.Name = "BtcPerDay";
-            this.BtcPerDay.ReadOnly = true;
-            this.BtcPerDay.Width = 91;
-            // 
-            // CoinsPerDay
-            // 
-            this.CoinsPerDay.DataPropertyName = "CoinsPerDay";
-            dataGridViewCellStyle7.Format = "N5";
-            dataGridViewCellStyle7.NullValue = null;
-            this.CoinsPerDay.DefaultCellStyle = dataGridViewCellStyle7;
-            this.CoinsPerDay.HeaderText = "Coins per day";
-            this.CoinsPerDay.Name = "CoinsPerDay";
-            this.CoinsPerDay.ReadOnly = true;
-            this.CoinsPerDay.Width = 96;
-            // 
-            // BestExchangeName
-            // 
-            this.BestExchangeName.DataPropertyName = "BestExchangeName";
-            this.BestExchangeName.HeaderText = "Best exchange";
-            this.BestExchangeName.Name = "BestExchangeName";
-            this.BestExchangeName.ReadOnly = true;
-            this.BestExchangeName.Width = 95;
-            // 
-            // BestExchangePrice
-            // 
-            this.BestExchangePrice.DataPropertyName = "BestExchangePrice";
-            dataGridViewCellStyle8.Format = "N8";
-            this.BestExchangePrice.DefaultCellStyle = dataGridViewCellStyle8;
-            this.BestExchangePrice.HeaderText = "Best exchange\'s price";
-            this.BestExchangePrice.Name = "BestExchangePrice";
-            this.BestExchangePrice.ReadOnly = true;
-            this.BestExchangePrice.Width = 124;
-            // 
-            // BestExchangeVolume
-            // 
-            this.BestExchangeVolume.DataPropertyName = "BestExchangeVolume";
-            dataGridViewCellStyle9.Format = "N3";
-            this.BestExchangeVolume.DefaultCellStyle = dataGridViewCellStyle9;
-            this.BestExchangeVolume.HeaderText = "Best exchange\'s volume";
-            this.BestExchangeVolume.Name = "BestExchangeVolume";
-            this.BestExchangeVolume.ReadOnly = true;
-            this.BestExchangeVolume.Width = 134;
-            // 
-            // WeightedBtcPrice
-            // 
-            this.WeightedBtcPrice.DataPropertyName = "WeightedBtcPrice";
-            dataGridViewCellStyle10.Format = "N8";
-            this.WeightedBtcPrice.DefaultCellStyle = dataGridViewCellStyle10;
-            this.WeightedBtcPrice.HeaderText = "Weighted price";
-            this.WeightedBtcPrice.Name = "WeightedBtcPrice";
-            this.WeightedBtcPrice.ReadOnly = true;
-            this.WeightedBtcPrice.Width = 96;
-            // 
-            // TotalVolume
-            // 
-            this.TotalVolume.DataPropertyName = "TotalVolume";
-            dataGridViewCellStyle11.Format = "N3";
-            this.TotalVolume.DefaultCellStyle = dataGridViewCellStyle11;
-            this.TotalVolume.HeaderText = "Total Volume";
-            this.TotalVolume.Name = "TotalVolume";
-            this.TotalVolume.ReadOnly = true;
-            this.TotalVolume.Width = 87;
-            // 
-            // Difficulty
-            // 
-            this.Difficulty.DataPropertyName = "Difficulty";
-            dataGridViewCellStyle12.Format = "N4";
-            this.Difficulty.DefaultCellStyle = dataGridViewCellStyle12;
-            this.Difficulty.HeaderText = "Difficulty";
-            this.Difficulty.Name = "Difficulty";
-            this.Difficulty.ReadOnly = true;
-            this.Difficulty.Width = 72;
-            // 
-            // BlockReward
-            // 
-            this.BlockReward.DataPropertyName = "BlockReward";
-            dataGridViewCellStyle13.Format = "N4";
-            this.BlockReward.DefaultCellStyle = dataGridViewCellStyle13;
-            this.BlockReward.HeaderText = "Block reward";
-            this.BlockReward.Name = "BlockReward";
-            this.BlockReward.ReadOnly = true;
-            this.BlockReward.Width = 87;
+            this.spcMain.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.spcMain.Panel2.Controls.Add(this.dgvResults);
+            this.spcMain.Size = new System.Drawing.Size(984, 640);
+            this.spcMain.SplitterDistance = 201;
+            this.spcMain.SplitterWidth = 5;
+            this.spcMain.TabIndex = 82;
             // 
             // ProfitCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
-            this.Controls.Add(this.picDonate);
-            this.Controls.Add(this.btnAddDeleteProfile);
-            this.Controls.Add(this.btnCalc);
-            this.Controls.Add(this.dgvResults);
-            this.Controls.Add(this.cbbProfiles);
+            this.ClientSize = new System.Drawing.Size(984, 662);
+            this.Controls.Add(this.spcMain);
             this.Controls.Add(this.stStatusStrip);
-            this.Controls.Add(this.tbcControlSettings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProfitCalc";
             this.Text = "Profit Calculator~ By KBomba";
@@ -1267,6 +1294,11 @@
             this.tabMisc.ResumeLayout(false);
             this.tabMisc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
+            this.spcMain.Panel1.ResumeLayout(false);
+            this.spcMain.Panel1.PerformLayout();
+            this.spcMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spcMain)).EndInit();
+            this.spcMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1363,6 +1395,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalVolume;
         private System.Windows.Forms.DataGridViewTextBoxColumn Difficulty;
         private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
+        private System.Windows.Forms.SplitContainer spcMain;
     }
 }
 

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    internal class WhatToMine
+    public class WhatToMine
     {
         [JsonProperty("coins")] 
         public Dictionary<string, Coin> Coins;

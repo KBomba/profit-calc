@@ -6,11 +6,14 @@ using ProfitCalc.ApiControl.TemplateClasses;
 
 namespace ProfitCalc
 {
-    internal class Coin
+    public class Coin
     {
         public string FullName { get; set; }
         public string TagName { get; set; }
         public string Algo { get; set; }
+
+        public string Source { get; set; }
+        public string Website { get; set; }
 
         public double Difficulty { get; set; }
         public double Avg24HDifficulty { get;set;}
@@ -20,7 +23,7 @@ namespace ProfitCalc
         public uint Height { get; set; }
 
         public List<Exchange> Exchanges { get; set; }
-        internal class Exchange
+        public class Exchange
         {
             public string ExchangeName { get; set; }
             public double BtcPrice { get; set; }
@@ -30,7 +33,7 @@ namespace ProfitCalc
 
             public List<Order> BuyOrders { get; set; }
             public List<Order> SellOrders { get; set; }
-            internal class Order
+            public class Order
             {
                 public double BtcPrice { get; set; }
                 public double BtcVolume { get; set; }

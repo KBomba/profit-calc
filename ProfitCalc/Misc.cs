@@ -31,7 +31,7 @@ namespace ProfitCalc
         public AutoCompleteStringCollection AllAlgoList { get; set; }
     }
 
-    internal class CustomCoin
+    public class CustomCoin
     {
         public bool Use { get; set; }
         public string Tag { get; set; }

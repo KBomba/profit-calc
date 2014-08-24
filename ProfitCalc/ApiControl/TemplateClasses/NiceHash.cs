@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    internal class NiceHash
+    public class NiceHash
     {
         [JsonProperty("result")]
         public Result Results { get; set; }

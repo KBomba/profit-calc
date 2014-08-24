@@ -771,7 +771,7 @@ namespace ProfitCalc
                 }
             }
 
-                        tsProgress.Value += progress;
+            tsProgress.Value += progress;
             if (chkNiceHash.Checked)
             {
                 try
@@ -1760,7 +1760,7 @@ namespace ProfitCalc
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                
+                DetailedResult dr = new DetailedResult(GetCleanedCoinList()[e.RowIndex]) {Visible = true};
             }
         }
     }
