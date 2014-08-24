@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    class BTer
+    internal class BTerPairs
     {
         /*[JsonProperty("result")]
         public string Result { get; set; }*/
@@ -29,5 +29,17 @@ namespace ProfitCalc.ApiControl.TemplateClasses
 
         [JsonExtensionData]
         public Dictionary<string, JToken> Vols { get; set; }
+    }
+
+    internal class BTerOrders
+    {
+        /*[JsonProperty("result")]
+        public string Result { get; set; }*/
+
+        [JsonProperty("asks")]
+        public double[][] Asks { get; set; }
+
+        [JsonProperty("bids")]
+        public double[][] Bids { get; set; }
     }
 }

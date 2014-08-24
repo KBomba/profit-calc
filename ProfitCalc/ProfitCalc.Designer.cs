@@ -166,7 +166,7 @@
             // 
             this.btnAddDeleteProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAddDeleteProfile.Enabled = false;
-            this.btnAddDeleteProfile.Location = new System.Drawing.Point(105, 175);
+            this.btnAddDeleteProfile.Location = new System.Drawing.Point(105, 223);
             this.btnAddDeleteProfile.Name = "btnAddDeleteProfile";
             this.btnAddDeleteProfile.Size = new System.Drawing.Size(87, 23);
             this.btnAddDeleteProfile.TabIndex = 80;
@@ -178,7 +178,7 @@
             // 
             this.cbbProfiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbbProfiles.FormattingEnabled = true;
-            this.cbbProfiles.Location = new System.Drawing.Point(12, 175);
+            this.cbbProfiles.Location = new System.Drawing.Point(12, 223);
             this.cbbProfiles.Name = "cbbProfiles";
             this.cbbProfiles.Size = new System.Drawing.Size(87, 21);
             this.cbbProfiles.TabIndex = 79;
@@ -188,7 +188,7 @@
             // btnCalc
             // 
             this.btnCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCalc.Location = new System.Drawing.Point(892, 175);
+            this.btnCalc.Location = new System.Drawing.Point(892, 223);
             this.btnCalc.Name = "btnCalc";
             this.btnCalc.Size = new System.Drawing.Size(80, 23);
             this.btnCalc.TabIndex = 26;
@@ -230,7 +230,7 @@
             this.dgvResults.ReadOnly = true;
             this.dgvResults.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvResults.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvResults.Size = new System.Drawing.Size(984, 434);
+            this.dgvResults.Size = new System.Drawing.Size(984, 385);
             this.dgvResults.TabIndex = 1;
             this.dgvResults.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
             // 
@@ -440,7 +440,7 @@
             // 
             this.picDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.picDonate.Image = ((System.Drawing.Image)(resources.GetObject("picDonate.Image")));
-            this.picDonate.Location = new System.Drawing.Point(822, 178);
+            this.picDonate.Location = new System.Drawing.Point(822, 226);
             this.picDonate.Name = "picDonate";
             this.picDonate.Size = new System.Drawing.Size(64, 17);
             this.picDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -455,7 +455,7 @@
             this.tabReadme.Location = new System.Drawing.Point(4, 22);
             this.tabReadme.Name = "tabReadme";
             this.tabReadme.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReadme.Size = new System.Drawing.Size(973, 140);
+            this.tabReadme.Size = new System.Drawing.Size(973, 188);
             this.tabReadme.TabIndex = 7;
             this.tabReadme.Text = "Readme";
             this.tabReadme.UseVisualStyleBackColor = true;
@@ -469,7 +469,7 @@
             this.txtReadme.Name = "txtReadme";
             this.txtReadme.ReadOnly = true;
             this.txtReadme.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtReadme.Size = new System.Drawing.Size(967, 134);
+            this.txtReadme.Size = new System.Drawing.Size(967, 182);
             this.txtReadme.TabIndex = 0;
             this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate some BTC @ 1MVBPhMae" +
     "uj5daZtaKaVu8BZL5K44CCq7E ";
@@ -480,7 +480,7 @@
             this.tabLog.Location = new System.Drawing.Point(4, 22);
             this.tabLog.Name = "tabLog";
             this.tabLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLog.Size = new System.Drawing.Size(973, 140);
+            this.tabLog.Size = new System.Drawing.Size(973, 188);
             this.tabLog.TabIndex = 5;
             this.tabLog.Text = "Log";
             this.tabLog.UseVisualStyleBackColor = true;
@@ -493,7 +493,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(967, 134);
+            this.txtLog.Size = new System.Drawing.Size(967, 182);
             this.txtLog.TabIndex = 0;
             this.txtLog.WordWrap = false;
             // 
@@ -512,7 +512,7 @@
             this.tabPriceCalc.Location = new System.Drawing.Point(4, 22);
             this.tabPriceCalc.Name = "tabPriceCalc";
             this.tabPriceCalc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPriceCalc.Size = new System.Drawing.Size(973, 140);
+            this.tabPriceCalc.Size = new System.Drawing.Size(973, 188);
             this.tabPriceCalc.TabIndex = 12;
             this.tabPriceCalc.Text = "Price Calc Settings";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
@@ -658,7 +658,7 @@
             this.tabMarketApi.Location = new System.Drawing.Point(4, 22);
             this.tabMarketApi.Name = "tabMarketApi";
             this.tabMarketApi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMarketApi.Size = new System.Drawing.Size(973, 140);
+            this.tabMarketApi.Size = new System.Drawing.Size(973, 188);
             this.tabMarketApi.TabIndex = 0;
             this.tabMarketApi.Text = "Market API";
             this.tabMarketApi.UseVisualStyleBackColor = true;
@@ -785,7 +785,7 @@
             this.tabOuterCoinMultipool.Location = new System.Drawing.Point(4, 22);
             this.tabOuterCoinMultipool.Name = "tabOuterCoinMultipool";
             this.tabOuterCoinMultipool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOuterCoinMultipool.Size = new System.Drawing.Size(973, 140);
+            this.tabOuterCoinMultipool.Size = new System.Drawing.Size(973, 188);
             this.tabOuterCoinMultipool.TabIndex = 10;
             this.tabOuterCoinMultipool.Text = "Coin & Multipool Input";
             this.tabOuterCoinMultipool.UseVisualStyleBackColor = true;
@@ -800,7 +800,7 @@
             this.tbcInnerCoinMultipool.Location = new System.Drawing.Point(3, 3);
             this.tbcInnerCoinMultipool.Name = "tbcInnerCoinMultipool";
             this.tbcInnerCoinMultipool.SelectedIndex = 0;
-            this.tbcInnerCoinMultipool.Size = new System.Drawing.Size(967, 134);
+            this.tbcInnerCoinMultipool.Size = new System.Drawing.Size(967, 182);
             this.tbcInnerCoinMultipool.TabIndex = 0;
             // 
             // tabCoinInfo
@@ -813,7 +813,7 @@
             this.tabCoinInfo.Location = new System.Drawing.Point(4, 22);
             this.tabCoinInfo.Name = "tabCoinInfo";
             this.tabCoinInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCoinInfo.Size = new System.Drawing.Size(959, 108);
+            this.tabCoinInfo.Size = new System.Drawing.Size(959, 156);
             this.tabCoinInfo.TabIndex = 2;
             this.tabCoinInfo.Text = "Coin Info APIs";
             this.tabCoinInfo.UseVisualStyleBackColor = true;
@@ -881,7 +881,7 @@
             this.tabMultipool.Location = new System.Drawing.Point(4, 22);
             this.tabMultipool.Name = "tabMultipool";
             this.tabMultipool.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMultipool.Size = new System.Drawing.Size(959, 108);
+            this.tabMultipool.Size = new System.Drawing.Size(959, 156);
             this.tabMultipool.TabIndex = 10;
             this.tabMultipool.Text = "Multipool APIs";
             this.tabMultipool.UseVisualStyleBackColor = true;
@@ -975,7 +975,7 @@
             this.tabCustomCoins.Controls.Add(this.dgvCustomCoins);
             this.tabCustomCoins.Location = new System.Drawing.Point(4, 22);
             this.tabCustomCoins.Name = "tabCustomCoins";
-            this.tabCustomCoins.Size = new System.Drawing.Size(959, 108);
+            this.tabCustomCoins.Size = new System.Drawing.Size(959, 156);
             this.tabCustomCoins.TabIndex = 9;
             this.tabCustomCoins.Text = "Custom Coins";
             this.tabCustomCoins.UseVisualStyleBackColor = true;
@@ -987,7 +987,7 @@
             this.dgvCustomCoins.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomCoins.Name = "dgvCustomCoins";
             this.dgvCustomCoins.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvCustomCoins.Size = new System.Drawing.Size(959, 108);
+            this.dgvCustomCoins.Size = new System.Drawing.Size(959, 156);
             this.dgvCustomCoins.TabIndex = 0;
             this.dgvCustomCoins.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomCoins_DefaultValuesNeeded);
             this.dgvCustomCoins.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomCoins_EditingControlShowing);
@@ -998,7 +998,7 @@
             this.tabJsonRpc.Controls.Add(this.dgvJsonRpc);
             this.tabJsonRpc.Location = new System.Drawing.Point(4, 22);
             this.tabJsonRpc.Name = "tabJsonRpc";
-            this.tabJsonRpc.Size = new System.Drawing.Size(959, 108);
+            this.tabJsonRpc.Size = new System.Drawing.Size(959, 156);
             this.tabJsonRpc.TabIndex = 11;
             this.tabJsonRpc.Text = "Live JSON-RPC Update";
             this.tabJsonRpc.UseVisualStyleBackColor = true;
@@ -1010,7 +1010,7 @@
             this.dgvJsonRpc.Location = new System.Drawing.Point(0, 0);
             this.dgvJsonRpc.Name = "dgvJsonRpc";
             this.dgvJsonRpc.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvJsonRpc.Size = new System.Drawing.Size(959, 108);
+            this.dgvJsonRpc.Size = new System.Drawing.Size(959, 156);
             this.dgvJsonRpc.TabIndex = 0;
             this.dgvJsonRpc.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvJsonRpc_DefaultValuesNeeded);
             this.dgvJsonRpc.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvJsonRpc_EditingControlShowing);
@@ -1022,7 +1022,7 @@
             this.tabHashrates.Controls.Add(this.dgvCustomAlgos);
             this.tabHashrates.Location = new System.Drawing.Point(4, 22);
             this.tabHashrates.Name = "tabHashrates";
-            this.tabHashrates.Size = new System.Drawing.Size(973, 140);
+            this.tabHashrates.Size = new System.Drawing.Size(973, 188);
             this.tabHashrates.TabIndex = 9;
             this.tabHashrates.Text = "Hashrates";
             this.tabHashrates.UseVisualStyleBackColor = true;
@@ -1046,7 +1046,7 @@
             this.dgvCustomAlgos.Location = new System.Drawing.Point(0, 0);
             this.dgvCustomAlgos.Name = "dgvCustomAlgos";
             this.dgvCustomAlgos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvCustomAlgos.Size = new System.Drawing.Size(973, 140);
+            this.dgvCustomAlgos.Size = new System.Drawing.Size(973, 188);
             this.dgvCustomAlgos.TabIndex = 1;
             this.dgvCustomAlgos.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvCustomAlgos_DefaultValuesNeeded);
             this.dgvCustomAlgos.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCustomAlgos_EditingControlShowing);
@@ -1069,7 +1069,7 @@
             this.tbcControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tbcControlSettings.Name = "tbcControlSettings";
             this.tbcControlSettings.SelectedIndex = 0;
-            this.tbcControlSettings.Size = new System.Drawing.Size(981, 166);
+            this.tbcControlSettings.Size = new System.Drawing.Size(981, 214);
             this.tbcControlSettings.TabIndex = 6;
             this.tbcControlSettings.TabStop = false;
             // 
@@ -1084,7 +1084,7 @@
             this.tabFilters.Location = new System.Drawing.Point(4, 22);
             this.tabFilters.Name = "tabFilters";
             this.tabFilters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilters.Size = new System.Drawing.Size(973, 140);
+            this.tabFilters.Size = new System.Drawing.Size(973, 188);
             this.tabFilters.TabIndex = 13;
             this.tabFilters.Text = "Filters";
             this.tabFilters.UseVisualStyleBackColor = true;
@@ -1168,7 +1168,7 @@
             this.tabMisc.Controls.Add(this.chkProxy);
             this.tabMisc.Location = new System.Drawing.Point(4, 22);
             this.tabMisc.Name = "tabMisc";
-            this.tabMisc.Size = new System.Drawing.Size(973, 140);
+            this.tabMisc.Size = new System.Drawing.Size(973, 188);
             this.tabMisc.TabIndex = 14;
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
@@ -1245,8 +1245,8 @@
             this.spcMain.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.spcMain.Panel2.Controls.Add(this.dgvResults);
             this.spcMain.Size = new System.Drawing.Size(984, 640);
-            this.spcMain.SplitterDistance = 201;
-            this.spcMain.SplitterWidth = 5;
+            this.spcMain.SplitterDistance = 249;
+            this.spcMain.SplitterWidth = 6;
             this.spcMain.TabIndex = 82;
             // 
             // ProfitCalc

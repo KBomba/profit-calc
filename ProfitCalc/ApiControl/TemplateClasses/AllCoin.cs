@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    internal class AllCoin
+    internal class AllCoinPairs
     {
         [JsonProperty("code")]
         public int Code { get; set; }
@@ -60,6 +60,23 @@ namespace ProfitCalc.ApiControl.TemplateClasses
 
             [JsonProperty("wallet_status")]
             public string WalletStatus { get; set; }
+        }
+    }
+
+    internal class AllCoinOrders
+    {
+        /*[JsonProperty("code")]
+        public int Code { get; set; }*/
+
+        [JsonProperty("data")]
+        public Datas Data { get; set; }
+        internal class Datas
+        {
+            [JsonProperty("sell")]
+            public Dictionary<string, double> Sell { get; set; }
+
+            [JsonProperty("buy")]
+            public Dictionary<string, double> Buy { get; set; }
         }
     }
 }

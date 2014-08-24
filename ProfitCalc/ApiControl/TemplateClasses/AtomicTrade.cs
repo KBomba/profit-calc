@@ -48,11 +48,11 @@ namespace ProfitCalc.ApiControl.TemplateClasses
                 [JsonProperty("price")]
                 public string Price { get; set; }
 
-                /*[JsonProperty("quantity")]
+                [JsonProperty("quantity")]
                 public string Quantity { get; set; }
 
                 [JsonProperty("total")]
-                public string Total { get; set; }*/
+                public string Total { get; set; }
             }
         }
     }

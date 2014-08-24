@@ -12,9 +12,6 @@ namespace ProfitCalc
         public string TagName { get; set; }
         public string Algo { get; set; }
 
-        public string Source { get; set; }
-        public string Website { get; set; }
-
         public double Difficulty { get; set; }
         public double Avg24HDifficulty { get;set;}
         public double BlockReward { get; set; }
@@ -37,6 +34,7 @@ namespace ProfitCalc
             {
                 public double BtcPrice { get; set; }
                 public double BtcVolume { get; set; }
+                public double CoinVolume { get; set; }
             }
 
             public override string ToString()
@@ -59,6 +57,9 @@ namespace ProfitCalc
         public double EurPerDay { get; set; }
         public double GbpPerDay { get; set; }
         public double CnyPerDay { get; set; }
+
+        public string Source { get; set; }
+        public DateTime Retrieved { get; set; }
 
         public bool HasFrozenMarkets { get; set; }
         public bool HasImplementedMarketApi { get; set; }
@@ -88,6 +89,8 @@ namespace ProfitCalc
                 IsFrozen = false
             };
             Exchanges = new List<Exchange>{customExchange};
+            Source = "Custom coin";
+            Retrieved = DateTime.Now;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
@@ -139,6 +142,8 @@ namespace ProfitCalc
                 IsFrozen = false
             };
             Exchanges = new List<Exchange> {nhExchange};
+            Source = "NiceHash";
+            Retrieved = DateTime.Now;
             TotalVolume = 0;
             IsMultiPool = true;
             HasImplementedMarketApi = true;
@@ -170,6 +175,8 @@ namespace ProfitCalc
                 IsFrozen = false
             };
             Exchanges = new List<Exchange> {wtmExchange};
+            Source = "WhatToMine";
+            Retrieved = DateTime.Now;
             TotalVolume = wtmExchange.BtcVolume;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
@@ -198,6 +205,8 @@ namespace ProfitCalc
                 IsFrozen = !ctwCoin.HasBuyOffers
             };
             Exchanges = new List<Exchange> {ctwExchange};
+            Source = "CoinTweak";
+            Retrieved = DateTime.Now;
             TotalVolume = ctwExchange.BtcVolume;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
@@ -231,6 +240,8 @@ namespace ProfitCalc
                 IsFrozen = cwzCoin.HealthStatus.Contains("Unhealthy")
             };
             Exchanges = new List<Exchange> {cwzExchange};
+            Source = "CoinWarz";
+            Retrieved = DateTime.Now;
             TotalVolume = cwzExchange.BtcVolume;
             IsMultiPool = false;
             HasImplementedMarketApi = false;

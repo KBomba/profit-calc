@@ -66,22 +66,21 @@ namespace ProfitCalc.ApiControl.TemplateClasses
                 }*/
 
                 [JsonProperty("sellorders")]
-                public List<Order> SellOrders { get; set; }
+                public Order[] SellOrders { get; set; }
                 
 
                 [JsonProperty("buyorders")]
-                public List<Order> BuyOrders { get; set; }
-
+                public Order[] BuyOrders { get; set; }
                 public class Order
                 {
                     [JsonProperty("price")]
                     public double Price { get; set; }
 
-                    /*[JsonProperty("quantity")]
+                    [JsonProperty("quantity")]
                     public double Quantity { get; set; }
 
                     [JsonProperty("total")]
-                    public double Total { get; set; }*/
+                    public double Total { get; set; }
                 }
             }
         }

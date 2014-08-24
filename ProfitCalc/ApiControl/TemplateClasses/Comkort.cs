@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    internal class Comkort
+    internal class ComkortPairs
     {
         [JsonProperty("markets")]
         public Dictionary<string, Pair> Markets { get; set; }
@@ -94,6 +94,43 @@ namespace ProfitCalc.ApiControl.TemplateClasses
                 public string Amount { get; set; }*/
             }
             
+            /*[JsonProperty("last_update")]
+            public string LastUpdate { get; set; }*/
+        }
+    }
+
+    internal class ComkortOrders
+    {
+        [JsonProperty("orders")]
+        public Orders OrderData { get; set; }
+        internal class Orders
+        {
+            [JsonProperty("sell")]
+            public Order[] Sell { get; set; }
+
+            [JsonProperty("buy")]
+            public Order[] Buy { get; set; }
+            public class Order
+            {
+                [JsonProperty("price")]
+                public string Price { get; set; }
+
+                /*[JsonProperty("type")]
+                public string Type { get; set; }
+
+                [JsonProperty("item")]
+                public string Item { get; set; }*/
+
+                [JsonProperty("total_price")]
+                public string TotalPrice { get; set; }
+
+                /*[JsonProperty("price_currency")]
+                public string PriceCurrency { get; set; }*/
+
+                [JsonProperty("amount")]
+                public string Amount { get; set; }
+            }
+
             /*[JsonProperty("last_update")]
             public string LastUpdate { get; set; }*/
         }

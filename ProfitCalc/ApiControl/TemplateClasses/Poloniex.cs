@@ -2,7 +2,7 @@
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    internal class Poloniex
+    internal class PoloniexPairs
     {
         [JsonProperty("last")]
         public double Last { get; set; }
@@ -24,5 +24,17 @@ namespace ProfitCalc.ApiControl.TemplateClasses
 
         [JsonProperty("isFrozen")]
         public string IsFrozen { get; set; }
+    }
+
+    internal class PoloniexOrders
+    {
+        [JsonProperty("asks")]
+        public double[][] Asks { get; set; }
+
+        [JsonProperty("bids")]
+        public double[][] Bids { get; set; }
+
+        /*[JsonProperty("isFrozen")]
+        public string IsFrozen { get; set; }*/
     }
 }

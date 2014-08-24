@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ProfitCalc.ApiControl.TemplateClasses
 {
-    class Cryptoine
+    internal class CryptoinePairs
     {
         /*[JsonProperty("result")]
         public bool Result { get; set; }*/
@@ -37,4 +37,16 @@ namespace ProfitCalc.ApiControl.TemplateClasses
             public double VolExchange { get; set; }*/
         }
     }
+
+    internal class CryptoineOrders
+    {
+        /*[JsonProperty("result")]
+        public bool Result { get; set; }*/
+
+        [JsonProperty("bids")]
+        public double[][] Bids { get; set; }
+
+        [JsonProperty("asks")]
+        public double[][] Asks { get; set; }
+    } 
 }
