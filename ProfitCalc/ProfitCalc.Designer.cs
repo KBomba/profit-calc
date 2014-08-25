@@ -132,6 +132,7 @@
             this.txtProxy = new System.Windows.Forms.TextBox();
             this.chkProxy = new System.Windows.Forms.CheckBox();
             this.spcMain = new System.Windows.Forms.SplitContainer();
+            this.chkOrderDepth = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.stStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).BeginInit();
@@ -1162,6 +1163,7 @@
             // 
             // tabMisc
             // 
+            this.tabMisc.Controls.Add(this.chkOrderDepth);
             this.tabMisc.Controls.Add(this.lblTimeout);
             this.tabMisc.Controls.Add(this.nudTimeout);
             this.tabMisc.Controls.Add(this.txtProxy);
@@ -1248,6 +1250,18 @@
             this.spcMain.SplitterDistance = 249;
             this.spcMain.SplitterWidth = 6;
             this.spcMain.TabIndex = 82;
+            // 
+            // chkOrderDepth
+            // 
+            this.chkOrderDepth.AutoSize = true;
+            this.chkOrderDepth.Checked = true;
+            this.chkOrderDepth.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOrderDepth.Location = new System.Drawing.Point(6, 84);
+            this.chkOrderDepth.Name = "chkOrderDepth";
+            this.chkOrderDepth.Size = new System.Drawing.Size(105, 17);
+            this.chkOrderDepth.TabIndex = 38;
+            this.chkOrderDepth.Text = "Get order depths";
+            this.chkOrderDepth.UseVisualStyleBackColor = true;
             // 
             // ProfitCalc
             // 
@@ -1396,6 +1410,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Difficulty;
         private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
         private System.Windows.Forms.SplitContainer spcMain;
+        private System.Windows.Forms.CheckBox chkOrderDepth;
     }
 }
 

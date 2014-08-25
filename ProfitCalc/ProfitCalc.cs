@@ -7,11 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using ProfitCalc.ApiControl;
-using ProfitCalc.ApiControl.TemplateClasses;
 
 namespace ProfitCalc
 {
@@ -430,7 +428,8 @@ namespace ProfitCalc
                         () => chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"],
                         () => chk24hDiff.Checked = apiSettings.CheckedMisc["Use24hDiff"],
                         () => chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"],
-                        () => chkProxy.Checked = apiSettings.CheckedMisc["Proxy"]
+                        () => chkProxy.Checked = apiSettings.CheckedMisc["Proxy"],
+                        () => chkProxy.Checked = apiSettings.CheckedMisc["GetOrderDepths"]
                     };
 
                     foreach (Action action in settingsToLoad)
@@ -576,6 +575,7 @@ namespace ProfitCalc
                 apiSettings.CheckedMisc.Add("Use24hDiff", chk24hDiff.Checked);
                 apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
                 apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
+                apiSettings.CheckedMisc.Add("GetOrderDepths", chkProxy.Checked);
 
                 File.WriteAllText(@"apisettings.txt",
                     JsonConvert.SerializeObject(apiSettings, Formatting.Indented));
@@ -754,7 +754,7 @@ namespace ProfitCalc
                 Timeout = TimeSpan.FromSeconds((double) nudTimeout.Value)
             };
 
-            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex);
+            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex, chkOrderDepth.Checked);
 
             if (_customCoins.Count > 0)
             {

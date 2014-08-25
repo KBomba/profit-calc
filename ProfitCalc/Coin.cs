@@ -28,6 +28,8 @@ namespace ProfitCalc
             public double Weight { get; set; }
             public bool IsFrozen { get; set; }
 
+            public double FallThroughPrice { get; set; }
+            public double LeftOverInFallThrough { get; set; }
             public List<Order> BuyOrders { get; set; }
             public List<Order> SellOrders { get; set; }
             public class Order
@@ -283,14 +285,38 @@ namespace ProfitCalc
                         break;
                 }
 
-                if (TotalVolume > 0 && useWeightedCalculations)
+
+                foreach (Exchange exchange in Exchanges)
                 {
-                    foreach (Exchange exchange in Exchanges)
+                    if (TotalVolume > 0 && useWeightedCalculations)
                     {
                         exchange.Weight = exchange.BtcVolume/TotalVolume;
                         WeightedBtcPrice += (exchange.Weight*exchange.BtcPrice);
                     }
 
+                    if (exchange.BuyOrders != null && exchange.BuyOrders.Any())
+                    {
+                        double coinsToSell = CoinsPerDay;
+                        double collectedBtc = 0;
+                        foreach (Exchange.Order order in exchange.BuyOrders)
+                        {
+                            if (coinsToSell - order.CoinVolume < 0)
+                            {
+                                collectedBtc += coinsToSell*order.BtcPrice;
+                                exchange.LeftOverInFallThrough = Math.Abs(coinsToSell - order.CoinVolume);
+                                break;
+                            }
+
+                            coinsToSell -= order.CoinVolume;
+                            collectedBtc += order.CoinVolume*order.BtcPrice;
+                        }
+
+                        exchange.FallThroughPrice = collectedBtc/(CoinsPerDay - exchange.LeftOverInFallThrough);
+                    }
+                }
+
+                if (TotalVolume > 0 && useWeightedCalculations)
+                {
                     BtcPerDay = CoinsPerDay*WeightedBtcPrice;
                 }
                 else

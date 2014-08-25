@@ -20,8 +20,9 @@ namespace ProfitCalc
         private readonly ParallelOptions _po;
         public Profile UsedProfile { get; set; }
         private readonly int _bidRecentAsk;
+        private readonly bool _getOrderDepth;
 
-        public CoinList(HttpClient client, Profile profile, int index)
+        public CoinList(HttpClient client, Profile profile, int index, bool getOrderDepth)
         {
             ListOfCoins = new List<Coin>();
             _client = client;
@@ -29,6 +30,7 @@ namespace ProfitCalc
 
             // 0 == highest bid price, 1 == recent trade price, 2 = lowest ask price
             _bidRecentAsk = index;
+            _getOrderDepth = getOrderDepth;
 
             _po = new ParallelOptions
             {
@@ -282,41 +284,44 @@ namespace ProfitCalc
                         SellOrders = new List<Coin.Exchange.Order>()
                     };
 
-                    MintPalOrders mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
-                        _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
-                        + mpCoin.Code + "/BTC/ALL").Result);
-                    foreach (MintPalOrders.Datas data in mpOrders.Data)
+                    if (_getOrderDepth)
                     {
-                        foreach (MintPalOrders.Datas.Order newOrder in data.Orders)
+                        MintPalOrders mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
+                            _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
+                            + mpCoin.Code + "/BTC/ALL").Result);
+                        foreach (MintPalOrders.Datas data in mpOrders.Data)
                         {
-                            double price, volume, coinVolume;
-                            if (Double.TryParse(newOrder.Price, NumberStyles.Float,
-                                CultureInfo.InvariantCulture, out price) &&
-                                Double.TryParse(newOrder.Total, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out volume) &&
-                                Double.TryParse(newOrder.Amount, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out coinVolume))
+                            foreach (MintPalOrders.Datas.Order newOrder in data.Orders)
                             {
-                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                double price, volume, coinVolume;
+                                if (Double.TryParse(newOrder.Price, NumberStyles.Float,
+                                    CultureInfo.InvariantCulture, out price) &&
+                                    Double.TryParse(newOrder.Total, NumberStyles.Float,
+                                        CultureInfo.InvariantCulture, out volume) &&
+                                    Double.TryParse(newOrder.Amount, NumberStyles.Float,
+                                        CultureInfo.InvariantCulture, out coinVolume))
                                 {
-                                    BtcPrice = price,
-                                    BtcVolume = volume,
-                                    CoinVolume = coinVolume
-                                };
+                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    {
+                                        BtcPrice = price,
+                                        BtcVolume = volume,
+                                        CoinVolume = coinVolume
+                                    };
 
-                                switch (data.Type)
-                                {
-                                    case "buy":
-                                        mpExchange.BuyOrders.Add(order);
-                                        break;
-                                    case "sell":
-                                        mpExchange.SellOrders.Add(order);
-                                        break;
+                                    switch (data.Type)
+                                    {
+                                        case "buy":
+                                            mpExchange.BuyOrders.Add(order);
+                                            break;
+                                        case "sell":
+                                            mpExchange.SellOrders.Add(order);
+                                            break;
+                                    }
                                 }
                             }
                         }
                     }
-
+                    
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(mpExchange);
@@ -379,38 +384,41 @@ namespace ProfitCalc
                         SellOrders = new List<Coin.Exchange.Order>()
                     };
 
-                    if (cpCoin.Value.BuyOrders != null && cpCoin.Value.BuyOrders.Any())
+                    if (_getOrderDepth)
                     {
-                        int i = cpCoin.Value.BuyOrders.Length < 50
-                            ? cpCoin.Value.BuyOrders.Length : 50;
-                        for (int index = 0; index < i; index++)
+                        if (cpCoin.Value.BuyOrders != null && cpCoin.Value.BuyOrders.Any())
                         {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            int i = cpCoin.Value.BuyOrders.Length < 50
+                                ? cpCoin.Value.BuyOrders.Length : 50;
+                            for (int index = 0; index < i; index++)
                             {
-                                BtcPrice = cpCoin.Value.BuyOrders[index].Price,
-                                BtcVolume = cpCoin.Value.BuyOrders[index].Total,
-                                CoinVolume = cpCoin.Value.BuyOrders[index].Quantity
-                            };
-                            cpExchange.BuyOrders.Add(order);
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = cpCoin.Value.BuyOrders[index].Price,
+                                    BtcVolume = cpCoin.Value.BuyOrders[index].Total,
+                                    CoinVolume = cpCoin.Value.BuyOrders[index].Quantity
+                                };
+                                cpExchange.BuyOrders.Add(order);
+                            }
+                        }
+
+                        if (cpCoin.Value.SellOrders != null && cpCoin.Value.SellOrders.Any())
+                        {
+                            int i = cpCoin.Value.SellOrders.Length < 50
+                                ? cpCoin.Value.SellOrders.Length : 50;
+                            for (int index = 0; index < i; index++)
+                            {
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = cpCoin.Value.SellOrders[index].Price,
+                                    BtcVolume = cpCoin.Value.SellOrders[index].Total,
+                                    CoinVolume = cpCoin.Value.SellOrders[index].Quantity
+                                };
+                                cpExchange.SellOrders.Add(order);
+                            }
                         }
                     }
-
-                    if (cpCoin.Value.SellOrders != null && cpCoin.Value.SellOrders.Any())
-                    {
-                        int i = cpCoin.Value.SellOrders.Length < 50
-                            ? cpCoin.Value.SellOrders.Length : 50;
-                        for (int index = 0; index < i; index++)
-                        {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
-                            {
-                                BtcPrice = cpCoin.Value.SellOrders[index].Price,
-                                BtcVolume = cpCoin.Value.SellOrders[index].Total,
-                                CoinVolume = cpCoin.Value.SellOrders[index].Quantity
-                            };
-                            cpExchange.SellOrders.Add(order);
-                        }
-                    }
-
+                    
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(cpExchange);
