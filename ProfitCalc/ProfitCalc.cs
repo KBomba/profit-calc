@@ -396,6 +396,7 @@ namespace ProfitCalc
                         () => _historicAlgoList = apiSettings.AllAlgoList,
                         () => txtCointweakApiKey.Text = apiSettings.ApiSettings["CoinTweak"],
                         () => txtCoinwarzApiKey.Text = apiSettings.ApiSettings["CoinWarz"],
+                        () => txtCcexApiKey.Text = apiSettings.ApiSettings["C-Cex"],
                         () => nudCryptoday.Text = apiSettings.ApiSettings["CrypToday"],
                         () => nudPoolpicker.Text = apiSettings.ApiSettings["PoolPicker"],
                         () => nudTimeout.Text = apiSettings.ApiSettings["Timeout"],
@@ -426,6 +427,7 @@ namespace ProfitCalc
                         () => chkRemoveZeroVolume.Checked = apiSettings.CheckedMisc["RemoveZeroVolume"],
                         () => chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"],
                         () => chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"],
+                        () => chkUseBestFallThrough.Checked = apiSettings.CheckedMisc["UseBestFallThrough"],
                         () => chk24hDiff.Checked = apiSettings.CheckedMisc["Use24hDiff"],
                         () => chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"],
                         () => chkProxy.Checked = apiSettings.CheckedMisc["Proxy"],
@@ -540,6 +542,7 @@ namespace ProfitCalc
 
                 apiSettings.ApiSettings.Add("CoinTweak", txtCointweakApiKey.Text);
                 apiSettings.ApiSettings.Add("CoinWarz", txtCoinwarzApiKey.Text);
+                apiSettings.ApiSettings.Add("C-Cex", txtCcexApiKey.Text);
                 apiSettings.ApiSettings.Add("CrypToday", nudCryptoday.Text);
                 apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
                 apiSettings.ApiSettings.Add("Timeout", nudTimeout.Text);
@@ -572,6 +575,7 @@ namespace ProfitCalc
                 apiSettings.CheckedMisc.Add("RemoveZeroVolume", chkRemoveZeroVolume.Checked);
                 apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
                 apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
+                apiSettings.CheckedMisc.Add("UseBestFallThrough", chkUseBestFallThrough.Checked);
                 apiSettings.CheckedMisc.Add("Use24hDiff", chk24hDiff.Checked);
                 apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
                 apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
@@ -628,7 +632,8 @@ namespace ProfitCalc
         {
             try
             {
-                _coinList.CalculatePrices(chkWeight.Checked, chkCoindesk.Checked, chk24hDiff.Checked);
+                _coinList.CalculatePrices(chkWeight.Checked, chkUseBestFallThrough.Checked,
+                    chkCoindesk.Checked, chk24hDiff.Checked);
             }
             catch (Exception exception)
             {
@@ -735,8 +740,6 @@ namespace ProfitCalc
 
         private void GetCoinList(int progress)
         {
-            List<Action> erroredActions = new List<Action>();
-
             HttpClientHandler hch = new HttpClientHandler();
             if (chkProxy.Checked)
             {
@@ -781,9 +784,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from NiceHash. Will be retried.",
+                    AppendToLog("Error while getting data from NiceHash.",
                         exception);
-                    erroredActions.Add(_coinList.UpdateNiceHash);
                 }
             }
 
@@ -797,9 +799,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from PoolPicker. Will be retried.",
+                    AppendToLog("Error while getting data from PoolPicker.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdatePoolPicker(nudPoolpicker.Value, chkReviewCalc.Checked));
                 }
             }
 
@@ -813,9 +814,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from CrypToday. Will be retried.",
+                    AppendToLog("Error while getting data from CrypToday.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCrypToday(nudCryptoday.Value));
                 }
             }
 
@@ -829,9 +829,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from CoinTweak. Will be retried.",
+                    AppendToLog("Error while getting data from CoinTweak.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCoinTweak(txtCointweakApiKey.Text));
                 }
             }
 
@@ -845,9 +844,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from CoinWarz. Will be retried.",
+                    AppendToLog("Error while getting data from CoinWarz.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCoinWarz(txtCoinwarzApiKey.Text));
                 }
             }
 
@@ -861,36 +859,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from WhatToMine. Will be retried.",
+                    AppendToLog("Error while getting data from WhatToMine.",
                         exception);
-                    erroredActions.Add(_coinList.UpdateWhatToMine);
                 }
-            }
-
-            if (erroredActions.Count > 0)
-            {
-                tsStatus.Text = "Retrying errored coin info and multipool API's";
-                int errors = 0;
-
-                foreach (Action erroredAction in erroredActions)
-                {
-                    try
-                    {
-                        erroredAction.Invoke();
-                    }
-                    catch (Exception exception)
-                    {
-                        errors++;
-                        AppendToLog("Error", exception);
-                    }
-                }
-
-                if (errors != 0)
-                {
-                    UpdateErrorCounter(errors);
-                }
-
-                erroredActions.Clear();
             }
 
             tsProgress.Value += progress;
@@ -903,9 +874,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from Bittrex. Will be retried.",
+                    AppendToLog("Error while getting data from Bittrex.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateBittrex());
                 }
             }
 
@@ -919,9 +889,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from Mintpal. Will be retried.",
+                    AppendToLog("Error while getting data from Mintpal.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateMintPal());
                 }
             }
 
@@ -935,9 +904,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from Cryptsy. Will be retried.",
+                    AppendToLog("Error while getting data from Cryptsy.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCryptsy());
                 }
             }
 
@@ -951,9 +919,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from Poloniex. Will be retried.",
+                    AppendToLog("Error while getting data from Poloniex.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdatePoloniex());
                 }
             }
 
@@ -967,9 +934,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from BTer. Will be retried.",
+                    AppendToLog("Error while getting data from BTer.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateBTer());
                 }
             }
 
@@ -983,9 +949,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from AllCoin. Will be retried.",
+                    AppendToLog("Error while getting data from AllCoin.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateAllCoin());
                 }
             }
 
@@ -999,9 +964,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from AllCrypt. Will be retried.",
+                    AppendToLog("Error while getting data from AllCrypt.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateAllCrypt());
                 }
             }
 
@@ -1011,13 +975,12 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with C-Cex prices...";
-                    _coinList.UpdateCCex();
+                    _coinList.UpdateCCex(txtCcexApiKey.Text);
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from C-Cex. Will be retried.",
+                    AppendToLog("Error while getting data from C-Cex.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCCex());
                 }
             }
 
@@ -1031,9 +994,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from Comkort. Will be retried.",
+                    AppendToLog("Error while getting data from Comkort.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateComkort());
                 }
             }
 
@@ -1047,9 +1009,8 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from Comkort. Will be retried.",
+                    AppendToLog("Error while getting data from Atomic Trade.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateAtomicTrade());
                 }
             }
 
@@ -1063,36 +1024,9 @@ namespace ProfitCalc
                 }
                 catch (Exception exception)
                 {
-                    AppendToLog("Error while getting data from Cryptoine. Will be retried.",
+                    AppendToLog("Error while getting data from Cryptoine.",
                         exception);
-                    erroredActions.Add(() => _coinList.UpdateCryptoine());
                 }
-            }
-
-            if (erroredActions.Count > 0)
-            {
-                tsStatus.Text = "Retrying errored market API's";
-                int errors = 0;
-
-                foreach (Action erroredAction in erroredActions)
-                {
-                    try
-                    {
-                        erroredAction.Invoke();
-                    }
-                    catch (Exception exception)
-                    {
-                        errors++;
-                        AppendToLog("Error", exception);
-                    }
-                }
-
-                if (errors != 0)
-                {
-                    UpdateErrorCounter(errors);
-                }
-
-                erroredActions.Clear();
             }
         }
 
@@ -1104,6 +1038,7 @@ namespace ProfitCalc
         private void AppendToLog(string s, Exception e)
         {
             txtLog.AppendText("[" + DateTime.Now + "] [ERROR] " + s + Environment.NewLine + e + Environment.NewLine);
+            UpdateErrorCounter();
         }
 
         private void UpdateErrorCounter(int iErrors = 1)
@@ -1762,6 +1697,21 @@ namespace ProfitCalc
             {
                 DetailedResult dr = new DetailedResult(GetCleanedCoinList()[e.RowIndex]) {Visible = true};
             }
+        }
+
+        private void chkCCex_CheckedChanged(object sender, EventArgs e)
+        {
+            txtCcexApiKey.Enabled = chkCCex.Checked;
+        }
+
+        private void chkUseBestFallThrough_CheckedChanged(object sender, EventArgs e)
+        {
+            chkWeight.Checked = !chkUseBestFallThrough.Checked;
+        }
+
+        private void chkWeight_CheckedChanged(object sender, EventArgs e)
+        {
+            chkUseBestFallThrough.Checked = !chkWeight.Checked;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using ProfitCalc.ApiControl.TemplateClasses;
 
 namespace ProfitCalc
@@ -249,7 +250,8 @@ namespace ProfitCalc
             HasImplementedMarketApi = false;
         }
 
-        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, int multiplier, string diffCalculationCalcStyle, double target, bool use24HDiff)
+        public void CalcProfitability(double hashRateMh, bool useWeightedCalculations, bool useFallThroughPrice,
+            int multiplier, string diffCalculationCalcStyle, double target, bool use24HDiff)
         {
             if (IsMultiPool)
             {
@@ -258,13 +260,8 @@ namespace ProfitCalc
             }
             else
             {
-                Exchanges = Exchanges.OrderByDescending(exchange => exchange.BtcVolume).ToList();
-                BestExchangeName = Exchanges[0].ExchangeName;
-                BestExchangePrice = Exchanges[0].BtcPrice;
-                BestExchangeVolume = Exchanges[0].BtcVolume;
-
+                // Calculating coins/day
                 double diff = use24HDiff && Avg24HDifficulty != 0 ? Avg24HDifficulty : Difficulty;
-
                 switch (diffCalculationCalcStyle)
                 {
                     case "CryptoNight":
@@ -285,10 +282,10 @@ namespace ProfitCalc
                         break;
                 }
 
-
-                foreach (Exchange exchange in Exchanges)
+                // Calculating weighted and fallthrough prices
+                Parallel.ForEach(Exchanges, exchange =>
                 {
-                    if (TotalVolume > 0 && useWeightedCalculations)
+                    if (TotalVolume > 0)
                     {
                         exchange.Weight = exchange.BtcVolume/TotalVolume;
                         WeightedBtcPrice += (exchange.Weight*exchange.BtcPrice);
@@ -303,26 +300,43 @@ namespace ProfitCalc
                             if (coinsToSell - order.CoinVolume < 0)
                             {
                                 collectedBtc += coinsToSell*order.BtcPrice;
-                                exchange.LeftOverInFallThrough = Math.Abs(coinsToSell - order.CoinVolume);
+                                exchange.LeftOverInFallThrough = 0;
                                 break;
                             }
 
                             coinsToSell -= order.CoinVolume;
                             collectedBtc += order.CoinVolume*order.BtcPrice;
+                            exchange.LeftOverInFallThrough = coinsToSell;
                         }
 
                         exchange.FallThroughPrice = collectedBtc/(CoinsPerDay - exchange.LeftOverInFallThrough);
                     }
-                }
+                });
 
-                if (TotalVolume > 0 && useWeightedCalculations)
+                // Sorting the orders in the right way
+                foreach (Exchange exchange in Exchanges)
                 {
-                    BtcPerDay = CoinsPerDay*WeightedBtcPrice;
+                    if (exchange.BuyOrders != null)
+                    {
+                        exchange.BuyOrders = exchange.BuyOrders.OrderByDescending(order => order.BtcPrice).ToList();
+                    }
+
+                    if (exchange.SellOrders != null)
+                    {
+                        exchange.SellOrders = exchange.SellOrders.OrderBy(order => order.BtcPrice).ToList();
+                    }
                 }
-                else
-                {
-                    BtcPerDay = CoinsPerDay * Exchanges[0].BtcPrice;
-                }
+                
+                Exchanges = useFallThroughPrice
+                    ? Exchanges.OrderByDescending(exchange => exchange.FallThroughPrice).ToList()
+                    : Exchanges.OrderByDescending(exchange => exchange.BtcVolume).ToList();
+
+                BestExchangeName = Exchanges[0].ExchangeName;
+                BestExchangePrice = Exchanges[0].BtcPrice;
+                BestExchangeVolume = Exchanges[0].BtcVolume;
+
+                double priceToUse = TotalVolume > 0 && useWeightedCalculations ? WeightedBtcPrice : Exchanges[0].BtcPrice;
+                BtcPerDay = CoinsPerDay*priceToUse;
 
                 if (TagName == "BTC") BtcPerDay = CoinsPerDay;
             }

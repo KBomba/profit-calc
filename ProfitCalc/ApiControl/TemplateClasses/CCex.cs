@@ -38,4 +38,30 @@ namespace ProfitCalc.ApiControl.TemplateClasses
         [JsonProperty("return")]
         public List<Dictionary<string, string>> Returns { get; set; }
     }
+
+    internal class CCexOrders
+    {
+        [JsonProperty("return")]
+        public Dictionary<uint, CCexOrder> Return { get; set; }
+        internal class CCexOrder
+        {
+            [JsonProperty("type")]
+            public string Type { get; set; }
+
+            /*[JsonProperty("c1")]
+            public string C1 { get; set; }
+
+            [JsonProperty("c2")]
+            public string C2 { get; set; }*/
+
+            [JsonProperty("amount")]
+            public double Amount { get; set; }
+
+            [JsonProperty("price")]
+            public double Price { get; set; }
+
+            /*[JsonProperty("self")]
+            public int Self { get; set; }*/
+        }
+    }
 }

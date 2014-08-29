@@ -74,7 +74,7 @@
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPriceCalc = new System.Windows.Forms.TabPage();
-            this.chk24hDiff = new System.Windows.Forms.CheckBox();
+            this.chkUseBestFallThrough = new System.Windows.Forms.CheckBox();
             this.cbbBidRecentAsk = new System.Windows.Forms.ComboBox();
             this.lblBidRecentAsk = new System.Windows.Forms.Label();
             this.nudAmount = new System.Windows.Forms.NumericUpDown();
@@ -84,7 +84,9 @@
             this.chkCoindesk = new System.Windows.Forms.CheckBox();
             this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
             this.lblElectricityCost = new System.Windows.Forms.Label();
+            this.chk24hDiff = new System.Windows.Forms.CheckBox();
             this.tabMarketApi = new System.Windows.Forms.TabPage();
+            this.txtCcexApiKey = new System.Windows.Forms.TextBox();
             this.chkCCex = new System.Windows.Forms.CheckBox();
             this.chkBTer = new System.Windows.Forms.CheckBox();
             this.chkCryptoine = new System.Windows.Forms.CheckBox();
@@ -127,12 +129,12 @@
             this.chkRemoveUnlisted = new System.Windows.Forms.CheckBox();
             this.chkRemoveNegative = new System.Windows.Forms.CheckBox();
             this.tabMisc = new System.Windows.Forms.TabPage();
+            this.chkOrderDepth = new System.Windows.Forms.CheckBox();
             this.lblTimeout = new System.Windows.Forms.Label();
             this.nudTimeout = new System.Windows.Forms.NumericUpDown();
             this.txtProxy = new System.Windows.Forms.TextBox();
             this.chkProxy = new System.Windows.Forms.CheckBox();
             this.spcMain = new System.Windows.Forms.SplitContainer();
-            this.chkOrderDepth = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.stStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).BeginInit();
@@ -429,7 +431,7 @@
             // tsSpace
             // 
             this.tsSpace.Name = "tsSpace";
-            this.tsSpace.Size = new System.Drawing.Size(716, 17);
+            this.tsSpace.Size = new System.Drawing.Size(685, 17);
             this.tsSpace.Spring = true;
             // 
             // tsErrors
@@ -500,7 +502,7 @@
             // 
             // tabPriceCalc
             // 
-            this.tabPriceCalc.Controls.Add(this.chk24hDiff);
+            this.tabPriceCalc.Controls.Add(this.chkUseBestFallThrough);
             this.tabPriceCalc.Controls.Add(this.cbbBidRecentAsk);
             this.tabPriceCalc.Controls.Add(this.lblBidRecentAsk);
             this.tabPriceCalc.Controls.Add(this.nudAmount);
@@ -518,17 +520,16 @@
             this.tabPriceCalc.Text = "Price Calc Settings";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
             // 
-            // chk24hDiff
+            // chkUseBestFallThrough
             // 
-            this.chk24hDiff.AutoSize = true;
-            this.chk24hDiff.Checked = true;
-            this.chk24hDiff.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk24hDiff.Location = new System.Drawing.Point(6, 56);
-            this.chk24hDiff.Name = "chk24hDiff";
-            this.chk24hDiff.Size = new System.Drawing.Size(211, 17);
-            this.chk24hDiff.TabIndex = 69;
-            this.chk24hDiff.Text = "Use 24hr difficulty average (if available)";
-            this.chk24hDiff.UseVisualStyleBackColor = true;
+            this.chkUseBestFallThrough.AutoSize = true;
+            this.chkUseBestFallThrough.Location = new System.Drawing.Point(6, 29);
+            this.chkUseBestFallThrough.Name = "chkUseBestFallThrough";
+            this.chkUseBestFallThrough.Size = new System.Drawing.Size(321, 17);
+            this.chkUseBestFallThrough.TabIndex = 70;
+            this.chkUseBestFallThrough.Text = "Use the price from the exchange with the best fallthrough price";
+            this.chkUseBestFallThrough.UseVisualStyleBackColor = true;
+            this.chkUseBestFallThrough.CheckedChanged += new System.EventHandler(this.chkUseBestFallThrough_CheckedChanged);
             // 
             // cbbBidRecentAsk
             // 
@@ -537,7 +538,7 @@
             " highest bid",
             " recent trade",
             " lowest ask"});
-            this.cbbBidRecentAsk.Location = new System.Drawing.Point(31, 29);
+            this.cbbBidRecentAsk.Location = new System.Drawing.Point(31, 52);
             this.cbbBidRecentAsk.Name = "cbbBidRecentAsk";
             this.cbbBidRecentAsk.Size = new System.Drawing.Size(87, 21);
             this.cbbBidRecentAsk.TabIndex = 39;
@@ -545,7 +546,7 @@
             // lblBidRecentAsk
             // 
             this.lblBidRecentAsk.AutoSize = true;
-            this.lblBidRecentAsk.Location = new System.Drawing.Point(4, 32);
+            this.lblBidRecentAsk.Location = new System.Drawing.Point(4, 55);
             this.lblBidRecentAsk.Name = "lblBidRecentAsk";
             this.lblBidRecentAsk.Size = new System.Drawing.Size(235, 13);
             this.lblBidRecentAsk.TabIndex = 38;
@@ -581,10 +582,11 @@
             this.chkWeight.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkWeight.Location = new System.Drawing.Point(6, 6);
             this.chkWeight.Name = "chkWeight";
-            this.chkWeight.Size = new System.Drawing.Size(237, 17);
+            this.chkWeight.Size = new System.Drawing.Size(315, 17);
             this.chkWeight.TabIndex = 37;
-            this.chkWeight.Text = "Use the weighted price across all exchanges";
+            this.chkWeight.Text = "Use the price across all exchanges, weighted by daily volume";
             this.chkWeight.UseVisualStyleBackColor = true;
+            this.chkWeight.CheckedChanged += new System.EventHandler(this.chkWeight_CheckedChanged);
             // 
             // cbbFiat
             // 
@@ -643,8 +645,21 @@
             this.lblElectricityCost.TabIndex = 68;
             this.lblElectricityCost.Text = "USD/kWh";
             // 
+            // chk24hDiff
+            // 
+            this.chk24hDiff.AutoSize = true;
+            this.chk24hDiff.Checked = true;
+            this.chk24hDiff.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk24hDiff.Location = new System.Drawing.Point(6, 100);
+            this.chk24hDiff.Name = "chk24hDiff";
+            this.chk24hDiff.Size = new System.Drawing.Size(211, 17);
+            this.chk24hDiff.TabIndex = 69;
+            this.chk24hDiff.Text = "Use 24hr difficulty average (if available)";
+            this.chk24hDiff.UseVisualStyleBackColor = true;
+            // 
             // tabMarketApi
             // 
+            this.tabMarketApi.Controls.Add(this.txtCcexApiKey);
             this.tabMarketApi.Controls.Add(this.chkCCex);
             this.tabMarketApi.Controls.Add(this.chkBTer);
             this.tabMarketApi.Controls.Add(this.chkCryptoine);
@@ -664,15 +679,25 @@
             this.tabMarketApi.Text = "Market API";
             this.tabMarketApi.UseVisualStyleBackColor = true;
             // 
+            // txtCcexApiKey
+            // 
+            this.txtCcexApiKey.Enabled = false;
+            this.txtCcexApiKey.Location = new System.Drawing.Point(66, 121);
+            this.txtCcexApiKey.Name = "txtCcexApiKey";
+            this.txtCcexApiKey.Size = new System.Drawing.Size(371, 20);
+            this.txtCcexApiKey.TabIndex = 47;
+            this.txtCcexApiKey.Text = "Enter your optional C-Cex API key here (used for order depths).";
+            // 
             // chkCCex
             // 
             this.chkCCex.AutoSize = true;
-            this.chkCCex.Location = new System.Drawing.Point(6, 121);
+            this.chkCCex.Location = new System.Drawing.Point(6, 123);
             this.chkCCex.Name = "chkCCex";
             this.chkCCex.Size = new System.Drawing.Size(54, 17);
             this.chkCCex.TabIndex = 46;
             this.chkCCex.Text = "C-Cex";
             this.chkCCex.UseVisualStyleBackColor = true;
+            this.chkCCex.CheckedChanged += new System.EventHandler(this.chkCCex_CheckedChanged);
             // 
             // chkBTer
             // 
@@ -807,6 +832,7 @@
             // tabCoinInfo
             // 
             this.tabCoinInfo.Controls.Add(this.txtCointweakApiKey);
+            this.tabCoinInfo.Controls.Add(this.chk24hDiff);
             this.tabCoinInfo.Controls.Add(this.txtCoinwarzApiKey);
             this.tabCoinInfo.Controls.Add(this.chkWhattomine);
             this.tabCoinInfo.Controls.Add(this.chkCoinwarz);
@@ -1175,6 +1201,18 @@
             this.tabMisc.Text = "Misc Settings";
             this.tabMisc.UseVisualStyleBackColor = true;
             // 
+            // chkOrderDepth
+            // 
+            this.chkOrderDepth.AutoSize = true;
+            this.chkOrderDepth.Checked = true;
+            this.chkOrderDepth.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOrderDepth.Location = new System.Drawing.Point(6, 84);
+            this.chkOrderDepth.Name = "chkOrderDepth";
+            this.chkOrderDepth.Size = new System.Drawing.Size(105, 17);
+            this.chkOrderDepth.TabIndex = 38;
+            this.chkOrderDepth.Text = "Get order depths";
+            this.chkOrderDepth.UseVisualStyleBackColor = true;
+            // 
             // lblTimeout
             // 
             this.lblTimeout.AutoSize = true;
@@ -1250,18 +1288,6 @@
             this.spcMain.SplitterDistance = 249;
             this.spcMain.SplitterWidth = 6;
             this.spcMain.TabIndex = 82;
-            // 
-            // chkOrderDepth
-            // 
-            this.chkOrderDepth.AutoSize = true;
-            this.chkOrderDepth.Checked = true;
-            this.chkOrderDepth.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOrderDepth.Location = new System.Drawing.Point(6, 84);
-            this.chkOrderDepth.Name = "chkOrderDepth";
-            this.chkOrderDepth.Size = new System.Drawing.Size(105, 17);
-            this.chkOrderDepth.TabIndex = 38;
-            this.chkOrderDepth.Text = "Get order depths";
-            this.chkOrderDepth.UseVisualStyleBackColor = true;
             // 
             // ProfitCalc
             // 
@@ -1411,6 +1437,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
         private System.Windows.Forms.SplitContainer spcMain;
         private System.Windows.Forms.CheckBox chkOrderDepth;
+        private System.Windows.Forms.TextBox txtCcexApiKey;
+        private System.Windows.Forms.CheckBox chkUseBestFallThrough;
     }
 }
 

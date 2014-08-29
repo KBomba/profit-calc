@@ -286,9 +286,20 @@ namespace ProfitCalc
 
                     if (_getOrderDepth)
                     {
-                        MintPalOrders mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
-                            _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
-                            + mpCoin.Code + "/BTC/ALL").Result);
+                        MintPalOrders mpOrders;
+                        try
+                        {
+                            mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
+                                _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
+                                                       + mpCoin.Code + "/BTC/ALL").Result);
+                        }
+                        catch (Exception)
+                        {
+                            mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
+                                _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
+                                                       + mpCoin.Code + "/BTC/ALL").Result);
+                        }
+
                         foreach (MintPalOrders.Datas data in mpOrders.Data)
                         {
                             foreach (MintPalOrders.Datas.Order newOrder in data.Orders)
@@ -388,15 +399,13 @@ namespace ProfitCalc
                     {
                         if (cpCoin.Value.BuyOrders != null && cpCoin.Value.BuyOrders.Any())
                         {
-                            int i = cpCoin.Value.BuyOrders.Length < 50
-                                ? cpCoin.Value.BuyOrders.Length : 50;
-                            for (int index = 0; index < i; index++)
+                            foreach (Cryptsy.Return.Market.Order newOrder in cpCoin.Value.BuyOrders)
                             {
                                 Coin.Exchange.Order order = new Coin.Exchange.Order
                                 {
-                                    BtcPrice = cpCoin.Value.BuyOrders[index].Price,
-                                    BtcVolume = cpCoin.Value.BuyOrders[index].Total,
-                                    CoinVolume = cpCoin.Value.BuyOrders[index].Quantity
+                                    BtcPrice = newOrder.Price,
+                                    BtcVolume = newOrder.Total,
+                                    CoinVolume = newOrder.Quantity
                                 };
                                 cpExchange.BuyOrders.Add(order);
                             }
@@ -404,15 +413,13 @@ namespace ProfitCalc
 
                         if (cpCoin.Value.SellOrders != null && cpCoin.Value.SellOrders.Any())
                         {
-                            int i = cpCoin.Value.SellOrders.Length < 50
-                                ? cpCoin.Value.SellOrders.Length : 50;
-                            for (int index = 0; index < i; index++)
+                            foreach (Cryptsy.Return.Market.Order newOrder in cpCoin.Value.SellOrders)
                             {
                                 Coin.Exchange.Order order = new Coin.Exchange.Order
                                 {
-                                    BtcPrice = cpCoin.Value.SellOrders[index].Price,
-                                    BtcVolume = cpCoin.Value.SellOrders[index].Total,
-                                    CoinVolume = cpCoin.Value.SellOrders[index].Quantity
+                                    BtcPrice = newOrder.Price,
+                                    BtcVolume = newOrder.Total,
+                                    CoinVolume = newOrder.Quantity
                                 };
                                 cpExchange.SellOrders.Add(order);
                             }
@@ -472,7 +479,7 @@ namespace ProfitCalc
                         SellOrders = new List<Coin.Exchange.Order>()
                     };
 
-                    if (int.Parse(btCoin.OpenBuyOrders) > 0 && int.Parse(btCoin.OpenSellOrders) > 0)
+                    if (_getOrderDepth && int.Parse(btCoin.OpenBuyOrders) > 0 && int.Parse(btCoin.OpenSellOrders) > 0)
                     {
                         BittrexOrders btOrders = JsonControl.DownloadSerializedApi<BittrexOrders>(
                             _client.GetStreamAsync("https://bittrex.com/api/v1.1/public/getorderbook?market=" 
@@ -554,35 +561,38 @@ namespace ProfitCalc
                         SellOrders = new List<Coin.Exchange.Order>()
                     };
 
-                    PoloniexOrders polOrders = JsonControl.DownloadSerializedApi<PoloniexOrders>(
-                        _client.GetStreamAsync("https://poloniex.com/public?command=returnOrderBook&currencyPair=" 
-                        + polCoin.Key + "&depth=50").Result);
-
-                    if (polOrders.Bids != null && polOrders.Bids.Any())
+                    if (_getOrderDepth)
                     {
-                        foreach (double[] newOrder in polOrders.Bids)
+                        PoloniexOrders polOrders = JsonControl.DownloadSerializedApi<PoloniexOrders>(
+                            _client.GetStreamAsync("https://poloniex.com/public?command=returnOrderBook&currencyPair="
+                                                   + polCoin.Key + "&depth=100").Result);
+
+                        if (polOrders.Bids != null && polOrders.Bids.Any())
                         {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            foreach (double[] newOrder in polOrders.Bids)
                             {
-                                BtcPrice = newOrder[0],
-                                BtcVolume = newOrder[0]*newOrder[1],
-                                CoinVolume = newOrder[1]
-                            };
-                            polExchange.BuyOrders.Add(order);
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = newOrder[0],
+                                    BtcVolume = newOrder[0]*newOrder[1],
+                                    CoinVolume = newOrder[1]
+                                };
+                                polExchange.BuyOrders.Add(order);
+                            }
                         }
-                    }
 
-                    if (polOrders.Asks != null && polOrders.Asks.Any()) 
-                    {
-                        foreach (double[] newOrder in polOrders.Asks)
+                        if (polOrders.Asks != null && polOrders.Asks.Any())
                         {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            foreach (double[] newOrder in polOrders.Asks)
                             {
-                                BtcPrice = newOrder[0],
-                                BtcVolume = newOrder[0] * newOrder[1],
-                                CoinVolume = newOrder[1]
-                            };
-                            polExchange.SellOrders.Add(order);
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = newOrder[0],
+                                    BtcVolume = newOrder[0]*newOrder[1],
+                                    CoinVolume = newOrder[1]
+                                };
+                                polExchange.SellOrders.Add(order);
+                            }
                         }
                     }
 
@@ -641,8 +651,8 @@ namespace ProfitCalc
                             break;
                     }
 
-                    if (Double.TryParse(acCoin.Value.Volume24HBtc, NumberStyles.Float, 
-                        CultureInfo.InvariantCulture, out volume) && hasOrder)
+                    if (Double.TryParse(acCoin.Value.Volume24HBtc, NumberStyles.Float,
+                        CultureInfo.InvariantCulture, out volume))
                     {
                         Coin.Exchange acExchange = new Coin.Exchange
                         {
@@ -653,40 +663,44 @@ namespace ProfitCalc
                             SellOrders = new List<Coin.Exchange.Order>()
                         };
 
-                        AllCoinOrders acOrders = JsonControl.DownloadSerializedApi<AllCoinOrders>(
-                            _client.GetStreamAsync("https://www.allcoin.com/api2/depth/" 
-                            + acCoin.Key).Result);
-                        foreach (KeyValuePair<string, double> newOrder in acOrders.Data.Buy)
+                        if (_getOrderDepth && hasOrder)
                         {
-                            double orderPrice;
-                            if (double.TryParse(newOrder.Key, NumberStyles.Float, 
-                                CultureInfo.InvariantCulture, out orderPrice))
+                            AllCoinOrders acOrders = JsonControl.DownloadSerializedApi<AllCoinOrders>(
+                                _client.GetStreamAsync("https://www.allcoin.com/api2/depth/"
+                                                       + acCoin.Key).Result);
+                            foreach (KeyValuePair<string, double> newOrder in acOrders.Data.Buy)
                             {
-                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                double orderPrice;
+                                if (double.TryParse(newOrder.Key, NumberStyles.Float,
+                                    CultureInfo.InvariantCulture, out orderPrice))
                                 {
-                                    BtcPrice = orderPrice,
-                                    BtcVolume = orderPrice*newOrder.Value,
-                                    CoinVolume = newOrder.Value
-                                };
-                                acExchange.BuyOrders.Add(order);
+                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    {
+                                        BtcPrice = orderPrice,
+                                        BtcVolume = orderPrice*newOrder.Value,
+                                        CoinVolume = newOrder.Value
+                                    };
+                                    acExchange.BuyOrders.Add(order);
+                                }
                             }
-                        }
 
-                        foreach (KeyValuePair<string, double> newOrder in acOrders.Data.Sell)
-                        {
-                            double orderPrice;
-                            if (double.TryParse(newOrder.Key, NumberStyles.Float,
-                                CultureInfo.InvariantCulture, out orderPrice))
+                            foreach (KeyValuePair<string, double> newOrder in acOrders.Data.Sell)
                             {
-                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                double orderPrice;
+                                if (double.TryParse(newOrder.Key, NumberStyles.Float,
+                                    CultureInfo.InvariantCulture, out orderPrice))
                                 {
-                                    BtcPrice = orderPrice,
-                                    BtcVolume = orderPrice * newOrder.Value,
-                                    CoinVolume = newOrder.Value
-                                };
-                                acExchange.SellOrders.Add(order);
+                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    {
+                                        BtcPrice = orderPrice,
+                                        BtcVolume = orderPrice*newOrder.Value,
+                                        CoinVolume = newOrder.Value
+                                    };
+                                    acExchange.SellOrders.Add(order);
+                                }
                             }
                         }
+                        
 
                         if (acCoin.Value.Status != "1" || acCoin.Value.WalletStatus != "1")
                         {
@@ -756,31 +770,34 @@ namespace ProfitCalc
                         SellOrders = new List<Coin.Exchange.Order>()
                     };
 
-                    if (acCoin.Value.BuyOrders != null && acCoin.Value.BuyOrders.Any())
+                    if (_getOrderDepth)
                     {
-                        foreach (Cryptsy.Return.Market.Order newOrder in acCoin.Value.BuyOrders)
+                        if (acCoin.Value.BuyOrders != null && acCoin.Value.BuyOrders.Any())
                         {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            foreach (Cryptsy.Return.Market.Order newOrder in acCoin.Value.BuyOrders)
                             {
-                                BtcPrice = newOrder.Price,
-                                BtcVolume = newOrder.Total,
-                                CoinVolume = newOrder.Quantity
-                            };
-                            acExchange.BuyOrders.Add(order);
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = newOrder.Price,
+                                    BtcVolume = newOrder.Total,
+                                    CoinVolume = newOrder.Quantity
+                                };
+                                acExchange.BuyOrders.Add(order);
+                            }
                         }
-                    }
 
-                    if (acCoin.Value.SellOrders != null && acCoin.Value.SellOrders.Any())
-                    {
-                        foreach (Cryptsy.Return.Market.Order newOrder in acCoin.Value.SellOrders)
+                        if (acCoin.Value.SellOrders != null && acCoin.Value.SellOrders.Any())
                         {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            foreach (Cryptsy.Return.Market.Order newOrder in acCoin.Value.SellOrders)
                             {
-                                BtcPrice = newOrder.Price,
-                                BtcVolume = newOrder.Total,
-                                CoinVolume = newOrder.Quantity
-                            };
-                            acExchange.SellOrders.Add(order);
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = newOrder.Price,
+                                    BtcVolume = newOrder.Total,
+                                    CoinVolume = newOrder.Quantity
+                                };
+                                acExchange.SellOrders.Add(order);
+                            }
                         }
                     }
 
@@ -801,7 +818,7 @@ namespace ProfitCalc
             }));
         }
 
-        public void UpdateCCex()
+        public void UpdateCCex(string apikey = null)
         {
             Dictionary<string, CCexPair> ccPairs = JsonControl.DownloadSerializedApi<Dictionary<string, CCexPair>>(
                 _client.GetStreamAsync("https://c-cex.com/t/prices.json").Result);
@@ -809,72 +826,123 @@ namespace ProfitCalc
                 _client.GetStreamAsync("https://c-cex.com/t/s.html?a=lastvolumes&h=24").Result);
 
             Parallel.ForEach(ListOfCoins, c => Parallel.For(0, ccPairs.Count, _po, i =>
-            /*foreach (Coin c in List)
             {
-                for(int i = 0; i < ccPairs.Count; i++)*/
+                string market = ccPairs.Keys.ElementAt(i);
+                string[] splitPair = market.Split('-');
+                if (splitPair[1] == "btc" && splitPair[0] == c.TagName.ToLowerInvariant())
                 {
-                    var splitPair = ccPairs.Keys.ElementAt(i).Split('-');
-
-                    if (splitPair[1] == "btc" && splitPair[0] == c.TagName.ToLowerInvariant())
+                    CCexPair ccPair = ccPairs.Values.ElementAt(i);
+                    double priceToUse;
+                    switch (_bidRecentAsk)
                     {
-                        CCexPair ccPair = ccPairs.Values.ElementAt(i);
-                        double priceToUse;
-                        switch (_bidRecentAsk)
-                        {
-                            case 0:
-                                priceToUse = ccPair.Buy;
-                                break;
-                            case 1:
-                                priceToUse = ccPair.Lastprice;
-                                break;
-                            case 2:
-                                priceToUse = ccPair.Sell;
-                                break;
-                            default:
-                                priceToUse = ccPair.Buy;
-                                break;
-                        }
-                        
-                        ParallelOptions optionsVolumeLoop = new ParallelOptions
-                        {
-                            CancellationToken = new CancellationTokenSource().Token,
-                        };
-                        double volumeToUse = 0;
-                        Parallel.ForEach(ccVolumes.Returns, optionsVolumeLoop, ccVolume =>
-                        //foreach (Dictionary<string, string> ccVolume in ccVolumes.Returns)
-                        {
-                            if (ccVolume.ContainsKey("volume_btc") && ccVolume.ContainsKey("volume_" + splitPair[0]) &&
-                                Double.TryParse(ccVolume["volume_btc"], NumberStyles.Any, CultureInfo.InvariantCulture, out volumeToUse))
-                            {
-                                //break;
-                                optionsVolumeLoop.CancellationToken.ThrowIfCancellationRequested();
-                            }
-                        });
-
-                        Coin.Exchange ccExchange = new Coin.Exchange
-                        {
-                            ExchangeName = "C-Cex",
-                            BtcVolume = volumeToUse,
-                            BtcPrice = priceToUse
-                        };
-
-                        //Not able to get orders from C-Cex since you need a private API key for something so ridiculous
-
-                        if (c.HasImplementedMarketApi)
-                        {
-                            c.Exchanges.Add(ccExchange);
-                            c.TotalVolume += ccExchange.BtcVolume;
-                        }
-                        else
-                        {
-                            c.Exchanges = new List<Coin.Exchange> { ccExchange };
-                            c.TotalVolume = ccExchange.BtcVolume;
-                            c.HasImplementedMarketApi = true;
-                        }
-
-                        _po.CancellationToken.ThrowIfCancellationRequested();
+                        case 0:
+                            priceToUse = ccPair.Buy;
+                            break;
+                        case 1:
+                            priceToUse = ccPair.Lastprice;
+                            break;
+                        case 2:
+                            priceToUse = ccPair.Sell;
+                            break;
+                        default:
+                            priceToUse = ccPair.Buy;
+                            break;
                     }
-                //}
+
+                    ParallelOptions optionsVolumeLoop = new ParallelOptions
+                    {
+                        CancellationToken = new CancellationTokenSource().Token,
+                    };
+                    double volumeToUse = 0;
+                    Parallel.ForEach(ccVolumes.Returns, optionsVolumeLoop, ccVolume =>
+                    {
+                        if (ccVolume.ContainsKey("volume_btc") && ccVolume.ContainsKey("volume_" + splitPair[0]) &&
+                            Double.TryParse(ccVolume["volume_btc"], NumberStyles.Any, CultureInfo.InvariantCulture,
+                                out volumeToUse))
+                        {
+                            optionsVolumeLoop.CancellationToken.ThrowIfCancellationRequested();
+                        }
+                    });
+
+                    Coin.Exchange ccExchange = new Coin.Exchange
+                    {
+                        ExchangeName = "C-Cex",
+                        BtcVolume = volumeToUse,
+                        BtcPrice = priceToUse,
+                        BuyOrders = new List<Coin.Exchange.Order>(),
+                        SellOrders = new List<Coin.Exchange.Order>(),
+                    };
+
+                    if (_getOrderDepth && !string.IsNullOrWhiteSpace(apikey))
+                    {
+                        CCexOrders ccOrders = JsonControl.DownloadSerializedApi<CCexOrders>(
+                            _client.GetStreamAsync("https://c-cex.com/t/r.html?key=" +
+                                                   apikey + "&a=orderlist&self=0&pair=" + market).Result);
+
+                        foreach (KeyValuePair<uint, CCexOrders.CCexOrder> newOrder in ccOrders.Return)
+                        {
+                            bool found = false;
+                            foreach (Coin.Exchange.Order buyOrder in ccExchange.BuyOrders)
+                            {
+                                if (buyOrder.BtcPrice == newOrder.Value.Price)
+                                {
+                                    buyOrder.BtcVolume += newOrder.Value.Amount*newOrder.Value.Price;
+                                    buyOrder.CoinVolume += newOrder.Value.Amount;
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (!found)
+                            {
+                                foreach (Coin.Exchange.Order sellOrder in ccExchange.SellOrders)
+                                {
+                                    if (sellOrder.BtcPrice == newOrder.Value.Price)
+                                    {
+                                        sellOrder.BtcVolume += newOrder.Value.Amount * newOrder.Value.Price;
+                                        sellOrder.CoinVolume += newOrder.Value.Amount;
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (!found)
+                            {
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = newOrder.Value.Price,
+                                    BtcVolume = newOrder.Value.Price * newOrder.Value.Amount,
+                                    CoinVolume = newOrder.Value.Amount
+                                };
+
+                                switch (newOrder.Value.Type)
+                                {
+                                    case "sell":
+                                        ccExchange.SellOrders.Add(order);
+                                        break;
+                                    case "buy":
+                                        ccExchange.BuyOrders.Add(order);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (c.HasImplementedMarketApi)
+                    {
+                        c.Exchanges.Add(ccExchange);
+                        c.TotalVolume += ccExchange.BtcVolume;
+                    }
+                    else
+                    {
+                        c.Exchanges = new List<Coin.Exchange> {ccExchange};
+                        c.TotalVolume = ccExchange.BtcVolume;
+                        c.HasImplementedMarketApi = true;
+                    }
+
+                    _po.CancellationToken.ThrowIfCancellationRequested();
+                }
             }));
         }
 
@@ -926,46 +994,49 @@ namespace ProfitCalc
                                 SellOrders = new List<Coin.Exchange.Order>()
                             };
 
-                            ComkortOrders comOrders = JsonControl.DownloadSerializedApi<ComkortOrders>(
-                                _client.GetStreamAsync("https://api.comkort.com/v1/public/order/list?market_alias=" 
-                                + comCoin.Value.ItemCode + "_BTC").Result);
-                            foreach (ComkortOrders.Orders.Order newOrder in comOrders.OrderData.Buy)
+                            if (_getOrderDepth)
                             {
-                                double price, volume, coinVolume;
-                                if (Double.TryParse(newOrder.Price, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out price) &&
-                                    Double.TryParse(newOrder.TotalPrice, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out volume) &&
-                                    Double.TryParse(newOrder.Amount, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out coinVolume))
+                                ComkortOrders comOrders = JsonControl.DownloadSerializedApi<ComkortOrders>(
+                                    _client.GetStreamAsync("https://api.comkort.com/v1/public/order/list?market_alias="
+                                                           + comCoin.Value.ItemCode + "_BTC").Result);
+                                foreach (ComkortOrders.Orders.Order newOrder in comOrders.OrderData.Buy)
                                 {
-                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    double price, volume, coinVolume;
+                                    if (Double.TryParse(newOrder.Price, NumberStyles.Float,
+                                        CultureInfo.InvariantCulture, out price) &&
+                                        Double.TryParse(newOrder.TotalPrice, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out volume) &&
+                                        Double.TryParse(newOrder.Amount, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out coinVolume))
                                     {
-                                        BtcPrice = price,
-                                        BtcVolume = volume,
-                                        CoinVolume = coinVolume
-                                    };
-                                    comExchange.BuyOrders.Add(order);
+                                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                                        {
+                                            BtcPrice = price,
+                                            BtcVolume = volume,
+                                            CoinVolume = coinVolume
+                                        };
+                                        comExchange.BuyOrders.Add(order);
+                                    }
                                 }
-                            }
 
-                            foreach (ComkortOrders.Orders.Order newOrder in comOrders.OrderData.Sell)
-                            {
-                                double price, volume, coinVolume;
-                                if (Double.TryParse(newOrder.Price, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out price) &&
-                                    Double.TryParse(newOrder.TotalPrice, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out volume) &&
-                                    Double.TryParse(newOrder.Amount, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out coinVolume))
+                                foreach (ComkortOrders.Orders.Order newOrder in comOrders.OrderData.Sell)
                                 {
-                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    double price, volume, coinVolume;
+                                    if (Double.TryParse(newOrder.Price, NumberStyles.Float,
+                                        CultureInfo.InvariantCulture, out price) &&
+                                        Double.TryParse(newOrder.TotalPrice, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out volume) &&
+                                        Double.TryParse(newOrder.Amount, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out coinVolume))
                                     {
-                                        BtcPrice = price,
-                                        BtcVolume = volume,
-                                        CoinVolume = coinVolume
-                                    };
-                                    comExchange.SellOrders.Add(order);
+                                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                                        {
+                                            BtcPrice = price,
+                                            BtcVolume = volume,
+                                            CoinVolume = coinVolume
+                                        };
+                                        comExchange.SellOrders.Add(order);
+                                    }
                                 }
                             }
 
@@ -1035,29 +1106,32 @@ namespace ProfitCalc
                         SellOrders = new List<Coin.Exchange.Order>()
                     };
 
-                    CryptoineOrders cryOrders = JsonControl.DownloadSerializedApi<CryptoineOrders>(
-                        _client.GetStreamAsync("https://cryptoine.com/api/1/depth/" 
-                        + cryCoin.Key).Result);
-                    foreach (double[] newOrder in cryOrders.Bids)
+                    if (_getOrderDepth)
                     {
-                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                        CryptoineOrders cryOrders = JsonControl.DownloadSerializedApi<CryptoineOrders>(
+                            _client.GetStreamAsync("https://cryptoine.com/api/1/depth/"
+                                                   + cryCoin.Key).Result);
+                        foreach (double[] newOrder in cryOrders.Bids)
                         {
-                            BtcPrice = newOrder[0],
-                            BtcVolume = newOrder[0]*newOrder[1],
-                            CoinVolume = newOrder[1]
-                        };
-                        cryExchange.BuyOrders.Add(order);
-                    }
+                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            {
+                                BtcPrice = newOrder[0],
+                                BtcVolume = newOrder[0]*newOrder[1],
+                                CoinVolume = newOrder[1]
+                            };
+                            cryExchange.BuyOrders.Add(order);
+                        }
 
-                    foreach (double[] newOrder in cryOrders.Asks)
-                    {
-                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                        foreach (double[] newOrder in cryOrders.Asks)
                         {
-                            BtcPrice = newOrder[0],
-                            BtcVolume = newOrder[0] * newOrder[1],
-                            CoinVolume = newOrder[1]
-                        };
-                        cryExchange.SellOrders.Add(order);
+                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            {
+                                BtcPrice = newOrder[0],
+                                BtcVolume = newOrder[0]*newOrder[1],
+                                CoinVolume = newOrder[1]
+                            };
+                            cryExchange.SellOrders.Add(order);
+                        }
                     }
 
                     if (c.HasImplementedMarketApi)
@@ -1140,29 +1214,32 @@ namespace ProfitCalc
                         SellOrders = new List<Coin.Exchange.Order>()
                     };
 
-                    BTerOrders btOrders = JsonControl.DownloadSerializedApi<BTerOrders>(
-                        _client.GetStreamAsync("http://data.bter.com/api/1/depth/"
-                        + btCoin.Key).Result);
-                    foreach (double[] newOrder in btOrders.Bids)
+                    if (_getOrderDepth)
                     {
-                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                        BTerOrders btOrders = JsonControl.DownloadSerializedApi<BTerOrders>(
+                            _client.GetStreamAsync("http://data.bter.com/api/1/depth/"
+                                                   + btCoin.Key).Result);
+                        foreach (double[] newOrder in btOrders.Bids)
                         {
-                            BtcPrice = newOrder[0],
-                            BtcVolume = newOrder[0] * newOrder[1],
-                            CoinVolume = newOrder[1]
-                        };
-                        btExchange.BuyOrders.Add(order);
-                    }
+                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            {
+                                BtcPrice = newOrder[0],
+                                BtcVolume = newOrder[0]*newOrder[1],
+                                CoinVolume = newOrder[1]
+                            };
+                            btExchange.BuyOrders.Add(order);
+                        }
 
-                    foreach (double[] newOrder in btOrders.Asks)
-                    {
-                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                        foreach (double[] newOrder in btOrders.Asks)
                         {
-                            BtcPrice = newOrder[0],
-                            BtcVolume = newOrder[0] * newOrder[1],
-                            CoinVolume = newOrder[1]
-                        };
-                        btExchange.SellOrders.Add(order);
+                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            {
+                                BtcPrice = newOrder[0],
+                                BtcVolume = newOrder[0]*newOrder[1],
+                                CoinVolume = newOrder[1]
+                            };
+                            btExchange.SellOrders.Add(order);
+                        }
                     }
 
                     if (c.HasImplementedMarketApi)
@@ -1247,48 +1324,51 @@ namespace ProfitCalc
                             SellOrders = new List<Coin.Exchange.Order>()
                         };
 
-                        if (atOrders.Market.Buyorders != null && atOrders.Market.Buyorders.Any())
+                        if (_getOrderDepth)
                         {
-                            foreach (AtomicTradeOrders.MarketData.Order newOrder in atOrders.Market.Buyorders)
+                            if (atOrders.Market.Buyorders != null && atOrders.Market.Buyorders.Any())
                             {
-                                double price, volume, coinVolume;
-                                if (double.TryParse(newOrder.Price, NumberStyles.Float, 
-                                    CultureInfo.InvariantCulture,out price)
-                                    && double.TryParse(newOrder.Total, NumberStyles.Float, 
-                                    CultureInfo.InvariantCulture,out volume)
-                                    && double.TryParse(newOrder.Quantity, NumberStyles.Float, 
-                                    CultureInfo.InvariantCulture, out coinVolume))
+                                foreach (AtomicTradeOrders.MarketData.Order newOrder in atOrders.Market.Buyorders)
                                 {
-                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    double price, volume, coinVolume;
+                                    if (double.TryParse(newOrder.Price, NumberStyles.Float,
+                                        CultureInfo.InvariantCulture, out price)
+                                        && double.TryParse(newOrder.Total, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out volume)
+                                        && double.TryParse(newOrder.Quantity, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out coinVolume))
                                     {
-                                        BtcPrice = price,
-                                        BtcVolume = volume,
-                                        CoinVolume = coinVolume
-                                    };
-                                    atExchange.BuyOrders.Add(order);
+                                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                                        {
+                                            BtcPrice = price,
+                                            BtcVolume = volume,
+                                            CoinVolume = coinVolume
+                                        };
+                                        atExchange.BuyOrders.Add(order);
+                                    }
                                 }
                             }
-                        }
 
-                        if (atOrders.Market.Sellorders != null && atOrders.Market.Sellorders.Any())
-                        {
-                            foreach (AtomicTradeOrders.MarketData.Order newOrder in atOrders.Market.Sellorders)
+                            if (atOrders.Market.Sellorders != null && atOrders.Market.Sellorders.Any())
                             {
-                                double price, volume, coinVolume;
-                                if (double.TryParse(newOrder.Price, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out price)
-                                    && double.TryParse(newOrder.Total, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out volume)
-                                    && double.TryParse(newOrder.Quantity, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out coinVolume))
+                                foreach (AtomicTradeOrders.MarketData.Order newOrder in atOrders.Market.Sellorders)
                                 {
-                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    double price, volume, coinVolume;
+                                    if (double.TryParse(newOrder.Price, NumberStyles.Float,
+                                        CultureInfo.InvariantCulture, out price)
+                                        && double.TryParse(newOrder.Total, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out volume)
+                                        && double.TryParse(newOrder.Quantity, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out coinVolume))
                                     {
-                                        BtcPrice = price,
-                                        BtcVolume = volume,
-                                        CoinVolume = coinVolume
-                                    };
-                                    atExchange.SellOrders.Add(order);
+                                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                                        {
+                                            BtcPrice = price,
+                                            BtcVolume = volume,
+                                            CoinVolume = coinVolume
+                                        };
+                                        atExchange.SellOrders.Add(order);
+                                    }
                                 }
                             }
                         }
@@ -1468,7 +1548,7 @@ namespace ProfitCalc
             }
         }
 
-        public void CalculatePrices(bool useWeightedCalculation, bool calcFiat, bool use24HDiff)
+        public void CalculatePrices(bool useWeightedCalculation, bool useFallThroughPrice, bool calcFiat, bool use24HDiff)
         {
             double usdPrice = 0, eurPrice = 0, gbpPrice = 0, cnyPrice = 0;
 
@@ -1481,7 +1561,7 @@ namespace ProfitCalc
                 gbpPrice = cd.BpiPrice.GbpPrice.RateFloat;
 
                 cd = JsonControl.DownloadSerializedApi<CoinDesk>(
-                        _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice/CNY.json").Result);
+                    _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice/CNY.json").Result);
                 cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
             }
 
@@ -1489,11 +1569,12 @@ namespace ProfitCalc
             {
                 if (coin.Algo == algo.Name)
                 {
-                    coin.CalcProfitability(algo.HashRate, useWeightedCalculation, UsedProfile.Multiplier, algo.Style, algo.Target, use24HDiff);
+                    coin.CalcProfitability(algo.HashRate, useWeightedCalculation, useFallThroughPrice,
+                        UsedProfile.Multiplier, algo.Style, algo.Target, use24HDiff);
 
                     if (calcFiat)
                     {
-                        double fiatElectricityCost = (algo.Wattage / 1000) * 24 * UsedProfile.FiatPerKwh;
+                        double fiatElectricityCost = (algo.Wattage/1000)*24*UsedProfile.FiatPerKwh;
                         switch (UsedProfile.FiatOfChoice)
                         {
                             case 1:
