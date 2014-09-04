@@ -6,7 +6,7 @@ A mining profitability calculator for Windows.
 Usage
 ================
 - Hashrates screen:
-This give the possibility to add your own algorithms but preloaded with a default list for one gtx750ti. 
+This give the ability to add your own algorithms but preloaded with a default list for one gtx750ti. 
 Synonyms is a csv string with any other name your algo might appear in the used APIs.
 Target is a magic number (log 2 diff 1 target), set to 32 for most algos but some use other values, like quark => 24. Play with this number if you think an algo's calculation is off. 
 
@@ -23,11 +23,15 @@ Uncheck/check the markets from which you want to check the prices. Beware: Some 
 Uncheck/check the APIs that you want to use to get information about loads of coins, including stuff like difficulty and blockreward. CoinTweak and CoinWarz require personal API keys, please check below for more on that.
 
 - Custom coins:
-This gives the possibility to add your own coins if one of the coin info APIs don't have it yet. 
+This gives the ability to add your own coins if one of the coin info APIs don't have it yet. 
 Make sure Tag is correct! This should be unique to each coin and is used to search for on exchanges etc. 
 Algo can be anything, but make sure it has an equivalent in the "Hashrates" screen, so it can be calculated properly. 
 Difficulty and Block Reward are required. Block Time is only required when using the "NetHashRate" style for your algo. 
 Use Price if none of the supported exchanges have your coin, but once a checked market API has it, it will ignore this price.
+
+- Json RPC:
+You can sync a custom coin here with a coin daemon/wallet-qt.
+Use it as if you would solomine, make sure port and IP are correct. Everything else is pretty straightforward.
 
 - Multipools:
 Currently checks the actual prices for NiceHash and historic data from PoolPicker.eu and Cryp.today. 
@@ -37,7 +41,7 @@ If you think it might be a help, you might also let the community vote decide. I
 
 - Coin Price Calc:
 Several options for price calculation.
-Possibility to use the price across all exchanges, weighted by volume.
+Can use weighted average, the echange with most volume or exchange with best price as "source" to calculate further profit. 
 Can check highest bid, recente tradeprice or lowest ask.
 Can convert the BTC profit to USD/EUR/GBP/CNY using Coindesk.
 Can subtract the electricity cost from your profits, make sure the Wattage is set in the "Hashrates" screen. 
@@ -97,6 +101,7 @@ Supported APIs
 Donations are welcome!
 ================
 - BTC: 	1MVBPhMaeuj5daZtaKaVu8BZL5K44CCq7E
+- DOGE:	DPxLiumk4CQPWyvoCuDUpdZtnnwcvWXvmr
 - BC: 	B4s7UnNYKePfGz5DVBzyNbaeiwi2ExLy7D
 - TAC: 	TswDiAfmHdTnCpiRJVgfEtFxr3a4z3yHQk
-- JPC: 	JY81D2jfvcD8WdisdGj7Rz6AcdBmGX9kRV
+- JPC: 	JfLNncEbEH3Y6wNSvTXWFGGAwonMUnCyQJ

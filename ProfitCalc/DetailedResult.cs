@@ -16,7 +16,7 @@ namespace ProfitCalc
         private double _totalLeftOverInFallThrough, _totalFallThroughPrice;
 
         private bool _useBtc = true;
-        private int _depth = 20, _boxPercentage = 24, _whiskerPercentage = 5;
+        private int _depth = 20, _boxPercentage = 25, _whiskerPercentage = 5;
 
         public DetailedResult(Coin usedCoin)
         {
@@ -154,7 +154,11 @@ namespace ProfitCalc
                 {
                     bool found = false;
                     Coin.Exchange.Order tempOrder = newOrder;
-                    ParallelOptions po = new ParallelOptions {CancellationToken = new CancellationTokenSource().Token};
+                    ParallelOptions po = new ParallelOptions
+                    {
+                        CancellationToken = new CancellationTokenSource().Token
+                    };
+
                     Parallel.ForEach(totalOrders,po, order =>
                     {
                         if (tempOrder.BtcPrice == order.BtcPrice)
@@ -366,7 +370,7 @@ namespace ProfitCalc
                 GetDepthPercentile(boxLowest, depth, orderList, useBtcVolume),
                 GetDepthPercentile(boxHighest, depth, orderList, useBtcVolume),
                 GetDepthPercentile(0.5, depth, orderList, useBtcVolume),
-                GetWeightedAverage(depth, orderList, useBtcVolume)
+                GetWeightedAverage(depth, orderList, useBtcVolume),
             };
         }
 
@@ -379,7 +383,6 @@ namespace ProfitCalc
                 double[] weight = new double[orderList.Count];
                 int max = orderList.Count < depth ? orderList.Count : depth;
                 Parallel.For(0, max, i =>
-                    //for (int i = 0; i < max; i++)
                 {
                     data[i] = orderList[i].BtcPrice;
                     weight[i] = useBtcVolume

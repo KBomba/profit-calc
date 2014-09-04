@@ -276,6 +276,7 @@ namespace ProfitCalc
                         CoinsPerDay = (BlockReward * ((24 * 60 * 60) / BlockTime))
                             * ((hashRateMh * 1000000) / netHash) * multiplier;
                         break;
+                    //case "Classic":
                     default:
                         CoinsPerDay = (BlockReward / (diff* Math.Pow(2, target)
                             / (hashRateMh * 1000000) / 3600 / 24)) * multiplier;
@@ -335,9 +336,14 @@ namespace ProfitCalc
                 BestExchangePrice = Exchanges[0].BtcPrice;
                 BestExchangeVolume = Exchanges[0].BtcVolume;
 
-                double priceToUse = TotalVolume > 0 && useWeightedCalculations ? WeightedBtcPrice : Exchanges[0].BtcPrice;
+                double priceToUse = TotalVolume > 0 && useWeightedCalculations
+                    ? WeightedBtcPrice
+                    : (useFallThroughPrice 
+                    ? Exchanges[0].FallThroughPrice 
+                    : Exchanges[0].BtcPrice);
                 BtcPerDay = CoinsPerDay*priceToUse;
 
+                // Only the brave remove the following line
                 if (TagName == "BTC") BtcPerDay = CoinsPerDay;
             }
         }

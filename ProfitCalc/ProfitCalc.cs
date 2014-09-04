@@ -50,8 +50,7 @@ namespace ProfitCalc
             AppendToLog("Loading settings");
 
             cbbFiat.SelectedIndex = 0;
-            cbbBidRecentAsk.SelectedIndex = 0;
-            
+           
             try
             {
                 if (File.Exists("README.txt"))
@@ -389,7 +388,6 @@ namespace ProfitCalc
                 try
                 {
                     ApiSettingsJson apiSettings = JsonControl.GetSerializedApiFile<ApiSettingsJson>("apisettings.txt");
-                    int savedIndex = 0;
 
                     List<Action> settingsToLoad = new List<Action>
                     {
@@ -401,8 +399,6 @@ namespace ProfitCalc
                         () => nudPoolpicker.Text = apiSettings.ApiSettings["PoolPicker"],
                         () => nudTimeout.Text = apiSettings.ApiSettings["Timeout"],
                         () => txtProxy.Text = apiSettings.ApiSettings["ProxyURL"],
-                        () => int.TryParse(apiSettings.ApiSettings["BidRecentAsk"], out savedIndex),
-                        () => cbbBidRecentAsk.SelectedIndex = savedIndex,
                         () => chkBittrex.Checked = apiSettings.CheckedApis["Bittrex"],
                         () => chkMintpal.Checked = apiSettings.CheckedApis["Mintpal"],
                         () => chkCryptsy.Checked = apiSettings.CheckedApis["Cryptsy"],
@@ -421,13 +417,17 @@ namespace ProfitCalc
                         () => chkCoinwarz.Checked = apiSettings.CheckedApis["CoinWarz"],
                         () => chkCryptoday.Checked = apiSettings.CheckedApis["CrypToday"],
                         () => chkPoolpicker.Checked = apiSettings.CheckedApis["PoolPicker"],
+                        () => radHighestBid.Checked = apiSettings.CheckedMisc["HighestBid"],
+                        () => radMostRecentTrade.Checked = apiSettings.CheckedMisc["MostRecentTrade"],
+                        () => radLowestAsk.Checked = apiSettings.CheckedMisc["LowestAsk"],
+                        () => radWeighted.Checked = apiSettings.CheckedMisc["WeightedCalculations"],
+                        () => radFallThroughExchange.Checked = apiSettings.CheckedMisc["UseBestFallThrough"],
+                        () => radVolumeExchange.Checked = apiSettings.CheckedMisc["UseMostVolume"],
                         () => chkRemoveUnlisted.Checked = apiSettings.CheckedMisc["RemoveUnlisted"],
                         () => chkRemoveFrozenCoins.Checked = apiSettings.CheckedMisc["RemoveFrozen"],
                         () => chkRemoveTooGoodToBeTrue.Checked = apiSettings.CheckedMisc["RemoveTooGoodToBeTrue"],
                         () => chkRemoveZeroVolume.Checked = apiSettings.CheckedMisc["RemoveZeroVolume"],
                         () => chkRemoveNegative.Checked = apiSettings.CheckedMisc["RemoveNegative"],
-                        () => chkWeight.Checked = apiSettings.CheckedMisc["WeightedCalculations"],
-                        () => chkUseBestFallThrough.Checked = apiSettings.CheckedMisc["UseBestFallThrough"],
                         () => chk24hDiff.Checked = apiSettings.CheckedMisc["Use24hDiff"],
                         () => chkColor.Checked = apiSettings.CheckedMisc["ColoredTable"],
                         () => chkProxy.Checked = apiSettings.CheckedMisc["Proxy"],
@@ -547,7 +547,6 @@ namespace ProfitCalc
                 apiSettings.ApiSettings.Add("PoolPicker", nudPoolpicker.Text);
                 apiSettings.ApiSettings.Add("Timeout", nudTimeout.Text);
                 apiSettings.ApiSettings.Add("ProxyURL", txtProxy.Text);
-                apiSettings.ApiSettings.Add("BidRecentAsk", cbbBidRecentAsk.SelectedIndex.ToString(CultureInfo.InvariantCulture));
 
                 apiSettings.CheckedApis.Add("Bittrex", chkBittrex.Checked);
                 apiSettings.CheckedApis.Add("Mintpal", chkMintpal.Checked);
@@ -569,13 +568,18 @@ namespace ProfitCalc
                 apiSettings.CheckedApis.Add("CrypToday", chkCryptoday.Checked);
                 apiSettings.CheckedApis.Add("PoolPicker", chkPoolpicker.Checked);
 
+                apiSettings.CheckedMisc.Add("WeightedCalculations", radWeighted.Checked);
+                apiSettings.CheckedMisc.Add("UseBestFallThrough", radFallThroughExchange.Checked);
+                apiSettings.CheckedMisc.Add("UseMostVolume", radVolumeExchange.Checked);
+                apiSettings.CheckedMisc.Add("HighestBid", radHighestBid.Checked);
+                apiSettings.CheckedMisc.Add("MostRecentTrade", radMostRecentTrade.Checked);
+                apiSettings.CheckedMisc.Add("LowestAsk", radLowestAsk.Checked);
+
                 apiSettings.CheckedMisc.Add("RemoveUnlisted", chkRemoveUnlisted.Checked);
                 apiSettings.CheckedMisc.Add("RemoveFrozen", chkRemoveUnlisted.Checked);
                 apiSettings.CheckedMisc.Add("RemoveTooGoodToBeTrue", chkRemoveTooGoodToBeTrue.Checked);
                 apiSettings.CheckedMisc.Add("RemoveZeroVolume", chkRemoveZeroVolume.Checked);
                 apiSettings.CheckedMisc.Add("RemoveNegative", chkRemoveNegative.Checked);
-                apiSettings.CheckedMisc.Add("WeightedCalculations", chkWeight.Checked);
-                apiSettings.CheckedMisc.Add("UseBestFallThrough", chkUseBestFallThrough.Checked);
                 apiSettings.CheckedMisc.Add("Use24hDiff", chk24hDiff.Checked);
                 apiSettings.CheckedMisc.Add("ColoredTable", chkColor.Checked);
                 apiSettings.CheckedMisc.Add("Proxy", chkProxy.Checked);
@@ -632,7 +636,7 @@ namespace ProfitCalc
         {
             try
             {
-                _coinList.CalculatePrices(chkWeight.Checked, chkUseBestFallThrough.Checked,
+                _coinList.CalculatePrices(radWeighted.Checked, radFallThroughExchange.Checked,
                     chkCoindesk.Checked, chk24hDiff.Checked);
             }
             catch (Exception exception)
@@ -757,7 +761,8 @@ namespace ProfitCalc
                 Timeout = TimeSpan.FromSeconds((double) nudTimeout.Value)
             };
 
-            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], cbbBidRecentAsk.SelectedIndex, chkOrderDepth.Checked);
+            int bidRecentAsk = radLowestAsk.Checked ? 2 : (radMostRecentTrade.Checked ? 1 : 0);
+            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], bidRecentAsk, chkOrderDepth.Checked);
 
             if (_customCoins.Count > 0)
             {
@@ -1704,14 +1709,9 @@ namespace ProfitCalc
             txtCcexApiKey.Enabled = chkCCex.Checked;
         }
 
-        private void chkUseBestFallThrough_CheckedChanged(object sender, EventArgs e)
+        private void radFallThroughExchange_CheckedChanged(object sender, EventArgs e)
         {
-            chkWeight.Checked = !chkUseBestFallThrough.Checked;
-        }
-
-        private void chkWeight_CheckedChanged(object sender, EventArgs e)
-        {
-            chkUseBestFallThrough.Checked = !chkWeight.Checked;
+            grpExchangePrice.Enabled = !radFallThroughExchange.Checked;
         }
     }
 }

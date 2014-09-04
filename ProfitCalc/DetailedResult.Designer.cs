@@ -415,6 +415,18 @@
             this.dataGridViewTextBoxColumn36 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chartCcexBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabComkort = new System.Windows.Forms.TabPage();
+            this.dgvComkortSell = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn39 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartComkortSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblComkortSell = new System.Windows.Forms.Label();
+            this.lblComkortBuy = new System.Windows.Forms.Label();
+            this.dgvComkortBuy = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartComkortBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chkComkortBtc = new System.Windows.Forms.CheckBox();
             this.lblComkortDepth = new System.Windows.Forms.Label();
             this.lblComkortWeight = new System.Windows.Forms.Label();
@@ -431,18 +443,93 @@
             this.trackComkortBox = new System.Windows.Forms.TrackBar();
             this.linkComkort = new System.Windows.Forms.LinkLabel();
             this.trackComkortDepth = new System.Windows.Forms.TrackBar();
-            this.dgvComkortSell = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn37 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn39 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartComkortSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lblComkortSell = new System.Windows.Forms.Label();
-            this.lblComkortBuy = new System.Windows.Forms.Label();
-            this.dgvComkortBuy = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartComkortBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabAllCrypt = new System.Windows.Forms.TabPage();
+            this.dgvAllcryptSell = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn49 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn51 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartAllcryptSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblAllcryptSell = new System.Windows.Forms.Label();
+            this.lblAllcryptBuy = new System.Windows.Forms.Label();
+            this.dgvAllcryptBuy = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn52 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn53 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn54 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartAllcryptBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chkAllcryptBtc = new System.Windows.Forms.CheckBox();
+            this.lblAllcryptDepth = new System.Windows.Forms.Label();
+            this.lblAllcryptWeight = new System.Windows.Forms.Label();
+            this.txtAllcryptWeight = new System.Windows.Forms.TextBox();
+            this.txtAllcryptDailyvolume = new System.Windows.Forms.TextBox();
+            this.lblAllcryptLeftover = new System.Windows.Forms.Label();
+            this.txtAllcryptLeftover = new System.Windows.Forms.TextBox();
+            this.lblAllcryptFallthrough = new System.Windows.Forms.Label();
+            this.txtAllcryptFallthrough = new System.Windows.Forms.TextBox();
+            this.lblAllcryptDailyvolume = new System.Windows.Forms.Label();
+            this.lblAllcryptWhisker = new System.Windows.Forms.Label();
+            this.trackAllcryptWhisker = new System.Windows.Forms.TrackBar();
+            this.lblAllcryptBox = new System.Windows.Forms.Label();
+            this.trackAllcryptBox = new System.Windows.Forms.TrackBar();
+            this.linkAllcrypt = new System.Windows.Forms.LinkLabel();
+            this.trackAllcryptDepth = new System.Windows.Forms.TrackBar();
+            this.tabAtomicTrade = new System.Windows.Forms.TabPage();
+            this.dgvAtomicSell = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn55 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn56 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn57 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartAtomicSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblAtomicSell = new System.Windows.Forms.Label();
+            this.lblAtomicBuy = new System.Windows.Forms.Label();
+            this.dgvAtomicBuy = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn58 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn59 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn60 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartAtomicBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chkAtomicBtc = new System.Windows.Forms.CheckBox();
+            this.lblAtomicDepth = new System.Windows.Forms.Label();
+            this.lblAtomicWeight = new System.Windows.Forms.Label();
+            this.txtAtomicWeight = new System.Windows.Forms.TextBox();
+            this.txtAtomicDailyvolume = new System.Windows.Forms.TextBox();
+            this.lblAtomicLeftover = new System.Windows.Forms.Label();
+            this.txtAtomicLeftover = new System.Windows.Forms.TextBox();
+            this.lblAtomicFallthrough = new System.Windows.Forms.Label();
+            this.txtAtomicFallthrough = new System.Windows.Forms.TextBox();
+            this.lblAtomicDailyvolume = new System.Windows.Forms.Label();
+            this.lblAtomicWhisker = new System.Windows.Forms.Label();
+            this.trackAtomicWhisker = new System.Windows.Forms.TrackBar();
+            this.lblAtomicBox = new System.Windows.Forms.Label();
+            this.trackAtomicBox = new System.Windows.Forms.TrackBar();
+            this.linkAtomic = new System.Windows.Forms.LinkLabel();
+            this.trackAtomicDepth = new System.Windows.Forms.TrackBar();
+            this.tabCryptoine = new System.Windows.Forms.TabPage();
+            this.dgvCryptoineSell = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn62 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn63 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartCryptoineSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblCryptoineSell = new System.Windows.Forms.Label();
+            this.lblCryptoineBuy = new System.Windows.Forms.Label();
+            this.dgvCryptoineBuy = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn64 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn65 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn66 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chartCryptoineBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chkCryptoineBtc = new System.Windows.Forms.CheckBox();
+            this.lblCryptoineDepth = new System.Windows.Forms.Label();
+            this.lblCryptoineWeight = new System.Windows.Forms.Label();
+            this.txtCryptoineWeight = new System.Windows.Forms.TextBox();
+            this.txtCryptoineDailyvolume = new System.Windows.Forms.TextBox();
+            this.lblCryptoineLeftover = new System.Windows.Forms.Label();
+            this.txtCryptoineLeftover = new System.Windows.Forms.TextBox();
+            this.lblCryptoineFallthrough = new System.Windows.Forms.Label();
+            this.txtCryptoineFallthrough = new System.Windows.Forms.TextBox();
+            this.lblCryptoineDailyvolume = new System.Windows.Forms.Label();
+            this.lblCryptoineWhisker = new System.Windows.Forms.Label();
+            this.trackCryptoineWhisker = new System.Windows.Forms.TrackBar();
+            this.lblCryptoineBox = new System.Windows.Forms.Label();
+            this.trackCryptoineBox = new System.Windows.Forms.TrackBar();
+            this.linkCryptoine = new System.Windows.Forms.LinkLabel();
+            this.trackCryptoineDepth = new System.Windows.Forms.TrackBar();
             this.tabAllCoin = new System.Windows.Forms.TabPage();
             this.chkAllcoinBtc = new System.Windows.Forms.CheckBox();
             this.lblAllcoinDepth = new System.Windows.Forms.Label();
@@ -472,93 +559,6 @@
             this.dataGridViewTextBoxColumn47 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn48 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chartAllcoinBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tabAllCrypt = new System.Windows.Forms.TabPage();
-            this.chkAllcryptBtc = new System.Windows.Forms.CheckBox();
-            this.lblAllcryptDepth = new System.Windows.Forms.Label();
-            this.lblAllcryptWeight = new System.Windows.Forms.Label();
-            this.txtAllcryptWeight = new System.Windows.Forms.TextBox();
-            this.txtAllcryptDailyvolume = new System.Windows.Forms.TextBox();
-            this.lblAllcryptLeftover = new System.Windows.Forms.Label();
-            this.txtAllcryptLeftover = new System.Windows.Forms.TextBox();
-            this.lblAllcryptFallthrough = new System.Windows.Forms.Label();
-            this.txtAllcryptFallthrough = new System.Windows.Forms.TextBox();
-            this.lblAllcryptDailyvolume = new System.Windows.Forms.Label();
-            this.lblAllcryptWhisker = new System.Windows.Forms.Label();
-            this.trackAllcryptWhisker = new System.Windows.Forms.TrackBar();
-            this.lblAllcryptBox = new System.Windows.Forms.Label();
-            this.trackAllcryptBox = new System.Windows.Forms.TrackBar();
-            this.linkAllcrypt = new System.Windows.Forms.LinkLabel();
-            this.trackAllcryptDepth = new System.Windows.Forms.TrackBar();
-            this.dgvAllcryptSell = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn49 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn51 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartAllcryptSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lblAllcryptSell = new System.Windows.Forms.Label();
-            this.lblAllcryptBuy = new System.Windows.Forms.Label();
-            this.dgvAllcryptBuy = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn52 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn53 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn54 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartAllcryptBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tabAtomicTrade = new System.Windows.Forms.TabPage();
-            this.chkAtomicBtc = new System.Windows.Forms.CheckBox();
-            this.lblAtomicDepth = new System.Windows.Forms.Label();
-            this.lblAtomicWeight = new System.Windows.Forms.Label();
-            this.txtAtomicWeight = new System.Windows.Forms.TextBox();
-            this.txtAtomicDailyvolume = new System.Windows.Forms.TextBox();
-            this.lblAtomicLeftover = new System.Windows.Forms.Label();
-            this.txtAtomicLeftover = new System.Windows.Forms.TextBox();
-            this.lblAtomicFallthrough = new System.Windows.Forms.Label();
-            this.txtAtomicFallthrough = new System.Windows.Forms.TextBox();
-            this.lblAtomicDailyvolume = new System.Windows.Forms.Label();
-            this.lblAtomicWhisker = new System.Windows.Forms.Label();
-            this.trackAtomicWhisker = new System.Windows.Forms.TrackBar();
-            this.lblAtomicBox = new System.Windows.Forms.Label();
-            this.trackAtomicBox = new System.Windows.Forms.TrackBar();
-            this.linkAtomic = new System.Windows.Forms.LinkLabel();
-            this.trackAtomicDepth = new System.Windows.Forms.TrackBar();
-            this.dgvAtomicSell = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn55 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn56 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn57 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartAtomicSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lblAtomicSell = new System.Windows.Forms.Label();
-            this.lblAtomicBuy = new System.Windows.Forms.Label();
-            this.dgvAtomicBuy = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn58 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn59 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn60 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartAtomicBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tabCryptoine = new System.Windows.Forms.TabPage();
-            this.chkCryptoineBtc = new System.Windows.Forms.CheckBox();
-            this.lblCryptoineDepth = new System.Windows.Forms.Label();
-            this.lblCryptoineWeight = new System.Windows.Forms.Label();
-            this.txtCryptoineWeight = new System.Windows.Forms.TextBox();
-            this.txtCryptoineDailyvolume = new System.Windows.Forms.TextBox();
-            this.lblCryptoineLeftover = new System.Windows.Forms.Label();
-            this.txtCryptoineLeftover = new System.Windows.Forms.TextBox();
-            this.lblCryptoineFallthrough = new System.Windows.Forms.Label();
-            this.txtCryptoineFallthrough = new System.Windows.Forms.TextBox();
-            this.lblCryptoineDailyvolume = new System.Windows.Forms.Label();
-            this.lblCryptoineWhisker = new System.Windows.Forms.Label();
-            this.trackCryptoineWhisker = new System.Windows.Forms.TrackBar();
-            this.lblCryptoineBox = new System.Windows.Forms.Label();
-            this.trackCryptoineBox = new System.Windows.Forms.TrackBar();
-            this.linkCryptoine = new System.Windows.Forms.LinkLabel();
-            this.trackCryptoineDepth = new System.Windows.Forms.TrackBar();
-            this.dgvCryptoineSell = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn61 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn62 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn63 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartCryptoineSell = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lblCryptoineSell = new System.Windows.Forms.Label();
-            this.lblCryptoineBuy = new System.Windows.Forms.Label();
-            this.dgvCryptoineBuy = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn64 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn65 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn66 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartCryptoineBuy = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.spcDetailedResult)).BeginInit();
             this.spcDetailedResult.Panel1.SuspendLayout();
             this.spcDetailedResult.Panel2.SuspendLayout();
@@ -623,13 +623,37 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCcexBuy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartCcexBuy)).BeginInit();
             this.tabComkort.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackComkortWhisker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackComkortBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackComkortDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComkortSell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartComkortSell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComkortBuy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartComkortBuy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackComkortWhisker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackComkortBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackComkortDepth)).BeginInit();
+            this.tabAllCrypt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptSell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptSell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptBuy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptBuy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptWhisker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptDepth)).BeginInit();
+            this.tabAtomicTrade.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicSell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicSell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicBuy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicBuy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicWhisker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicDepth)).BeginInit();
+            this.tabCryptoine.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineSell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineSell)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineBuy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineBuy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineWhisker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineDepth)).BeginInit();
             this.tabAllCoin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackAllcoinWhisker)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackAllcoinBox)).BeginInit();
@@ -638,30 +662,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartAllcoinSell)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllcoinBuy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAllcoinBuy)).BeginInit();
-            this.tabAllCrypt.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptWhisker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptDepth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptSell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptSell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptBuy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptBuy)).BeginInit();
-            this.tabAtomicTrade.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicWhisker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicDepth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicSell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicSell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicBuy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicBuy)).BeginInit();
-            this.tabCryptoine.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineWhisker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineDepth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineSell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineSell)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineBuy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineBuy)).BeginInit();
             this.SuspendLayout();
             // 
             // spcDetailedResult
@@ -1039,10 +1039,10 @@
             this.tbcMarkets.Controls.Add(this.tabBTer);
             this.tbcMarkets.Controls.Add(this.tabCCex);
             this.tbcMarkets.Controls.Add(this.tabComkort);
-            this.tbcMarkets.Controls.Add(this.tabAllCoin);
             this.tbcMarkets.Controls.Add(this.tabAllCrypt);
             this.tbcMarkets.Controls.Add(this.tabAtomicTrade);
             this.tbcMarkets.Controls.Add(this.tabCryptoine);
+            this.tbcMarkets.Controls.Add(this.tabAllCoin);
             this.tbcMarkets.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbcMarkets.Location = new System.Drawing.Point(3, 16);
             this.tbcMarkets.Name = "tbcMarkets";
@@ -3800,6 +3800,12 @@
             // 
             // tabComkort
             // 
+            this.tabComkort.Controls.Add(this.dgvComkortSell);
+            this.tabComkort.Controls.Add(this.chartComkortSell);
+            this.tabComkort.Controls.Add(this.lblComkortSell);
+            this.tabComkort.Controls.Add(this.lblComkortBuy);
+            this.tabComkort.Controls.Add(this.dgvComkortBuy);
+            this.tabComkort.Controls.Add(this.chartComkortBuy);
             this.tabComkort.Controls.Add(this.chkComkortBtc);
             this.tabComkort.Controls.Add(this.lblComkortDepth);
             this.tabComkort.Controls.Add(this.lblComkortWeight);
@@ -3816,183 +3822,12 @@
             this.tabComkort.Controls.Add(this.trackComkortBox);
             this.tabComkort.Controls.Add(this.linkComkort);
             this.tabComkort.Controls.Add(this.trackComkortDepth);
-            this.tabComkort.Controls.Add(this.dgvComkortSell);
-            this.tabComkort.Controls.Add(this.chartComkortSell);
-            this.tabComkort.Controls.Add(this.lblComkortSell);
-            this.tabComkort.Controls.Add(this.lblComkortBuy);
-            this.tabComkort.Controls.Add(this.dgvComkortBuy);
-            this.tabComkort.Controls.Add(this.chartComkortBuy);
             this.tabComkort.Location = new System.Drawing.Point(4, 22);
             this.tabComkort.Name = "tabComkort";
             this.tabComkort.Padding = new System.Windows.Forms.Padding(3);
             this.tabComkort.Size = new System.Drawing.Size(845, 470);
             this.tabComkort.TabIndex = 7;
             this.tabComkort.Text = "Comkort";
-            // 
-            // chkComkortBtc
-            // 
-            this.chkComkortBtc.Checked = true;
-            this.chkComkortBtc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkComkortBtc.Location = new System.Drawing.Point(10, 228);
-            this.chkComkortBtc.Name = "chkComkortBtc";
-            this.chkComkortBtc.Size = new System.Drawing.Size(165, 33);
-            this.chkComkortBtc.TabIndex = 72;
-            this.chkComkortBtc.Text = "Use BTC volume as weight, instead of coin volume";
-            this.chkComkortBtc.UseVisualStyleBackColor = true;
-            this.chkComkortBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
-            // 
-            // lblComkortDepth
-            // 
-            this.lblComkortDepth.AutoSize = true;
-            this.lblComkortDepth.Location = new System.Drawing.Point(6, 270);
-            this.lblComkortDepth.Name = "lblComkortDepth";
-            this.lblComkortDepth.Size = new System.Drawing.Size(39, 13);
-            this.lblComkortDepth.TabIndex = 71;
-            this.lblComkortDepth.Text = "Depth:";
-            // 
-            // lblComkortWeight
-            // 
-            this.lblComkortWeight.AutoSize = true;
-            this.lblComkortWeight.Location = new System.Drawing.Point(7, 60);
-            this.lblComkortWeight.Name = "lblComkortWeight";
-            this.lblComkortWeight.Size = new System.Drawing.Size(44, 13);
-            this.lblComkortWeight.TabIndex = 70;
-            this.lblComkortWeight.Text = "Weight:";
-            // 
-            // txtComkortWeight
-            // 
-            this.txtComkortWeight.Location = new System.Drawing.Point(104, 57);
-            this.txtComkortWeight.Name = "txtComkortWeight";
-            this.txtComkortWeight.ReadOnly = true;
-            this.txtComkortWeight.Size = new System.Drawing.Size(100, 20);
-            this.txtComkortWeight.TabIndex = 69;
-            // 
-            // txtComkortDailyvolume
-            // 
-            this.txtComkortDailyvolume.Location = new System.Drawing.Point(104, 31);
-            this.txtComkortDailyvolume.Name = "txtComkortDailyvolume";
-            this.txtComkortDailyvolume.ReadOnly = true;
-            this.txtComkortDailyvolume.Size = new System.Drawing.Size(100, 20);
-            this.txtComkortDailyvolume.TabIndex = 68;
-            // 
-            // lblComkortLeftover
-            // 
-            this.lblComkortLeftover.AutoSize = true;
-            this.lblComkortLeftover.Location = new System.Drawing.Point(7, 138);
-            this.lblComkortLeftover.Name = "lblComkortLeftover";
-            this.lblComkortLeftover.Size = new System.Drawing.Size(52, 13);
-            this.lblComkortLeftover.TabIndex = 67;
-            this.lblComkortLeftover.Text = "Left over:";
-            // 
-            // txtComkortLeftover
-            // 
-            this.txtComkortLeftover.Location = new System.Drawing.Point(104, 135);
-            this.txtComkortLeftover.Name = "txtComkortLeftover";
-            this.txtComkortLeftover.ReadOnly = true;
-            this.txtComkortLeftover.Size = new System.Drawing.Size(100, 20);
-            this.txtComkortLeftover.TabIndex = 66;
-            // 
-            // lblComkortFallthrough
-            // 
-            this.lblComkortFallthrough.AutoSize = true;
-            this.lblComkortFallthrough.Location = new System.Drawing.Point(7, 112);
-            this.lblComkortFallthrough.Name = "lblComkortFallthrough";
-            this.lblComkortFallthrough.Size = new System.Drawing.Size(88, 13);
-            this.lblComkortFallthrough.TabIndex = 65;
-            this.lblComkortFallthrough.Text = "Fallthrough price:";
-            // 
-            // txtComkortFallthrough
-            // 
-            this.txtComkortFallthrough.Location = new System.Drawing.Point(104, 109);
-            this.txtComkortFallthrough.Name = "txtComkortFallthrough";
-            this.txtComkortFallthrough.ReadOnly = true;
-            this.txtComkortFallthrough.Size = new System.Drawing.Size(100, 20);
-            this.txtComkortFallthrough.TabIndex = 64;
-            // 
-            // lblComkortDailyvolume
-            // 
-            this.lblComkortDailyvolume.AutoSize = true;
-            this.lblComkortDailyvolume.Location = new System.Drawing.Point(7, 34);
-            this.lblComkortDailyvolume.Name = "lblComkortDailyvolume";
-            this.lblComkortDailyvolume.Size = new System.Drawing.Size(70, 13);
-            this.lblComkortDailyvolume.TabIndex = 63;
-            this.lblComkortDailyvolume.Text = "Daily volume:";
-            // 
-            // lblComkortWhisker
-            // 
-            this.lblComkortWhisker.AutoSize = true;
-            this.lblComkortWhisker.Location = new System.Drawing.Point(6, 398);
-            this.lblComkortWhisker.Name = "lblComkortWhisker";
-            this.lblComkortWhisker.Size = new System.Drawing.Size(109, 13);
-            this.lblComkortWhisker.TabIndex = 62;
-            this.lblComkortWhisker.Text = "Whisker percentage: ";
-            // 
-            // trackComkortWhisker
-            // 
-            this.trackComkortWhisker.LargeChange = 8;
-            this.trackComkortWhisker.Location = new System.Drawing.Point(9, 414);
-            this.trackComkortWhisker.Maximum = 49;
-            this.trackComkortWhisker.Minimum = 1;
-            this.trackComkortWhisker.Name = "trackComkortWhisker";
-            this.trackComkortWhisker.Size = new System.Drawing.Size(217, 45);
-            this.trackComkortWhisker.SmallChange = 4;
-            this.trackComkortWhisker.TabIndex = 61;
-            this.trackComkortWhisker.TickFrequency = 4;
-            this.trackComkortWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackComkortWhisker.Value = 5;
-            this.trackComkortWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
-            // 
-            // lblComkortBox
-            // 
-            this.lblComkortBox.AutoSize = true;
-            this.lblComkortBox.Location = new System.Drawing.Point(6, 334);
-            this.lblComkortBox.Name = "lblComkortBox";
-            this.lblComkortBox.Size = new System.Drawing.Size(88, 13);
-            this.lblComkortBox.TabIndex = 60;
-            this.lblComkortBox.Text = "Box percentage: ";
-            // 
-            // trackComkortBox
-            // 
-            this.trackComkortBox.LargeChange = 8;
-            this.trackComkortBox.Location = new System.Drawing.Point(9, 350);
-            this.trackComkortBox.Maximum = 49;
-            this.trackComkortBox.Minimum = 1;
-            this.trackComkortBox.Name = "trackComkortBox";
-            this.trackComkortBox.Size = new System.Drawing.Size(217, 45);
-            this.trackComkortBox.SmallChange = 4;
-            this.trackComkortBox.TabIndex = 59;
-            this.trackComkortBox.TickFrequency = 4;
-            this.trackComkortBox.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackComkortBox.Value = 24;
-            this.trackComkortBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
-            // 
-            // linkComkort
-            // 
-            this.linkComkort.AutoSize = true;
-            this.linkComkort.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkComkort.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
-            this.linkComkort.Location = new System.Drawing.Point(6, 8);
-            this.linkComkort.Name = "linkComkort";
-            this.linkComkort.Size = new System.Drawing.Size(141, 20);
-            this.linkComkort.TabIndex = 58;
-            this.linkComkort.TabStop = true;
-            this.linkComkort.Text = "Comkort: coin/BTC";
-            this.linkComkort.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
-            // 
-            // trackComkortDepth
-            // 
-            this.trackComkortDepth.LargeChange = 10;
-            this.trackComkortDepth.Location = new System.Drawing.Point(9, 286);
-            this.trackComkortDepth.Maximum = 50;
-            this.trackComkortDepth.Minimum = 5;
-            this.trackComkortDepth.Name = "trackComkortDepth";
-            this.trackComkortDepth.Size = new System.Drawing.Size(217, 45);
-            this.trackComkortDepth.SmallChange = 5;
-            this.trackComkortDepth.TabIndex = 57;
-            this.trackComkortDepth.TickFrequency = 5;
-            this.trackComkortDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackComkortDepth.Value = 20;
-            this.trackComkortDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
             // 
             // dgvComkortSell
             // 
@@ -4189,6 +4024,1350 @@
             this.chartComkortBuy.Size = new System.Drawing.Size(300, 234);
             this.chartComkortBuy.TabIndex = 51;
             this.chartComkortBuy.Text = "chart2";
+            // 
+            // chkComkortBtc
+            // 
+            this.chkComkortBtc.Checked = true;
+            this.chkComkortBtc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkComkortBtc.Location = new System.Drawing.Point(10, 228);
+            this.chkComkortBtc.Name = "chkComkortBtc";
+            this.chkComkortBtc.Size = new System.Drawing.Size(165, 33);
+            this.chkComkortBtc.TabIndex = 72;
+            this.chkComkortBtc.Text = "Use BTC volume as weight, instead of coin volume";
+            this.chkComkortBtc.UseVisualStyleBackColor = true;
+            this.chkComkortBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
+            // 
+            // lblComkortDepth
+            // 
+            this.lblComkortDepth.AutoSize = true;
+            this.lblComkortDepth.Location = new System.Drawing.Point(6, 270);
+            this.lblComkortDepth.Name = "lblComkortDepth";
+            this.lblComkortDepth.Size = new System.Drawing.Size(39, 13);
+            this.lblComkortDepth.TabIndex = 71;
+            this.lblComkortDepth.Text = "Depth:";
+            // 
+            // lblComkortWeight
+            // 
+            this.lblComkortWeight.AutoSize = true;
+            this.lblComkortWeight.Location = new System.Drawing.Point(7, 60);
+            this.lblComkortWeight.Name = "lblComkortWeight";
+            this.lblComkortWeight.Size = new System.Drawing.Size(44, 13);
+            this.lblComkortWeight.TabIndex = 70;
+            this.lblComkortWeight.Text = "Weight:";
+            // 
+            // txtComkortWeight
+            // 
+            this.txtComkortWeight.Location = new System.Drawing.Point(104, 57);
+            this.txtComkortWeight.Name = "txtComkortWeight";
+            this.txtComkortWeight.ReadOnly = true;
+            this.txtComkortWeight.Size = new System.Drawing.Size(100, 20);
+            this.txtComkortWeight.TabIndex = 69;
+            // 
+            // txtComkortDailyvolume
+            // 
+            this.txtComkortDailyvolume.Location = new System.Drawing.Point(104, 31);
+            this.txtComkortDailyvolume.Name = "txtComkortDailyvolume";
+            this.txtComkortDailyvolume.ReadOnly = true;
+            this.txtComkortDailyvolume.Size = new System.Drawing.Size(100, 20);
+            this.txtComkortDailyvolume.TabIndex = 68;
+            // 
+            // lblComkortLeftover
+            // 
+            this.lblComkortLeftover.AutoSize = true;
+            this.lblComkortLeftover.Location = new System.Drawing.Point(7, 138);
+            this.lblComkortLeftover.Name = "lblComkortLeftover";
+            this.lblComkortLeftover.Size = new System.Drawing.Size(52, 13);
+            this.lblComkortLeftover.TabIndex = 67;
+            this.lblComkortLeftover.Text = "Left over:";
+            // 
+            // txtComkortLeftover
+            // 
+            this.txtComkortLeftover.Location = new System.Drawing.Point(104, 135);
+            this.txtComkortLeftover.Name = "txtComkortLeftover";
+            this.txtComkortLeftover.ReadOnly = true;
+            this.txtComkortLeftover.Size = new System.Drawing.Size(100, 20);
+            this.txtComkortLeftover.TabIndex = 66;
+            // 
+            // lblComkortFallthrough
+            // 
+            this.lblComkortFallthrough.AutoSize = true;
+            this.lblComkortFallthrough.Location = new System.Drawing.Point(7, 112);
+            this.lblComkortFallthrough.Name = "lblComkortFallthrough";
+            this.lblComkortFallthrough.Size = new System.Drawing.Size(88, 13);
+            this.lblComkortFallthrough.TabIndex = 65;
+            this.lblComkortFallthrough.Text = "Fallthrough price:";
+            // 
+            // txtComkortFallthrough
+            // 
+            this.txtComkortFallthrough.Location = new System.Drawing.Point(104, 109);
+            this.txtComkortFallthrough.Name = "txtComkortFallthrough";
+            this.txtComkortFallthrough.ReadOnly = true;
+            this.txtComkortFallthrough.Size = new System.Drawing.Size(100, 20);
+            this.txtComkortFallthrough.TabIndex = 64;
+            // 
+            // lblComkortDailyvolume
+            // 
+            this.lblComkortDailyvolume.AutoSize = true;
+            this.lblComkortDailyvolume.Location = new System.Drawing.Point(7, 34);
+            this.lblComkortDailyvolume.Name = "lblComkortDailyvolume";
+            this.lblComkortDailyvolume.Size = new System.Drawing.Size(70, 13);
+            this.lblComkortDailyvolume.TabIndex = 63;
+            this.lblComkortDailyvolume.Text = "Daily volume:";
+            // 
+            // lblComkortWhisker
+            // 
+            this.lblComkortWhisker.AutoSize = true;
+            this.lblComkortWhisker.Location = new System.Drawing.Point(6, 398);
+            this.lblComkortWhisker.Name = "lblComkortWhisker";
+            this.lblComkortWhisker.Size = new System.Drawing.Size(109, 13);
+            this.lblComkortWhisker.TabIndex = 62;
+            this.lblComkortWhisker.Text = "Whisker percentage: ";
+            // 
+            // trackComkortWhisker
+            // 
+            this.trackComkortWhisker.LargeChange = 8;
+            this.trackComkortWhisker.Location = new System.Drawing.Point(9, 414);
+            this.trackComkortWhisker.Maximum = 49;
+            this.trackComkortWhisker.Minimum = 1;
+            this.trackComkortWhisker.Name = "trackComkortWhisker";
+            this.trackComkortWhisker.Size = new System.Drawing.Size(217, 45);
+            this.trackComkortWhisker.SmallChange = 4;
+            this.trackComkortWhisker.TabIndex = 61;
+            this.trackComkortWhisker.TickFrequency = 4;
+            this.trackComkortWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackComkortWhisker.Value = 5;
+            this.trackComkortWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
+            // 
+            // lblComkortBox
+            // 
+            this.lblComkortBox.AutoSize = true;
+            this.lblComkortBox.Location = new System.Drawing.Point(6, 334);
+            this.lblComkortBox.Name = "lblComkortBox";
+            this.lblComkortBox.Size = new System.Drawing.Size(88, 13);
+            this.lblComkortBox.TabIndex = 60;
+            this.lblComkortBox.Text = "Box percentage: ";
+            // 
+            // trackComkortBox
+            // 
+            this.trackComkortBox.LargeChange = 8;
+            this.trackComkortBox.Location = new System.Drawing.Point(9, 350);
+            this.trackComkortBox.Maximum = 49;
+            this.trackComkortBox.Minimum = 1;
+            this.trackComkortBox.Name = "trackComkortBox";
+            this.trackComkortBox.Size = new System.Drawing.Size(217, 45);
+            this.trackComkortBox.SmallChange = 4;
+            this.trackComkortBox.TabIndex = 59;
+            this.trackComkortBox.TickFrequency = 4;
+            this.trackComkortBox.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackComkortBox.Value = 24;
+            this.trackComkortBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
+            // 
+            // linkComkort
+            // 
+            this.linkComkort.AutoSize = true;
+            this.linkComkort.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkComkort.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
+            this.linkComkort.Location = new System.Drawing.Point(6, 8);
+            this.linkComkort.Name = "linkComkort";
+            this.linkComkort.Size = new System.Drawing.Size(141, 20);
+            this.linkComkort.TabIndex = 58;
+            this.linkComkort.TabStop = true;
+            this.linkComkort.Text = "Comkort: coin/BTC";
+            this.linkComkort.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
+            // 
+            // trackComkortDepth
+            // 
+            this.trackComkortDepth.LargeChange = 10;
+            this.trackComkortDepth.Location = new System.Drawing.Point(9, 286);
+            this.trackComkortDepth.Maximum = 50;
+            this.trackComkortDepth.Minimum = 5;
+            this.trackComkortDepth.Name = "trackComkortDepth";
+            this.trackComkortDepth.Size = new System.Drawing.Size(217, 45);
+            this.trackComkortDepth.SmallChange = 5;
+            this.trackComkortDepth.TabIndex = 57;
+            this.trackComkortDepth.TickFrequency = 5;
+            this.trackComkortDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackComkortDepth.Value = 20;
+            this.trackComkortDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
+            // 
+            // tabAllCrypt
+            // 
+            this.tabAllCrypt.Controls.Add(this.dgvAllcryptSell);
+            this.tabAllCrypt.Controls.Add(this.chartAllcryptSell);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptSell);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptBuy);
+            this.tabAllCrypt.Controls.Add(this.dgvAllcryptBuy);
+            this.tabAllCrypt.Controls.Add(this.chartAllcryptBuy);
+            this.tabAllCrypt.Controls.Add(this.chkAllcryptBtc);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptDepth);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptWeight);
+            this.tabAllCrypt.Controls.Add(this.txtAllcryptWeight);
+            this.tabAllCrypt.Controls.Add(this.txtAllcryptDailyvolume);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptLeftover);
+            this.tabAllCrypt.Controls.Add(this.txtAllcryptLeftover);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptFallthrough);
+            this.tabAllCrypt.Controls.Add(this.txtAllcryptFallthrough);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptDailyvolume);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptWhisker);
+            this.tabAllCrypt.Controls.Add(this.trackAllcryptWhisker);
+            this.tabAllCrypt.Controls.Add(this.lblAllcryptBox);
+            this.tabAllCrypt.Controls.Add(this.trackAllcryptBox);
+            this.tabAllCrypt.Controls.Add(this.linkAllcrypt);
+            this.tabAllCrypt.Controls.Add(this.trackAllcryptDepth);
+            this.tabAllCrypt.Location = new System.Drawing.Point(4, 22);
+            this.tabAllCrypt.Name = "tabAllCrypt";
+            this.tabAllCrypt.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAllCrypt.Size = new System.Drawing.Size(845, 470);
+            this.tabAllCrypt.TabIndex = 9;
+            this.tabAllCrypt.Text = "AllCrypt";
+            // 
+            // dgvAllcryptSell
+            // 
+            this.dgvAllcryptSell.AllowUserToAddRows = false;
+            this.dgvAllcryptSell.AllowUserToDeleteRows = false;
+            this.dgvAllcryptSell.AllowUserToResizeRows = false;
+            this.dgvAllcryptSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle65.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle65.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle65.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle65.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle65.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAllcryptSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle65;
+            this.dgvAllcryptSell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAllcryptSell.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn49,
+            this.dataGridViewTextBoxColumn50,
+            this.dataGridViewTextBoxColumn51});
+            this.dgvAllcryptSell.Location = new System.Drawing.Point(539, 31);
+            this.dgvAllcryptSell.Name = "dgvAllcryptSell";
+            this.dgvAllcryptSell.ReadOnly = true;
+            this.dgvAllcryptSell.RowHeadersVisible = false;
+            this.dgvAllcryptSell.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAllcryptSell.Size = new System.Drawing.Size(300, 191);
+            this.dgvAllcryptSell.TabIndex = 56;
+            // 
+            // dataGridViewTextBoxColumn49
+            // 
+            this.dataGridViewTextBoxColumn49.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn49.DataPropertyName = "BtcPrice";
+            dataGridViewCellStyle66.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn49.DefaultCellStyle = dataGridViewCellStyle66;
+            this.dataGridViewTextBoxColumn49.HeaderText = "Price (BTC)";
+            this.dataGridViewTextBoxColumn49.Name = "dataGridViewTextBoxColumn49";
+            this.dataGridViewTextBoxColumn49.ReadOnly = true;
+            this.dataGridViewTextBoxColumn49.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn50
+            // 
+            this.dataGridViewTextBoxColumn50.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn50.DataPropertyName = "BtcVolume";
+            dataGridViewCellStyle67.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn50.DefaultCellStyle = dataGridViewCellStyle67;
+            this.dataGridViewTextBoxColumn50.HeaderText = "Volume (BTC)";
+            this.dataGridViewTextBoxColumn50.Name = "dataGridViewTextBoxColumn50";
+            this.dataGridViewTextBoxColumn50.ReadOnly = true;
+            this.dataGridViewTextBoxColumn50.Width = 97;
+            // 
+            // dataGridViewTextBoxColumn51
+            // 
+            this.dataGridViewTextBoxColumn51.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn51.DataPropertyName = "CoinVolume";
+            dataGridViewCellStyle68.Format = "0.########";
+            this.dataGridViewTextBoxColumn51.DefaultCellStyle = dataGridViewCellStyle68;
+            this.dataGridViewTextBoxColumn51.HeaderText = "Volume (coin)";
+            this.dataGridViewTextBoxColumn51.Name = "dataGridViewTextBoxColumn51";
+            this.dataGridViewTextBoxColumn51.ReadOnly = true;
+            // 
+            // chartAllcryptSell
+            // 
+            this.chartAllcryptSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea17.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea17.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea17.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea17.AxisX.LabelStyle.Enabled = false;
+            chartArea17.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea17.AxisX.MajorGrid.LineWidth = 0;
+            chartArea17.AxisY.IsStartedFromZero = false;
+            chartArea17.AxisY.LabelStyle.Format = "0.00000000";
+            chartArea17.AxisY.MajorGrid.LineWidth = 0;
+            chartArea17.Name = "ChartArea";
+            this.chartAllcryptSell.ChartAreas.Add(chartArea17);
+            this.chartAllcryptSell.Location = new System.Drawing.Point(539, 228);
+            this.chartAllcryptSell.Name = "chartAllcryptSell";
+            series17.BorderColor = System.Drawing.Color.Gold;
+            series17.ChartArea = "ChartArea";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
+            series17.Color = System.Drawing.Color.Gold;
+            series17.Name = "BoxPlotSeries";
+            series17.YValuesPerPoint = 6;
+            this.chartAllcryptSell.Series.Add(series17);
+            this.chartAllcryptSell.Size = new System.Drawing.Size(300, 234);
+            this.chartAllcryptSell.TabIndex = 55;
+            this.chartAllcryptSell.Text = "chart1";
+            // 
+            // lblAllcryptSell
+            // 
+            this.lblAllcryptSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAllcryptSell.AutoSize = true;
+            this.lblAllcryptSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAllcryptSell.ForeColor = System.Drawing.Color.Maroon;
+            this.lblAllcryptSell.Location = new System.Drawing.Point(535, 8);
+            this.lblAllcryptSell.Name = "lblAllcryptSell";
+            this.lblAllcryptSell.Size = new System.Drawing.Size(84, 20);
+            this.lblAllcryptSell.TabIndex = 54;
+            this.lblAllcryptSell.Text = "Sell orders";
+            // 
+            // lblAllcryptBuy
+            // 
+            this.lblAllcryptBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAllcryptBuy.AutoSize = true;
+            this.lblAllcryptBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAllcryptBuy.ForeColor = System.Drawing.Color.OliveDrab;
+            this.lblAllcryptBuy.Location = new System.Drawing.Point(229, 8);
+            this.lblAllcryptBuy.Name = "lblAllcryptBuy";
+            this.lblAllcryptBuy.Size = new System.Drawing.Size(85, 20);
+            this.lblAllcryptBuy.TabIndex = 53;
+            this.lblAllcryptBuy.Text = "Buy orders";
+            // 
+            // dgvAllcryptBuy
+            // 
+            this.dgvAllcryptBuy.AllowUserToAddRows = false;
+            this.dgvAllcryptBuy.AllowUserToDeleteRows = false;
+            this.dgvAllcryptBuy.AllowUserToResizeRows = false;
+            this.dgvAllcryptBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle69.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle69.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle69.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle69.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle69.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAllcryptBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle69;
+            this.dgvAllcryptBuy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAllcryptBuy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn52,
+            this.dataGridViewTextBoxColumn53,
+            this.dataGridViewTextBoxColumn54});
+            this.dgvAllcryptBuy.Location = new System.Drawing.Point(233, 31);
+            this.dgvAllcryptBuy.Name = "dgvAllcryptBuy";
+            this.dgvAllcryptBuy.ReadOnly = true;
+            this.dgvAllcryptBuy.RowHeadersVisible = false;
+            this.dgvAllcryptBuy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAllcryptBuy.Size = new System.Drawing.Size(300, 191);
+            this.dgvAllcryptBuy.TabIndex = 52;
+            // 
+            // dataGridViewTextBoxColumn52
+            // 
+            this.dataGridViewTextBoxColumn52.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn52.DataPropertyName = "BtcPrice";
+            dataGridViewCellStyle70.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn52.DefaultCellStyle = dataGridViewCellStyle70;
+            this.dataGridViewTextBoxColumn52.HeaderText = "Price (BTC)";
+            this.dataGridViewTextBoxColumn52.Name = "dataGridViewTextBoxColumn52";
+            this.dataGridViewTextBoxColumn52.ReadOnly = true;
+            this.dataGridViewTextBoxColumn52.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn53
+            // 
+            this.dataGridViewTextBoxColumn53.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn53.DataPropertyName = "BtcVolume";
+            dataGridViewCellStyle71.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn53.DefaultCellStyle = dataGridViewCellStyle71;
+            this.dataGridViewTextBoxColumn53.HeaderText = "Volume (BTC)";
+            this.dataGridViewTextBoxColumn53.Name = "dataGridViewTextBoxColumn53";
+            this.dataGridViewTextBoxColumn53.ReadOnly = true;
+            this.dataGridViewTextBoxColumn53.Width = 97;
+            // 
+            // dataGridViewTextBoxColumn54
+            // 
+            this.dataGridViewTextBoxColumn54.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn54.DataPropertyName = "CoinVolume";
+            dataGridViewCellStyle72.Format = "0.########";
+            this.dataGridViewTextBoxColumn54.DefaultCellStyle = dataGridViewCellStyle72;
+            this.dataGridViewTextBoxColumn54.HeaderText = "Volume (coin)";
+            this.dataGridViewTextBoxColumn54.Name = "dataGridViewTextBoxColumn54";
+            this.dataGridViewTextBoxColumn54.ReadOnly = true;
+            // 
+            // chartAllcryptBuy
+            // 
+            this.chartAllcryptBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea18.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea18.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea18.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea18.AxisX.LabelStyle.Enabled = false;
+            chartArea18.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea18.AxisX.MajorGrid.LineWidth = 0;
+            chartArea18.AxisY.IsStartedFromZero = false;
+            chartArea18.AxisY.LabelStyle.Format = "0.00000000";
+            chartArea18.AxisY.MajorGrid.LineWidth = 0;
+            chartArea18.Name = "ChartArea";
+            this.chartAllcryptBuy.ChartAreas.Add(chartArea18);
+            this.chartAllcryptBuy.Location = new System.Drawing.Point(233, 228);
+            this.chartAllcryptBuy.Name = "chartAllcryptBuy";
+            series18.BorderColor = System.Drawing.Color.Gold;
+            series18.ChartArea = "ChartArea";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
+            series18.Color = System.Drawing.Color.Gold;
+            series18.Name = "BoxPlotSeries";
+            series18.YValuesPerPoint = 6;
+            this.chartAllcryptBuy.Series.Add(series18);
+            this.chartAllcryptBuy.Size = new System.Drawing.Size(300, 234);
+            this.chartAllcryptBuy.TabIndex = 51;
+            this.chartAllcryptBuy.Text = "chart2";
+            // 
+            // chkAllcryptBtc
+            // 
+            this.chkAllcryptBtc.Checked = true;
+            this.chkAllcryptBtc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAllcryptBtc.Location = new System.Drawing.Point(10, 228);
+            this.chkAllcryptBtc.Name = "chkAllcryptBtc";
+            this.chkAllcryptBtc.Size = new System.Drawing.Size(165, 33);
+            this.chkAllcryptBtc.TabIndex = 72;
+            this.chkAllcryptBtc.Text = "Use BTC volume as weight, instead of coin volume";
+            this.chkAllcryptBtc.UseVisualStyleBackColor = true;
+            this.chkAllcryptBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
+            // 
+            // lblAllcryptDepth
+            // 
+            this.lblAllcryptDepth.AutoSize = true;
+            this.lblAllcryptDepth.Location = new System.Drawing.Point(6, 270);
+            this.lblAllcryptDepth.Name = "lblAllcryptDepth";
+            this.lblAllcryptDepth.Size = new System.Drawing.Size(39, 13);
+            this.lblAllcryptDepth.TabIndex = 71;
+            this.lblAllcryptDepth.Text = "Depth:";
+            // 
+            // lblAllcryptWeight
+            // 
+            this.lblAllcryptWeight.AutoSize = true;
+            this.lblAllcryptWeight.Location = new System.Drawing.Point(7, 60);
+            this.lblAllcryptWeight.Name = "lblAllcryptWeight";
+            this.lblAllcryptWeight.Size = new System.Drawing.Size(44, 13);
+            this.lblAllcryptWeight.TabIndex = 70;
+            this.lblAllcryptWeight.Text = "Weight:";
+            // 
+            // txtAllcryptWeight
+            // 
+            this.txtAllcryptWeight.Location = new System.Drawing.Point(104, 57);
+            this.txtAllcryptWeight.Name = "txtAllcryptWeight";
+            this.txtAllcryptWeight.ReadOnly = true;
+            this.txtAllcryptWeight.Size = new System.Drawing.Size(100, 20);
+            this.txtAllcryptWeight.TabIndex = 69;
+            // 
+            // txtAllcryptDailyvolume
+            // 
+            this.txtAllcryptDailyvolume.Location = new System.Drawing.Point(104, 31);
+            this.txtAllcryptDailyvolume.Name = "txtAllcryptDailyvolume";
+            this.txtAllcryptDailyvolume.ReadOnly = true;
+            this.txtAllcryptDailyvolume.Size = new System.Drawing.Size(100, 20);
+            this.txtAllcryptDailyvolume.TabIndex = 68;
+            // 
+            // lblAllcryptLeftover
+            // 
+            this.lblAllcryptLeftover.AutoSize = true;
+            this.lblAllcryptLeftover.Location = new System.Drawing.Point(7, 138);
+            this.lblAllcryptLeftover.Name = "lblAllcryptLeftover";
+            this.lblAllcryptLeftover.Size = new System.Drawing.Size(52, 13);
+            this.lblAllcryptLeftover.TabIndex = 67;
+            this.lblAllcryptLeftover.Text = "Left over:";
+            // 
+            // txtAllcryptLeftover
+            // 
+            this.txtAllcryptLeftover.Location = new System.Drawing.Point(104, 135);
+            this.txtAllcryptLeftover.Name = "txtAllcryptLeftover";
+            this.txtAllcryptLeftover.ReadOnly = true;
+            this.txtAllcryptLeftover.Size = new System.Drawing.Size(100, 20);
+            this.txtAllcryptLeftover.TabIndex = 66;
+            // 
+            // lblAllcryptFallthrough
+            // 
+            this.lblAllcryptFallthrough.AutoSize = true;
+            this.lblAllcryptFallthrough.Location = new System.Drawing.Point(7, 112);
+            this.lblAllcryptFallthrough.Name = "lblAllcryptFallthrough";
+            this.lblAllcryptFallthrough.Size = new System.Drawing.Size(88, 13);
+            this.lblAllcryptFallthrough.TabIndex = 65;
+            this.lblAllcryptFallthrough.Text = "Fallthrough price:";
+            // 
+            // txtAllcryptFallthrough
+            // 
+            this.txtAllcryptFallthrough.Location = new System.Drawing.Point(104, 109);
+            this.txtAllcryptFallthrough.Name = "txtAllcryptFallthrough";
+            this.txtAllcryptFallthrough.ReadOnly = true;
+            this.txtAllcryptFallthrough.Size = new System.Drawing.Size(100, 20);
+            this.txtAllcryptFallthrough.TabIndex = 64;
+            // 
+            // lblAllcryptDailyvolume
+            // 
+            this.lblAllcryptDailyvolume.AutoSize = true;
+            this.lblAllcryptDailyvolume.Location = new System.Drawing.Point(7, 34);
+            this.lblAllcryptDailyvolume.Name = "lblAllcryptDailyvolume";
+            this.lblAllcryptDailyvolume.Size = new System.Drawing.Size(70, 13);
+            this.lblAllcryptDailyvolume.TabIndex = 63;
+            this.lblAllcryptDailyvolume.Text = "Daily volume:";
+            // 
+            // lblAllcryptWhisker
+            // 
+            this.lblAllcryptWhisker.AutoSize = true;
+            this.lblAllcryptWhisker.Location = new System.Drawing.Point(6, 398);
+            this.lblAllcryptWhisker.Name = "lblAllcryptWhisker";
+            this.lblAllcryptWhisker.Size = new System.Drawing.Size(109, 13);
+            this.lblAllcryptWhisker.TabIndex = 62;
+            this.lblAllcryptWhisker.Text = "Whisker percentage: ";
+            // 
+            // trackAllcryptWhisker
+            // 
+            this.trackAllcryptWhisker.LargeChange = 8;
+            this.trackAllcryptWhisker.Location = new System.Drawing.Point(9, 414);
+            this.trackAllcryptWhisker.Maximum = 49;
+            this.trackAllcryptWhisker.Minimum = 1;
+            this.trackAllcryptWhisker.Name = "trackAllcryptWhisker";
+            this.trackAllcryptWhisker.Size = new System.Drawing.Size(217, 45);
+            this.trackAllcryptWhisker.SmallChange = 4;
+            this.trackAllcryptWhisker.TabIndex = 61;
+            this.trackAllcryptWhisker.TickFrequency = 4;
+            this.trackAllcryptWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackAllcryptWhisker.Value = 5;
+            this.trackAllcryptWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
+            // 
+            // lblAllcryptBox
+            // 
+            this.lblAllcryptBox.AutoSize = true;
+            this.lblAllcryptBox.Location = new System.Drawing.Point(6, 334);
+            this.lblAllcryptBox.Name = "lblAllcryptBox";
+            this.lblAllcryptBox.Size = new System.Drawing.Size(88, 13);
+            this.lblAllcryptBox.TabIndex = 60;
+            this.lblAllcryptBox.Text = "Box percentage: ";
+            // 
+            // trackAllcryptBox
+            // 
+            this.trackAllcryptBox.LargeChange = 8;
+            this.trackAllcryptBox.Location = new System.Drawing.Point(9, 350);
+            this.trackAllcryptBox.Maximum = 49;
+            this.trackAllcryptBox.Minimum = 1;
+            this.trackAllcryptBox.Name = "trackAllcryptBox";
+            this.trackAllcryptBox.Size = new System.Drawing.Size(217, 45);
+            this.trackAllcryptBox.SmallChange = 4;
+            this.trackAllcryptBox.TabIndex = 59;
+            this.trackAllcryptBox.TickFrequency = 4;
+            this.trackAllcryptBox.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackAllcryptBox.Value = 24;
+            this.trackAllcryptBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
+            // 
+            // linkAllcrypt
+            // 
+            this.linkAllcrypt.AutoSize = true;
+            this.linkAllcrypt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkAllcrypt.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
+            this.linkAllcrypt.Location = new System.Drawing.Point(6, 8);
+            this.linkAllcrypt.Name = "linkAllcrypt";
+            this.linkAllcrypt.Size = new System.Drawing.Size(141, 24);
+            this.linkAllcrypt.TabIndex = 58;
+            this.linkAllcrypt.TabStop = true;
+            this.linkAllcrypt.Text = "AllCrypt: coin/BTC";
+            this.linkAllcrypt.UseCompatibleTextRendering = true;
+            this.linkAllcrypt.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
+            // 
+            // trackAllcryptDepth
+            // 
+            this.trackAllcryptDepth.LargeChange = 10;
+            this.trackAllcryptDepth.Location = new System.Drawing.Point(9, 286);
+            this.trackAllcryptDepth.Maximum = 50;
+            this.trackAllcryptDepth.Minimum = 5;
+            this.trackAllcryptDepth.Name = "trackAllcryptDepth";
+            this.trackAllcryptDepth.Size = new System.Drawing.Size(217, 45);
+            this.trackAllcryptDepth.SmallChange = 5;
+            this.trackAllcryptDepth.TabIndex = 57;
+            this.trackAllcryptDepth.TickFrequency = 5;
+            this.trackAllcryptDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackAllcryptDepth.Value = 20;
+            this.trackAllcryptDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
+            // 
+            // tabAtomicTrade
+            // 
+            this.tabAtomicTrade.Controls.Add(this.dgvAtomicSell);
+            this.tabAtomicTrade.Controls.Add(this.chartAtomicSell);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicSell);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicBuy);
+            this.tabAtomicTrade.Controls.Add(this.dgvAtomicBuy);
+            this.tabAtomicTrade.Controls.Add(this.chartAtomicBuy);
+            this.tabAtomicTrade.Controls.Add(this.chkAtomicBtc);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicDepth);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicWeight);
+            this.tabAtomicTrade.Controls.Add(this.txtAtomicWeight);
+            this.tabAtomicTrade.Controls.Add(this.txtAtomicDailyvolume);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicLeftover);
+            this.tabAtomicTrade.Controls.Add(this.txtAtomicLeftover);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicFallthrough);
+            this.tabAtomicTrade.Controls.Add(this.txtAtomicFallthrough);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicDailyvolume);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicWhisker);
+            this.tabAtomicTrade.Controls.Add(this.trackAtomicWhisker);
+            this.tabAtomicTrade.Controls.Add(this.lblAtomicBox);
+            this.tabAtomicTrade.Controls.Add(this.trackAtomicBox);
+            this.tabAtomicTrade.Controls.Add(this.linkAtomic);
+            this.tabAtomicTrade.Controls.Add(this.trackAtomicDepth);
+            this.tabAtomicTrade.Location = new System.Drawing.Point(4, 22);
+            this.tabAtomicTrade.Name = "tabAtomicTrade";
+            this.tabAtomicTrade.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAtomicTrade.Size = new System.Drawing.Size(845, 470);
+            this.tabAtomicTrade.TabIndex = 10;
+            this.tabAtomicTrade.Text = "Atomic Trade";
+            // 
+            // dgvAtomicSell
+            // 
+            this.dgvAtomicSell.AllowUserToAddRows = false;
+            this.dgvAtomicSell.AllowUserToDeleteRows = false;
+            this.dgvAtomicSell.AllowUserToResizeRows = false;
+            this.dgvAtomicSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle73.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle73.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle73.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle73.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle73.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle73.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle73.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAtomicSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle73;
+            this.dgvAtomicSell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAtomicSell.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn55,
+            this.dataGridViewTextBoxColumn56,
+            this.dataGridViewTextBoxColumn57});
+            this.dgvAtomicSell.Location = new System.Drawing.Point(539, 31);
+            this.dgvAtomicSell.Name = "dgvAtomicSell";
+            this.dgvAtomicSell.ReadOnly = true;
+            this.dgvAtomicSell.RowHeadersVisible = false;
+            this.dgvAtomicSell.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAtomicSell.Size = new System.Drawing.Size(300, 191);
+            this.dgvAtomicSell.TabIndex = 56;
+            // 
+            // dataGridViewTextBoxColumn55
+            // 
+            this.dataGridViewTextBoxColumn55.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn55.DataPropertyName = "BtcPrice";
+            dataGridViewCellStyle74.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn55.DefaultCellStyle = dataGridViewCellStyle74;
+            this.dataGridViewTextBoxColumn55.HeaderText = "Price (BTC)";
+            this.dataGridViewTextBoxColumn55.Name = "dataGridViewTextBoxColumn55";
+            this.dataGridViewTextBoxColumn55.ReadOnly = true;
+            this.dataGridViewTextBoxColumn55.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn56
+            // 
+            this.dataGridViewTextBoxColumn56.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn56.DataPropertyName = "BtcVolume";
+            dataGridViewCellStyle75.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn56.DefaultCellStyle = dataGridViewCellStyle75;
+            this.dataGridViewTextBoxColumn56.HeaderText = "Volume (BTC)";
+            this.dataGridViewTextBoxColumn56.Name = "dataGridViewTextBoxColumn56";
+            this.dataGridViewTextBoxColumn56.ReadOnly = true;
+            this.dataGridViewTextBoxColumn56.Width = 97;
+            // 
+            // dataGridViewTextBoxColumn57
+            // 
+            this.dataGridViewTextBoxColumn57.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn57.DataPropertyName = "CoinVolume";
+            dataGridViewCellStyle76.Format = "0.########";
+            this.dataGridViewTextBoxColumn57.DefaultCellStyle = dataGridViewCellStyle76;
+            this.dataGridViewTextBoxColumn57.HeaderText = "Volume (coin)";
+            this.dataGridViewTextBoxColumn57.Name = "dataGridViewTextBoxColumn57";
+            this.dataGridViewTextBoxColumn57.ReadOnly = true;
+            // 
+            // chartAtomicSell
+            // 
+            this.chartAtomicSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea19.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea19.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea19.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea19.AxisX.LabelStyle.Enabled = false;
+            chartArea19.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea19.AxisX.MajorGrid.LineWidth = 0;
+            chartArea19.AxisY.IsStartedFromZero = false;
+            chartArea19.AxisY.LabelStyle.Format = "0.00000000";
+            chartArea19.AxisY.MajorGrid.LineWidth = 0;
+            chartArea19.Name = "ChartArea";
+            this.chartAtomicSell.ChartAreas.Add(chartArea19);
+            this.chartAtomicSell.Location = new System.Drawing.Point(539, 228);
+            this.chartAtomicSell.Name = "chartAtomicSell";
+            series19.BorderColor = System.Drawing.Color.Gold;
+            series19.ChartArea = "ChartArea";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
+            series19.Color = System.Drawing.Color.Gold;
+            series19.Name = "BoxPlotSeries";
+            series19.YValuesPerPoint = 6;
+            this.chartAtomicSell.Series.Add(series19);
+            this.chartAtomicSell.Size = new System.Drawing.Size(300, 234);
+            this.chartAtomicSell.TabIndex = 55;
+            this.chartAtomicSell.Text = "chart1";
+            // 
+            // lblAtomicSell
+            // 
+            this.lblAtomicSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAtomicSell.AutoSize = true;
+            this.lblAtomicSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtomicSell.ForeColor = System.Drawing.Color.Maroon;
+            this.lblAtomicSell.Location = new System.Drawing.Point(535, 8);
+            this.lblAtomicSell.Name = "lblAtomicSell";
+            this.lblAtomicSell.Size = new System.Drawing.Size(84, 20);
+            this.lblAtomicSell.TabIndex = 54;
+            this.lblAtomicSell.Text = "Sell orders";
+            // 
+            // lblAtomicBuy
+            // 
+            this.lblAtomicBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAtomicBuy.AutoSize = true;
+            this.lblAtomicBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtomicBuy.ForeColor = System.Drawing.Color.OliveDrab;
+            this.lblAtomicBuy.Location = new System.Drawing.Point(229, 8);
+            this.lblAtomicBuy.Name = "lblAtomicBuy";
+            this.lblAtomicBuy.Size = new System.Drawing.Size(85, 20);
+            this.lblAtomicBuy.TabIndex = 53;
+            this.lblAtomicBuy.Text = "Buy orders";
+            // 
+            // dgvAtomicBuy
+            // 
+            this.dgvAtomicBuy.AllowUserToAddRows = false;
+            this.dgvAtomicBuy.AllowUserToDeleteRows = false;
+            this.dgvAtomicBuy.AllowUserToResizeRows = false;
+            this.dgvAtomicBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle77.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle77.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle77.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle77.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAtomicBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle77;
+            this.dgvAtomicBuy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAtomicBuy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn58,
+            this.dataGridViewTextBoxColumn59,
+            this.dataGridViewTextBoxColumn60});
+            this.dgvAtomicBuy.Location = new System.Drawing.Point(233, 31);
+            this.dgvAtomicBuy.Name = "dgvAtomicBuy";
+            this.dgvAtomicBuy.ReadOnly = true;
+            this.dgvAtomicBuy.RowHeadersVisible = false;
+            this.dgvAtomicBuy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAtomicBuy.Size = new System.Drawing.Size(300, 191);
+            this.dgvAtomicBuy.TabIndex = 52;
+            // 
+            // dataGridViewTextBoxColumn58
+            // 
+            this.dataGridViewTextBoxColumn58.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn58.DataPropertyName = "BtcPrice";
+            dataGridViewCellStyle78.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn58.DefaultCellStyle = dataGridViewCellStyle78;
+            this.dataGridViewTextBoxColumn58.HeaderText = "Price (BTC)";
+            this.dataGridViewTextBoxColumn58.Name = "dataGridViewTextBoxColumn58";
+            this.dataGridViewTextBoxColumn58.ReadOnly = true;
+            this.dataGridViewTextBoxColumn58.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn59
+            // 
+            this.dataGridViewTextBoxColumn59.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn59.DataPropertyName = "BtcVolume";
+            dataGridViewCellStyle79.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn59.DefaultCellStyle = dataGridViewCellStyle79;
+            this.dataGridViewTextBoxColumn59.HeaderText = "Volume (BTC)";
+            this.dataGridViewTextBoxColumn59.Name = "dataGridViewTextBoxColumn59";
+            this.dataGridViewTextBoxColumn59.ReadOnly = true;
+            this.dataGridViewTextBoxColumn59.Width = 97;
+            // 
+            // dataGridViewTextBoxColumn60
+            // 
+            this.dataGridViewTextBoxColumn60.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn60.DataPropertyName = "CoinVolume";
+            dataGridViewCellStyle80.Format = "0.########";
+            this.dataGridViewTextBoxColumn60.DefaultCellStyle = dataGridViewCellStyle80;
+            this.dataGridViewTextBoxColumn60.HeaderText = "Volume (coin)";
+            this.dataGridViewTextBoxColumn60.Name = "dataGridViewTextBoxColumn60";
+            this.dataGridViewTextBoxColumn60.ReadOnly = true;
+            // 
+            // chartAtomicBuy
+            // 
+            this.chartAtomicBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea20.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea20.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea20.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea20.AxisX.LabelStyle.Enabled = false;
+            chartArea20.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea20.AxisX.MajorGrid.LineWidth = 0;
+            chartArea20.AxisY.IsStartedFromZero = false;
+            chartArea20.AxisY.LabelStyle.Format = "0.00000000";
+            chartArea20.AxisY.MajorGrid.LineWidth = 0;
+            chartArea20.Name = "ChartArea";
+            this.chartAtomicBuy.ChartAreas.Add(chartArea20);
+            this.chartAtomicBuy.Location = new System.Drawing.Point(233, 228);
+            this.chartAtomicBuy.Name = "chartAtomicBuy";
+            series20.BorderColor = System.Drawing.Color.Gold;
+            series20.ChartArea = "ChartArea";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
+            series20.Color = System.Drawing.Color.Gold;
+            series20.Name = "BoxPlotSeries";
+            series20.YValuesPerPoint = 6;
+            this.chartAtomicBuy.Series.Add(series20);
+            this.chartAtomicBuy.Size = new System.Drawing.Size(300, 234);
+            this.chartAtomicBuy.TabIndex = 51;
+            this.chartAtomicBuy.Text = "chart2";
+            // 
+            // chkAtomicBtc
+            // 
+            this.chkAtomicBtc.Checked = true;
+            this.chkAtomicBtc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAtomicBtc.Location = new System.Drawing.Point(10, 228);
+            this.chkAtomicBtc.Name = "chkAtomicBtc";
+            this.chkAtomicBtc.Size = new System.Drawing.Size(165, 33);
+            this.chkAtomicBtc.TabIndex = 72;
+            this.chkAtomicBtc.Text = "Use BTC volume as weight, instead of coin volume";
+            this.chkAtomicBtc.UseVisualStyleBackColor = true;
+            this.chkAtomicBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
+            // 
+            // lblAtomicDepth
+            // 
+            this.lblAtomicDepth.AutoSize = true;
+            this.lblAtomicDepth.Location = new System.Drawing.Point(6, 270);
+            this.lblAtomicDepth.Name = "lblAtomicDepth";
+            this.lblAtomicDepth.Size = new System.Drawing.Size(39, 13);
+            this.lblAtomicDepth.TabIndex = 71;
+            this.lblAtomicDepth.Text = "Depth:";
+            // 
+            // lblAtomicWeight
+            // 
+            this.lblAtomicWeight.AutoSize = true;
+            this.lblAtomicWeight.Location = new System.Drawing.Point(7, 60);
+            this.lblAtomicWeight.Name = "lblAtomicWeight";
+            this.lblAtomicWeight.Size = new System.Drawing.Size(44, 13);
+            this.lblAtomicWeight.TabIndex = 70;
+            this.lblAtomicWeight.Text = "Weight:";
+            // 
+            // txtAtomicWeight
+            // 
+            this.txtAtomicWeight.Location = new System.Drawing.Point(104, 57);
+            this.txtAtomicWeight.Name = "txtAtomicWeight";
+            this.txtAtomicWeight.ReadOnly = true;
+            this.txtAtomicWeight.Size = new System.Drawing.Size(100, 20);
+            this.txtAtomicWeight.TabIndex = 69;
+            // 
+            // txtAtomicDailyvolume
+            // 
+            this.txtAtomicDailyvolume.Location = new System.Drawing.Point(104, 31);
+            this.txtAtomicDailyvolume.Name = "txtAtomicDailyvolume";
+            this.txtAtomicDailyvolume.ReadOnly = true;
+            this.txtAtomicDailyvolume.Size = new System.Drawing.Size(100, 20);
+            this.txtAtomicDailyvolume.TabIndex = 68;
+            // 
+            // lblAtomicLeftover
+            // 
+            this.lblAtomicLeftover.AutoSize = true;
+            this.lblAtomicLeftover.Location = new System.Drawing.Point(7, 138);
+            this.lblAtomicLeftover.Name = "lblAtomicLeftover";
+            this.lblAtomicLeftover.Size = new System.Drawing.Size(52, 13);
+            this.lblAtomicLeftover.TabIndex = 67;
+            this.lblAtomicLeftover.Text = "Left over:";
+            // 
+            // txtAtomicLeftover
+            // 
+            this.txtAtomicLeftover.Location = new System.Drawing.Point(104, 135);
+            this.txtAtomicLeftover.Name = "txtAtomicLeftover";
+            this.txtAtomicLeftover.ReadOnly = true;
+            this.txtAtomicLeftover.Size = new System.Drawing.Size(100, 20);
+            this.txtAtomicLeftover.TabIndex = 66;
+            // 
+            // lblAtomicFallthrough
+            // 
+            this.lblAtomicFallthrough.AutoSize = true;
+            this.lblAtomicFallthrough.Location = new System.Drawing.Point(7, 112);
+            this.lblAtomicFallthrough.Name = "lblAtomicFallthrough";
+            this.lblAtomicFallthrough.Size = new System.Drawing.Size(88, 13);
+            this.lblAtomicFallthrough.TabIndex = 65;
+            this.lblAtomicFallthrough.Text = "Fallthrough price:";
+            // 
+            // txtAtomicFallthrough
+            // 
+            this.txtAtomicFallthrough.Location = new System.Drawing.Point(104, 109);
+            this.txtAtomicFallthrough.Name = "txtAtomicFallthrough";
+            this.txtAtomicFallthrough.ReadOnly = true;
+            this.txtAtomicFallthrough.Size = new System.Drawing.Size(100, 20);
+            this.txtAtomicFallthrough.TabIndex = 64;
+            // 
+            // lblAtomicDailyvolume
+            // 
+            this.lblAtomicDailyvolume.AutoSize = true;
+            this.lblAtomicDailyvolume.Location = new System.Drawing.Point(7, 34);
+            this.lblAtomicDailyvolume.Name = "lblAtomicDailyvolume";
+            this.lblAtomicDailyvolume.Size = new System.Drawing.Size(70, 13);
+            this.lblAtomicDailyvolume.TabIndex = 63;
+            this.lblAtomicDailyvolume.Text = "Daily volume:";
+            // 
+            // lblAtomicWhisker
+            // 
+            this.lblAtomicWhisker.AutoSize = true;
+            this.lblAtomicWhisker.Location = new System.Drawing.Point(6, 398);
+            this.lblAtomicWhisker.Name = "lblAtomicWhisker";
+            this.lblAtomicWhisker.Size = new System.Drawing.Size(109, 13);
+            this.lblAtomicWhisker.TabIndex = 62;
+            this.lblAtomicWhisker.Text = "Whisker percentage: ";
+            // 
+            // trackAtomicWhisker
+            // 
+            this.trackAtomicWhisker.LargeChange = 8;
+            this.trackAtomicWhisker.Location = new System.Drawing.Point(9, 414);
+            this.trackAtomicWhisker.Maximum = 49;
+            this.trackAtomicWhisker.Minimum = 1;
+            this.trackAtomicWhisker.Name = "trackAtomicWhisker";
+            this.trackAtomicWhisker.Size = new System.Drawing.Size(217, 45);
+            this.trackAtomicWhisker.SmallChange = 4;
+            this.trackAtomicWhisker.TabIndex = 61;
+            this.trackAtomicWhisker.TickFrequency = 4;
+            this.trackAtomicWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackAtomicWhisker.Value = 5;
+            this.trackAtomicWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
+            // 
+            // lblAtomicBox
+            // 
+            this.lblAtomicBox.AutoSize = true;
+            this.lblAtomicBox.Location = new System.Drawing.Point(6, 334);
+            this.lblAtomicBox.Name = "lblAtomicBox";
+            this.lblAtomicBox.Size = new System.Drawing.Size(88, 13);
+            this.lblAtomicBox.TabIndex = 60;
+            this.lblAtomicBox.Text = "Box percentage: ";
+            // 
+            // trackAtomicBox
+            // 
+            this.trackAtomicBox.LargeChange = 8;
+            this.trackAtomicBox.Location = new System.Drawing.Point(9, 350);
+            this.trackAtomicBox.Maximum = 49;
+            this.trackAtomicBox.Minimum = 1;
+            this.trackAtomicBox.Name = "trackAtomicBox";
+            this.trackAtomicBox.Size = new System.Drawing.Size(217, 45);
+            this.trackAtomicBox.SmallChange = 4;
+            this.trackAtomicBox.TabIndex = 59;
+            this.trackAtomicBox.TickFrequency = 4;
+            this.trackAtomicBox.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackAtomicBox.Value = 24;
+            this.trackAtomicBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
+            // 
+            // linkAtomic
+            // 
+            this.linkAtomic.AutoSize = true;
+            this.linkAtomic.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkAtomic.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
+            this.linkAtomic.Location = new System.Drawing.Point(6, 8);
+            this.linkAtomic.Name = "linkAtomic";
+            this.linkAtomic.Size = new System.Drawing.Size(181, 24);
+            this.linkAtomic.TabIndex = 58;
+            this.linkAtomic.TabStop = true;
+            this.linkAtomic.Text = "Atomic Trade: coin/BTC";
+            this.linkAtomic.UseCompatibleTextRendering = true;
+            this.linkAtomic.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
+            // 
+            // trackAtomicDepth
+            // 
+            this.trackAtomicDepth.LargeChange = 10;
+            this.trackAtomicDepth.Location = new System.Drawing.Point(9, 286);
+            this.trackAtomicDepth.Maximum = 50;
+            this.trackAtomicDepth.Minimum = 5;
+            this.trackAtomicDepth.Name = "trackAtomicDepth";
+            this.trackAtomicDepth.Size = new System.Drawing.Size(217, 45);
+            this.trackAtomicDepth.SmallChange = 5;
+            this.trackAtomicDepth.TabIndex = 57;
+            this.trackAtomicDepth.TickFrequency = 5;
+            this.trackAtomicDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackAtomicDepth.Value = 20;
+            this.trackAtomicDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
+            // 
+            // tabCryptoine
+            // 
+            this.tabCryptoine.Controls.Add(this.dgvCryptoineSell);
+            this.tabCryptoine.Controls.Add(this.chartCryptoineSell);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineSell);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineBuy);
+            this.tabCryptoine.Controls.Add(this.dgvCryptoineBuy);
+            this.tabCryptoine.Controls.Add(this.chartCryptoineBuy);
+            this.tabCryptoine.Controls.Add(this.chkCryptoineBtc);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineDepth);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineWeight);
+            this.tabCryptoine.Controls.Add(this.txtCryptoineWeight);
+            this.tabCryptoine.Controls.Add(this.txtCryptoineDailyvolume);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineLeftover);
+            this.tabCryptoine.Controls.Add(this.txtCryptoineLeftover);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineFallthrough);
+            this.tabCryptoine.Controls.Add(this.txtCryptoineFallthrough);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineDailyvolume);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineWhisker);
+            this.tabCryptoine.Controls.Add(this.trackCryptoineWhisker);
+            this.tabCryptoine.Controls.Add(this.lblCryptoineBox);
+            this.tabCryptoine.Controls.Add(this.trackCryptoineBox);
+            this.tabCryptoine.Controls.Add(this.linkCryptoine);
+            this.tabCryptoine.Controls.Add(this.trackCryptoineDepth);
+            this.tabCryptoine.Location = new System.Drawing.Point(4, 22);
+            this.tabCryptoine.Name = "tabCryptoine";
+            this.tabCryptoine.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCryptoine.Size = new System.Drawing.Size(845, 470);
+            this.tabCryptoine.TabIndex = 11;
+            this.tabCryptoine.Text = "Cryptoine";
+            // 
+            // dgvCryptoineSell
+            // 
+            this.dgvCryptoineSell.AllowUserToAddRows = false;
+            this.dgvCryptoineSell.AllowUserToDeleteRows = false;
+            this.dgvCryptoineSell.AllowUserToResizeRows = false;
+            this.dgvCryptoineSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle81.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle81.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle81.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle81.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle81.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCryptoineSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle81;
+            this.dgvCryptoineSell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCryptoineSell.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn61,
+            this.dataGridViewTextBoxColumn62,
+            this.dataGridViewTextBoxColumn63});
+            this.dgvCryptoineSell.Location = new System.Drawing.Point(539, 31);
+            this.dgvCryptoineSell.Name = "dgvCryptoineSell";
+            this.dgvCryptoineSell.ReadOnly = true;
+            this.dgvCryptoineSell.RowHeadersVisible = false;
+            this.dgvCryptoineSell.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCryptoineSell.Size = new System.Drawing.Size(300, 191);
+            this.dgvCryptoineSell.TabIndex = 56;
+            // 
+            // dataGridViewTextBoxColumn61
+            // 
+            this.dataGridViewTextBoxColumn61.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn61.DataPropertyName = "BtcPrice";
+            dataGridViewCellStyle82.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn61.DefaultCellStyle = dataGridViewCellStyle82;
+            this.dataGridViewTextBoxColumn61.HeaderText = "Price (BTC)";
+            this.dataGridViewTextBoxColumn61.Name = "dataGridViewTextBoxColumn61";
+            this.dataGridViewTextBoxColumn61.ReadOnly = true;
+            this.dataGridViewTextBoxColumn61.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn62
+            // 
+            this.dataGridViewTextBoxColumn62.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn62.DataPropertyName = "BtcVolume";
+            dataGridViewCellStyle83.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn62.DefaultCellStyle = dataGridViewCellStyle83;
+            this.dataGridViewTextBoxColumn62.HeaderText = "Volume (BTC)";
+            this.dataGridViewTextBoxColumn62.Name = "dataGridViewTextBoxColumn62";
+            this.dataGridViewTextBoxColumn62.ReadOnly = true;
+            this.dataGridViewTextBoxColumn62.Width = 97;
+            // 
+            // dataGridViewTextBoxColumn63
+            // 
+            this.dataGridViewTextBoxColumn63.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn63.DataPropertyName = "CoinVolume";
+            dataGridViewCellStyle84.Format = "0.########";
+            this.dataGridViewTextBoxColumn63.DefaultCellStyle = dataGridViewCellStyle84;
+            this.dataGridViewTextBoxColumn63.HeaderText = "Volume (coin)";
+            this.dataGridViewTextBoxColumn63.Name = "dataGridViewTextBoxColumn63";
+            this.dataGridViewTextBoxColumn63.ReadOnly = true;
+            // 
+            // chartCryptoineSell
+            // 
+            this.chartCryptoineSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea21.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea21.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea21.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea21.AxisX.LabelStyle.Enabled = false;
+            chartArea21.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea21.AxisX.MajorGrid.LineWidth = 0;
+            chartArea21.AxisY.IsStartedFromZero = false;
+            chartArea21.AxisY.LabelStyle.Format = "0.00000000";
+            chartArea21.AxisY.MajorGrid.LineWidth = 0;
+            chartArea21.Name = "ChartArea";
+            this.chartCryptoineSell.ChartAreas.Add(chartArea21);
+            this.chartCryptoineSell.Location = new System.Drawing.Point(539, 228);
+            this.chartCryptoineSell.Name = "chartCryptoineSell";
+            series21.BorderColor = System.Drawing.Color.Gold;
+            series21.ChartArea = "ChartArea";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
+            series21.Color = System.Drawing.Color.Gold;
+            series21.Name = "BoxPlotSeries";
+            series21.YValuesPerPoint = 6;
+            this.chartCryptoineSell.Series.Add(series21);
+            this.chartCryptoineSell.Size = new System.Drawing.Size(300, 234);
+            this.chartCryptoineSell.TabIndex = 55;
+            this.chartCryptoineSell.Text = "chart1";
+            // 
+            // lblCryptoineSell
+            // 
+            this.lblCryptoineSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCryptoineSell.AutoSize = true;
+            this.lblCryptoineSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCryptoineSell.ForeColor = System.Drawing.Color.Maroon;
+            this.lblCryptoineSell.Location = new System.Drawing.Point(535, 8);
+            this.lblCryptoineSell.Name = "lblCryptoineSell";
+            this.lblCryptoineSell.Size = new System.Drawing.Size(84, 20);
+            this.lblCryptoineSell.TabIndex = 54;
+            this.lblCryptoineSell.Text = "Sell orders";
+            // 
+            // lblCryptoineBuy
+            // 
+            this.lblCryptoineBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCryptoineBuy.AutoSize = true;
+            this.lblCryptoineBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCryptoineBuy.ForeColor = System.Drawing.Color.OliveDrab;
+            this.lblCryptoineBuy.Location = new System.Drawing.Point(229, 8);
+            this.lblCryptoineBuy.Name = "lblCryptoineBuy";
+            this.lblCryptoineBuy.Size = new System.Drawing.Size(85, 20);
+            this.lblCryptoineBuy.TabIndex = 53;
+            this.lblCryptoineBuy.Text = "Buy orders";
+            // 
+            // dgvCryptoineBuy
+            // 
+            this.dgvCryptoineBuy.AllowUserToAddRows = false;
+            this.dgvCryptoineBuy.AllowUserToDeleteRows = false;
+            this.dgvCryptoineBuy.AllowUserToResizeRows = false;
+            this.dgvCryptoineBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle85.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle85.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle85.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle85.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle85.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCryptoineBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle85;
+            this.dgvCryptoineBuy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCryptoineBuy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn64,
+            this.dataGridViewTextBoxColumn65,
+            this.dataGridViewTextBoxColumn66});
+            this.dgvCryptoineBuy.Location = new System.Drawing.Point(233, 31);
+            this.dgvCryptoineBuy.Name = "dgvCryptoineBuy";
+            this.dgvCryptoineBuy.ReadOnly = true;
+            this.dgvCryptoineBuy.RowHeadersVisible = false;
+            this.dgvCryptoineBuy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCryptoineBuy.Size = new System.Drawing.Size(300, 191);
+            this.dgvCryptoineBuy.TabIndex = 52;
+            // 
+            // dataGridViewTextBoxColumn64
+            // 
+            this.dataGridViewTextBoxColumn64.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn64.DataPropertyName = "BtcPrice";
+            dataGridViewCellStyle86.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn64.DefaultCellStyle = dataGridViewCellStyle86;
+            this.dataGridViewTextBoxColumn64.HeaderText = "Price (BTC)";
+            this.dataGridViewTextBoxColumn64.Name = "dataGridViewTextBoxColumn64";
+            this.dataGridViewTextBoxColumn64.ReadOnly = true;
+            this.dataGridViewTextBoxColumn64.Width = 86;
+            // 
+            // dataGridViewTextBoxColumn65
+            // 
+            this.dataGridViewTextBoxColumn65.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn65.DataPropertyName = "BtcVolume";
+            dataGridViewCellStyle87.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn65.DefaultCellStyle = dataGridViewCellStyle87;
+            this.dataGridViewTextBoxColumn65.HeaderText = "Volume (BTC)";
+            this.dataGridViewTextBoxColumn65.Name = "dataGridViewTextBoxColumn65";
+            this.dataGridViewTextBoxColumn65.ReadOnly = true;
+            this.dataGridViewTextBoxColumn65.Width = 97;
+            // 
+            // dataGridViewTextBoxColumn66
+            // 
+            this.dataGridViewTextBoxColumn66.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn66.DataPropertyName = "CoinVolume";
+            dataGridViewCellStyle88.Format = "0.########";
+            this.dataGridViewTextBoxColumn66.DefaultCellStyle = dataGridViewCellStyle88;
+            this.dataGridViewTextBoxColumn66.HeaderText = "Volume (coin)";
+            this.dataGridViewTextBoxColumn66.Name = "dataGridViewTextBoxColumn66";
+            this.dataGridViewTextBoxColumn66.ReadOnly = true;
+            // 
+            // chartCryptoineBuy
+            // 
+            this.chartCryptoineBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea22.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea22.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea22.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea22.AxisX.LabelStyle.Enabled = false;
+            chartArea22.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea22.AxisX.MajorGrid.LineWidth = 0;
+            chartArea22.AxisY.IsStartedFromZero = false;
+            chartArea22.AxisY.LabelStyle.Format = "0.00000000";
+            chartArea22.AxisY.MajorGrid.LineWidth = 0;
+            chartArea22.Name = "ChartArea";
+            this.chartCryptoineBuy.ChartAreas.Add(chartArea22);
+            this.chartCryptoineBuy.Location = new System.Drawing.Point(233, 228);
+            this.chartCryptoineBuy.Name = "chartCryptoineBuy";
+            series22.BorderColor = System.Drawing.Color.Gold;
+            series22.ChartArea = "ChartArea";
+            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
+            series22.Color = System.Drawing.Color.Gold;
+            series22.Name = "BoxPlotSeries";
+            series22.YValuesPerPoint = 6;
+            this.chartCryptoineBuy.Series.Add(series22);
+            this.chartCryptoineBuy.Size = new System.Drawing.Size(300, 234);
+            this.chartCryptoineBuy.TabIndex = 51;
+            this.chartCryptoineBuy.Text = "chart2";
+            // 
+            // chkCryptoineBtc
+            // 
+            this.chkCryptoineBtc.Checked = true;
+            this.chkCryptoineBtc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCryptoineBtc.Location = new System.Drawing.Point(10, 228);
+            this.chkCryptoineBtc.Name = "chkCryptoineBtc";
+            this.chkCryptoineBtc.Size = new System.Drawing.Size(165, 33);
+            this.chkCryptoineBtc.TabIndex = 72;
+            this.chkCryptoineBtc.Text = "Use BTC volume as weight, instead of coin volume";
+            this.chkCryptoineBtc.UseVisualStyleBackColor = true;
+            this.chkCryptoineBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
+            // 
+            // lblCryptoineDepth
+            // 
+            this.lblCryptoineDepth.AutoSize = true;
+            this.lblCryptoineDepth.Location = new System.Drawing.Point(6, 270);
+            this.lblCryptoineDepth.Name = "lblCryptoineDepth";
+            this.lblCryptoineDepth.Size = new System.Drawing.Size(39, 13);
+            this.lblCryptoineDepth.TabIndex = 71;
+            this.lblCryptoineDepth.Text = "Depth:";
+            // 
+            // lblCryptoineWeight
+            // 
+            this.lblCryptoineWeight.AutoSize = true;
+            this.lblCryptoineWeight.Location = new System.Drawing.Point(7, 60);
+            this.lblCryptoineWeight.Name = "lblCryptoineWeight";
+            this.lblCryptoineWeight.Size = new System.Drawing.Size(44, 13);
+            this.lblCryptoineWeight.TabIndex = 70;
+            this.lblCryptoineWeight.Text = "Weight:";
+            // 
+            // txtCryptoineWeight
+            // 
+            this.txtCryptoineWeight.Location = new System.Drawing.Point(104, 57);
+            this.txtCryptoineWeight.Name = "txtCryptoineWeight";
+            this.txtCryptoineWeight.ReadOnly = true;
+            this.txtCryptoineWeight.Size = new System.Drawing.Size(100, 20);
+            this.txtCryptoineWeight.TabIndex = 69;
+            // 
+            // txtCryptoineDailyvolume
+            // 
+            this.txtCryptoineDailyvolume.Location = new System.Drawing.Point(104, 31);
+            this.txtCryptoineDailyvolume.Name = "txtCryptoineDailyvolume";
+            this.txtCryptoineDailyvolume.ReadOnly = true;
+            this.txtCryptoineDailyvolume.Size = new System.Drawing.Size(100, 20);
+            this.txtCryptoineDailyvolume.TabIndex = 68;
+            // 
+            // lblCryptoineLeftover
+            // 
+            this.lblCryptoineLeftover.AutoSize = true;
+            this.lblCryptoineLeftover.Location = new System.Drawing.Point(7, 138);
+            this.lblCryptoineLeftover.Name = "lblCryptoineLeftover";
+            this.lblCryptoineLeftover.Size = new System.Drawing.Size(52, 13);
+            this.lblCryptoineLeftover.TabIndex = 67;
+            this.lblCryptoineLeftover.Text = "Left over:";
+            // 
+            // txtCryptoineLeftover
+            // 
+            this.txtCryptoineLeftover.Location = new System.Drawing.Point(104, 135);
+            this.txtCryptoineLeftover.Name = "txtCryptoineLeftover";
+            this.txtCryptoineLeftover.ReadOnly = true;
+            this.txtCryptoineLeftover.Size = new System.Drawing.Size(100, 20);
+            this.txtCryptoineLeftover.TabIndex = 66;
+            // 
+            // lblCryptoineFallthrough
+            // 
+            this.lblCryptoineFallthrough.AutoSize = true;
+            this.lblCryptoineFallthrough.Location = new System.Drawing.Point(7, 112);
+            this.lblCryptoineFallthrough.Name = "lblCryptoineFallthrough";
+            this.lblCryptoineFallthrough.Size = new System.Drawing.Size(88, 13);
+            this.lblCryptoineFallthrough.TabIndex = 65;
+            this.lblCryptoineFallthrough.Text = "Fallthrough price:";
+            // 
+            // txtCryptoineFallthrough
+            // 
+            this.txtCryptoineFallthrough.Location = new System.Drawing.Point(104, 109);
+            this.txtCryptoineFallthrough.Name = "txtCryptoineFallthrough";
+            this.txtCryptoineFallthrough.ReadOnly = true;
+            this.txtCryptoineFallthrough.Size = new System.Drawing.Size(100, 20);
+            this.txtCryptoineFallthrough.TabIndex = 64;
+            // 
+            // lblCryptoineDailyvolume
+            // 
+            this.lblCryptoineDailyvolume.AutoSize = true;
+            this.lblCryptoineDailyvolume.Location = new System.Drawing.Point(7, 34);
+            this.lblCryptoineDailyvolume.Name = "lblCryptoineDailyvolume";
+            this.lblCryptoineDailyvolume.Size = new System.Drawing.Size(70, 13);
+            this.lblCryptoineDailyvolume.TabIndex = 63;
+            this.lblCryptoineDailyvolume.Text = "Daily volume:";
+            // 
+            // lblCryptoineWhisker
+            // 
+            this.lblCryptoineWhisker.AutoSize = true;
+            this.lblCryptoineWhisker.Location = new System.Drawing.Point(6, 398);
+            this.lblCryptoineWhisker.Name = "lblCryptoineWhisker";
+            this.lblCryptoineWhisker.Size = new System.Drawing.Size(109, 13);
+            this.lblCryptoineWhisker.TabIndex = 62;
+            this.lblCryptoineWhisker.Text = "Whisker percentage: ";
+            // 
+            // trackCryptoineWhisker
+            // 
+            this.trackCryptoineWhisker.LargeChange = 8;
+            this.trackCryptoineWhisker.Location = new System.Drawing.Point(9, 414);
+            this.trackCryptoineWhisker.Maximum = 49;
+            this.trackCryptoineWhisker.Minimum = 1;
+            this.trackCryptoineWhisker.Name = "trackCryptoineWhisker";
+            this.trackCryptoineWhisker.Size = new System.Drawing.Size(217, 45);
+            this.trackCryptoineWhisker.SmallChange = 4;
+            this.trackCryptoineWhisker.TabIndex = 61;
+            this.trackCryptoineWhisker.TickFrequency = 4;
+            this.trackCryptoineWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackCryptoineWhisker.Value = 5;
+            this.trackCryptoineWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
+            // 
+            // lblCryptoineBox
+            // 
+            this.lblCryptoineBox.AutoSize = true;
+            this.lblCryptoineBox.Location = new System.Drawing.Point(6, 334);
+            this.lblCryptoineBox.Name = "lblCryptoineBox";
+            this.lblCryptoineBox.Size = new System.Drawing.Size(88, 13);
+            this.lblCryptoineBox.TabIndex = 60;
+            this.lblCryptoineBox.Text = "Box percentage: ";
+            // 
+            // trackCryptoineBox
+            // 
+            this.trackCryptoineBox.LargeChange = 8;
+            this.trackCryptoineBox.Location = new System.Drawing.Point(9, 350);
+            this.trackCryptoineBox.Maximum = 49;
+            this.trackCryptoineBox.Minimum = 1;
+            this.trackCryptoineBox.Name = "trackCryptoineBox";
+            this.trackCryptoineBox.Size = new System.Drawing.Size(217, 45);
+            this.trackCryptoineBox.SmallChange = 4;
+            this.trackCryptoineBox.TabIndex = 59;
+            this.trackCryptoineBox.TickFrequency = 4;
+            this.trackCryptoineBox.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackCryptoineBox.Value = 24;
+            this.trackCryptoineBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
+            // 
+            // linkCryptoine
+            // 
+            this.linkCryptoine.AutoSize = true;
+            this.linkCryptoine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkCryptoine.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
+            this.linkCryptoine.Location = new System.Drawing.Point(6, 8);
+            this.linkCryptoine.Name = "linkCryptoine";
+            this.linkCryptoine.Size = new System.Drawing.Size(153, 24);
+            this.linkCryptoine.TabIndex = 58;
+            this.linkCryptoine.TabStop = true;
+            this.linkCryptoine.Text = "Cryptoine: coin/BTC";
+            this.linkCryptoine.UseCompatibleTextRendering = true;
+            this.linkCryptoine.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
+            // 
+            // trackCryptoineDepth
+            // 
+            this.trackCryptoineDepth.LargeChange = 10;
+            this.trackCryptoineDepth.Location = new System.Drawing.Point(9, 286);
+            this.trackCryptoineDepth.Maximum = 50;
+            this.trackCryptoineDepth.Minimum = 5;
+            this.trackCryptoineDepth.Name = "trackCryptoineDepth";
+            this.trackCryptoineDepth.Size = new System.Drawing.Size(217, 45);
+            this.trackCryptoineDepth.SmallChange = 5;
+            this.trackCryptoineDepth.TabIndex = 57;
+            this.trackCryptoineDepth.TickFrequency = 5;
+            this.trackCryptoineDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackCryptoineDepth.Value = 20;
+            this.trackCryptoineDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
             // 
             // tabAllCoin
             // 
@@ -4392,14 +5571,14 @@
             this.dgvAllcoinSell.AllowUserToDeleteRows = false;
             this.dgvAllcoinSell.AllowUserToResizeRows = false;
             this.dgvAllcoinSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle65.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle65.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle65.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle65.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle65.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAllcoinSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle65;
+            dataGridViewCellStyle89.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle89.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle89.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle89.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle89.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle89.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAllcoinSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle89;
             this.dgvAllcoinSell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAllcoinSell.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn43,
@@ -4417,8 +5596,8 @@
             // 
             this.dataGridViewTextBoxColumn43.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn43.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle66.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn43.DefaultCellStyle = dataGridViewCellStyle66;
+            dataGridViewCellStyle90.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn43.DefaultCellStyle = dataGridViewCellStyle90;
             this.dataGridViewTextBoxColumn43.HeaderText = "Price (BTC)";
             this.dataGridViewTextBoxColumn43.Name = "dataGridViewTextBoxColumn43";
             this.dataGridViewTextBoxColumn43.ReadOnly = true;
@@ -4428,8 +5607,8 @@
             // 
             this.dataGridViewTextBoxColumn44.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn44.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle67.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn44.DefaultCellStyle = dataGridViewCellStyle67;
+            dataGridViewCellStyle91.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn44.DefaultCellStyle = dataGridViewCellStyle91;
             this.dataGridViewTextBoxColumn44.HeaderText = "Volume (BTC)";
             this.dataGridViewTextBoxColumn44.Name = "dataGridViewTextBoxColumn44";
             this.dataGridViewTextBoxColumn44.ReadOnly = true;
@@ -4439,8 +5618,8 @@
             // 
             this.dataGridViewTextBoxColumn45.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn45.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle68.Format = "0.########";
-            this.dataGridViewTextBoxColumn45.DefaultCellStyle = dataGridViewCellStyle68;
+            dataGridViewCellStyle92.Format = "0.########";
+            this.dataGridViewTextBoxColumn45.DefaultCellStyle = dataGridViewCellStyle92;
             this.dataGridViewTextBoxColumn45.HeaderText = "Volume (coin)";
             this.dataGridViewTextBoxColumn45.Name = "dataGridViewTextBoxColumn45";
             this.dataGridViewTextBoxColumn45.ReadOnly = true;
@@ -4448,26 +5627,26 @@
             // chartAllcoinSell
             // 
             this.chartAllcoinSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea17.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea17.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea17.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea17.AxisX.LabelStyle.Enabled = false;
-            chartArea17.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea17.AxisX.MajorGrid.LineWidth = 0;
-            chartArea17.AxisY.IsStartedFromZero = false;
-            chartArea17.AxisY.LabelStyle.Format = "0.00000000";
-            chartArea17.AxisY.MajorGrid.LineWidth = 0;
-            chartArea17.Name = "ChartArea";
-            this.chartAllcoinSell.ChartAreas.Add(chartArea17);
+            chartArea23.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
+            chartArea23.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea23.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea23.AxisX.LabelStyle.Enabled = false;
+            chartArea23.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea23.AxisX.MajorGrid.LineWidth = 0;
+            chartArea23.AxisY.IsStartedFromZero = false;
+            chartArea23.AxisY.LabelStyle.Format = "0.00000000";
+            chartArea23.AxisY.MajorGrid.LineWidth = 0;
+            chartArea23.Name = "ChartArea";
+            this.chartAllcoinSell.ChartAreas.Add(chartArea23);
             this.chartAllcoinSell.Location = new System.Drawing.Point(539, 228);
             this.chartAllcoinSell.Name = "chartAllcoinSell";
-            series17.BorderColor = System.Drawing.Color.Gold;
-            series17.ChartArea = "ChartArea";
-            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
-            series17.Color = System.Drawing.Color.Gold;
-            series17.Name = "BoxPlotSeries";
-            series17.YValuesPerPoint = 6;
-            this.chartAllcoinSell.Series.Add(series17);
+            series23.BorderColor = System.Drawing.Color.Gold;
+            series23.ChartArea = "ChartArea";
+            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
+            series23.Color = System.Drawing.Color.Gold;
+            series23.Name = "BoxPlotSeries";
+            series23.YValuesPerPoint = 6;
+            this.chartAllcoinSell.Series.Add(series23);
             this.chartAllcoinSell.Size = new System.Drawing.Size(300, 234);
             this.chartAllcoinSell.TabIndex = 55;
             this.chartAllcoinSell.Text = "chart1";
@@ -4502,14 +5681,14 @@
             this.dgvAllcoinBuy.AllowUserToDeleteRows = false;
             this.dgvAllcoinBuy.AllowUserToResizeRows = false;
             this.dgvAllcoinBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle69.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle69.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle69.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle69.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle69.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAllcoinBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle69;
+            dataGridViewCellStyle93.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle93.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle93.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle93.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle93.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle93.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle93.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAllcoinBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle93;
             this.dgvAllcoinBuy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAllcoinBuy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn46,
@@ -4527,8 +5706,8 @@
             // 
             this.dataGridViewTextBoxColumn46.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn46.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle70.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn46.DefaultCellStyle = dataGridViewCellStyle70;
+            dataGridViewCellStyle94.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn46.DefaultCellStyle = dataGridViewCellStyle94;
             this.dataGridViewTextBoxColumn46.HeaderText = "Price (BTC)";
             this.dataGridViewTextBoxColumn46.Name = "dataGridViewTextBoxColumn46";
             this.dataGridViewTextBoxColumn46.ReadOnly = true;
@@ -4538,8 +5717,8 @@
             // 
             this.dataGridViewTextBoxColumn47.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.dataGridViewTextBoxColumn47.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle71.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn47.DefaultCellStyle = dataGridViewCellStyle71;
+            dataGridViewCellStyle95.Format = "0.00000000";
+            this.dataGridViewTextBoxColumn47.DefaultCellStyle = dataGridViewCellStyle95;
             this.dataGridViewTextBoxColumn47.HeaderText = "Volume (BTC)";
             this.dataGridViewTextBoxColumn47.Name = "dataGridViewTextBoxColumn47";
             this.dataGridViewTextBoxColumn47.ReadOnly = true;
@@ -4549,8 +5728,8 @@
             // 
             this.dataGridViewTextBoxColumn48.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn48.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle72.Format = "0.########";
-            this.dataGridViewTextBoxColumn48.DefaultCellStyle = dataGridViewCellStyle72;
+            dataGridViewCellStyle96.Format = "0.########";
+            this.dataGridViewTextBoxColumn48.DefaultCellStyle = dataGridViewCellStyle96;
             this.dataGridViewTextBoxColumn48.HeaderText = "Volume (coin)";
             this.dataGridViewTextBoxColumn48.Name = "dataGridViewTextBoxColumn48";
             this.dataGridViewTextBoxColumn48.ReadOnly = true;
@@ -4558,1185 +5737,6 @@
             // chartAllcoinBuy
             // 
             this.chartAllcoinBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea18.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea18.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea18.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea18.AxisX.LabelStyle.Enabled = false;
-            chartArea18.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea18.AxisX.MajorGrid.LineWidth = 0;
-            chartArea18.AxisY.IsStartedFromZero = false;
-            chartArea18.AxisY.LabelStyle.Format = "0.00000000";
-            chartArea18.AxisY.MajorGrid.LineWidth = 0;
-            chartArea18.Name = "ChartArea";
-            this.chartAllcoinBuy.ChartAreas.Add(chartArea18);
-            this.chartAllcoinBuy.Location = new System.Drawing.Point(233, 228);
-            this.chartAllcoinBuy.Name = "chartAllcoinBuy";
-            series18.BorderColor = System.Drawing.Color.Gold;
-            series18.ChartArea = "ChartArea";
-            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
-            series18.Color = System.Drawing.Color.Gold;
-            series18.Name = "BoxPlotSeries";
-            series18.YValuesPerPoint = 6;
-            this.chartAllcoinBuy.Series.Add(series18);
-            this.chartAllcoinBuy.Size = new System.Drawing.Size(300, 234);
-            this.chartAllcoinBuy.TabIndex = 51;
-            this.chartAllcoinBuy.Text = "chart2";
-            // 
-            // tabAllCrypt
-            // 
-            this.tabAllCrypt.Controls.Add(this.chkAllcryptBtc);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptDepth);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptWeight);
-            this.tabAllCrypt.Controls.Add(this.txtAllcryptWeight);
-            this.tabAllCrypt.Controls.Add(this.txtAllcryptDailyvolume);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptLeftover);
-            this.tabAllCrypt.Controls.Add(this.txtAllcryptLeftover);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptFallthrough);
-            this.tabAllCrypt.Controls.Add(this.txtAllcryptFallthrough);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptDailyvolume);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptWhisker);
-            this.tabAllCrypt.Controls.Add(this.trackAllcryptWhisker);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptBox);
-            this.tabAllCrypt.Controls.Add(this.trackAllcryptBox);
-            this.tabAllCrypt.Controls.Add(this.linkAllcrypt);
-            this.tabAllCrypt.Controls.Add(this.trackAllcryptDepth);
-            this.tabAllCrypt.Controls.Add(this.dgvAllcryptSell);
-            this.tabAllCrypt.Controls.Add(this.chartAllcryptSell);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptSell);
-            this.tabAllCrypt.Controls.Add(this.lblAllcryptBuy);
-            this.tabAllCrypt.Controls.Add(this.dgvAllcryptBuy);
-            this.tabAllCrypt.Controls.Add(this.chartAllcryptBuy);
-            this.tabAllCrypt.Location = new System.Drawing.Point(4, 22);
-            this.tabAllCrypt.Name = "tabAllCrypt";
-            this.tabAllCrypt.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAllCrypt.Size = new System.Drawing.Size(845, 470);
-            this.tabAllCrypt.TabIndex = 9;
-            this.tabAllCrypt.Text = "AllCrypt";
-            // 
-            // chkAllcryptBtc
-            // 
-            this.chkAllcryptBtc.Checked = true;
-            this.chkAllcryptBtc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAllcryptBtc.Location = new System.Drawing.Point(10, 228);
-            this.chkAllcryptBtc.Name = "chkAllcryptBtc";
-            this.chkAllcryptBtc.Size = new System.Drawing.Size(165, 33);
-            this.chkAllcryptBtc.TabIndex = 72;
-            this.chkAllcryptBtc.Text = "Use BTC volume as weight, instead of coin volume";
-            this.chkAllcryptBtc.UseVisualStyleBackColor = true;
-            this.chkAllcryptBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
-            // 
-            // lblAllcryptDepth
-            // 
-            this.lblAllcryptDepth.AutoSize = true;
-            this.lblAllcryptDepth.Location = new System.Drawing.Point(6, 270);
-            this.lblAllcryptDepth.Name = "lblAllcryptDepth";
-            this.lblAllcryptDepth.Size = new System.Drawing.Size(39, 13);
-            this.lblAllcryptDepth.TabIndex = 71;
-            this.lblAllcryptDepth.Text = "Depth:";
-            // 
-            // lblAllcryptWeight
-            // 
-            this.lblAllcryptWeight.AutoSize = true;
-            this.lblAllcryptWeight.Location = new System.Drawing.Point(7, 60);
-            this.lblAllcryptWeight.Name = "lblAllcryptWeight";
-            this.lblAllcryptWeight.Size = new System.Drawing.Size(44, 13);
-            this.lblAllcryptWeight.TabIndex = 70;
-            this.lblAllcryptWeight.Text = "Weight:";
-            // 
-            // txtAllcryptWeight
-            // 
-            this.txtAllcryptWeight.Location = new System.Drawing.Point(104, 57);
-            this.txtAllcryptWeight.Name = "txtAllcryptWeight";
-            this.txtAllcryptWeight.ReadOnly = true;
-            this.txtAllcryptWeight.Size = new System.Drawing.Size(100, 20);
-            this.txtAllcryptWeight.TabIndex = 69;
-            // 
-            // txtAllcryptDailyvolume
-            // 
-            this.txtAllcryptDailyvolume.Location = new System.Drawing.Point(104, 31);
-            this.txtAllcryptDailyvolume.Name = "txtAllcryptDailyvolume";
-            this.txtAllcryptDailyvolume.ReadOnly = true;
-            this.txtAllcryptDailyvolume.Size = new System.Drawing.Size(100, 20);
-            this.txtAllcryptDailyvolume.TabIndex = 68;
-            // 
-            // lblAllcryptLeftover
-            // 
-            this.lblAllcryptLeftover.AutoSize = true;
-            this.lblAllcryptLeftover.Location = new System.Drawing.Point(7, 138);
-            this.lblAllcryptLeftover.Name = "lblAllcryptLeftover";
-            this.lblAllcryptLeftover.Size = new System.Drawing.Size(52, 13);
-            this.lblAllcryptLeftover.TabIndex = 67;
-            this.lblAllcryptLeftover.Text = "Left over:";
-            // 
-            // txtAllcryptLeftover
-            // 
-            this.txtAllcryptLeftover.Location = new System.Drawing.Point(104, 135);
-            this.txtAllcryptLeftover.Name = "txtAllcryptLeftover";
-            this.txtAllcryptLeftover.ReadOnly = true;
-            this.txtAllcryptLeftover.Size = new System.Drawing.Size(100, 20);
-            this.txtAllcryptLeftover.TabIndex = 66;
-            // 
-            // lblAllcryptFallthrough
-            // 
-            this.lblAllcryptFallthrough.AutoSize = true;
-            this.lblAllcryptFallthrough.Location = new System.Drawing.Point(7, 112);
-            this.lblAllcryptFallthrough.Name = "lblAllcryptFallthrough";
-            this.lblAllcryptFallthrough.Size = new System.Drawing.Size(88, 13);
-            this.lblAllcryptFallthrough.TabIndex = 65;
-            this.lblAllcryptFallthrough.Text = "Fallthrough price:";
-            // 
-            // txtAllcryptFallthrough
-            // 
-            this.txtAllcryptFallthrough.Location = new System.Drawing.Point(104, 109);
-            this.txtAllcryptFallthrough.Name = "txtAllcryptFallthrough";
-            this.txtAllcryptFallthrough.ReadOnly = true;
-            this.txtAllcryptFallthrough.Size = new System.Drawing.Size(100, 20);
-            this.txtAllcryptFallthrough.TabIndex = 64;
-            // 
-            // lblAllcryptDailyvolume
-            // 
-            this.lblAllcryptDailyvolume.AutoSize = true;
-            this.lblAllcryptDailyvolume.Location = new System.Drawing.Point(7, 34);
-            this.lblAllcryptDailyvolume.Name = "lblAllcryptDailyvolume";
-            this.lblAllcryptDailyvolume.Size = new System.Drawing.Size(70, 13);
-            this.lblAllcryptDailyvolume.TabIndex = 63;
-            this.lblAllcryptDailyvolume.Text = "Daily volume:";
-            // 
-            // lblAllcryptWhisker
-            // 
-            this.lblAllcryptWhisker.AutoSize = true;
-            this.lblAllcryptWhisker.Location = new System.Drawing.Point(6, 398);
-            this.lblAllcryptWhisker.Name = "lblAllcryptWhisker";
-            this.lblAllcryptWhisker.Size = new System.Drawing.Size(109, 13);
-            this.lblAllcryptWhisker.TabIndex = 62;
-            this.lblAllcryptWhisker.Text = "Whisker percentage: ";
-            // 
-            // trackAllcryptWhisker
-            // 
-            this.trackAllcryptWhisker.LargeChange = 8;
-            this.trackAllcryptWhisker.Location = new System.Drawing.Point(9, 414);
-            this.trackAllcryptWhisker.Maximum = 49;
-            this.trackAllcryptWhisker.Minimum = 1;
-            this.trackAllcryptWhisker.Name = "trackAllcryptWhisker";
-            this.trackAllcryptWhisker.Size = new System.Drawing.Size(217, 45);
-            this.trackAllcryptWhisker.SmallChange = 4;
-            this.trackAllcryptWhisker.TabIndex = 61;
-            this.trackAllcryptWhisker.TickFrequency = 4;
-            this.trackAllcryptWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackAllcryptWhisker.Value = 5;
-            this.trackAllcryptWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
-            // 
-            // lblAllcryptBox
-            // 
-            this.lblAllcryptBox.AutoSize = true;
-            this.lblAllcryptBox.Location = new System.Drawing.Point(6, 334);
-            this.lblAllcryptBox.Name = "lblAllcryptBox";
-            this.lblAllcryptBox.Size = new System.Drawing.Size(88, 13);
-            this.lblAllcryptBox.TabIndex = 60;
-            this.lblAllcryptBox.Text = "Box percentage: ";
-            // 
-            // trackAllcryptBox
-            // 
-            this.trackAllcryptBox.LargeChange = 8;
-            this.trackAllcryptBox.Location = new System.Drawing.Point(9, 350);
-            this.trackAllcryptBox.Maximum = 49;
-            this.trackAllcryptBox.Minimum = 1;
-            this.trackAllcryptBox.Name = "trackAllcryptBox";
-            this.trackAllcryptBox.Size = new System.Drawing.Size(217, 45);
-            this.trackAllcryptBox.SmallChange = 4;
-            this.trackAllcryptBox.TabIndex = 59;
-            this.trackAllcryptBox.TickFrequency = 4;
-            this.trackAllcryptBox.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackAllcryptBox.Value = 24;
-            this.trackAllcryptBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
-            // 
-            // linkAllcrypt
-            // 
-            this.linkAllcrypt.AutoSize = true;
-            this.linkAllcrypt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkAllcrypt.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
-            this.linkAllcrypt.Location = new System.Drawing.Point(6, 8);
-            this.linkAllcrypt.Name = "linkAllcrypt";
-            this.linkAllcrypt.Size = new System.Drawing.Size(141, 24);
-            this.linkAllcrypt.TabIndex = 58;
-            this.linkAllcrypt.TabStop = true;
-            this.linkAllcrypt.Text = "AllCrypt: coin/BTC";
-            this.linkAllcrypt.UseCompatibleTextRendering = true;
-            this.linkAllcrypt.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
-            // 
-            // trackAllcryptDepth
-            // 
-            this.trackAllcryptDepth.LargeChange = 10;
-            this.trackAllcryptDepth.Location = new System.Drawing.Point(9, 286);
-            this.trackAllcryptDepth.Maximum = 50;
-            this.trackAllcryptDepth.Minimum = 5;
-            this.trackAllcryptDepth.Name = "trackAllcryptDepth";
-            this.trackAllcryptDepth.Size = new System.Drawing.Size(217, 45);
-            this.trackAllcryptDepth.SmallChange = 5;
-            this.trackAllcryptDepth.TabIndex = 57;
-            this.trackAllcryptDepth.TickFrequency = 5;
-            this.trackAllcryptDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackAllcryptDepth.Value = 20;
-            this.trackAllcryptDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
-            // 
-            // dgvAllcryptSell
-            // 
-            this.dgvAllcryptSell.AllowUserToAddRows = false;
-            this.dgvAllcryptSell.AllowUserToDeleteRows = false;
-            this.dgvAllcryptSell.AllowUserToResizeRows = false;
-            this.dgvAllcryptSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle73.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle73.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle73.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle73.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle73.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle73.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle73.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAllcryptSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle73;
-            this.dgvAllcryptSell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAllcryptSell.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn49,
-            this.dataGridViewTextBoxColumn50,
-            this.dataGridViewTextBoxColumn51});
-            this.dgvAllcryptSell.Location = new System.Drawing.Point(539, 31);
-            this.dgvAllcryptSell.Name = "dgvAllcryptSell";
-            this.dgvAllcryptSell.ReadOnly = true;
-            this.dgvAllcryptSell.RowHeadersVisible = false;
-            this.dgvAllcryptSell.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAllcryptSell.Size = new System.Drawing.Size(300, 191);
-            this.dgvAllcryptSell.TabIndex = 56;
-            // 
-            // dataGridViewTextBoxColumn49
-            // 
-            this.dataGridViewTextBoxColumn49.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn49.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle74.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn49.DefaultCellStyle = dataGridViewCellStyle74;
-            this.dataGridViewTextBoxColumn49.HeaderText = "Price (BTC)";
-            this.dataGridViewTextBoxColumn49.Name = "dataGridViewTextBoxColumn49";
-            this.dataGridViewTextBoxColumn49.ReadOnly = true;
-            this.dataGridViewTextBoxColumn49.Width = 86;
-            // 
-            // dataGridViewTextBoxColumn50
-            // 
-            this.dataGridViewTextBoxColumn50.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn50.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle75.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn50.DefaultCellStyle = dataGridViewCellStyle75;
-            this.dataGridViewTextBoxColumn50.HeaderText = "Volume (BTC)";
-            this.dataGridViewTextBoxColumn50.Name = "dataGridViewTextBoxColumn50";
-            this.dataGridViewTextBoxColumn50.ReadOnly = true;
-            this.dataGridViewTextBoxColumn50.Width = 97;
-            // 
-            // dataGridViewTextBoxColumn51
-            // 
-            this.dataGridViewTextBoxColumn51.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn51.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle76.Format = "0.########";
-            this.dataGridViewTextBoxColumn51.DefaultCellStyle = dataGridViewCellStyle76;
-            this.dataGridViewTextBoxColumn51.HeaderText = "Volume (coin)";
-            this.dataGridViewTextBoxColumn51.Name = "dataGridViewTextBoxColumn51";
-            this.dataGridViewTextBoxColumn51.ReadOnly = true;
-            // 
-            // chartAllcryptSell
-            // 
-            this.chartAllcryptSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea19.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea19.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea19.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea19.AxisX.LabelStyle.Enabled = false;
-            chartArea19.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea19.AxisX.MajorGrid.LineWidth = 0;
-            chartArea19.AxisY.IsStartedFromZero = false;
-            chartArea19.AxisY.LabelStyle.Format = "0.00000000";
-            chartArea19.AxisY.MajorGrid.LineWidth = 0;
-            chartArea19.Name = "ChartArea";
-            this.chartAllcryptSell.ChartAreas.Add(chartArea19);
-            this.chartAllcryptSell.Location = new System.Drawing.Point(539, 228);
-            this.chartAllcryptSell.Name = "chartAllcryptSell";
-            series19.BorderColor = System.Drawing.Color.Gold;
-            series19.ChartArea = "ChartArea";
-            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
-            series19.Color = System.Drawing.Color.Gold;
-            series19.Name = "BoxPlotSeries";
-            series19.YValuesPerPoint = 6;
-            this.chartAllcryptSell.Series.Add(series19);
-            this.chartAllcryptSell.Size = new System.Drawing.Size(300, 234);
-            this.chartAllcryptSell.TabIndex = 55;
-            this.chartAllcryptSell.Text = "chart1";
-            // 
-            // lblAllcryptSell
-            // 
-            this.lblAllcryptSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAllcryptSell.AutoSize = true;
-            this.lblAllcryptSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAllcryptSell.ForeColor = System.Drawing.Color.Maroon;
-            this.lblAllcryptSell.Location = new System.Drawing.Point(535, 8);
-            this.lblAllcryptSell.Name = "lblAllcryptSell";
-            this.lblAllcryptSell.Size = new System.Drawing.Size(84, 20);
-            this.lblAllcryptSell.TabIndex = 54;
-            this.lblAllcryptSell.Text = "Sell orders";
-            // 
-            // lblAllcryptBuy
-            // 
-            this.lblAllcryptBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAllcryptBuy.AutoSize = true;
-            this.lblAllcryptBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAllcryptBuy.ForeColor = System.Drawing.Color.OliveDrab;
-            this.lblAllcryptBuy.Location = new System.Drawing.Point(229, 8);
-            this.lblAllcryptBuy.Name = "lblAllcryptBuy";
-            this.lblAllcryptBuy.Size = new System.Drawing.Size(85, 20);
-            this.lblAllcryptBuy.TabIndex = 53;
-            this.lblAllcryptBuy.Text = "Buy orders";
-            // 
-            // dgvAllcryptBuy
-            // 
-            this.dgvAllcryptBuy.AllowUserToAddRows = false;
-            this.dgvAllcryptBuy.AllowUserToDeleteRows = false;
-            this.dgvAllcryptBuy.AllowUserToResizeRows = false;
-            this.dgvAllcryptBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle77.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle77.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle77.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle77.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAllcryptBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle77;
-            this.dgvAllcryptBuy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAllcryptBuy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn52,
-            this.dataGridViewTextBoxColumn53,
-            this.dataGridViewTextBoxColumn54});
-            this.dgvAllcryptBuy.Location = new System.Drawing.Point(233, 31);
-            this.dgvAllcryptBuy.Name = "dgvAllcryptBuy";
-            this.dgvAllcryptBuy.ReadOnly = true;
-            this.dgvAllcryptBuy.RowHeadersVisible = false;
-            this.dgvAllcryptBuy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAllcryptBuy.Size = new System.Drawing.Size(300, 191);
-            this.dgvAllcryptBuy.TabIndex = 52;
-            // 
-            // dataGridViewTextBoxColumn52
-            // 
-            this.dataGridViewTextBoxColumn52.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn52.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle78.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn52.DefaultCellStyle = dataGridViewCellStyle78;
-            this.dataGridViewTextBoxColumn52.HeaderText = "Price (BTC)";
-            this.dataGridViewTextBoxColumn52.Name = "dataGridViewTextBoxColumn52";
-            this.dataGridViewTextBoxColumn52.ReadOnly = true;
-            this.dataGridViewTextBoxColumn52.Width = 86;
-            // 
-            // dataGridViewTextBoxColumn53
-            // 
-            this.dataGridViewTextBoxColumn53.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn53.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle79.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn53.DefaultCellStyle = dataGridViewCellStyle79;
-            this.dataGridViewTextBoxColumn53.HeaderText = "Volume (BTC)";
-            this.dataGridViewTextBoxColumn53.Name = "dataGridViewTextBoxColumn53";
-            this.dataGridViewTextBoxColumn53.ReadOnly = true;
-            this.dataGridViewTextBoxColumn53.Width = 97;
-            // 
-            // dataGridViewTextBoxColumn54
-            // 
-            this.dataGridViewTextBoxColumn54.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn54.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle80.Format = "0.########";
-            this.dataGridViewTextBoxColumn54.DefaultCellStyle = dataGridViewCellStyle80;
-            this.dataGridViewTextBoxColumn54.HeaderText = "Volume (coin)";
-            this.dataGridViewTextBoxColumn54.Name = "dataGridViewTextBoxColumn54";
-            this.dataGridViewTextBoxColumn54.ReadOnly = true;
-            // 
-            // chartAllcryptBuy
-            // 
-            this.chartAllcryptBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea20.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea20.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea20.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea20.AxisX.LabelStyle.Enabled = false;
-            chartArea20.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea20.AxisX.MajorGrid.LineWidth = 0;
-            chartArea20.AxisY.IsStartedFromZero = false;
-            chartArea20.AxisY.LabelStyle.Format = "0.00000000";
-            chartArea20.AxisY.MajorGrid.LineWidth = 0;
-            chartArea20.Name = "ChartArea";
-            this.chartAllcryptBuy.ChartAreas.Add(chartArea20);
-            this.chartAllcryptBuy.Location = new System.Drawing.Point(233, 228);
-            this.chartAllcryptBuy.Name = "chartAllcryptBuy";
-            series20.BorderColor = System.Drawing.Color.Gold;
-            series20.ChartArea = "ChartArea";
-            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
-            series20.Color = System.Drawing.Color.Gold;
-            series20.Name = "BoxPlotSeries";
-            series20.YValuesPerPoint = 6;
-            this.chartAllcryptBuy.Series.Add(series20);
-            this.chartAllcryptBuy.Size = new System.Drawing.Size(300, 234);
-            this.chartAllcryptBuy.TabIndex = 51;
-            this.chartAllcryptBuy.Text = "chart2";
-            // 
-            // tabAtomicTrade
-            // 
-            this.tabAtomicTrade.Controls.Add(this.chkAtomicBtc);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicDepth);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicWeight);
-            this.tabAtomicTrade.Controls.Add(this.txtAtomicWeight);
-            this.tabAtomicTrade.Controls.Add(this.txtAtomicDailyvolume);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicLeftover);
-            this.tabAtomicTrade.Controls.Add(this.txtAtomicLeftover);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicFallthrough);
-            this.tabAtomicTrade.Controls.Add(this.txtAtomicFallthrough);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicDailyvolume);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicWhisker);
-            this.tabAtomicTrade.Controls.Add(this.trackAtomicWhisker);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicBox);
-            this.tabAtomicTrade.Controls.Add(this.trackAtomicBox);
-            this.tabAtomicTrade.Controls.Add(this.linkAtomic);
-            this.tabAtomicTrade.Controls.Add(this.trackAtomicDepth);
-            this.tabAtomicTrade.Controls.Add(this.dgvAtomicSell);
-            this.tabAtomicTrade.Controls.Add(this.chartAtomicSell);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicSell);
-            this.tabAtomicTrade.Controls.Add(this.lblAtomicBuy);
-            this.tabAtomicTrade.Controls.Add(this.dgvAtomicBuy);
-            this.tabAtomicTrade.Controls.Add(this.chartAtomicBuy);
-            this.tabAtomicTrade.Location = new System.Drawing.Point(4, 22);
-            this.tabAtomicTrade.Name = "tabAtomicTrade";
-            this.tabAtomicTrade.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAtomicTrade.Size = new System.Drawing.Size(845, 470);
-            this.tabAtomicTrade.TabIndex = 10;
-            this.tabAtomicTrade.Text = "Atomic Trade";
-            // 
-            // chkAtomicBtc
-            // 
-            this.chkAtomicBtc.Checked = true;
-            this.chkAtomicBtc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAtomicBtc.Location = new System.Drawing.Point(10, 228);
-            this.chkAtomicBtc.Name = "chkAtomicBtc";
-            this.chkAtomicBtc.Size = new System.Drawing.Size(165, 33);
-            this.chkAtomicBtc.TabIndex = 72;
-            this.chkAtomicBtc.Text = "Use BTC volume as weight, instead of coin volume";
-            this.chkAtomicBtc.UseVisualStyleBackColor = true;
-            this.chkAtomicBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
-            // 
-            // lblAtomicDepth
-            // 
-            this.lblAtomicDepth.AutoSize = true;
-            this.lblAtomicDepth.Location = new System.Drawing.Point(6, 270);
-            this.lblAtomicDepth.Name = "lblAtomicDepth";
-            this.lblAtomicDepth.Size = new System.Drawing.Size(39, 13);
-            this.lblAtomicDepth.TabIndex = 71;
-            this.lblAtomicDepth.Text = "Depth:";
-            // 
-            // lblAtomicWeight
-            // 
-            this.lblAtomicWeight.AutoSize = true;
-            this.lblAtomicWeight.Location = new System.Drawing.Point(7, 60);
-            this.lblAtomicWeight.Name = "lblAtomicWeight";
-            this.lblAtomicWeight.Size = new System.Drawing.Size(44, 13);
-            this.lblAtomicWeight.TabIndex = 70;
-            this.lblAtomicWeight.Text = "Weight:";
-            // 
-            // txtAtomicWeight
-            // 
-            this.txtAtomicWeight.Location = new System.Drawing.Point(104, 57);
-            this.txtAtomicWeight.Name = "txtAtomicWeight";
-            this.txtAtomicWeight.ReadOnly = true;
-            this.txtAtomicWeight.Size = new System.Drawing.Size(100, 20);
-            this.txtAtomicWeight.TabIndex = 69;
-            // 
-            // txtAtomicDailyvolume
-            // 
-            this.txtAtomicDailyvolume.Location = new System.Drawing.Point(104, 31);
-            this.txtAtomicDailyvolume.Name = "txtAtomicDailyvolume";
-            this.txtAtomicDailyvolume.ReadOnly = true;
-            this.txtAtomicDailyvolume.Size = new System.Drawing.Size(100, 20);
-            this.txtAtomicDailyvolume.TabIndex = 68;
-            // 
-            // lblAtomicLeftover
-            // 
-            this.lblAtomicLeftover.AutoSize = true;
-            this.lblAtomicLeftover.Location = new System.Drawing.Point(7, 138);
-            this.lblAtomicLeftover.Name = "lblAtomicLeftover";
-            this.lblAtomicLeftover.Size = new System.Drawing.Size(52, 13);
-            this.lblAtomicLeftover.TabIndex = 67;
-            this.lblAtomicLeftover.Text = "Left over:";
-            // 
-            // txtAtomicLeftover
-            // 
-            this.txtAtomicLeftover.Location = new System.Drawing.Point(104, 135);
-            this.txtAtomicLeftover.Name = "txtAtomicLeftover";
-            this.txtAtomicLeftover.ReadOnly = true;
-            this.txtAtomicLeftover.Size = new System.Drawing.Size(100, 20);
-            this.txtAtomicLeftover.TabIndex = 66;
-            // 
-            // lblAtomicFallthrough
-            // 
-            this.lblAtomicFallthrough.AutoSize = true;
-            this.lblAtomicFallthrough.Location = new System.Drawing.Point(7, 112);
-            this.lblAtomicFallthrough.Name = "lblAtomicFallthrough";
-            this.lblAtomicFallthrough.Size = new System.Drawing.Size(88, 13);
-            this.lblAtomicFallthrough.TabIndex = 65;
-            this.lblAtomicFallthrough.Text = "Fallthrough price:";
-            // 
-            // txtAtomicFallthrough
-            // 
-            this.txtAtomicFallthrough.Location = new System.Drawing.Point(104, 109);
-            this.txtAtomicFallthrough.Name = "txtAtomicFallthrough";
-            this.txtAtomicFallthrough.ReadOnly = true;
-            this.txtAtomicFallthrough.Size = new System.Drawing.Size(100, 20);
-            this.txtAtomicFallthrough.TabIndex = 64;
-            // 
-            // lblAtomicDailyvolume
-            // 
-            this.lblAtomicDailyvolume.AutoSize = true;
-            this.lblAtomicDailyvolume.Location = new System.Drawing.Point(7, 34);
-            this.lblAtomicDailyvolume.Name = "lblAtomicDailyvolume";
-            this.lblAtomicDailyvolume.Size = new System.Drawing.Size(70, 13);
-            this.lblAtomicDailyvolume.TabIndex = 63;
-            this.lblAtomicDailyvolume.Text = "Daily volume:";
-            // 
-            // lblAtomicWhisker
-            // 
-            this.lblAtomicWhisker.AutoSize = true;
-            this.lblAtomicWhisker.Location = new System.Drawing.Point(6, 398);
-            this.lblAtomicWhisker.Name = "lblAtomicWhisker";
-            this.lblAtomicWhisker.Size = new System.Drawing.Size(109, 13);
-            this.lblAtomicWhisker.TabIndex = 62;
-            this.lblAtomicWhisker.Text = "Whisker percentage: ";
-            // 
-            // trackAtomicWhisker
-            // 
-            this.trackAtomicWhisker.LargeChange = 8;
-            this.trackAtomicWhisker.Location = new System.Drawing.Point(9, 414);
-            this.trackAtomicWhisker.Maximum = 49;
-            this.trackAtomicWhisker.Minimum = 1;
-            this.trackAtomicWhisker.Name = "trackAtomicWhisker";
-            this.trackAtomicWhisker.Size = new System.Drawing.Size(217, 45);
-            this.trackAtomicWhisker.SmallChange = 4;
-            this.trackAtomicWhisker.TabIndex = 61;
-            this.trackAtomicWhisker.TickFrequency = 4;
-            this.trackAtomicWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackAtomicWhisker.Value = 5;
-            this.trackAtomicWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
-            // 
-            // lblAtomicBox
-            // 
-            this.lblAtomicBox.AutoSize = true;
-            this.lblAtomicBox.Location = new System.Drawing.Point(6, 334);
-            this.lblAtomicBox.Name = "lblAtomicBox";
-            this.lblAtomicBox.Size = new System.Drawing.Size(88, 13);
-            this.lblAtomicBox.TabIndex = 60;
-            this.lblAtomicBox.Text = "Box percentage: ";
-            // 
-            // trackAtomicBox
-            // 
-            this.trackAtomicBox.LargeChange = 8;
-            this.trackAtomicBox.Location = new System.Drawing.Point(9, 350);
-            this.trackAtomicBox.Maximum = 49;
-            this.trackAtomicBox.Minimum = 1;
-            this.trackAtomicBox.Name = "trackAtomicBox";
-            this.trackAtomicBox.Size = new System.Drawing.Size(217, 45);
-            this.trackAtomicBox.SmallChange = 4;
-            this.trackAtomicBox.TabIndex = 59;
-            this.trackAtomicBox.TickFrequency = 4;
-            this.trackAtomicBox.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackAtomicBox.Value = 24;
-            this.trackAtomicBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
-            // 
-            // linkAtomic
-            // 
-            this.linkAtomic.AutoSize = true;
-            this.linkAtomic.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkAtomic.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
-            this.linkAtomic.Location = new System.Drawing.Point(6, 8);
-            this.linkAtomic.Name = "linkAtomic";
-            this.linkAtomic.Size = new System.Drawing.Size(181, 24);
-            this.linkAtomic.TabIndex = 58;
-            this.linkAtomic.TabStop = true;
-            this.linkAtomic.Text = "Atomic Trade: coin/BTC";
-            this.linkAtomic.UseCompatibleTextRendering = true;
-            this.linkAtomic.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
-            // 
-            // trackAtomicDepth
-            // 
-            this.trackAtomicDepth.LargeChange = 10;
-            this.trackAtomicDepth.Location = new System.Drawing.Point(9, 286);
-            this.trackAtomicDepth.Maximum = 50;
-            this.trackAtomicDepth.Minimum = 5;
-            this.trackAtomicDepth.Name = "trackAtomicDepth";
-            this.trackAtomicDepth.Size = new System.Drawing.Size(217, 45);
-            this.trackAtomicDepth.SmallChange = 5;
-            this.trackAtomicDepth.TabIndex = 57;
-            this.trackAtomicDepth.TickFrequency = 5;
-            this.trackAtomicDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackAtomicDepth.Value = 20;
-            this.trackAtomicDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
-            // 
-            // dgvAtomicSell
-            // 
-            this.dgvAtomicSell.AllowUserToAddRows = false;
-            this.dgvAtomicSell.AllowUserToDeleteRows = false;
-            this.dgvAtomicSell.AllowUserToResizeRows = false;
-            this.dgvAtomicSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle81.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle81.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle81.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle81.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle81.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAtomicSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle81;
-            this.dgvAtomicSell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAtomicSell.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn55,
-            this.dataGridViewTextBoxColumn56,
-            this.dataGridViewTextBoxColumn57});
-            this.dgvAtomicSell.Location = new System.Drawing.Point(539, 31);
-            this.dgvAtomicSell.Name = "dgvAtomicSell";
-            this.dgvAtomicSell.ReadOnly = true;
-            this.dgvAtomicSell.RowHeadersVisible = false;
-            this.dgvAtomicSell.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAtomicSell.Size = new System.Drawing.Size(300, 191);
-            this.dgvAtomicSell.TabIndex = 56;
-            // 
-            // dataGridViewTextBoxColumn55
-            // 
-            this.dataGridViewTextBoxColumn55.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn55.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle82.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn55.DefaultCellStyle = dataGridViewCellStyle82;
-            this.dataGridViewTextBoxColumn55.HeaderText = "Price (BTC)";
-            this.dataGridViewTextBoxColumn55.Name = "dataGridViewTextBoxColumn55";
-            this.dataGridViewTextBoxColumn55.ReadOnly = true;
-            this.dataGridViewTextBoxColumn55.Width = 86;
-            // 
-            // dataGridViewTextBoxColumn56
-            // 
-            this.dataGridViewTextBoxColumn56.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn56.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle83.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn56.DefaultCellStyle = dataGridViewCellStyle83;
-            this.dataGridViewTextBoxColumn56.HeaderText = "Volume (BTC)";
-            this.dataGridViewTextBoxColumn56.Name = "dataGridViewTextBoxColumn56";
-            this.dataGridViewTextBoxColumn56.ReadOnly = true;
-            this.dataGridViewTextBoxColumn56.Width = 97;
-            // 
-            // dataGridViewTextBoxColumn57
-            // 
-            this.dataGridViewTextBoxColumn57.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn57.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle84.Format = "0.########";
-            this.dataGridViewTextBoxColumn57.DefaultCellStyle = dataGridViewCellStyle84;
-            this.dataGridViewTextBoxColumn57.HeaderText = "Volume (coin)";
-            this.dataGridViewTextBoxColumn57.Name = "dataGridViewTextBoxColumn57";
-            this.dataGridViewTextBoxColumn57.ReadOnly = true;
-            // 
-            // chartAtomicSell
-            // 
-            this.chartAtomicSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea21.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea21.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea21.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea21.AxisX.LabelStyle.Enabled = false;
-            chartArea21.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea21.AxisX.MajorGrid.LineWidth = 0;
-            chartArea21.AxisY.IsStartedFromZero = false;
-            chartArea21.AxisY.LabelStyle.Format = "0.00000000";
-            chartArea21.AxisY.MajorGrid.LineWidth = 0;
-            chartArea21.Name = "ChartArea";
-            this.chartAtomicSell.ChartAreas.Add(chartArea21);
-            this.chartAtomicSell.Location = new System.Drawing.Point(539, 228);
-            this.chartAtomicSell.Name = "chartAtomicSell";
-            series21.BorderColor = System.Drawing.Color.Gold;
-            series21.ChartArea = "ChartArea";
-            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
-            series21.Color = System.Drawing.Color.Gold;
-            series21.Name = "BoxPlotSeries";
-            series21.YValuesPerPoint = 6;
-            this.chartAtomicSell.Series.Add(series21);
-            this.chartAtomicSell.Size = new System.Drawing.Size(300, 234);
-            this.chartAtomicSell.TabIndex = 55;
-            this.chartAtomicSell.Text = "chart1";
-            // 
-            // lblAtomicSell
-            // 
-            this.lblAtomicSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAtomicSell.AutoSize = true;
-            this.lblAtomicSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtomicSell.ForeColor = System.Drawing.Color.Maroon;
-            this.lblAtomicSell.Location = new System.Drawing.Point(535, 8);
-            this.lblAtomicSell.Name = "lblAtomicSell";
-            this.lblAtomicSell.Size = new System.Drawing.Size(84, 20);
-            this.lblAtomicSell.TabIndex = 54;
-            this.lblAtomicSell.Text = "Sell orders";
-            // 
-            // lblAtomicBuy
-            // 
-            this.lblAtomicBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblAtomicBuy.AutoSize = true;
-            this.lblAtomicBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAtomicBuy.ForeColor = System.Drawing.Color.OliveDrab;
-            this.lblAtomicBuy.Location = new System.Drawing.Point(229, 8);
-            this.lblAtomicBuy.Name = "lblAtomicBuy";
-            this.lblAtomicBuy.Size = new System.Drawing.Size(85, 20);
-            this.lblAtomicBuy.TabIndex = 53;
-            this.lblAtomicBuy.Text = "Buy orders";
-            // 
-            // dgvAtomicBuy
-            // 
-            this.dgvAtomicBuy.AllowUserToAddRows = false;
-            this.dgvAtomicBuy.AllowUserToDeleteRows = false;
-            this.dgvAtomicBuy.AllowUserToResizeRows = false;
-            this.dgvAtomicBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle85.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle85.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle85.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle85.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle85.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAtomicBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle85;
-            this.dgvAtomicBuy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAtomicBuy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn58,
-            this.dataGridViewTextBoxColumn59,
-            this.dataGridViewTextBoxColumn60});
-            this.dgvAtomicBuy.Location = new System.Drawing.Point(233, 31);
-            this.dgvAtomicBuy.Name = "dgvAtomicBuy";
-            this.dgvAtomicBuy.ReadOnly = true;
-            this.dgvAtomicBuy.RowHeadersVisible = false;
-            this.dgvAtomicBuy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAtomicBuy.Size = new System.Drawing.Size(300, 191);
-            this.dgvAtomicBuy.TabIndex = 52;
-            // 
-            // dataGridViewTextBoxColumn58
-            // 
-            this.dataGridViewTextBoxColumn58.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn58.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle86.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn58.DefaultCellStyle = dataGridViewCellStyle86;
-            this.dataGridViewTextBoxColumn58.HeaderText = "Price (BTC)";
-            this.dataGridViewTextBoxColumn58.Name = "dataGridViewTextBoxColumn58";
-            this.dataGridViewTextBoxColumn58.ReadOnly = true;
-            this.dataGridViewTextBoxColumn58.Width = 86;
-            // 
-            // dataGridViewTextBoxColumn59
-            // 
-            this.dataGridViewTextBoxColumn59.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn59.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle87.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn59.DefaultCellStyle = dataGridViewCellStyle87;
-            this.dataGridViewTextBoxColumn59.HeaderText = "Volume (BTC)";
-            this.dataGridViewTextBoxColumn59.Name = "dataGridViewTextBoxColumn59";
-            this.dataGridViewTextBoxColumn59.ReadOnly = true;
-            this.dataGridViewTextBoxColumn59.Width = 97;
-            // 
-            // dataGridViewTextBoxColumn60
-            // 
-            this.dataGridViewTextBoxColumn60.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn60.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle88.Format = "0.########";
-            this.dataGridViewTextBoxColumn60.DefaultCellStyle = dataGridViewCellStyle88;
-            this.dataGridViewTextBoxColumn60.HeaderText = "Volume (coin)";
-            this.dataGridViewTextBoxColumn60.Name = "dataGridViewTextBoxColumn60";
-            this.dataGridViewTextBoxColumn60.ReadOnly = true;
-            // 
-            // chartAtomicBuy
-            // 
-            this.chartAtomicBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea22.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea22.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea22.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea22.AxisX.LabelStyle.Enabled = false;
-            chartArea22.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea22.AxisX.MajorGrid.LineWidth = 0;
-            chartArea22.AxisY.IsStartedFromZero = false;
-            chartArea22.AxisY.LabelStyle.Format = "0.00000000";
-            chartArea22.AxisY.MajorGrid.LineWidth = 0;
-            chartArea22.Name = "ChartArea";
-            this.chartAtomicBuy.ChartAreas.Add(chartArea22);
-            this.chartAtomicBuy.Location = new System.Drawing.Point(233, 228);
-            this.chartAtomicBuy.Name = "chartAtomicBuy";
-            series22.BorderColor = System.Drawing.Color.Gold;
-            series22.ChartArea = "ChartArea";
-            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
-            series22.Color = System.Drawing.Color.Gold;
-            series22.Name = "BoxPlotSeries";
-            series22.YValuesPerPoint = 6;
-            this.chartAtomicBuy.Series.Add(series22);
-            this.chartAtomicBuy.Size = new System.Drawing.Size(300, 234);
-            this.chartAtomicBuy.TabIndex = 51;
-            this.chartAtomicBuy.Text = "chart2";
-            // 
-            // tabCryptoine
-            // 
-            this.tabCryptoine.Controls.Add(this.chkCryptoineBtc);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineDepth);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineWeight);
-            this.tabCryptoine.Controls.Add(this.txtCryptoineWeight);
-            this.tabCryptoine.Controls.Add(this.txtCryptoineDailyvolume);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineLeftover);
-            this.tabCryptoine.Controls.Add(this.txtCryptoineLeftover);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineFallthrough);
-            this.tabCryptoine.Controls.Add(this.txtCryptoineFallthrough);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineDailyvolume);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineWhisker);
-            this.tabCryptoine.Controls.Add(this.trackCryptoineWhisker);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineBox);
-            this.tabCryptoine.Controls.Add(this.trackCryptoineBox);
-            this.tabCryptoine.Controls.Add(this.linkCryptoine);
-            this.tabCryptoine.Controls.Add(this.trackCryptoineDepth);
-            this.tabCryptoine.Controls.Add(this.dgvCryptoineSell);
-            this.tabCryptoine.Controls.Add(this.chartCryptoineSell);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineSell);
-            this.tabCryptoine.Controls.Add(this.lblCryptoineBuy);
-            this.tabCryptoine.Controls.Add(this.dgvCryptoineBuy);
-            this.tabCryptoine.Controls.Add(this.chartCryptoineBuy);
-            this.tabCryptoine.Location = new System.Drawing.Point(4, 22);
-            this.tabCryptoine.Name = "tabCryptoine";
-            this.tabCryptoine.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCryptoine.Size = new System.Drawing.Size(845, 470);
-            this.tabCryptoine.TabIndex = 11;
-            this.tabCryptoine.Text = "Cryptoine";
-            // 
-            // chkCryptoineBtc
-            // 
-            this.chkCryptoineBtc.Checked = true;
-            this.chkCryptoineBtc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCryptoineBtc.Location = new System.Drawing.Point(10, 228);
-            this.chkCryptoineBtc.Name = "chkCryptoineBtc";
-            this.chkCryptoineBtc.Size = new System.Drawing.Size(165, 33);
-            this.chkCryptoineBtc.TabIndex = 72;
-            this.chkCryptoineBtc.Text = "Use BTC volume as weight, instead of coin volume";
-            this.chkCryptoineBtc.UseVisualStyleBackColor = true;
-            this.chkCryptoineBtc.CheckedChanged += new System.EventHandler(this.chkBtc_CheckedChanged);
-            // 
-            // lblCryptoineDepth
-            // 
-            this.lblCryptoineDepth.AutoSize = true;
-            this.lblCryptoineDepth.Location = new System.Drawing.Point(6, 270);
-            this.lblCryptoineDepth.Name = "lblCryptoineDepth";
-            this.lblCryptoineDepth.Size = new System.Drawing.Size(39, 13);
-            this.lblCryptoineDepth.TabIndex = 71;
-            this.lblCryptoineDepth.Text = "Depth:";
-            // 
-            // lblCryptoineWeight
-            // 
-            this.lblCryptoineWeight.AutoSize = true;
-            this.lblCryptoineWeight.Location = new System.Drawing.Point(7, 60);
-            this.lblCryptoineWeight.Name = "lblCryptoineWeight";
-            this.lblCryptoineWeight.Size = new System.Drawing.Size(44, 13);
-            this.lblCryptoineWeight.TabIndex = 70;
-            this.lblCryptoineWeight.Text = "Weight:";
-            // 
-            // txtCryptoineWeight
-            // 
-            this.txtCryptoineWeight.Location = new System.Drawing.Point(104, 57);
-            this.txtCryptoineWeight.Name = "txtCryptoineWeight";
-            this.txtCryptoineWeight.ReadOnly = true;
-            this.txtCryptoineWeight.Size = new System.Drawing.Size(100, 20);
-            this.txtCryptoineWeight.TabIndex = 69;
-            // 
-            // txtCryptoineDailyvolume
-            // 
-            this.txtCryptoineDailyvolume.Location = new System.Drawing.Point(104, 31);
-            this.txtCryptoineDailyvolume.Name = "txtCryptoineDailyvolume";
-            this.txtCryptoineDailyvolume.ReadOnly = true;
-            this.txtCryptoineDailyvolume.Size = new System.Drawing.Size(100, 20);
-            this.txtCryptoineDailyvolume.TabIndex = 68;
-            // 
-            // lblCryptoineLeftover
-            // 
-            this.lblCryptoineLeftover.AutoSize = true;
-            this.lblCryptoineLeftover.Location = new System.Drawing.Point(7, 138);
-            this.lblCryptoineLeftover.Name = "lblCryptoineLeftover";
-            this.lblCryptoineLeftover.Size = new System.Drawing.Size(52, 13);
-            this.lblCryptoineLeftover.TabIndex = 67;
-            this.lblCryptoineLeftover.Text = "Left over:";
-            // 
-            // txtCryptoineLeftover
-            // 
-            this.txtCryptoineLeftover.Location = new System.Drawing.Point(104, 135);
-            this.txtCryptoineLeftover.Name = "txtCryptoineLeftover";
-            this.txtCryptoineLeftover.ReadOnly = true;
-            this.txtCryptoineLeftover.Size = new System.Drawing.Size(100, 20);
-            this.txtCryptoineLeftover.TabIndex = 66;
-            // 
-            // lblCryptoineFallthrough
-            // 
-            this.lblCryptoineFallthrough.AutoSize = true;
-            this.lblCryptoineFallthrough.Location = new System.Drawing.Point(7, 112);
-            this.lblCryptoineFallthrough.Name = "lblCryptoineFallthrough";
-            this.lblCryptoineFallthrough.Size = new System.Drawing.Size(88, 13);
-            this.lblCryptoineFallthrough.TabIndex = 65;
-            this.lblCryptoineFallthrough.Text = "Fallthrough price:";
-            // 
-            // txtCryptoineFallthrough
-            // 
-            this.txtCryptoineFallthrough.Location = new System.Drawing.Point(104, 109);
-            this.txtCryptoineFallthrough.Name = "txtCryptoineFallthrough";
-            this.txtCryptoineFallthrough.ReadOnly = true;
-            this.txtCryptoineFallthrough.Size = new System.Drawing.Size(100, 20);
-            this.txtCryptoineFallthrough.TabIndex = 64;
-            // 
-            // lblCryptoineDailyvolume
-            // 
-            this.lblCryptoineDailyvolume.AutoSize = true;
-            this.lblCryptoineDailyvolume.Location = new System.Drawing.Point(7, 34);
-            this.lblCryptoineDailyvolume.Name = "lblCryptoineDailyvolume";
-            this.lblCryptoineDailyvolume.Size = new System.Drawing.Size(70, 13);
-            this.lblCryptoineDailyvolume.TabIndex = 63;
-            this.lblCryptoineDailyvolume.Text = "Daily volume:";
-            // 
-            // lblCryptoineWhisker
-            // 
-            this.lblCryptoineWhisker.AutoSize = true;
-            this.lblCryptoineWhisker.Location = new System.Drawing.Point(6, 398);
-            this.lblCryptoineWhisker.Name = "lblCryptoineWhisker";
-            this.lblCryptoineWhisker.Size = new System.Drawing.Size(109, 13);
-            this.lblCryptoineWhisker.TabIndex = 62;
-            this.lblCryptoineWhisker.Text = "Whisker percentage: ";
-            // 
-            // trackCryptoineWhisker
-            // 
-            this.trackCryptoineWhisker.LargeChange = 8;
-            this.trackCryptoineWhisker.Location = new System.Drawing.Point(9, 414);
-            this.trackCryptoineWhisker.Maximum = 49;
-            this.trackCryptoineWhisker.Minimum = 1;
-            this.trackCryptoineWhisker.Name = "trackCryptoineWhisker";
-            this.trackCryptoineWhisker.Size = new System.Drawing.Size(217, 45);
-            this.trackCryptoineWhisker.SmallChange = 4;
-            this.trackCryptoineWhisker.TabIndex = 61;
-            this.trackCryptoineWhisker.TickFrequency = 4;
-            this.trackCryptoineWhisker.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackCryptoineWhisker.Value = 5;
-            this.trackCryptoineWhisker.Scroll += new System.EventHandler(this.trackWhisker_Scroll);
-            // 
-            // lblCryptoineBox
-            // 
-            this.lblCryptoineBox.AutoSize = true;
-            this.lblCryptoineBox.Location = new System.Drawing.Point(6, 334);
-            this.lblCryptoineBox.Name = "lblCryptoineBox";
-            this.lblCryptoineBox.Size = new System.Drawing.Size(88, 13);
-            this.lblCryptoineBox.TabIndex = 60;
-            this.lblCryptoineBox.Text = "Box percentage: ";
-            // 
-            // trackCryptoineBox
-            // 
-            this.trackCryptoineBox.LargeChange = 8;
-            this.trackCryptoineBox.Location = new System.Drawing.Point(9, 350);
-            this.trackCryptoineBox.Maximum = 49;
-            this.trackCryptoineBox.Minimum = 1;
-            this.trackCryptoineBox.Name = "trackCryptoineBox";
-            this.trackCryptoineBox.Size = new System.Drawing.Size(217, 45);
-            this.trackCryptoineBox.SmallChange = 4;
-            this.trackCryptoineBox.TabIndex = 59;
-            this.trackCryptoineBox.TickFrequency = 4;
-            this.trackCryptoineBox.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackCryptoineBox.Value = 24;
-            this.trackCryptoineBox.Scroll += new System.EventHandler(this.trackBox_Scroll);
-            // 
-            // linkCryptoine
-            // 
-            this.linkCryptoine.AutoSize = true;
-            this.linkCryptoine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkCryptoine.LinkArea = new System.Windows.Forms.LinkArea(0, 17);
-            this.linkCryptoine.Location = new System.Drawing.Point(6, 8);
-            this.linkCryptoine.Name = "linkCryptoine";
-            this.linkCryptoine.Size = new System.Drawing.Size(153, 24);
-            this.linkCryptoine.TabIndex = 58;
-            this.linkCryptoine.TabStop = true;
-            this.linkCryptoine.Text = "Cryptoine: coin/BTC";
-            this.linkCryptoine.UseCompatibleTextRendering = true;
-            this.linkCryptoine.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
-            // 
-            // trackCryptoineDepth
-            // 
-            this.trackCryptoineDepth.LargeChange = 10;
-            this.trackCryptoineDepth.Location = new System.Drawing.Point(9, 286);
-            this.trackCryptoineDepth.Maximum = 50;
-            this.trackCryptoineDepth.Minimum = 5;
-            this.trackCryptoineDepth.Name = "trackCryptoineDepth";
-            this.trackCryptoineDepth.Size = new System.Drawing.Size(217, 45);
-            this.trackCryptoineDepth.SmallChange = 5;
-            this.trackCryptoineDepth.TabIndex = 57;
-            this.trackCryptoineDepth.TickFrequency = 5;
-            this.trackCryptoineDepth.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackCryptoineDepth.Value = 20;
-            this.trackCryptoineDepth.Scroll += new System.EventHandler(this.trackDepth_Scroll);
-            // 
-            // dgvCryptoineSell
-            // 
-            this.dgvCryptoineSell.AllowUserToAddRows = false;
-            this.dgvCryptoineSell.AllowUserToDeleteRows = false;
-            this.dgvCryptoineSell.AllowUserToResizeRows = false;
-            this.dgvCryptoineSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle89.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle89.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle89.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle89.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle89.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle89.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCryptoineSell.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle89;
-            this.dgvCryptoineSell.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCryptoineSell.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn61,
-            this.dataGridViewTextBoxColumn62,
-            this.dataGridViewTextBoxColumn63});
-            this.dgvCryptoineSell.Location = new System.Drawing.Point(539, 31);
-            this.dgvCryptoineSell.Name = "dgvCryptoineSell";
-            this.dgvCryptoineSell.ReadOnly = true;
-            this.dgvCryptoineSell.RowHeadersVisible = false;
-            this.dgvCryptoineSell.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCryptoineSell.Size = new System.Drawing.Size(300, 191);
-            this.dgvCryptoineSell.TabIndex = 56;
-            // 
-            // dataGridViewTextBoxColumn61
-            // 
-            this.dataGridViewTextBoxColumn61.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn61.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle90.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn61.DefaultCellStyle = dataGridViewCellStyle90;
-            this.dataGridViewTextBoxColumn61.HeaderText = "Price (BTC)";
-            this.dataGridViewTextBoxColumn61.Name = "dataGridViewTextBoxColumn61";
-            this.dataGridViewTextBoxColumn61.ReadOnly = true;
-            this.dataGridViewTextBoxColumn61.Width = 86;
-            // 
-            // dataGridViewTextBoxColumn62
-            // 
-            this.dataGridViewTextBoxColumn62.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn62.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle91.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn62.DefaultCellStyle = dataGridViewCellStyle91;
-            this.dataGridViewTextBoxColumn62.HeaderText = "Volume (BTC)";
-            this.dataGridViewTextBoxColumn62.Name = "dataGridViewTextBoxColumn62";
-            this.dataGridViewTextBoxColumn62.ReadOnly = true;
-            this.dataGridViewTextBoxColumn62.Width = 97;
-            // 
-            // dataGridViewTextBoxColumn63
-            // 
-            this.dataGridViewTextBoxColumn63.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn63.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle92.Format = "0.########";
-            this.dataGridViewTextBoxColumn63.DefaultCellStyle = dataGridViewCellStyle92;
-            this.dataGridViewTextBoxColumn63.HeaderText = "Volume (coin)";
-            this.dataGridViewTextBoxColumn63.Name = "dataGridViewTextBoxColumn63";
-            this.dataGridViewTextBoxColumn63.ReadOnly = true;
-            // 
-            // chartCryptoineSell
-            // 
-            this.chartCryptoineSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea23.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
-            chartArea23.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea23.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea23.AxisX.LabelStyle.Enabled = false;
-            chartArea23.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea23.AxisX.MajorGrid.LineWidth = 0;
-            chartArea23.AxisY.IsStartedFromZero = false;
-            chartArea23.AxisY.LabelStyle.Format = "0.00000000";
-            chartArea23.AxisY.MajorGrid.LineWidth = 0;
-            chartArea23.Name = "ChartArea";
-            this.chartCryptoineSell.ChartAreas.Add(chartArea23);
-            this.chartCryptoineSell.Location = new System.Drawing.Point(539, 228);
-            this.chartCryptoineSell.Name = "chartCryptoineSell";
-            series23.BorderColor = System.Drawing.Color.Gold;
-            series23.ChartArea = "ChartArea";
-            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
-            series23.Color = System.Drawing.Color.Gold;
-            series23.Name = "BoxPlotSeries";
-            series23.YValuesPerPoint = 6;
-            this.chartCryptoineSell.Series.Add(series23);
-            this.chartCryptoineSell.Size = new System.Drawing.Size(300, 234);
-            this.chartCryptoineSell.TabIndex = 55;
-            this.chartCryptoineSell.Text = "chart1";
-            // 
-            // lblCryptoineSell
-            // 
-            this.lblCryptoineSell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCryptoineSell.AutoSize = true;
-            this.lblCryptoineSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCryptoineSell.ForeColor = System.Drawing.Color.Maroon;
-            this.lblCryptoineSell.Location = new System.Drawing.Point(535, 8);
-            this.lblCryptoineSell.Name = "lblCryptoineSell";
-            this.lblCryptoineSell.Size = new System.Drawing.Size(84, 20);
-            this.lblCryptoineSell.TabIndex = 54;
-            this.lblCryptoineSell.Text = "Sell orders";
-            // 
-            // lblCryptoineBuy
-            // 
-            this.lblCryptoineBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCryptoineBuy.AutoSize = true;
-            this.lblCryptoineBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCryptoineBuy.ForeColor = System.Drawing.Color.OliveDrab;
-            this.lblCryptoineBuy.Location = new System.Drawing.Point(229, 8);
-            this.lblCryptoineBuy.Name = "lblCryptoineBuy";
-            this.lblCryptoineBuy.Size = new System.Drawing.Size(85, 20);
-            this.lblCryptoineBuy.TabIndex = 53;
-            this.lblCryptoineBuy.Text = "Buy orders";
-            // 
-            // dgvCryptoineBuy
-            // 
-            this.dgvCryptoineBuy.AllowUserToAddRows = false;
-            this.dgvCryptoineBuy.AllowUserToDeleteRows = false;
-            this.dgvCryptoineBuy.AllowUserToResizeRows = false;
-            this.dgvCryptoineBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle93.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle93.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle93.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle93.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle93.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle93.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle93.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCryptoineBuy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle93;
-            this.dgvCryptoineBuy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCryptoineBuy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn64,
-            this.dataGridViewTextBoxColumn65,
-            this.dataGridViewTextBoxColumn66});
-            this.dgvCryptoineBuy.Location = new System.Drawing.Point(233, 31);
-            this.dgvCryptoineBuy.Name = "dgvCryptoineBuy";
-            this.dgvCryptoineBuy.ReadOnly = true;
-            this.dgvCryptoineBuy.RowHeadersVisible = false;
-            this.dgvCryptoineBuy.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCryptoineBuy.Size = new System.Drawing.Size(300, 191);
-            this.dgvCryptoineBuy.TabIndex = 52;
-            // 
-            // dataGridViewTextBoxColumn64
-            // 
-            this.dataGridViewTextBoxColumn64.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn64.DataPropertyName = "BtcPrice";
-            dataGridViewCellStyle94.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn64.DefaultCellStyle = dataGridViewCellStyle94;
-            this.dataGridViewTextBoxColumn64.HeaderText = "Price (BTC)";
-            this.dataGridViewTextBoxColumn64.Name = "dataGridViewTextBoxColumn64";
-            this.dataGridViewTextBoxColumn64.ReadOnly = true;
-            this.dataGridViewTextBoxColumn64.Width = 86;
-            // 
-            // dataGridViewTextBoxColumn65
-            // 
-            this.dataGridViewTextBoxColumn65.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn65.DataPropertyName = "BtcVolume";
-            dataGridViewCellStyle95.Format = "0.00000000";
-            this.dataGridViewTextBoxColumn65.DefaultCellStyle = dataGridViewCellStyle95;
-            this.dataGridViewTextBoxColumn65.HeaderText = "Volume (BTC)";
-            this.dataGridViewTextBoxColumn65.Name = "dataGridViewTextBoxColumn65";
-            this.dataGridViewTextBoxColumn65.ReadOnly = true;
-            this.dataGridViewTextBoxColumn65.Width = 97;
-            // 
-            // dataGridViewTextBoxColumn66
-            // 
-            this.dataGridViewTextBoxColumn66.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn66.DataPropertyName = "CoinVolume";
-            dataGridViewCellStyle96.Format = "0.########";
-            this.dataGridViewTextBoxColumn66.DefaultCellStyle = dataGridViewCellStyle96;
-            this.dataGridViewTextBoxColumn66.HeaderText = "Volume (coin)";
-            this.dataGridViewTextBoxColumn66.Name = "dataGridViewTextBoxColumn66";
-            this.dataGridViewTextBoxColumn66.ReadOnly = true;
-            // 
-            // chartCryptoineBuy
-            // 
-            this.chartCryptoineBuy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             chartArea24.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal;
             chartArea24.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
             chartArea24.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
@@ -5747,19 +5747,19 @@
             chartArea24.AxisY.LabelStyle.Format = "0.00000000";
             chartArea24.AxisY.MajorGrid.LineWidth = 0;
             chartArea24.Name = "ChartArea";
-            this.chartCryptoineBuy.ChartAreas.Add(chartArea24);
-            this.chartCryptoineBuy.Location = new System.Drawing.Point(233, 228);
-            this.chartCryptoineBuy.Name = "chartCryptoineBuy";
+            this.chartAllcoinBuy.ChartAreas.Add(chartArea24);
+            this.chartAllcoinBuy.Location = new System.Drawing.Point(233, 228);
+            this.chartAllcoinBuy.Name = "chartAllcoinBuy";
             series24.BorderColor = System.Drawing.Color.Gold;
             series24.ChartArea = "ChartArea";
             series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.BoxPlot;
             series24.Color = System.Drawing.Color.Gold;
             series24.Name = "BoxPlotSeries";
             series24.YValuesPerPoint = 6;
-            this.chartCryptoineBuy.Series.Add(series24);
-            this.chartCryptoineBuy.Size = new System.Drawing.Size(300, 234);
-            this.chartCryptoineBuy.TabIndex = 51;
-            this.chartCryptoineBuy.Text = "chart2";
+            this.chartAllcoinBuy.Series.Add(series24);
+            this.chartAllcoinBuy.Size = new System.Drawing.Size(300, 234);
+            this.chartAllcoinBuy.TabIndex = 51;
+            this.chartAllcoinBuy.Text = "chart2";
             // 
             // DetailedResult
             // 
@@ -5843,13 +5843,40 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartCcexBuy)).EndInit();
             this.tabComkort.ResumeLayout(false);
             this.tabComkort.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackComkortWhisker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackComkortBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackComkortDepth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComkortSell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartComkortSell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComkortBuy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartComkortBuy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackComkortWhisker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackComkortBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackComkortDepth)).EndInit();
+            this.tabAllCrypt.ResumeLayout(false);
+            this.tabAllCrypt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptSell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptSell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptBuy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptBuy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptWhisker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptDepth)).EndInit();
+            this.tabAtomicTrade.ResumeLayout(false);
+            this.tabAtomicTrade.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicSell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicSell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicBuy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicBuy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicWhisker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicDepth)).EndInit();
+            this.tabCryptoine.ResumeLayout(false);
+            this.tabCryptoine.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineSell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineSell)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineBuy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineBuy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineWhisker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineDepth)).EndInit();
             this.tabAllCoin.ResumeLayout(false);
             this.tabAllCoin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackAllcoinWhisker)).EndInit();
@@ -5859,33 +5886,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartAllcoinSell)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllcoinBuy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAllcoinBuy)).EndInit();
-            this.tabAllCrypt.ResumeLayout(false);
-            this.tabAllCrypt.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptWhisker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAllcryptDepth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptSell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptSell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAllcryptBuy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAllcryptBuy)).EndInit();
-            this.tabAtomicTrade.ResumeLayout(false);
-            this.tabAtomicTrade.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicWhisker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackAtomicDepth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicSell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicSell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAtomicBuy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAtomicBuy)).EndInit();
-            this.tabCryptoine.ResumeLayout(false);
-            this.tabCryptoine.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineWhisker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCryptoineDepth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineSell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineSell)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCryptoineBuy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCryptoineBuy)).EndInit();
             this.ResumeLayout(false);
 
         }
