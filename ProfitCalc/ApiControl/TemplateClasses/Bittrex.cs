@@ -62,8 +62,8 @@ namespace ProfitCalc.ApiControl.TemplateClasses
         [JsonProperty("success")]
         public bool Success { get; set; }
 
-        [JsonProperty("message")]
-        public string Message { get; set; }
+        /*[JsonProperty("message")]
+        public string Message { get; set; }*/
 
         [JsonProperty("result")]
         public Results Result { get; set; }

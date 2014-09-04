@@ -482,28 +482,32 @@ namespace ProfitCalc
                     if (_getOrderDepth && int.Parse(btCoin.OpenBuyOrders) > 0 && int.Parse(btCoin.OpenSellOrders) > 0)
                     {
                         BittrexOrders btOrders = JsonControl.DownloadSerializedApi<BittrexOrders>(
-                            _client.GetStreamAsync("https://bittrex.com/api/v1.1/public/getorderbook?market=" 
-                            + btCoin.MarketName + "&type=both&depth=50 ").Result);
-                        foreach (BittrexOrders.Results.Order result in btOrders.Result.Buy)
-                        {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
-                            {
-                                BtcPrice = result.Rate,
-                                BtcVolume = result.Quantity * result.Rate,
-                                CoinVolume = result.Quantity
-                            };
-                            btExchange.BuyOrders.Add(order);
-                        }
+                            _client.GetStreamAsync("https://bittrex.com/api/v1.1/public/getorderbook?market="
+                                                   + btCoin.MarketName + "&type=both&depth=50 ").Result);
 
-                        foreach (BittrexOrders.Results.Order result in btOrders.Result.Sell)
+                        if (btOrders.Success)
                         {
-                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                            foreach (BittrexOrders.Results.Order result in btOrders.Result.Buy)
                             {
-                                BtcPrice = result.Rate,
-                                BtcVolume = result.Quantity * result.Rate,
-                                CoinVolume = result.Quantity
-                            };
-                            btExchange.SellOrders.Add(order);
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = result.Rate,
+                                    BtcVolume = result.Quantity*result.Rate,
+                                    CoinVolume = result.Quantity
+                                };
+                                btExchange.BuyOrders.Add(order);
+                            }
+
+                            foreach (BittrexOrders.Results.Order result in btOrders.Result.Sell)
+                            {
+                                Coin.Exchange.Order order = new Coin.Exchange.Order
+                                {
+                                    BtcPrice = result.Rate,
+                                    BtcVolume = result.Quantity*result.Rate,
+                                    CoinVolume = result.Quantity
+                                };
+                                btExchange.SellOrders.Add(order);
+                            }
                         }
                     }
                     
