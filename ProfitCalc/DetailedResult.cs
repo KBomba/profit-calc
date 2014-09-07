@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,8 +11,6 @@ namespace ProfitCalc
     public sealed partial class DetailedResult : Form
     {
         private readonly Coin _usedCoin;
-        private List<Coin.Exchange.Order> _totalBuyOrders, _totalSellOrders;
-        private double _totalLeftOverInFallThrough, _totalFallThroughPrice;
 
         private bool _useBtc = true;
         private int _depth = 20, _boxPercentage = 25, _whiskerPercentage = 5;
@@ -103,36 +100,12 @@ namespace ProfitCalc
         {
             tbcMarkets.TabPages.Add(tabAllMarkets);
 
-            _totalBuyOrders = new List<Coin.Exchange.Order>();
-            _totalSellOrders = new List<Coin.Exchange.Order>();
-            foreach (Coin.Exchange exchange in _usedCoin.Exchanges)
-            {
-                AddToTotalOrders(exchange.BuyOrders, _totalBuyOrders);
-                _totalBuyOrders = _totalBuyOrders.OrderByDescending(order => order.BtcPrice).ToList();
-                AddToTotalOrders(exchange.SellOrders, _totalSellOrders);
-                _totalSellOrders = _totalSellOrders.OrderBy(order => order.BtcPrice).ToList();
-            }
-
             double coinsToSell = _usedCoin.CoinsPerDay;
             double collectedBtc = 0;
-            foreach (Coin.Exchange.Order order in _totalBuyOrders)
-            {
-                if (coinsToSell - order.CoinVolume < 0)
-                {
-                    collectedBtc += coinsToSell * order.BtcPrice;
-                    _totalLeftOverInFallThrough = 0;
-                    break;
-                }
-
-                coinsToSell -= order.CoinVolume;
-                collectedBtc += order.CoinVolume * order.BtcPrice;
-                _totalLeftOverInFallThrough = coinsToSell;
-            }
-
-            _totalFallThroughPrice = collectedBtc / (_usedCoin.CoinsPerDay - _totalLeftOverInFallThrough);
-            txtAllFallthrough.Text = _totalFallThroughPrice.ToString("0.00000000") + " BTC";
-            txtAllLeftover.Text = _totalLeftOverInFallThrough.ToString("0.########") + " " + _usedCoin.TagName;
-            txtAllDailyvolume.Text = _usedCoin.TotalVolume.ToString("0.####") + " BTC";
+            
+            txtAllFallthrough.Text = _usedCoin.TotalExchange.FallThroughPrice.ToString("0.00000000") + " BTC";
+            txtAllLeftover.Text = _usedCoin.TotalExchange.LeftOverInFallThrough.ToString("0.########") + " " + _usedCoin.TagName;
+            txtAllDailyvolume.Text = _usedCoin.TotalExchange.BtcVolume.ToString("0.####") + " BTC";
 
             int amountOfExchanges = _usedCoin.HasImplementedMarketApi ? _usedCoin.Exchanges.Count : 0;
             string exchanges = amountOfExchanges == 1 ? " exchange" : " exchanges";
@@ -145,38 +118,7 @@ namespace ProfitCalc
             UpdateAllMarketsTab();
         }
 
-        private void AddToTotalOrders(List<Coin.Exchange.Order> orders, 
-            List<Coin.Exchange.Order> totalOrders)
-        {
-            if (orders != null && orders.Any())
-            {
-                foreach (Coin.Exchange.Order newOrder in orders)
-                {
-                    bool found = false;
-                    Coin.Exchange.Order tempOrder = newOrder;
-                    ParallelOptions po = new ParallelOptions
-                    {
-                        CancellationToken = new CancellationTokenSource().Token
-                    };
-
-                    Parallel.ForEach(totalOrders,po, order =>
-                    {
-                        if (tempOrder.BtcPrice == order.BtcPrice)
-                        {
-                            found = true;
-                            order.BtcVolume += tempOrder.BtcVolume;
-                            order.CoinVolume += tempOrder.CoinVolume;
-                            po.CancellationToken.ThrowIfCancellationRequested();
-                        }
-                    });
-
-                    if (!found)
-                    {
-                        totalOrders.Add(newOrder);
-                    }
-                }
-            }
-        }
+        
 
         private void InitBittrex(Coin.Exchange exchange)
         {
@@ -354,10 +296,9 @@ namespace ProfitCalc
             UpdateCryptoine(exchange);
         }
         
-        private double[] GetDepthPercentile(int boxPercentage, int whiskerPercentage,
+        private double[] GetBoxPlotValues(int boxPercentage, int whiskerPercentage,
             int depth, List<Coin.Exchange.Order> orderList, bool useBtcVolume)
         {
-            // Used for boxplots
             double whiskerLowest = whiskerPercentage/(double)100;
             double whiskerHighest = 1 - whiskerLowest;
             double boxLowest = boxPercentage / (double)100;
@@ -529,17 +470,17 @@ namespace ProfitCalc
             lblAllWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackAllWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
-                _totalBuyOrders, _useBtc);
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
+                _usedCoin.TotalExchange.BuyOrders, _useBtc);
             chartAllBuy.Series["BoxPlotSeries"].Points.Clear();
             chartAllBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
-            dgvAllBuy.DataSource = _totalBuyOrders;
+            dgvAllBuy.DataSource = _usedCoin.TotalExchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
-                _totalSellOrders, _useBtc);
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
+                _usedCoin.TotalExchange.SellOrders, _useBtc);
             chartAllSell.Series["BoxPlotSeries"].Points.Clear();
             chartAllSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
-            dgvAllSell.DataSource = _totalSellOrders;
+            dgvAllSell.DataSource = _usedCoin.TotalExchange.SellOrders;
         }
 
         private void UpdateBittrex(Coin.Exchange exchange)
@@ -552,13 +493,13 @@ namespace ProfitCalc
             lblBittrexWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackBittrexWhisker.Value = _whiskerPercentage;
             
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth, 
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth, 
                 exchange.BuyOrders, _useBtc);
             chartBittrexBuy.Series["BoxPlotSeries"].Points.Clear();
             chartBittrexBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvBittrexBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartBittrexSell.Series["BoxPlotSeries"].Points.Clear();
             chartBittrexSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -575,13 +516,13 @@ namespace ProfitCalc
             lblMintpalWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackMintpalWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartMintpalBuy.Series["BoxPlotSeries"].Points.Clear();
             chartMintpalBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvMintpalBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartMintpalSell.Series["BoxPlotSeries"].Points.Clear();
             chartMintpalSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -598,13 +539,13 @@ namespace ProfitCalc
             lblPoloniexWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackPoloniexWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartPoloniexBuy.Series["BoxPlotSeries"].Points.Clear();
             chartPoloniexBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvPoloniexBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartPoloniexSell.Series["BoxPlotSeries"].Points.Clear();
             chartPoloniexSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -621,13 +562,13 @@ namespace ProfitCalc
             lblCryptsyWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackCryptsyWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartCryptsyBuy.Series["BoxPlotSeries"].Points.Clear();
             chartCryptsyBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvCryptsyBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartCryptsySell.Series["BoxPlotSeries"].Points.Clear();
             chartCryptsySell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -644,13 +585,13 @@ namespace ProfitCalc
             lblBterWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackBterWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartBterBuy.Series["BoxPlotSeries"].Points.Clear();
             chartBterBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvBterBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartBterSell.Series["BoxPlotSeries"].Points.Clear();
             chartBterSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -667,13 +608,13 @@ namespace ProfitCalc
             lblCcexWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackCcexWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartCcexBuy.Series["BoxPlotSeries"].Points.Clear();
             chartCcexBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvCcexBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartCcexSell.Series["BoxPlotSeries"].Points.Clear();
             chartCcexSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -690,13 +631,13 @@ namespace ProfitCalc
             lblComkortWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackComkortWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartComkortBuy.Series["BoxPlotSeries"].Points.Clear();
             chartComkortBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvComkortBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartComkortSell.Series["BoxPlotSeries"].Points.Clear();
             chartComkortSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -713,13 +654,13 @@ namespace ProfitCalc
             lblAllcryptWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackAllcryptWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartAllcryptBuy.Series["BoxPlotSeries"].Points.Clear();
             chartAllcryptBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvAllcryptBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartAllcryptSell.Series["BoxPlotSeries"].Points.Clear();
             chartAllcryptSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -736,13 +677,13 @@ namespace ProfitCalc
             lblAllcoinWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackAllcoinWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartAllcoinBuy.Series["BoxPlotSeries"].Points.Clear();
             chartAllcoinBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvAllcoinBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartAllcoinSell.Series["BoxPlotSeries"].Points.Clear();
             chartAllcoinSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -759,13 +700,13 @@ namespace ProfitCalc
             lblAtomicWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackAtomicWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartAtomicBuy.Series["BoxPlotSeries"].Points.Clear();
             chartAtomicBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvAtomicBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartAtomicSell.Series["BoxPlotSeries"].Points.Clear();
             chartAtomicSell.Series["BoxPlotSeries"].Points.Add(ySellValues);
@@ -782,13 +723,13 @@ namespace ProfitCalc
             lblCryptoineWhisker.Text = "Whisker percentage: " + _whiskerPercentage + "% - " + (100 - _whiskerPercentage) + "%";
             trackCryptoineWhisker.Value = _whiskerPercentage;
 
-            double[] yBuyValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] yBuyValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.BuyOrders, _useBtc);
             chartCryptoineBuy.Series["BoxPlotSeries"].Points.Clear();
             chartCryptoineBuy.Series["BoxPlotSeries"].Points.Add(yBuyValues);
             dgvCryptoineBuy.DataSource = exchange.BuyOrders;
 
-            double[] ySellValues = GetDepthPercentile(_boxPercentage, _whiskerPercentage, _depth,
+            double[] ySellValues = GetBoxPlotValues(_boxPercentage, _whiskerPercentage, _depth,
                 exchange.SellOrders, _useBtc);
             chartCryptoineSell.Series["BoxPlotSeries"].Points.Clear();
             chartCryptoineSell.Series["BoxPlotSeries"].Points.Add(ySellValues);

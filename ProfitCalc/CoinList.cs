@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms.DataVisualization.Charting;
 using Newtonsoft.Json.Linq;
 using ProfitCalc.ApiControl;
 using ProfitCalc.ApiControl.TemplateClasses;
@@ -253,6 +254,7 @@ namespace ProfitCalc
         {
             MintPalPairs mp = JsonControl.DownloadSerializedApi<MintPalPairs>(
                 _client.GetStreamAsync("https://api.mintpal.com/v2/market/summary/BTC").Result);
+            Exception errorOrders = null;
 
             Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(mp.Data, _po, mpCoin =>
             {
@@ -286,68 +288,71 @@ namespace ProfitCalc
 
                     if (_getOrderDepth)
                     {
-                        MintPalOrders mpOrders;
                         try
                         {
+                            MintPalOrders mpOrders;
                             mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
                                 _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
                                                        + mpCoin.Code + "/BTC/ALL").Result);
-                        }
-                        catch (Exception)
-                        {
-                            mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
-                                _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
-                                                       + mpCoin.Code + "/BTC/ALL").Result);
-                        }
 
-                        foreach (MintPalOrders.Datas data in mpOrders.Data)
-                        {
-                            foreach (MintPalOrders.Datas.Order newOrder in data.Orders)
+                            foreach (MintPalOrders.Datas data in mpOrders.Data)
                             {
-                                double price, volume, coinVolume;
-                                if (Double.TryParse(newOrder.Price, NumberStyles.Float,
-                                    CultureInfo.InvariantCulture, out price) &&
-                                    Double.TryParse(newOrder.Total, NumberStyles.Float,
-                                        CultureInfo.InvariantCulture, out volume) &&
-                                    Double.TryParse(newOrder.Amount, NumberStyles.Float,
-                                        CultureInfo.InvariantCulture, out coinVolume))
+                                foreach (MintPalOrders.Datas.Order newOrder in data.Orders)
                                 {
-                                    Coin.Exchange.Order order = new Coin.Exchange.Order
+                                    double price, volume, coinVolume;
+                                    if (Double.TryParse(newOrder.Price, NumberStyles.Float,
+                                        CultureInfo.InvariantCulture, out price) &&
+                                        Double.TryParse(newOrder.Total, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out volume) &&
+                                        Double.TryParse(newOrder.Amount, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out coinVolume))
                                     {
-                                        BtcPrice = price,
-                                        BtcVolume = volume,
-                                        CoinVolume = coinVolume
-                                    };
+                                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                                        {
+                                            BtcPrice = price,
+                                            BtcVolume = volume,
+                                            CoinVolume = coinVolume
+                                        };
 
-                                    switch (data.Type)
-                                    {
-                                        case "buy":
-                                            mpExchange.BuyOrders.Add(order);
-                                            break;
-                                        case "sell":
-                                            mpExchange.SellOrders.Add(order);
-                                            break;
+                                        switch (data.Type)
+                                        {
+                                            case "buy":
+                                                mpExchange.BuyOrders.Add(order);
+                                                break;
+                                            case "sell":
+                                                mpExchange.SellOrders.Add(order);
+                                                break;
+                                        }
                                     }
                                 }
                             }
+                        }
+                        catch (Exception e)
+                        {
+                            errorOrders = e;
                         }
                     }
                     
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(mpExchange);
-                        c.TotalVolume += mpExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += mpExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> {mpExchange};
-                        c.TotalVolume = mpExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = mpExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
                     _po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
+
+            if (errorOrders != null)
+            {
+                throw new Exception("Error while trying to get order data from Mintpal. MP doesn't like a flood of requests.", errorOrders);
+            }
         }
 
         public void UpdateCryptsy()
@@ -429,12 +434,12 @@ namespace ProfitCalc
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(cpExchange);
-                        c.TotalVolume += cpExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += cpExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> {cpExchange};
-                        c.TotalVolume = cpExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = cpExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
@@ -515,12 +520,12 @@ namespace ProfitCalc
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(btExchange);
-                        c.TotalVolume += btExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += btExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> {btExchange};
-                        c.TotalVolume = btExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = btExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
@@ -608,12 +613,12 @@ namespace ProfitCalc
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(polExchange);
-                        c.TotalVolume += polExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += polExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> {polExchange};
-                        c.TotalVolume = polExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = polExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
@@ -714,12 +719,12 @@ namespace ProfitCalc
                         if (c.HasImplementedMarketApi)
                         {
                             c.Exchanges.Add(acExchange);
-                            c.TotalVolume += acExchange.BtcVolume;
+                            c.TotalExchange.BtcVolume += acExchange.BtcVolume;
                         }
                         else
                         {
                             c.Exchanges = new List<Coin.Exchange> {acExchange};
-                            c.TotalVolume = acExchange.BtcVolume;
+                            c.TotalExchange.BtcVolume = acExchange.BtcVolume;
                             c.HasImplementedMarketApi = true;
                         }
                     }
@@ -808,12 +813,12 @@ namespace ProfitCalc
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(acExchange);
-                        c.TotalVolume += acExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += acExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> { acExchange };
-                        c.TotalVolume = acExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = acExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
@@ -936,12 +941,12 @@ namespace ProfitCalc
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(ccExchange);
-                        c.TotalVolume += ccExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += ccExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> {ccExchange};
-                        c.TotalVolume = ccExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = ccExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
@@ -1047,12 +1052,12 @@ namespace ProfitCalc
                             if (c.HasImplementedMarketApi)
                             {
                                 c.Exchanges.Add(comExchange);
-                                c.TotalVolume += comExchange.BtcVolume;
+                                c.TotalExchange.BtcVolume += comExchange.BtcVolume;
                             }
                             else
                             {
                                 c.Exchanges = new List<Coin.Exchange> {comExchange};
-                                c.TotalVolume = comExchange.BtcVolume;
+                                c.TotalExchange.BtcVolume = comExchange.BtcVolume;
                                 c.HasImplementedMarketApi = true;
                             }
 
@@ -1141,12 +1146,12 @@ namespace ProfitCalc
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(cryExchange);
-                        c.TotalVolume += cryExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += cryExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> { cryExchange };
-                        c.TotalVolume = cryExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = cryExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
@@ -1249,12 +1254,12 @@ namespace ProfitCalc
                     if (c.HasImplementedMarketApi)
                     {
                         c.Exchanges.Add(btExchange);
-                        c.TotalVolume += btExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume += btExchange.BtcVolume;
                     }
                     else
                     {
                         c.Exchanges = new List<Coin.Exchange> { btExchange };
-                        c.TotalVolume = btExchange.BtcVolume;
+                        c.TotalExchange.BtcVolume = btExchange.BtcVolume;
                         c.HasImplementedMarketApi = true;
                     }
 
@@ -1385,12 +1390,12 @@ namespace ProfitCalc
                         if (c.HasImplementedMarketApi)
                         {
                             c.Exchanges.Add(atExchange);
-                            c.TotalVolume += atExchange.BtcVolume;
+                            c.TotalExchange.BtcVolume += atExchange.BtcVolume;
                         }
                         else
                         {
                             c.Exchanges = new List<Coin.Exchange> {atExchange};
-                            c.TotalVolume = atExchange.BtcVolume;
+                            c.TotalExchange.BtcVolume = atExchange.BtcVolume;
                             c.HasImplementedMarketApi = true;
                         }
 

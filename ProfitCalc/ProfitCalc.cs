@@ -668,14 +668,14 @@ namespace ProfitCalc
             {
                 tsStatus.Text = "Removing coins with a volume lower than you can earn..";
                 tempCoinList = tempCoinList.Where(coin =>
-                    coin.TotalVolume > coin.BtcPerDay || coin.IsMultiPool);
+                    coin.TotalExchange.BtcVolume > coin.BtcPerDay || coin.IsMultiPool);
             }
 
             if (chkRemoveZeroVolume.Checked)
             {
                 tsStatus.Text = "Removing coins with zero volume..";
                 tempCoinList = tempCoinList.Where(coin =>
-                    coin.TotalVolume > 0 || coin.IsMultiPool || Double.IsNaN(coin.TotalVolume));
+                    coin.TotalExchange.BtcVolume > 0 || coin.IsMultiPool || Double.IsNaN(coin.TotalExchange.BtcVolume));
             }
 
             if (chkRemoveNegative.Checked)
@@ -729,12 +729,12 @@ namespace ProfitCalc
                 return Color.YellowGreen;
             }
 
-            if (coin.TotalVolume == 0)
+            if (coin.TotalExchange.BtcVolume == 0)
             {
                 return Color.BurlyWood;
             }
 
-            if (coin.TotalVolume < coin.BtcPerDay)
+            if (coin.TotalExchange.BtcVolume < coin.BtcPerDay)
             {
                 return Color.PaleTurquoise;
             }
@@ -1712,6 +1712,7 @@ namespace ProfitCalc
         private void radFallThroughExchange_CheckedChanged(object sender, EventArgs e)
         {
             grpExchangePrice.Enabled = !radFallThroughExchange.Checked;
+            if(radFallThroughExchange.Checked) radHighestBid.Checked = true;
         }
     }
 }

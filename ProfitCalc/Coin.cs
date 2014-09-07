@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ProfitCalc.ApiControl.TemplateClasses;
 
 namespace ProfitCalc
@@ -21,6 +20,7 @@ namespace ProfitCalc
         public uint Height { get; set; }
 
         public List<Exchange> Exchanges { get; set; }
+        public Exchange TotalExchange { get; set; }
         public class Exchange
         {
             public string ExchangeName { get; set; }
@@ -46,12 +46,13 @@ namespace ProfitCalc
             }
         }
 
+        // Following is for the sake of datagridviews <3
+        public double TotalVolume { get; set; }
         public string BestExchangeName { get; set; }
         public double BestExchangePrice { get; set; }
         public double BestExchangeVolume { get; set; }
 
         public double WeightedBtcPrice { get; set; }
-        public double TotalVolume { get; set; }
         
         public double CoinsPerDay { get; set; }
         public double BtcPerDay { get; set; }
@@ -64,7 +65,6 @@ namespace ProfitCalc
         public string Source { get; set; }
         public DateTime Retrieved { get; set; }
 
-        public bool HasFrozenMarkets { get; set; }
         public bool HasImplementedMarketApi { get; set; }
         public bool IsMultiPool;
 
@@ -92,6 +92,7 @@ namespace ProfitCalc
                 IsFrozen = false
             };
             Exchanges = new List<Exchange>{customExchange};
+            TotalExchange = customExchange;
             Source = "Custom coin";
             Retrieved = DateTime.Now;
             IsMultiPool = false;
@@ -145,9 +146,9 @@ namespace ProfitCalc
                 IsFrozen = false
             };
             Exchanges = new List<Exchange> {nhExchange};
+            TotalExchange = nhExchange;
             Source = "NiceHash";
             Retrieved = DateTime.Now;
-            TotalVolume = 0;
             IsMultiPool = true;
             HasImplementedMarketApi = true;
         }
@@ -178,9 +179,9 @@ namespace ProfitCalc
                 IsFrozen = false
             };
             Exchanges = new List<Exchange> {wtmExchange};
+            TotalExchange = wtmExchange;
             Source = "WhatToMine";
             Retrieved = DateTime.Now;
-            TotalVolume = wtmExchange.BtcVolume;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
@@ -208,9 +209,9 @@ namespace ProfitCalc
                 IsFrozen = !ctwCoin.HasBuyOffers
             };
             Exchanges = new List<Exchange> {ctwExchange};
+            TotalExchange = ctwExchange;
             Source = "CoinTweak";
             Retrieved = DateTime.Now;
-            TotalVolume = ctwExchange.BtcVolume;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
@@ -243,9 +244,9 @@ namespace ProfitCalc
                 IsFrozen = cwzCoin.HealthStatus.Contains("Unhealthy")
             };
             Exchanges = new List<Exchange> {cwzExchange};
+            TotalExchange = cwzExchange;
             Source = "CoinWarz";
             Retrieved = DateTime.Now;
-            TotalVolume = cwzExchange.BtcVolume;
             IsMultiPool = false;
             HasImplementedMarketApi = false;
         }
@@ -284,59 +285,60 @@ namespace ProfitCalc
                 }
 
                 // Calculating weighted and fallthrough prices
-                Parallel.ForEach(Exchanges, exchange =>
+                foreach (Exchange exchange in Exchanges)
                 {
-                    if (TotalVolume > 0)
+                    if (TotalExchange.BtcVolume > 0)
                     {
-                        exchange.Weight = exchange.BtcVolume/TotalVolume;
+                        exchange.Weight = exchange.BtcVolume/TotalExchange.BtcVolume;
                         WeightedBtcPrice += (exchange.Weight*exchange.BtcPrice);
                     }
 
-                    if (exchange.BuyOrders != null && exchange.BuyOrders.Any())
-                    {
-                        double coinsToSell = CoinsPerDay;
-                        double collectedBtc = 0;
-                        foreach (Exchange.Order order in exchange.BuyOrders)
-                        {
-                            if (coinsToSell - order.CoinVolume < 0)
-                            {
-                                collectedBtc += coinsToSell*order.BtcPrice;
-                                exchange.LeftOverInFallThrough = 0;
-                                break;
-                            }
-
-                            coinsToSell -= order.CoinVolume;
-                            collectedBtc += order.CoinVolume*order.BtcPrice;
-                            exchange.LeftOverInFallThrough = coinsToSell;
-                        }
-
-                        exchange.FallThroughPrice = collectedBtc/(CoinsPerDay - exchange.LeftOverInFallThrough);
-                    }
-                });
+                    Tuple<double, double> fallthroughPrices = GetFallThroughPrices(exchange.BuyOrders);
+                    exchange.FallThroughPrice = fallthroughPrices.Item1;
+                    exchange.LeftOverInFallThrough = fallthroughPrices.Item2;
+                }
 
                 // Sorting the orders in the right way
+                // And adding to total orders
                 foreach (Exchange exchange in Exchanges)
                 {
                     if (exchange.BuyOrders != null)
                     {
-                        exchange.BuyOrders = exchange.BuyOrders.OrderByDescending(order => order.BtcPrice).ToList();
+                        exchange.BuyOrders = 
+                            exchange.BuyOrders.OrderByDescending(order => order.BtcPrice).ToList();
+                        TotalExchange.BuyOrders = 
+                            AddToTotalOrders(exchange.BuyOrders, TotalExchange.BuyOrders);
                     }
 
                     if (exchange.SellOrders != null)
                     {
-                        exchange.SellOrders = exchange.SellOrders.OrderBy(order => order.BtcPrice).ToList();
+                        exchange.SellOrders = 
+                            exchange.SellOrders.OrderBy(order => order.BtcPrice).ToList();
+                        TotalExchange.SellOrders = 
+                            AddToTotalOrders(exchange.SellOrders, TotalExchange.SellOrders);
                     }
                 }
-                
+
+                if (TotalExchange.BuyOrders != null)
+                {
+                    TotalExchange.BuyOrders = 
+                        TotalExchange.BuyOrders.OrderByDescending(order => order.BtcPrice).ToList();
+                }
+                if (TotalExchange.SellOrders != null)
+                {
+                    TotalExchange.SellOrders = 
+                        TotalExchange.SellOrders.OrderBy(order => order.BtcPrice).ToList();
+                }
+
+                Tuple<double,double> totalFallthroughPrices = GetFallThroughPrices(TotalExchange.BuyOrders);
+                TotalExchange.FallThroughPrice = totalFallthroughPrices.Item1;
+                TotalExchange.LeftOverInFallThrough = totalFallthroughPrices.Item2;
+
                 Exchanges = useFallThroughPrice
                     ? Exchanges.OrderByDescending(exchange => exchange.FallThroughPrice).ToList()
                     : Exchanges.OrderByDescending(exchange => exchange.BtcVolume).ToList();
 
-                BestExchangeName = Exchanges[0].ExchangeName;
-                BestExchangePrice = Exchanges[0].BtcPrice;
-                BestExchangeVolume = Exchanges[0].BtcVolume;
-
-                double priceToUse = TotalVolume > 0 && useWeightedCalculations
+                double priceToUse = TotalExchange.BtcVolume > 0 && useWeightedCalculations
                     ? WeightedBtcPrice
                     : (useFallThroughPrice 
                     ? Exchanges[0].FallThroughPrice 
@@ -345,7 +347,76 @@ namespace ProfitCalc
 
                 // Only the brave remove the following line
                 if (TagName == "BTC") BtcPerDay = CoinsPerDay;
+
+                TotalVolume = TotalExchange.BtcVolume;
+                BestExchangeName = Exchanges[0].ExchangeName;
+                BestExchangePrice = Exchanges[0].BtcPrice;
+                BestExchangeVolume = Exchanges[0].BtcVolume;
             }
+        }
+
+        private Tuple<double, double> GetFallThroughPrices(List<Exchange.Order> buyOrders)
+        {
+            double leftOver = 0;
+            double fallThroughPrice = 0;
+
+            if (buyOrders != null && buyOrders.Any())
+            {
+                double coinsToSell = CoinsPerDay;
+                double collectedBtc = 0;
+                
+                foreach (Exchange.Order order in buyOrders)
+                {
+                    if (coinsToSell - order.CoinVolume < 0)
+                    {
+                        collectedBtc += coinsToSell * order.BtcPrice;
+                        leftOver = 0;
+                        break;
+                    }
+
+                    coinsToSell -= order.CoinVolume;
+                    collectedBtc += order.CoinVolume * order.BtcPrice;
+                    leftOver = coinsToSell;
+                }
+
+                fallThroughPrice = collectedBtc / (CoinsPerDay - leftOver);
+            }
+
+            return new Tuple<double, double>(fallThroughPrice, leftOver);
+        }
+
+        private List<Exchange.Order> AddToTotalOrders(List<Exchange.Order> orders,
+            List<Exchange.Order> totalOrders)
+        {
+            if (orders != null && orders.Any())
+            {
+                if (totalOrders == null)
+                {
+                    totalOrders = new List<Exchange.Order>();
+                }
+
+                foreach (Exchange.Order newOrder in orders)
+                {
+                    bool found = false;
+                    foreach (Exchange.Order order in totalOrders)
+                    {
+                        if (newOrder.BtcPrice == order.BtcPrice)
+                        {
+                            found = true;
+                            order.BtcVolume += newOrder.BtcVolume;
+                            order.CoinVolume += newOrder.CoinVolume;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        totalOrders.Add(newOrder);
+                    }
+                }
+            }
+
+            return totalOrders;
         }
 
         public override string ToString()
@@ -354,7 +425,7 @@ namespace ProfitCalc
                    BtcPerDay.ToString("#.00000000") + " | Coins/day: " + CoinsPerDay.ToString("#.00000000") + 
                    GetExchanges() + 
                    " | Weighted price: " + WeightedBtcPrice.ToString("#.00000000") + " | Total volume: " +
-                   TotalVolume.ToString("#.0000") + " | Difficulty: " + Difficulty.ToString("#.###") + 
+                   TotalExchange.BtcVolume.ToString("#.0000") + " | Difficulty: " + Difficulty.ToString("#.###") + 
                    " | Blockreward: " + BlockReward.ToString("#.###");
         }
 
