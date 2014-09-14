@@ -15,7 +15,8 @@ namespace ProfitCalc
 {
     public partial class ProfitCalc : Form
     {
-        private CoinList _coinList;
+        private Dictionary<string,List<Coin>> _coinLists;
+        private CoinList _sourceList; 
         private Dictionary<string,Profile> _profileList;
         private BindingList<CustomCoin> _customCoins;
         private AutoCompleteStringCollection _historicAlgoList;
@@ -381,6 +382,11 @@ namespace ProfitCalc
             nudAmount.Value = _profileList[cbbProfiles.Text].Multiplier;
             cbbFiat.SelectedIndex = _profileList[cbbProfiles.Text].FiatOfChoice;
             txtFiatElectricityCost.Text = _profileList[cbbProfiles.Text].FiatPerKwh.ToString(CultureInfo.InvariantCulture);
+
+            foreach (KeyValuePair<string, Profile> profile in _profileList)
+            {
+                AddToResultsTabControl(profile);
+            }
             
             
             if (File.Exists("apisettings.txt"))
@@ -452,6 +458,23 @@ namespace ProfitCalc
                     AppendToLog("Error in apisettings.txt", exception);
                 }
             }
+        }
+
+        private void AddToResultsTabControl(KeyValuePair<string, Profile> profile)
+        {
+            ResultsDatagrid results = new ResultsDatagrid()
+            {
+                Dock = DockStyle.Fill
+            };
+
+            TabPage tabProfile = new TabPage
+            {
+                UseVisualStyleBackColor = false,
+                Text = profile.Key
+            };
+
+            tabProfile.Controls.Add(results);
+            tbcResults.TabPages.Add(tabProfile);
         }
 
         private void UpdateHistoricAlgo(IEnumerable<CustomAlgo> customAlgoList)
@@ -619,10 +642,8 @@ namespace ProfitCalc
             tsProgress.Value += i;
 
             tsStatus.Text = "Calculating profits and sorting the list...";
-            CalculatePrices();
-
-            tsProgress.Value += i;
-            UpdateResultsDgv();
+            _coinLists = new Dictionary<string, List<Coin>>();
+            UpdateResults(true);
 
             tsProgress.Value = 100;
             TimeSpan end = DateTime.Now.Subtract(start);
@@ -632,23 +653,26 @@ namespace ProfitCalc
             Cursor = Cursors.Default;
         }
 
-        private void CalculatePrices()
+        private List<Coin> CalculatePrices(KeyValuePair<string, Profile> profile)
         {
+            List<Coin> coinList = new List<Coin>();
             try
             {
-                _coinList.CalculatePrices(radWeighted.Checked, radFallThroughExchange.Checked,
-                    chkCoindesk.Checked, chk24hDiff.Checked);
+                coinList = _sourceList.CalculatePrices(radWeighted.Checked, radFallThroughExchange.Checked,
+                    chkCoindesk.Checked, chk24hDiff.Checked, profile.Value);
             }
             catch (Exception exception)
             {
-                AppendToLog("Error while getting data from Coindesk, used to calculate your " + cbbFiat.Text + "/day.",
+                AppendToLog("Error while calculating your profits for profile " + profile.Key,
                     exception);
             }
+
+            return coinList;
         }
 
-        private List<Coin> GetCleanedCoinList()
+        private List<Coin> GetCleanedCoinList(IEnumerable<Coin> listOfCoins)
         {
-            ParallelQuery<Coin> tempCoinList = _coinList.ListOfCoins.AsParallel();
+            ParallelQuery<Coin> tempCoinList = listOfCoins.AsParallel();
 
             if (chkRemoveUnlisted.Checked)
             {
@@ -675,7 +699,7 @@ namespace ProfitCalc
             {
                 tsStatus.Text = "Removing coins with zero volume..";
                 tempCoinList = tempCoinList.Where(coin =>
-                    coin.TotalExchange.BtcVolume > 0 || coin.IsMultiPool || Double.IsNaN(coin.TotalExchange.BtcVolume));
+                    (coin.TotalExchange.BtcVolume > 0 || coin.IsMultiPool) && !Double.IsNaN(coin.TotalExchange.BtcVolume));
             }
 
             if (chkRemoveNegative.Checked)
@@ -688,59 +712,35 @@ namespace ProfitCalc
             return new List<Coin>(tempCoinList.OrderByDescending(o => o.BtcPerDay));
         }
 
-        private void UpdateResultsDgv()
+        private void UpdateResults(bool init)
         {
-            tsStatus.Text = "Writing data to table...";
-
-            List<Coin> sourceList = GetCleanedCoinList();
-
-            dgvResults.SuspendLayout();
-            dgvResults.DataSource = null;
-            dgvResults.AutoGenerateColumns = false;
-            dgvResults.DataSource = sourceList;
-            dgvResults.ResumeLayout();
-
-            foreach (DataGridViewRow row in dgvResults.Rows)
+            foreach (KeyValuePair<string, Profile> profile in _profileList)
             {
-                row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
-                row.DefaultCellStyle.BackColor = GetRowColor(sourceList[row.Index]);
+                if (init)
+                {
+                    _coinLists.Add(profile.Key, CalculatePrices(profile));
+                }
+
+                foreach (TabPage tabPage in tbcResults.TabPages)
+                {
+                    if (tabPage.Text == profile.Key)
+                    {
+                        foreach (Control control in tabPage.Controls)
+                        {
+                            ResultsDatagrid results = control as ResultsDatagrid;
+                            if (results != null)
+                            {
+                                results.UpdateCoinList(
+                                    GetCleanedCoinList(_coinLists[profile.Key]), 
+                                    chkColor.Checked);
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        private Color GetRowColor(Coin coin)
-        {
-            if (!coin.HasImplementedMarketApi) 
-            {
-                return Color.Plum;
-            }
-
-            if (coin.Exchanges.Count(exchange => exchange.IsFrozen) != 0)
-            {
-                return Color.DeepSkyBlue;
-            }
-
-            if (coin.BtcPerDay <= 0)
-            {
-                return coin.IsMultiPool ? Color.OrangeRed : Color.Red;
-            }
-
-            if (coin.IsMultiPool)
-            {
-                return Color.YellowGreen;
-            }
-
-            if (coin.TotalExchange.BtcVolume == 0)
-            {
-                return Color.BurlyWood;
-            }
-
-            if (coin.TotalExchange.BtcVolume < coin.BtcPerDay)
-            {
-                return Color.PaleTurquoise;
-            }
-
-            return Color.GreenYellow;
-        }
+        
 
         private void GetCoinList(int progress)
         {
@@ -748,7 +748,9 @@ namespace ProfitCalc
             if (chkProxy.Checked)
             {
                 hch.UseProxy = true;
-                hch.Proxy = String.IsNullOrEmpty(txtProxy.Text) ? WebRequest.GetSystemWebProxy() : new WebProxy(txtProxy.Text);
+                hch.Proxy = String.IsNullOrEmpty(txtProxy.Text) 
+                    ? WebRequest.GetSystemWebProxy() 
+                    : new WebProxy(txtProxy.Text);
             }
             else
             {
@@ -762,14 +764,14 @@ namespace ProfitCalc
             };
 
             int bidRecentAsk = radLowestAsk.Checked ? 2 : (radMostRecentTrade.Checked ? 1 : 0);
-            _coinList = new CoinList(client, _profileList[cbbProfiles.Text], bidRecentAsk, chkOrderDepth.Checked);
+            _sourceList = new CoinList(client, bidRecentAsk, chkOrderDepth.Checked);
 
             if (_customCoins.Count > 0)
             {
                 try
                 {
                     tsStatus.Text = "Adding custom coins...";
-                    _coinList.AddCustomCoins(_customCoins);
+                    _sourceList.AddCustomCoins(_customCoins);
                     // Refresh so it shows updated custom coin params through rpc
                     dgvCustomCoins.Refresh();
                 }
@@ -785,7 +787,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting actual NiceHash prices...";
-                    _coinList.UpdateNiceHash();
+                    _sourceList.UpdateNiceHash();
                 }
                 catch (Exception exception)
                 {
@@ -800,7 +802,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting multipool prices from PoolPicker...";
-                    _coinList.UpdatePoolPicker(nudPoolpicker.Value, chkReviewCalc.Checked);
+                    _sourceList.UpdatePoolPicker(nudPoolpicker.Value, chkReviewCalc.Checked);
                 }
                 catch (Exception exception)
                 {
@@ -815,7 +817,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting multipool prices from CrypToday...";
-                    _coinList.UpdateCrypToday(nudCryptoday.Value);
+                    _sourceList.UpdateCrypToday(nudCryptoday.Value);
                 }
                 catch (Exception exception)
                 {
@@ -830,7 +832,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting coin info from CoinTweak...";
-                    _coinList.UpdateCoinTweak(txtCointweakApiKey.Text);
+                    _sourceList.UpdateCoinTweak(txtCointweakApiKey.Text);
                 }
                 catch (Exception exception)
                 {
@@ -845,7 +847,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting coin info from CoinWarz...";
-                    _coinList.UpdateCoinWarz(txtCoinwarzApiKey.Text);
+                    _sourceList.UpdateCoinWarz(txtCoinwarzApiKey.Text);
                 }
                 catch (Exception exception)
                 {
@@ -860,7 +862,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Getting coin info from WhatToMine...";
-                    _coinList.UpdateWhatToMine();
+                    _sourceList.UpdateWhatToMine();
                 }
                 catch (Exception exception)
                 {
@@ -875,7 +877,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Bittrex prices...";
-                    _coinList.UpdateBittrex();
+                    _sourceList.UpdateBittrex();
                 }
                 catch (Exception exception)
                 {
@@ -890,7 +892,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with MintPal prices...";
-                    _coinList.UpdateMintPal();
+                    _sourceList.UpdateMintPal();
                 }
                 catch (Exception exception)
                 {
@@ -905,7 +907,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Cryptsy prices...";
-                    _coinList.UpdateCryptsy();
+                    _sourceList.UpdateCryptsy();
                 }
                 catch (Exception exception)
                 {
@@ -920,7 +922,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Poloniex prices...";
-                    _coinList.UpdatePoloniex();
+                    _sourceList.UpdatePoloniex();
                 }
                 catch (Exception exception)
                 {
@@ -935,7 +937,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with BTer prices...";
-                    _coinList.UpdateBTer();
+                    _sourceList.UpdateBTer();
                 }
                 catch (Exception exception)
                 {
@@ -950,7 +952,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCoin prices...";
-                    _coinList.UpdateAllCoin();
+                    _sourceList.UpdateAllCoin();
                 }
                 catch (Exception exception)
                 {
@@ -965,7 +967,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with AllCrypt prices...";
-                    _coinList.UpdateAllCrypt();
+                    _sourceList.UpdateAllCrypt();
                 }
                 catch (Exception exception)
                 {
@@ -980,7 +982,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with C-Cex prices...";
-                    _coinList.UpdateCCex(txtCcexApiKey.Text);
+                    _sourceList.UpdateCCex(txtCcexApiKey.Text);
                 }
                 catch (Exception exception)
                 {
@@ -995,7 +997,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Comkort prices...";
-                    _coinList.UpdateComkort();
+                    _sourceList.UpdateComkort();
                 }
                 catch (Exception exception)
                 {
@@ -1010,7 +1012,7 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Atomic Trade prices...";
-                    _coinList.UpdateAtomicTrade();
+                    _sourceList.UpdateAtomicTrade();
                 }
                 catch (Exception exception)
                 {
@@ -1025,11 +1027,26 @@ namespace ProfitCalc
                 try
                 {
                     tsStatus.Text = "Updating with Cryptoine prices...";
-                    _coinList.UpdateCryptoine();
+                    _sourceList.UpdateCryptoine();
                 }
                 catch (Exception exception)
                 {
                     AppendToLog("Error while getting data from Cryptoine.",
+                        exception);
+                }
+            }
+
+            tsProgress.Value += progress;
+            if (chkCoindesk.Checked)
+            {
+                try
+                {
+                    tsStatus.Text = "Updating with fiat prices...";
+                    _sourceList.UpdateFiatPrices();
+                }
+                catch (Exception exception)
+                {
+                    AppendToLog("Error while getting data from Coindesk, used to calculate your " + cbbFiat.Text + "/day.",
                         exception);
                 }
             }
@@ -1343,9 +1360,9 @@ namespace ProfitCalc
 
         private void reasonToUpdateDgv_CheckedChanged(object sender, EventArgs e)
         {
-            if (_coinList != null && _coinList.ListOfCoins != null)
+            if (_sourceList != null && _sourceList.ListOfCoins != null)
             {
-                UpdateResultsDgv();
+                UpdateResults(false);
             }
         }
 
@@ -1368,54 +1385,65 @@ namespace ProfitCalc
 
         private void SetVisibleFiatColumn()
         {
-            if (chkCoindesk.Checked)
+            foreach (TabPage tabPage in tbcResults.TabPages)
             {
-                switch (cbbFiat.SelectedIndex)
+                foreach (Control control in tabPage.Controls)
                 {
-                    case 0:
-                        lblElectricityCost.Text = "USD/kWh";
-                        dgvResults.Columns[3].Visible = true;
-                        dgvResults.Columns[4].Visible = false;
-                        dgvResults.Columns[5].Visible = false;
-                        dgvResults.Columns[6].Visible = false;
-                        break;
-                    case 1:
-                        lblElectricityCost.Text = "EUR/kWh";
-                        dgvResults.Columns[3].Visible = false;
-                        dgvResults.Columns[4].Visible = true;
-                        dgvResults.Columns[5].Visible = false;
-                        dgvResults.Columns[6].Visible = false;
-                        break;
-                    case 2:
-                        lblElectricityCost.Text = "GBP/kWh";
-                        dgvResults.Columns[3].Visible = false;
-                        dgvResults.Columns[4].Visible = false;
-                        dgvResults.Columns[5].Visible = true;
-                        dgvResults.Columns[6].Visible = false;
-                        break;
-                    case 3:
-                        lblElectricityCost.Text = "CNY/kWh";
-                        dgvResults.Columns[3].Visible = false;
-                        dgvResults.Columns[4].Visible = false;
-                        dgvResults.Columns[5].Visible = false;
-                        dgvResults.Columns[6].Visible = true;
-                        break;
-                    default:
-                        lblElectricityCost.Text = "USD/kWh";
-                        dgvResults.Columns[3].Visible = true;
-                        dgvResults.Columns[4].Visible = true;
-                        dgvResults.Columns[5].Visible = true;
-                        dgvResults.Columns[6].Visible = true;
-                        break;
+                    ResultsDatagrid results = control as ResultsDatagrid;
+                    if (results != null)
+                    {
+                        DataGridView dgvResults = results.GetDataGridView();
+                        if (chkCoindesk.Checked)
+                        {
+                            switch (cbbFiat.SelectedIndex)
+                            {
+                                case 0:
+                                    lblElectricityCost.Text = "USD/kWh";
+                                    dgvResults.Columns[3].Visible = true;
+                                    dgvResults.Columns[4].Visible = false;
+                                    dgvResults.Columns[5].Visible = false;
+                                    dgvResults.Columns[6].Visible = false;
+                                    break;
+                                case 1:
+                                    lblElectricityCost.Text = "EUR/kWh";
+                                    dgvResults.Columns[3].Visible = false;
+                                    dgvResults.Columns[4].Visible = true;
+                                    dgvResults.Columns[5].Visible = false;
+                                    dgvResults.Columns[6].Visible = false;
+                                    break;
+                                case 2:
+                                    lblElectricityCost.Text = "GBP/kWh";
+                                    dgvResults.Columns[3].Visible = false;
+                                    dgvResults.Columns[4].Visible = false;
+                                    dgvResults.Columns[5].Visible = true;
+                                    dgvResults.Columns[6].Visible = false;
+                                    break;
+                                case 3:
+                                    lblElectricityCost.Text = "CNY/kWh";
+                                    dgvResults.Columns[3].Visible = false;
+                                    dgvResults.Columns[4].Visible = false;
+                                    dgvResults.Columns[5].Visible = false;
+                                    dgvResults.Columns[6].Visible = true;
+                                    break;
+                                default:
+                                    lblElectricityCost.Text = "USD/kWh";
+                                    dgvResults.Columns[3].Visible = true;
+                                    dgvResults.Columns[4].Visible = true;
+                                    dgvResults.Columns[5].Visible = true;
+                                    dgvResults.Columns[6].Visible = true;
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            lblElectricityCost.Text = "Disabled";
+                            dgvResults.Columns[3].Visible = false;
+                            dgvResults.Columns[4].Visible = false;
+                            dgvResults.Columns[5].Visible = false;
+                            dgvResults.Columns[6].Visible = false;
+                        }
+                    }
                 }
-            }
-            else
-            {
-                lblElectricityCost.Text = "Disabled";
-                dgvResults.Columns[3].Visible = false;
-                dgvResults.Columns[4].Visible = false;
-                dgvResults.Columns[5].Visible = false;
-                dgvResults.Columns[6].Visible = false;
             }
 
             int x = txtFiatElectricityCost.Location.X - 6 - lblElectricityCost.Size.Width;
@@ -1501,14 +1529,14 @@ namespace ProfitCalc
         {
             dgvCustomAlgos.AutoGenerateColumns = false;
             
-            if (_coinList != null && _coinList.UsedProfile != null)
+            if (_profileList != null)
             {
                 dgvCustomAlgos.DataSource = _profileList[cbbProfiles.Text].CustomAlgoList;
-                _coinList.UsedProfile = _profileList[cbbProfiles.Text];
-                nudAmount.Value = _coinList.UsedProfile.Multiplier;
-                cbbFiat.SelectedIndex = _coinList.UsedProfile.FiatOfChoice;
-                txtFiatElectricityCost.Text = _coinList.UsedProfile.FiatPerKwh.ToString(CultureInfo.InvariantCulture);
-                UpdateHistoricAlgo(_profileList[cbbProfiles.SelectedText].CustomAlgoList);
+                //_coinList.AddToListOfAllAlgos(_profileList[cbbProfiles.Text].CustomAlgoList);
+                nudAmount.Value = _profileList[cbbProfiles.Text].Multiplier;
+                cbbFiat.SelectedIndex = _profileList[cbbProfiles.Text].FiatOfChoice;
+                txtFiatElectricityCost.Text = _profileList[cbbProfiles.Text].FiatPerKwh.ToString(CultureInfo.InvariantCulture);
+                //UpdateHistoricAlgo(_profileList[cbbProfiles.SelectedText].CustomAlgoList);
             }
         }
 
@@ -1694,14 +1722,6 @@ namespace ProfitCalc
 
         private void picDonate_Click(object sender, EventArgs e)
         {
-        }
-
-        private void dgView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                DetailedResult dr = new DetailedResult(GetCleanedCoinList()[e.RowIndex]) {Visible = true};
-            }
         }
 
         private void chkCCex_CheckedChanged(object sender, EventArgs e)

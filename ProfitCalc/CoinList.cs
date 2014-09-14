@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -7,37 +8,38 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.SqlServer.Server;
 using Newtonsoft.Json.Linq;
 using ProfitCalc.ApiControl;
 using ProfitCalc.ApiControl.TemplateClasses;
 
 namespace ProfitCalc
 {
-    internal class CoinList
+    public class CoinList
     {
         public List<Coin> ListOfCoins { get; set; }
+        private double _usdPrice;
+        private double _eurPrice;
+        private double _gbpPrice;
+        private double _cnyPrice;
         private readonly HttpClient _client;
-        private readonly ParallelOptions _po;
-        public Profile UsedProfile { get; set; }
+        private static readonly ParallelOptions Po = new ParallelOptions
+        {
+            CancellationToken = new CancellationTokenSource().Token,
+        };
+
+        //public Profile UsedProfile { get; set; }
         private readonly int _bidRecentAsk;
         private readonly bool _getOrderDepth;
 
-        public CoinList(HttpClient client, Profile profile, int index, bool getOrderDepth)
+        public CoinList(HttpClient client, int index, bool getOrderDepth)
         {
-            ListOfCoins = new List<Coin>();
             _client = client;
-            UsedProfile = profile;
+            ListOfCoins = new List<Coin>();
 
             // 0 == highest bid price, 1 == recent trade price, 2 = lowest ask price
             _bidRecentAsk = index;
             _getOrderDepth = getOrderDepth;
-
-            _po = new ParallelOptions
-            {
-                CancellationToken = new CancellationTokenSource().Token,
-                MaxDegreeOfParallelism = Environment.ProcessorCount * 4,
-            };
         }
 
         public void Add(Coin newCoin)
@@ -60,27 +62,76 @@ namespace ProfitCalc
                 }
             }
 
-            if (!found && UsedInProfile(newCoin.Algo, UsedProfile.CustomAlgoList))
+            if (!found)
             {
                 ListOfCoins.Add(newCoin);
             }
         }
 
-        private bool UsedInProfile(string algo, IEnumerable<CustomAlgo> customAlgoList)
+        /*private bool FoundInProfile(string algo, IEnumerable<CustomAlgo> customAlgoList)
         {
-            bool used = false;
+            bool found = false;
 
             Parallel.ForEach(customAlgoList, _po, savedAlgo =>
             {
-                if (savedAlgo.Name == algo && savedAlgo.Use)
+                if (savedAlgo.Name == algo)
                 {
-                    used = true;
+                    found = true;
                     _po.CancellationToken.ThrowIfCancellationRequested();
                 }
             });
 
-            return used;
+            return found;
         }
+
+        // List of all algos is used to clean an input algo. 
+        public void AddToListOfAllAlgos(IEnumerable<CustomAlgo> customAlgoList)
+        {
+            bool found = false;
+            foreach (CustomAlgo newAlgo in customAlgoList)
+            {
+                CustomAlgo safeAlgo = newAlgo;
+                Parallel.ForEach(ListOfAllAlgos, _po, algo =>
+                {
+                    if (safeAlgo.Name == algo.Name)
+                    {
+                        found = true;
+                        _po.CancellationToken.ThrowIfCancellationRequested();
+                    }
+                });
+
+                if (!found)
+                {
+                    ListOfAllAlgos.Add(newAlgo);
+                }
+            }
+        }
+
+        private string GetCleanedAlgo(string algo)
+        {
+            string cleanAlgo = algo.Trim();
+            Parallel.ForEach(ListOfAllAlgos, _po, savedAlgo =>
+            {
+                if (savedAlgo.Name == cleanAlgo)
+                {
+                    _po.CancellationToken.ThrowIfCancellationRequested();
+                }
+                else if )
+                {
+                    string[] synonyms = savedAlgo.SynonymsCsv.Split(',');
+                    Parallel.ForEach(synonyms, synonym =>
+                    {
+                        if (synonym == cleanAlgo)
+                        {
+                            cleanAlgo = savedAlgo.Name;
+                            _po.CancellationToken.ThrowIfCancellationRequested();
+                        }
+                    });
+                }
+            });
+
+            return cleanAlgo;
+        }*/
 
         public void AddCustomCoins(IEnumerable<CustomCoin> customCoins)
         {
@@ -149,32 +200,6 @@ namespace ProfitCalc
             }
         }
 
-        private string GetCleanedAlgo(string algo)
-        {
-            string cleanAlgo = algo.Trim();
-            Parallel.ForEach(UsedProfile.CustomAlgoList, _po, savedAlgo =>
-            {
-                if (savedAlgo.Name == cleanAlgo)
-                {
-                    _po.CancellationToken.ThrowIfCancellationRequested();
-                }
-                else if (!string.IsNullOrWhiteSpace(savedAlgo.SynonymsCsv))
-                {
-                    string[] synonyms = savedAlgo.SynonymsCsv.Split(',');
-                    Parallel.ForEach(synonyms, synonym =>
-                    {
-                        if (synonym == cleanAlgo)
-                        {
-                            cleanAlgo = savedAlgo.Name;
-                            _po.CancellationToken.ThrowIfCancellationRequested();
-                        }
-                    });
-                }
-            });
-
-            return cleanAlgo;
-        }
-
         public void UpdateNiceHash()
         {
             NiceHash niceHashData = JsonControl.DownloadSerializedApi<NiceHash>(
@@ -200,7 +225,6 @@ namespace ProfitCalc
             foreach (KeyValuePair<string, WhatToMine.Coin> wtmCoin in wtmData.Coins)
             {
                 Coin c = new Coin(wtmCoin);
-                c.Algo = GetCleanedAlgo(c.Algo);
                 Add(c);
             }
         }
@@ -219,7 +243,6 @@ namespace ProfitCalc
                     {
                         c.TagName = "RBY";
                     }
-                    c.Algo = GetCleanedAlgo(c.Algo);
 
                     Add(c);
                 }
@@ -240,7 +263,6 @@ namespace ProfitCalc
                 foreach (CoinWarz.Coin cwzCoin in cwzData.Data)
                 {
                     Coin c = new Coin(cwzCoin);
-                    c.Algo = GetCleanedAlgo(c.Algo);
                     Add(c);
                 }
             }
@@ -256,7 +278,7 @@ namespace ProfitCalc
                 _client.GetStreamAsync("https://api.mintpal.com/v2/market/summary/BTC").Result);
             Exception errorOrders = null;
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(mp.Data, _po, mpCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(mp.Data, Po, mpCoin =>
             {
                 if (mpCoin.Exchange == "BTC" && mpCoin.Code == c.TagName)
                 {
@@ -290,8 +312,7 @@ namespace ProfitCalc
                     {
                         try
                         {
-                            MintPalOrders mpOrders;
-                            mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
+                            MintPalOrders mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
                                 _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
                                                        + mpCoin.Code + "/BTC/ALL").Result);
 
@@ -345,7 +366,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
 
@@ -360,7 +381,7 @@ namespace ProfitCalc
             Cryptsy cp = JsonControl.DownloadSerializedApi<Cryptsy>(
                 _client.GetStreamAsync("http://pubapi.cryptsy.com/api.php?method=marketdatav2").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(cp.Returns.Markets, _po, cpCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(cp.Returns.Markets, Po, cpCoin =>
             {
                 if (cpCoin.Value.SecondaryCode == "BTC" && ((cpCoin.Value.PrimaryCode == c.TagName) 
                     || (cpCoin.Value.PrimaryCode == "STR" && c.TagName == "STAR")))
@@ -443,7 +464,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
         }
@@ -453,7 +474,7 @@ namespace ProfitCalc
             BittrexPairs bt = JsonControl.DownloadSerializedApi<BittrexPairs>(
                 _client.GetStreamAsync("http://bittrex.com/api/v1.1/public/getmarketsummaries").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(bt.Results, _po, btCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(bt.Results, Po, btCoin =>
             {
                 String[] splitMarket = btCoin.MarketName.Split('-');
                 if (splitMarket[0] == "BTC" && splitMarket[1] == c.TagName)
@@ -529,7 +550,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
         }
@@ -539,7 +560,7 @@ namespace ProfitCalc
             Dictionary<string, PoloniexPairs> pol = JsonControl.DownloadSerializedApi<Dictionary<string, PoloniexPairs>>(
                 _client.GetStreamAsync("http://poloniex.com/public?command=returnTicker").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(pol, _po, polCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(pol, Po, polCoin =>
             {
                 String[] splitMarket = polCoin.Key.Split('_');
                 if (splitMarket[0] == "BTC" && splitMarket[1] == c.TagName)
@@ -622,7 +643,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
         }
@@ -632,7 +653,7 @@ namespace ProfitCalc
             AllCoinPairs ac = JsonControl.DownloadSerializedApi<AllCoinPairs>(
                 _client.GetStreamAsync("https://www.allcoin.com/api2/pairs").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(ac.Data, _po, acCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(ac.Data, Po, acCoin =>
             {
                 String[] splitMarket = acCoin.Key.Split('_');
                 if (splitMarket[1] == "BTC" && splitMarket[0] == c.TagName)
@@ -729,7 +750,7 @@ namespace ProfitCalc
                         }
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
         }
@@ -739,7 +760,7 @@ namespace ProfitCalc
             Cryptsy ac = JsonControl.DownloadSerializedApi<Cryptsy>(
                 _client.GetStreamAsync("https://www.allcrypt.com/api?method=marketdatav2").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(ac.Returns.Markets, _po, acCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(ac.Returns.Markets, Po, acCoin =>
             {
                 if (acCoin.Value.SecondaryCode == "BTC" && ((acCoin.Value.PrimaryCode == c.TagName)
                     || (acCoin.Value.PrimaryCode == "STR" && c.TagName == "STAR")))
@@ -822,7 +843,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
         }
@@ -834,7 +855,7 @@ namespace ProfitCalc
             CCexVolume ccVolumes = JsonControl.DownloadSerializedApi<CCexVolume>(
                 _client.GetStreamAsync("https://c-cex.com/t/s.html?a=lastvolumes&h=24").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.For(0, ccPairs.Count, _po, i =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.For(0, ccPairs.Count, Po, i =>
             {
                 string market = ccPairs.Keys.ElementAt(i);
                 string[] splitPair = market.Split('-');
@@ -950,7 +971,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
             }));
         }
@@ -960,7 +981,7 @@ namespace ProfitCalc
             ComkortPairs com = JsonControl.DownloadSerializedApi<ComkortPairs>(
                 _client.GetStreamAsync("https://api.comkort.com/v1/public/market/summary").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(com.Markets, _po, comCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(com.Markets, Po, comCoin =>
             {
                 /*foreach (Coin c in List)
                 {
@@ -1061,7 +1082,7 @@ namespace ProfitCalc
                                 c.HasImplementedMarketApi = true;
                             }
 
-                            _po.CancellationToken.ThrowIfCancellationRequested();
+                            Po.CancellationToken.ThrowIfCancellationRequested();
                         }
                     //}
                 }));
@@ -1072,7 +1093,7 @@ namespace ProfitCalc
             CryptoinePairs cry = JsonControl.DownloadSerializedApi<CryptoinePairs>(
                 _client.GetStreamAsync("https://cryptoine.com/api/1/markets").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(cry.Data, _po, cryCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(cry.Data, Po, cryCoin =>
             {
                 string[] split = cryCoin.Key.Split('_');
                 if (split[1] == "btc" && split[0].ToUpperInvariant() == c.TagName)
@@ -1155,7 +1176,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
                 //}
             }));
@@ -1166,7 +1187,7 @@ namespace ProfitCalc
             Dictionary<string, BTerPairs> btPairs = JsonControl.DownloadSerializedApi<Dictionary<string, BTerPairs>>(
                 _client.GetStreamAsync("http://data.bter.com/api/1/tickers").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(btPairs, _po, btCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(btPairs, Po, btCoin =>
             {
                 /*foreach (Coin c in List)
                 {
@@ -1263,7 +1284,7 @@ namespace ProfitCalc
                         c.HasImplementedMarketApi = true;
                     }
 
-                    _po.CancellationToken.ThrowIfCancellationRequested();
+                    Po.CancellationToken.ThrowIfCancellationRequested();
                 }
                 //}
             }));
@@ -1274,7 +1295,7 @@ namespace ProfitCalc
             List<AtomicTradePair> atPairs = JsonControl.DownloadSerializedApi<List<AtomicTradePair>>(
                 _client.GetStreamAsync("https://www.atomic-trade.com/SimpleAPI?a=marketsv2").Result);
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(atPairs, _po, atCoin =>
+            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(atPairs, Po, atCoin =>
             {
             /*foreach (Coin c in List)
             {
@@ -1399,7 +1420,7 @@ namespace ProfitCalc
                             c.HasImplementedMarketApi = true;
                         }
 
-                        _po.CancellationToken.ThrowIfCancellationRequested();
+                        Po.CancellationToken.ThrowIfCancellationRequested();
                     }
                 //}}
             }));
@@ -1464,8 +1485,8 @@ namespace ProfitCalc
             }
 
             c.Exchanges[0].BtcPrice = 
-                c.Algo == "KECCAK" || c.Algo == "SHA256"
-                ? dAverage/(iCounter + 1)
+                c.Algo == "SHA256"
+                ? dAverage/(iCounter + 1)/1000
                 : dAverage/(iCounter + 1)*1000;
 
             if (reviewCalc)
@@ -1485,7 +1506,7 @@ namespace ProfitCalc
                 _client.GetStreamAsync("http://cryp.today/data").Result);
             Coin[] tempMultipools = new Coin[ct.Cols.Count-1];
 
-            Parallel.For(0, ct.Cols.Count - 1, _po, i =>
+            Parallel.For(0, ct.Cols.Count - 1, Po, i =>
             {
                 string[] splitNameAndAlgo = ct.Cols[i + 1].Label.Split(' ');
                 tempMultipools[i] = new Coin();
@@ -1517,7 +1538,7 @@ namespace ProfitCalc
             for (int i = ct.Rows.Count - 1; i >= ct.Rows.Count - average; i--)
             {
                 int row = i;
-                Parallel.For(1, ct.Rows[i].Results.Count, _po, column =>
+                Parallel.For(1, ct.Rows[i].Results.Count, Po, column =>
                 {
                     double priceHolder;
                     if (!string.IsNullOrWhiteSpace(ct.Rows[row].Results[column].Btc) &&
@@ -1557,61 +1578,79 @@ namespace ProfitCalc
             }
         }
 
-        public void CalculatePrices(bool useWeightedCalculation, bool useFallThroughPrice, bool calcFiat, bool use24HDiff)
+        public void UpdateFiatPrices()
         {
-            double usdPrice = 0, eurPrice = 0, gbpPrice = 0, cnyPrice = 0;
+            CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(
+                _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice.json").Result);
+            _usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
+            _eurPrice = cd.BpiPrice.EurPrice.RateFloat;
+            _gbpPrice = cd.BpiPrice.GbpPrice.RateFloat;
 
-            if (calcFiat)
+            cd = JsonControl.DownloadSerializedApi<CoinDesk>(
+                _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice/CNY.json").Result);
+            _cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
+        }
+
+        public List<Coin> CalculatePrices(bool useWeightedCalculation, bool useFallThroughPrice, bool calcFiat, bool use24HDiff,
+            Profile profileToUse)
+        {
+            List<Coin> coinList = JsonControl.DeepCopyTrick<List<Coin>>(ListOfCoins);
+
+            Parallel.ForEach(coinList, coin =>
             {
-                CoinDesk cd = JsonControl.DownloadSerializedApi<CoinDesk>(
-                    _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice.json").Result);
-                usdPrice = cd.BpiPrice.UsdPrice.RateFloat;
-                eurPrice = cd.BpiPrice.EurPrice.RateFloat;
-                gbpPrice = cd.BpiPrice.GbpPrice.RateFloat;
-
-                cd = JsonControl.DownloadSerializedApi<CoinDesk>(
-                    _client.GetStreamAsync("https://api.coindesk.com/v1/bpi/currentprice/CNY.json").Result);
-                cnyPrice = cd.BpiPrice.CnyPrice.RateFloat;
-            }
-
-            Parallel.ForEach(ListOfCoins, coin => Parallel.ForEach(UsedProfile.CustomAlgoList, _po, algo =>
-            {
-                if (coin.Algo == algo.Name)
+                foreach (CustomAlgo algo in profileToUse.CustomAlgoList)
                 {
-                    coin.CalcProfitability(algo.HashRate, useWeightedCalculation, useFallThroughPrice,
-                        UsedProfile.Multiplier, algo.Style, algo.Target, use24HDiff);
-
-                    if (calcFiat)
+                    if (CheckUsedAlgo(coin.Algo, algo))
                     {
-                        double fiatElectricityCost = (algo.Wattage/1000)*24*UsedProfile.FiatPerKwh;
-                        switch (UsedProfile.FiatOfChoice)
+                        coin.UsedInCoinlist = true;
+                        coin.CalcProfitability(algo.HashRate, useWeightedCalculation, useFallThroughPrice,
+                            profileToUse.Multiplier, algo.Style, algo.Target, use24HDiff);
+
+                        if (calcFiat)
                         {
-                            case 1:
-                                coin.BtcPerDay -= (fiatElectricityCost/eurPrice);
-                                break;
-                            case 2:
-                                coin.BtcPerDay -= (fiatElectricityCost/gbpPrice);
-                                break;
-                            case 3:
-                                coin.BtcPerDay -= (fiatElectricityCost/cnyPrice);
-                                break;
-                            default:
-                                coin.BtcPerDay -= (fiatElectricityCost/usdPrice);
-                                break;
+                            double fiatElectricityCost = (algo.Wattage/1000)*24*profileToUse.FiatPerKwh;
+                            switch (profileToUse.FiatOfChoice)
+                            {
+                                case 1:
+                                    coin.BtcPerDay -= (fiatElectricityCost/_eurPrice);
+                                    break;
+                                case 2:
+                                    coin.BtcPerDay -= (fiatElectricityCost/_gbpPrice);
+                                    break;
+                                case 3:
+                                    coin.BtcPerDay -= (fiatElectricityCost/_cnyPrice);
+                                    break;
+                                default:
+                                    coin.BtcPerDay -= (fiatElectricityCost/_usdPrice);
+                                    break;
+                            }
+                            
+                            coin.UsdPerDay = coin.BtcPerDay*_usdPrice;
+                            coin.EurPerDay = coin.BtcPerDay*_eurPrice;
+                            coin.GbpPerDay = coin.BtcPerDay*_gbpPrice;
+                            coin.CnyPerDay = coin.BtcPerDay*_cnyPrice;
                         }
 
-
-                        coin.UsdPerDay = coin.BtcPerDay*usdPrice;
-                        coin.EurPerDay = coin.BtcPerDay*eurPrice;
-                        coin.GbpPerDay = coin.BtcPerDay*gbpPrice;
-                        coin.CnyPerDay = coin.BtcPerDay*cnyPrice;
+                        break;
                     }
-
-                    _po.CancellationToken.ThrowIfCancellationRequested();
                 }
-            }));
+            });
 
-            ListOfCoins = ListOfCoins.AsParallel().OrderByDescending(o => o.BtcPerDay).ToList();
+            return coinList.AsParallel().Where(coin => coin.UsedInCoinlist).ToList();
+        }
+
+        private bool CheckUsedAlgo(string coinAlgo, CustomAlgo algo)
+        {
+            if (algo.Use == false) return false;
+            if (coinAlgo == algo.Name ) return true;
+            
+            string[] splitSynonyms = algo.SynonymsCsv.Split(',');
+            foreach (string synonym in splitSynonyms)
+            {
+                if (coinAlgo == synonym) return true;
+            }
+
+            return false;
         }
 
         public override string ToString()

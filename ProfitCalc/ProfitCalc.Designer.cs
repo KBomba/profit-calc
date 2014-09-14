@@ -28,40 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfitCalc));
             this.btnAddDeleteProfile = new System.Windows.Forms.Button();
             this.cbbProfiles = new System.Windows.Forms.ComboBox();
             this.btnCalc = new System.Windows.Forms.Button();
-            this.dgvResults = new System.Windows.Forms.DataGridView();
-            this.TagName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Algo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsdPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EurPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GbpPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CnyPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BtcPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CoinsPerDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BestExchangeVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WeightedBtcPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Difficulty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BlockReward = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stStatusStrip = new System.Windows.Forms.StatusStrip();
             this.tsProgressText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgress = new System.Windows.Forms.ToolStripProgressBar();
@@ -74,12 +44,21 @@
             this.tabLog = new System.Windows.Forms.TabPage();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPriceCalc = new System.Windows.Forms.TabPage();
-            this.nudAmount = new System.Windows.Forms.NumericUpDown();
-            this.cbbFiat = new System.Windows.Forms.ComboBox();
-            this.lblAmountOfGpu = new System.Windows.Forms.Label();
-            this.chkCoindesk = new System.Windows.Forms.CheckBox();
-            this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
+            this.grpExchangePrice = new System.Windows.Forms.GroupBox();
+            this.radLowestAsk = new System.Windows.Forms.RadioButton();
+            this.radMostRecentTrade = new System.Windows.Forms.RadioButton();
+            this.radHighestBid = new System.Windows.Forms.RadioButton();
+            this.grpPriceSource = new System.Windows.Forms.GroupBox();
+            this.radFallThroughExchange = new System.Windows.Forms.RadioButton();
+            this.radVolumeExchange = new System.Windows.Forms.RadioButton();
+            this.radWeighted = new System.Windows.Forms.RadioButton();
+            this.grpFiatElectricityMultiplier = new System.Windows.Forms.GroupBox();
             this.lblElectricityCost = new System.Windows.Forms.Label();
+            this.txtFiatElectricityCost = new System.Windows.Forms.TextBox();
+            this.nudAmount = new System.Windows.Forms.NumericUpDown();
+            this.lblAmountOfGpu = new System.Windows.Forms.Label();
+            this.cbbFiat = new System.Windows.Forms.ComboBox();
+            this.chkCoindesk = new System.Windows.Forms.CheckBox();
             this.chk24hDiff = new System.Windows.Forms.CheckBox();
             this.tabMarketApi = new System.Windows.Forms.TabPage();
             this.txtCcexApiKey = new System.Windows.Forms.TextBox();
@@ -131,21 +110,15 @@
             this.txtProxy = new System.Windows.Forms.TextBox();
             this.chkProxy = new System.Windows.Forms.CheckBox();
             this.spcMain = new System.Windows.Forms.SplitContainer();
-            this.grpPriceSource = new System.Windows.Forms.GroupBox();
-            this.radWeighted = new System.Windows.Forms.RadioButton();
-            this.radVolumeExchange = new System.Windows.Forms.RadioButton();
-            this.radFallThroughExchange = new System.Windows.Forms.RadioButton();
-            this.grpExchangePrice = new System.Windows.Forms.GroupBox();
-            this.radLowestAsk = new System.Windows.Forms.RadioButton();
-            this.radMostRecentTrade = new System.Windows.Forms.RadioButton();
-            this.radHighestBid = new System.Windows.Forms.RadioButton();
-            this.grpFiatElectricityMultiplier = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
+            this.tbcResults = new System.Windows.Forms.TabControl();
             this.stStatusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).BeginInit();
             this.tabReadme.SuspendLayout();
             this.tabLog.SuspendLayout();
             this.tabPriceCalc.SuspendLayout();
+            this.grpExchangePrice.SuspendLayout();
+            this.grpPriceSource.SuspendLayout();
+            this.grpFiatElectricityMultiplier.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             this.tabMarketApi.SuspendLayout();
             this.tabOuterCoinMultipool.SuspendLayout();
@@ -168,9 +141,6 @@
             this.spcMain.Panel1.SuspendLayout();
             this.spcMain.Panel2.SuspendLayout();
             this.spcMain.SuspendLayout();
-            this.grpPriceSource.SuspendLayout();
-            this.grpExchangePrice.SuspendLayout();
-            this.grpFiatElectricityMultiplier.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddDeleteProfile
@@ -206,202 +176,6 @@
             this.btnCalc.Text = "Calculate";
             this.btnCalc.UseVisualStyleBackColor = true;
             this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
-            // 
-            // dgvResults
-            // 
-            this.dgvResults.AllowUserToAddRows = false;
-            this.dgvResults.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black;
-            this.dgvResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle14;
-            this.dgvResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvResults.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvResults.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TagName,
-            this.FullName,
-            this.Algo,
-            this.UsdPerDay,
-            this.EurPerDay,
-            this.GbpPerDay,
-            this.CnyPerDay,
-            this.BtcPerDay,
-            this.CoinsPerDay,
-            this.BestExchangeName,
-            this.BestExchangePrice,
-            this.BestExchangeVolume,
-            this.WeightedBtcPrice,
-            this.TotalVolume,
-            this.Difficulty,
-            this.BlockReward});
-            this.dgvResults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvResults.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dgvResults.Location = new System.Drawing.Point(0, 0);
-            this.dgvResults.Name = "dgvResults";
-            this.dgvResults.ReadOnly = true;
-            this.dgvResults.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dgvResults.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvResults.Size = new System.Drawing.Size(984, 356);
-            this.dgvResults.TabIndex = 1;
-            this.dgvResults.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellDoubleClick);
-            // 
-            // TagName
-            // 
-            this.TagName.DataPropertyName = "TagName";
-            this.TagName.HeaderText = "Tag";
-            this.TagName.Name = "TagName";
-            this.TagName.ReadOnly = true;
-            this.TagName.Width = 51;
-            // 
-            // FullName
-            // 
-            this.FullName.DataPropertyName = "FullName";
-            this.FullName.HeaderText = "Name";
-            this.FullName.MinimumWidth = 200;
-            this.FullName.Name = "FullName";
-            this.FullName.ReadOnly = true;
-            this.FullName.Width = 200;
-            // 
-            // Algo
-            // 
-            this.Algo.DataPropertyName = "Algo";
-            this.Algo.HeaderText = "Algo";
-            this.Algo.Name = "Algo";
-            this.Algo.ReadOnly = true;
-            this.Algo.Width = 53;
-            // 
-            // UsdPerDay
-            // 
-            this.UsdPerDay.DataPropertyName = "UsdPerDay";
-            dataGridViewCellStyle15.Format = "N3";
-            dataGridViewCellStyle15.NullValue = null;
-            this.UsdPerDay.DefaultCellStyle = dataGridViewCellStyle15;
-            this.UsdPerDay.HeaderText = "USD per day";
-            this.UsdPerDay.Name = "UsdPerDay";
-            this.UsdPerDay.ReadOnly = true;
-            this.UsdPerDay.Width = 70;
-            // 
-            // EurPerDay
-            // 
-            this.EurPerDay.DataPropertyName = "EurPerDay";
-            dataGridViewCellStyle16.Format = "N3";
-            this.EurPerDay.DefaultCellStyle = dataGridViewCellStyle16;
-            this.EurPerDay.HeaderText = "EUR per day";
-            this.EurPerDay.Name = "EurPerDay";
-            this.EurPerDay.ReadOnly = true;
-            this.EurPerDay.Visible = false;
-            this.EurPerDay.Width = 93;
-            // 
-            // GbpPerDay
-            // 
-            this.GbpPerDay.DataPropertyName = "GbpPerDay";
-            dataGridViewCellStyle17.Format = "N3";
-            this.GbpPerDay.DefaultCellStyle = dataGridViewCellStyle17;
-            this.GbpPerDay.HeaderText = "GBP per day";
-            this.GbpPerDay.Name = "GbpPerDay";
-            this.GbpPerDay.ReadOnly = true;
-            this.GbpPerDay.Visible = false;
-            this.GbpPerDay.Width = 92;
-            // 
-            // CnyPerDay
-            // 
-            this.CnyPerDay.DataPropertyName = "CnyPerDay";
-            dataGridViewCellStyle18.Format = "N3";
-            this.CnyPerDay.DefaultCellStyle = dataGridViewCellStyle18;
-            this.CnyPerDay.HeaderText = "CNY per day";
-            this.CnyPerDay.Name = "CnyPerDay";
-            this.CnyPerDay.ReadOnly = true;
-            this.CnyPerDay.Visible = false;
-            this.CnyPerDay.Width = 92;
-            // 
-            // BtcPerDay
-            // 
-            this.BtcPerDay.DataPropertyName = "BtcPerDay";
-            dataGridViewCellStyle19.Format = "N8";
-            this.BtcPerDay.DefaultCellStyle = dataGridViewCellStyle19;
-            this.BtcPerDay.HeaderText = "BTC per day";
-            this.BtcPerDay.Name = "BtcPerDay";
-            this.BtcPerDay.ReadOnly = true;
-            this.BtcPerDay.Width = 69;
-            // 
-            // CoinsPerDay
-            // 
-            this.CoinsPerDay.DataPropertyName = "CoinsPerDay";
-            dataGridViewCellStyle20.Format = "N5";
-            dataGridViewCellStyle20.NullValue = null;
-            this.CoinsPerDay.DefaultCellStyle = dataGridViewCellStyle20;
-            this.CoinsPerDay.HeaderText = "Coins per day";
-            this.CoinsPerDay.Name = "CoinsPerDay";
-            this.CoinsPerDay.ReadOnly = true;
-            this.CoinsPerDay.Width = 73;
-            // 
-            // BestExchangeName
-            // 
-            this.BestExchangeName.DataPropertyName = "BestExchangeName";
-            this.BestExchangeName.HeaderText = "Best exchange";
-            this.BestExchangeName.Name = "BestExchangeName";
-            this.BestExchangeName.ReadOnly = true;
-            this.BestExchangeName.Width = 95;
-            // 
-            // BestExchangePrice
-            // 
-            this.BestExchangePrice.DataPropertyName = "BestExchangePrice";
-            dataGridViewCellStyle21.Format = "N8";
-            this.BestExchangePrice.DefaultCellStyle = dataGridViewCellStyle21;
-            this.BestExchangePrice.HeaderText = "Best exchange\'s price";
-            this.BestExchangePrice.Name = "BestExchangePrice";
-            this.BestExchangePrice.ReadOnly = true;
-            this.BestExchangePrice.Width = 124;
-            // 
-            // BestExchangeVolume
-            // 
-            this.BestExchangeVolume.DataPropertyName = "BestExchangeVolume";
-            dataGridViewCellStyle22.Format = "N3";
-            this.BestExchangeVolume.DefaultCellStyle = dataGridViewCellStyle22;
-            this.BestExchangeVolume.HeaderText = "Best exchange\'s volume";
-            this.BestExchangeVolume.Name = "BestExchangeVolume";
-            this.BestExchangeVolume.ReadOnly = true;
-            this.BestExchangeVolume.Width = 134;
-            // 
-            // WeightedBtcPrice
-            // 
-            this.WeightedBtcPrice.DataPropertyName = "WeightedBtcPrice";
-            dataGridViewCellStyle23.Format = "N8";
-            this.WeightedBtcPrice.DefaultCellStyle = dataGridViewCellStyle23;
-            this.WeightedBtcPrice.HeaderText = "Weighted price";
-            this.WeightedBtcPrice.Name = "WeightedBtcPrice";
-            this.WeightedBtcPrice.ReadOnly = true;
-            this.WeightedBtcPrice.Width = 96;
-            // 
-            // TotalVolume
-            // 
-            this.TotalVolume.DataPropertyName = "TotalVolume";
-            dataGridViewCellStyle24.Format = "N3";
-            this.TotalVolume.DefaultCellStyle = dataGridViewCellStyle24;
-            this.TotalVolume.HeaderText = "Total Volume";
-            this.TotalVolume.Name = "TotalVolume";
-            this.TotalVolume.ReadOnly = true;
-            this.TotalVolume.Width = 87;
-            // 
-            // Difficulty
-            // 
-            this.Difficulty.DataPropertyName = "Difficulty";
-            dataGridViewCellStyle25.Format = "N4";
-            this.Difficulty.DefaultCellStyle = dataGridViewCellStyle25;
-            this.Difficulty.HeaderText = "Difficulty";
-            this.Difficulty.Name = "Difficulty";
-            this.Difficulty.ReadOnly = true;
-            this.Difficulty.Width = 72;
-            // 
-            // BlockReward
-            // 
-            this.BlockReward.DataPropertyName = "BlockReward";
-            dataGridViewCellStyle26.Format = "N4";
-            this.BlockReward.DefaultCellStyle = dataGridViewCellStyle26;
-            this.BlockReward.HeaderText = "Block reward";
-            this.BlockReward.Name = "BlockReward";
-            this.BlockReward.ReadOnly = true;
-            this.BlockReward.Width = 87;
             // 
             // stStatusStrip
             // 
@@ -521,6 +295,128 @@
             this.tabPriceCalc.Text = "Price Calc Settings";
             this.tabPriceCalc.UseVisualStyleBackColor = true;
             // 
+            // grpExchangePrice
+            // 
+            this.grpExchangePrice.Controls.Add(this.radLowestAsk);
+            this.grpExchangePrice.Controls.Add(this.radMostRecentTrade);
+            this.grpExchangePrice.Controls.Add(this.radHighestBid);
+            this.grpExchangePrice.Location = new System.Drawing.Point(268, 6);
+            this.grpExchangePrice.Name = "grpExchangePrice";
+            this.grpExchangePrice.Size = new System.Drawing.Size(143, 90);
+            this.grpExchangePrice.TabIndex = 70;
+            this.grpExchangePrice.TabStop = false;
+            this.grpExchangePrice.Text = "Which exchange price?";
+            // 
+            // radLowestAsk
+            // 
+            this.radLowestAsk.AutoSize = true;
+            this.radLowestAsk.Location = new System.Drawing.Point(6, 65);
+            this.radLowestAsk.Name = "radLowestAsk";
+            this.radLowestAsk.Size = new System.Drawing.Size(75, 17);
+            this.radLowestAsk.TabIndex = 2;
+            this.radLowestAsk.Text = "lowest ask";
+            this.radLowestAsk.UseVisualStyleBackColor = true;
+            // 
+            // radMostRecentTrade
+            // 
+            this.radMostRecentTrade.AutoSize = true;
+            this.radMostRecentTrade.Location = new System.Drawing.Point(6, 42);
+            this.radMostRecentTrade.Name = "radMostRecentTrade";
+            this.radMostRecentTrade.Size = new System.Drawing.Size(107, 17);
+            this.radMostRecentTrade.TabIndex = 1;
+            this.radMostRecentTrade.Text = "most recent trade";
+            this.radMostRecentTrade.UseVisualStyleBackColor = true;
+            // 
+            // radHighestBid
+            // 
+            this.radHighestBid.AutoSize = true;
+            this.radHighestBid.Checked = true;
+            this.radHighestBid.Location = new System.Drawing.Point(6, 19);
+            this.radHighestBid.Name = "radHighestBid";
+            this.radHighestBid.Size = new System.Drawing.Size(76, 17);
+            this.radHighestBid.TabIndex = 0;
+            this.radHighestBid.TabStop = true;
+            this.radHighestBid.Text = "highest bid";
+            this.radHighestBid.UseVisualStyleBackColor = true;
+            // 
+            // grpPriceSource
+            // 
+            this.grpPriceSource.Controls.Add(this.radFallThroughExchange);
+            this.grpPriceSource.Controls.Add(this.radVolumeExchange);
+            this.grpPriceSource.Controls.Add(this.radWeighted);
+            this.grpPriceSource.Location = new System.Drawing.Point(7, 6);
+            this.grpPriceSource.Name = "grpPriceSource";
+            this.grpPriceSource.Size = new System.Drawing.Size(255, 90);
+            this.grpPriceSource.TabIndex = 69;
+            this.grpPriceSource.TabStop = false;
+            this.grpPriceSource.Text = "Price source";
+            // 
+            // radFallThroughExchange
+            // 
+            this.radFallThroughExchange.AutoSize = true;
+            this.radFallThroughExchange.Location = new System.Drawing.Point(6, 65);
+            this.radFallThroughExchange.Name = "radFallThroughExchange";
+            this.radFallThroughExchange.Size = new System.Drawing.Size(195, 17);
+            this.radFallThroughExchange.TabIndex = 2;
+            this.radFallThroughExchange.Text = "exchange with best fallthrough price";
+            this.radFallThroughExchange.UseVisualStyleBackColor = true;
+            this.radFallThroughExchange.CheckedChanged += new System.EventHandler(this.radFallThroughExchange_CheckedChanged);
+            // 
+            // radVolumeExchange
+            // 
+            this.radVolumeExchange.AutoSize = true;
+            this.radVolumeExchange.Location = new System.Drawing.Point(6, 42);
+            this.radVolumeExchange.Name = "radVolumeExchange";
+            this.radVolumeExchange.Size = new System.Drawing.Size(156, 17);
+            this.radVolumeExchange.TabIndex = 1;
+            this.radVolumeExchange.Text = "exchange with most volume";
+            this.radVolumeExchange.UseVisualStyleBackColor = true;
+            // 
+            // radWeighted
+            // 
+            this.radWeighted.AutoSize = true;
+            this.radWeighted.Checked = true;
+            this.radWeighted.Location = new System.Drawing.Point(6, 19);
+            this.radWeighted.Name = "radWeighted";
+            this.radWeighted.Size = new System.Drawing.Size(244, 17);
+            this.radWeighted.TabIndex = 0;
+            this.radWeighted.TabStop = true;
+            this.radWeighted.Text = "average of all exchanges, weighted by volume";
+            this.radWeighted.UseVisualStyleBackColor = true;
+            // 
+            // grpFiatElectricityMultiplier
+            // 
+            this.grpFiatElectricityMultiplier.Controls.Add(this.lblElectricityCost);
+            this.grpFiatElectricityMultiplier.Controls.Add(this.txtFiatElectricityCost);
+            this.grpFiatElectricityMultiplier.Controls.Add(this.nudAmount);
+            this.grpFiatElectricityMultiplier.Controls.Add(this.lblAmountOfGpu);
+            this.grpFiatElectricityMultiplier.Controls.Add(this.cbbFiat);
+            this.grpFiatElectricityMultiplier.Controls.Add(this.chkCoindesk);
+            this.grpFiatElectricityMultiplier.Location = new System.Drawing.Point(7, 102);
+            this.grpFiatElectricityMultiplier.Name = "grpFiatElectricityMultiplier";
+            this.grpFiatElectricityMultiplier.Size = new System.Drawing.Size(404, 97);
+            this.grpFiatElectricityMultiplier.TabIndex = 71;
+            this.grpFiatElectricityMultiplier.TabStop = false;
+            this.grpFiatElectricityMultiplier.Text = "Fiat, electricity and multiplier (profile-bound)";
+            // 
+            // lblElectricityCost
+            // 
+            this.lblElectricityCost.AutoSize = true;
+            this.lblElectricityCost.Location = new System.Drawing.Point(4, 47);
+            this.lblElectricityCost.Name = "lblElectricityCost";
+            this.lblElectricityCost.Size = new System.Drawing.Size(58, 13);
+            this.lblElectricityCost.TabIndex = 68;
+            this.lblElectricityCost.Text = "USD/kWh";
+            // 
+            // txtFiatElectricityCost
+            // 
+            this.txtFiatElectricityCost.Location = new System.Drawing.Point(68, 44);
+            this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
+            this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
+            this.txtFiatElectricityCost.TabIndex = 67;
+            this.txtFiatElectricityCost.Text = "0.1";
+            this.txtFiatElectricityCost.TextChanged += new System.EventHandler(this.txtFiatElectricityCost_TextChanged);
+            // 
             // nudAmount
             // 
             this.nudAmount.Location = new System.Drawing.Point(205, 70);
@@ -544,6 +440,15 @@
             0});
             this.nudAmount.ValueChanged += new System.EventHandler(this.nudAmount_ValueChanged);
             // 
+            // lblAmountOfGpu
+            // 
+            this.lblAmountOfGpu.AutoSize = true;
+            this.lblAmountOfGpu.Location = new System.Drawing.Point(3, 72);
+            this.lblAmountOfGpu.Name = "lblAmountOfGpu";
+            this.lblAmountOfGpu.Size = new System.Drawing.Size(196, 13);
+            this.lblAmountOfGpu.TabIndex = 32;
+            this.lblAmountOfGpu.Text = "Amount of GPUs, multiplier for hashrates";
+            // 
             // cbbFiat
             // 
             this.cbbFiat.AllowDrop = true;
@@ -561,15 +466,6 @@
             this.cbbFiat.TabIndex = 35;
             this.cbbFiat.SelectedIndexChanged += new System.EventHandler(this.cbbFiat_SelectedIndexChanged);
             // 
-            // lblAmountOfGpu
-            // 
-            this.lblAmountOfGpu.AutoSize = true;
-            this.lblAmountOfGpu.Location = new System.Drawing.Point(3, 72);
-            this.lblAmountOfGpu.Name = "lblAmountOfGpu";
-            this.lblAmountOfGpu.Size = new System.Drawing.Size(196, 13);
-            this.lblAmountOfGpu.TabIndex = 32;
-            this.lblAmountOfGpu.Text = "Amount of GPUs, multiplier for hashrates";
-            // 
             // chkCoindesk
             // 
             this.chkCoindesk.AutoSize = true;
@@ -582,24 +478,6 @@
             this.chkCoindesk.Text = "Calc                  /day.";
             this.chkCoindesk.UseVisualStyleBackColor = true;
             this.chkCoindesk.CheckedChanged += new System.EventHandler(this.chkCoindesk_CheckedChanged);
-            // 
-            // txtFiatElectricityCost
-            // 
-            this.txtFiatElectricityCost.Location = new System.Drawing.Point(68, 44);
-            this.txtFiatElectricityCost.Name = "txtFiatElectricityCost";
-            this.txtFiatElectricityCost.Size = new System.Drawing.Size(50, 20);
-            this.txtFiatElectricityCost.TabIndex = 67;
-            this.txtFiatElectricityCost.Text = "0.1";
-            this.txtFiatElectricityCost.TextChanged += new System.EventHandler(this.txtFiatElectricityCost_TextChanged);
-            // 
-            // lblElectricityCost
-            // 
-            this.lblElectricityCost.AutoSize = true;
-            this.lblElectricityCost.Location = new System.Drawing.Point(4, 47);
-            this.lblElectricityCost.Name = "lblElectricityCost";
-            this.lblElectricityCost.Size = new System.Drawing.Size(58, 13);
-            this.lblElectricityCost.TabIndex = 68;
-            this.lblElectricityCost.Text = "USD/kWh";
             // 
             // chk24hDiff
             // 
@@ -1238,115 +1116,20 @@
             // spcMain.Panel2
             // 
             this.spcMain.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.spcMain.Panel2.Controls.Add(this.dgvResults);
+            this.spcMain.Panel2.Controls.Add(this.tbcResults);
             this.spcMain.Size = new System.Drawing.Size(984, 640);
             this.spcMain.SplitterDistance = 278;
             this.spcMain.SplitterWidth = 6;
             this.spcMain.TabIndex = 82;
             // 
-            // grpPriceSource
+            // tbcResults
             // 
-            this.grpPriceSource.Controls.Add(this.radFallThroughExchange);
-            this.grpPriceSource.Controls.Add(this.radVolumeExchange);
-            this.grpPriceSource.Controls.Add(this.radWeighted);
-            this.grpPriceSource.Location = new System.Drawing.Point(7, 6);
-            this.grpPriceSource.Name = "grpPriceSource";
-            this.grpPriceSource.Size = new System.Drawing.Size(255, 90);
-            this.grpPriceSource.TabIndex = 69;
-            this.grpPriceSource.TabStop = false;
-            this.grpPriceSource.Text = "Price source";
-            // 
-            // radWeighted
-            // 
-            this.radWeighted.AutoSize = true;
-            this.radWeighted.Checked = true;
-            this.radWeighted.Location = new System.Drawing.Point(6, 19);
-            this.radWeighted.Name = "radWeighted";
-            this.radWeighted.Size = new System.Drawing.Size(244, 17);
-            this.radWeighted.TabIndex = 0;
-            this.radWeighted.TabStop = true;
-            this.radWeighted.Text = "average of all exchanges, weighted by volume";
-            this.radWeighted.UseVisualStyleBackColor = true;
-            // 
-            // radVolumeExchange
-            // 
-            this.radVolumeExchange.AutoSize = true;
-            this.radVolumeExchange.Location = new System.Drawing.Point(6, 42);
-            this.radVolumeExchange.Name = "radVolumeExchange";
-            this.radVolumeExchange.Size = new System.Drawing.Size(156, 17);
-            this.radVolumeExchange.TabIndex = 1;
-            this.radVolumeExchange.Text = "exchange with most volume";
-            this.radVolumeExchange.UseVisualStyleBackColor = true;
-            // 
-            // radFallThroughExchange
-            // 
-            this.radFallThroughExchange.AutoSize = true;
-            this.radFallThroughExchange.Location = new System.Drawing.Point(6, 65);
-            this.radFallThroughExchange.Name = "radFallThroughExchange";
-            this.radFallThroughExchange.Size = new System.Drawing.Size(195, 17);
-            this.radFallThroughExchange.TabIndex = 2;
-            this.radFallThroughExchange.Text = "exchange with best fallthrough price";
-            this.radFallThroughExchange.UseVisualStyleBackColor = true;
-            this.radFallThroughExchange.CheckedChanged += new System.EventHandler(this.radFallThroughExchange_CheckedChanged);
-            // 
-            // grpExchangePrice
-            // 
-            this.grpExchangePrice.Controls.Add(this.radLowestAsk);
-            this.grpExchangePrice.Controls.Add(this.radMostRecentTrade);
-            this.grpExchangePrice.Controls.Add(this.radHighestBid);
-            this.grpExchangePrice.Location = new System.Drawing.Point(268, 6);
-            this.grpExchangePrice.Name = "grpExchangePrice";
-            this.grpExchangePrice.Size = new System.Drawing.Size(143, 90);
-            this.grpExchangePrice.TabIndex = 70;
-            this.grpExchangePrice.TabStop = false;
-            this.grpExchangePrice.Text = "Which exchange price?";
-            // 
-            // radLowestAsk
-            // 
-            this.radLowestAsk.AutoSize = true;
-            this.radLowestAsk.Location = new System.Drawing.Point(6, 65);
-            this.radLowestAsk.Name = "radLowestAsk";
-            this.radLowestAsk.Size = new System.Drawing.Size(75, 17);
-            this.radLowestAsk.TabIndex = 2;
-            this.radLowestAsk.Text = "lowest ask";
-            this.radLowestAsk.UseVisualStyleBackColor = true;
-            // 
-            // radMostRecentTrade
-            // 
-            this.radMostRecentTrade.AutoSize = true;
-            this.radMostRecentTrade.Location = new System.Drawing.Point(6, 42);
-            this.radMostRecentTrade.Name = "radMostRecentTrade";
-            this.radMostRecentTrade.Size = new System.Drawing.Size(107, 17);
-            this.radMostRecentTrade.TabIndex = 1;
-            this.radMostRecentTrade.Text = "most recent trade";
-            this.radMostRecentTrade.UseVisualStyleBackColor = true;
-            // 
-            // radHighestBid
-            // 
-            this.radHighestBid.AutoSize = true;
-            this.radHighestBid.Checked = true;
-            this.radHighestBid.Location = new System.Drawing.Point(6, 19);
-            this.radHighestBid.Name = "radHighestBid";
-            this.radHighestBid.Size = new System.Drawing.Size(76, 17);
-            this.radHighestBid.TabIndex = 0;
-            this.radHighestBid.TabStop = true;
-            this.radHighestBid.Text = "highest bid";
-            this.radHighestBid.UseVisualStyleBackColor = true;
-            // 
-            // grpFiatElectricityMultiplier
-            // 
-            this.grpFiatElectricityMultiplier.Controls.Add(this.lblElectricityCost);
-            this.grpFiatElectricityMultiplier.Controls.Add(this.txtFiatElectricityCost);
-            this.grpFiatElectricityMultiplier.Controls.Add(this.nudAmount);
-            this.grpFiatElectricityMultiplier.Controls.Add(this.lblAmountOfGpu);
-            this.grpFiatElectricityMultiplier.Controls.Add(this.cbbFiat);
-            this.grpFiatElectricityMultiplier.Controls.Add(this.chkCoindesk);
-            this.grpFiatElectricityMultiplier.Location = new System.Drawing.Point(7, 102);
-            this.grpFiatElectricityMultiplier.Name = "grpFiatElectricityMultiplier";
-            this.grpFiatElectricityMultiplier.Size = new System.Drawing.Size(404, 97);
-            this.grpFiatElectricityMultiplier.TabIndex = 71;
-            this.grpFiatElectricityMultiplier.TabStop = false;
-            this.grpFiatElectricityMultiplier.Text = "Fiat, electricity and multiplier (profile-bound)";
+            this.tbcResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbcResults.Location = new System.Drawing.Point(0, 0);
+            this.tbcResults.Name = "tbcResults";
+            this.tbcResults.SelectedIndex = 0;
+            this.tbcResults.Size = new System.Drawing.Size(984, 356);
+            this.tbcResults.TabIndex = 0;
             // 
             // ProfitCalc
             // 
@@ -1359,7 +1142,6 @@
             this.Name = "ProfitCalc";
             this.Text = "Profit Calculator~ By KBomba";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CudaProfitCalc_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             this.stStatusStrip.ResumeLayout(false);
             this.stStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDonate)).EndInit();
@@ -1368,6 +1150,12 @@
             this.tabLog.ResumeLayout(false);
             this.tabLog.PerformLayout();
             this.tabPriceCalc.ResumeLayout(false);
+            this.grpExchangePrice.ResumeLayout(false);
+            this.grpExchangePrice.PerformLayout();
+            this.grpPriceSource.ResumeLayout(false);
+            this.grpPriceSource.PerformLayout();
+            this.grpFiatElectricityMultiplier.ResumeLayout(false);
+            this.grpFiatElectricityMultiplier.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).EndInit();
             this.tabMarketApi.ResumeLayout(false);
             this.tabMarketApi.PerformLayout();
@@ -1397,12 +1185,6 @@
             this.spcMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcMain)).EndInit();
             this.spcMain.ResumeLayout(false);
-            this.grpPriceSource.ResumeLayout(false);
-            this.grpPriceSource.PerformLayout();
-            this.grpExchangePrice.ResumeLayout(false);
-            this.grpExchangePrice.PerformLayout();
-            this.grpFiatElectricityMultiplier.ResumeLayout(false);
-            this.grpFiatElectricityMultiplier.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1410,7 +1192,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvResults;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.StatusStrip stStatusStrip;
         private System.Windows.Forms.ToolStripProgressBar tsProgress;
@@ -1480,22 +1261,6 @@
         private System.Windows.Forms.TextBox txtProxy;
         private System.Windows.Forms.CheckBox chkProxy;
         private System.Windows.Forms.CheckBox chk24hDiff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TagName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Algo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsdPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EurPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GbpPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CnyPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BtcPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CoinsPerDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangePrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BestExchangeVolume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WeightedBtcPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalVolume;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Difficulty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BlockReward;
         private System.Windows.Forms.SplitContainer spcMain;
         private System.Windows.Forms.CheckBox chkOrderDepth;
         private System.Windows.Forms.TextBox txtCcexApiKey;
@@ -1508,6 +1273,7 @@
         private System.Windows.Forms.RadioButton radVolumeExchange;
         private System.Windows.Forms.RadioButton radWeighted;
         private System.Windows.Forms.GroupBox grpFiatElectricityMultiplier;
+        private System.Windows.Forms.TabControl tbcResults;
     }
 }
 

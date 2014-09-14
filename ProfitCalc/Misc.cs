@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace ProfitCalc
 {
-    internal class Profile
+    public class Profile
     {
         public double FiatPerKwh { get; set; }
 
@@ -55,7 +55,7 @@ namespace ProfitCalc
         public string RpcPass { get; set; }
     }
 
-    internal class CustomAlgo
+    public class CustomAlgo
     {
         public bool Use { get; set; }
         public string Name { get; set; }

@@ -27,5 +27,12 @@ namespace ProfitCalc.ApiControl
                 return (T) serializer.Deserialize(file, typeof (T));
             }
         }
+
+        public static T DeepCopyTrick<T>(object obj) where T : new()
+        {
+            // Workaround for deepcopying 
+            string s = JsonConvert.SerializeObject(obj);
+            return JsonConvert.DeserializeObject<T>(s);
+        }
     }
 }

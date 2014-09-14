@@ -65,8 +65,10 @@ namespace ProfitCalc
         public string Source { get; set; }
         public DateTime Retrieved { get; set; }
 
+        // Easy identifiers to filter it out later
         public bool HasImplementedMarketApi { get; set; }
         public bool IsMultiPool;
+        public bool UsedInCoinlist { get; set; }
 
         public Coin()
         {
@@ -140,7 +142,7 @@ namespace ProfitCalc
             Exchange nhExchange = new Exchange
             {
                 ExchangeName = name,
-                BtcPrice = niceHashStat.Price,
+                BtcPrice = niceHashStat.Algo == 1 ? niceHashStat.Price /1000: niceHashStat.Price,
                 BtcVolume = 0,
                 Weight = 1,
                 IsFrozen = false

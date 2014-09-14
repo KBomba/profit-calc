@@ -99,9 +99,6 @@ namespace ProfitCalc
         private void InitAllMarketsTab()
         {
             tbcMarkets.TabPages.Add(tabAllMarkets);
-
-            double coinsToSell = _usedCoin.CoinsPerDay;
-            double collectedBtc = 0;
             
             txtAllFallthrough.Text = _usedCoin.TotalExchange.FallThroughPrice.ToString("0.00000000") + " BTC";
             txtAllLeftover.Text = _usedCoin.TotalExchange.LeftOverInFallThrough.ToString("0.########") + " " + _usedCoin.TagName;
