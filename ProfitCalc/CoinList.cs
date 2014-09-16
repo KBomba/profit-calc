@@ -68,71 +68,6 @@ namespace ProfitCalc
             }
         }
 
-        /*private bool FoundInProfile(string algo, IEnumerable<CustomAlgo> customAlgoList)
-        {
-            bool found = false;
-
-            Parallel.ForEach(customAlgoList, _po, savedAlgo =>
-            {
-                if (savedAlgo.Name == algo)
-                {
-                    found = true;
-                    _po.CancellationToken.ThrowIfCancellationRequested();
-                }
-            });
-
-            return found;
-        }
-
-        // List of all algos is used to clean an input algo. 
-        public void AddToListOfAllAlgos(IEnumerable<CustomAlgo> customAlgoList)
-        {
-            bool found = false;
-            foreach (CustomAlgo newAlgo in customAlgoList)
-            {
-                CustomAlgo safeAlgo = newAlgo;
-                Parallel.ForEach(ListOfAllAlgos, _po, algo =>
-                {
-                    if (safeAlgo.Name == algo.Name)
-                    {
-                        found = true;
-                        _po.CancellationToken.ThrowIfCancellationRequested();
-                    }
-                });
-
-                if (!found)
-                {
-                    ListOfAllAlgos.Add(newAlgo);
-                }
-            }
-        }
-
-        private string GetCleanedAlgo(string algo)
-        {
-            string cleanAlgo = algo.Trim();
-            Parallel.ForEach(ListOfAllAlgos, _po, savedAlgo =>
-            {
-                if (savedAlgo.Name == cleanAlgo)
-                {
-                    _po.CancellationToken.ThrowIfCancellationRequested();
-                }
-                else if )
-                {
-                    string[] synonyms = savedAlgo.SynonymsCsv.Split(',');
-                    Parallel.ForEach(synonyms, synonym =>
-                    {
-                        if (synonym == cleanAlgo)
-                        {
-                            cleanAlgo = savedAlgo.Name;
-                            _po.CancellationToken.ThrowIfCancellationRequested();
-                        }
-                    });
-                }
-            });
-
-            return cleanAlgo;
-        }*/
-
         public void AddCustomCoins(IEnumerable<CustomCoin> customCoins)
         {
             int errorCount = 0;
@@ -276,103 +211,93 @@ namespace ProfitCalc
         {
             MintPalPairs mp = JsonControl.DownloadSerializedApi<MintPalPairs>(
                 _client.GetStreamAsync("https://api.mintpal.com/v2/market/summary/BTC").Result);
-            Exception errorOrders = null;
 
-            Parallel.ForEach(ListOfCoins, c => Parallel.ForEach(mp.Data, Po, mpCoin =>
+            foreach (Coin c in ListOfCoins)
             {
-                if (mpCoin.Exchange == "BTC" && mpCoin.Code == c.TagName)
+                foreach (MintPalPairs.Coin mpCoin in mp.Data)
                 {
-                    double priceToUse;
-                    switch (_bidRecentAsk)
+                    if (mpCoin.Exchange == "BTC" && mpCoin.Code == c.TagName)
                     {
-                        case 0:
-                            priceToUse = mpCoin.TopBid;
-                            break;
-                        case 1:
-                            priceToUse = mpCoin.LastPrice;
-                            break;
-                        case 2:
-                            priceToUse = mpCoin.TopAsk;
-                            break;
-                        default:
-                            priceToUse = mpCoin.TopBid;
-                            break;
-                    }
-
-                    Coin.Exchange mpExchange = new Coin.Exchange
-                    {
-                        ExchangeName = "MintPal",
-                        BtcPrice = priceToUse,
-                        BtcVolume = mpCoin.Last24HVol,
-                        BuyOrders = new List<Coin.Exchange.Order>(),
-                        SellOrders = new List<Coin.Exchange.Order>()
-                    };
-
-                    if (_getOrderDepth)
-                    {
-                        try
+                        double priceToUse;
+                        switch (_bidRecentAsk)
                         {
-                            MintPalOrders mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
-                                _client.GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
-                                                       + mpCoin.Code + "/BTC/ALL").Result);
+                            case 0:
+                                priceToUse = mpCoin.TopBid;
+                                break;
+                            case 1:
+                                priceToUse = mpCoin.LastPrice;
+                                break;
+                            case 2:
+                                priceToUse = mpCoin.TopAsk;
+                                break;
+                            default:
+                                priceToUse = mpCoin.TopBid;
+                                break;
+                        }
 
-                            foreach (MintPalOrders.Datas data in mpOrders.Data)
-                            {
-                                foreach (MintPalOrders.Datas.Order newOrder in data.Orders)
+                        Coin.Exchange mpExchange = new Coin.Exchange
+                        {
+                            ExchangeName = "MintPal",
+                            BtcPrice = priceToUse,
+                            BtcVolume = mpCoin.Last24HVol,
+                            BuyOrders = new List<Coin.Exchange.Order>(),
+                            SellOrders = new List<Coin.Exchange.Order>()
+                        };
+
+                        if (_getOrderDepth)
+                        {
+                                MintPalOrders mpOrders = JsonControl.DownloadSerializedApi<MintPalOrders>(
+                                    new HttpClient().GetStreamAsync("https://api.mintpal.com/v2/market/orders/"
+                                                           + mpCoin.Code + "/BTC/ALL").Result);
+
+                                foreach (MintPalOrders.Datas data in mpOrders.Data)
                                 {
-                                    double price, volume, coinVolume;
-                                    if (Double.TryParse(newOrder.Price, NumberStyles.Float,
-                                        CultureInfo.InvariantCulture, out price) &&
-                                        Double.TryParse(newOrder.Total, NumberStyles.Float,
-                                            CultureInfo.InvariantCulture, out volume) &&
-                                        Double.TryParse(newOrder.Amount, NumberStyles.Float,
-                                            CultureInfo.InvariantCulture, out coinVolume))
+                                    foreach (MintPalOrders.Datas.Order newOrder in data.Orders)
                                     {
-                                        Coin.Exchange.Order order = new Coin.Exchange.Order
+                                        double price, volume, coinVolume;
+                                        if (Double.TryParse(newOrder.Price, NumberStyles.Float,
+                                            CultureInfo.InvariantCulture, out price) &&
+                                            Double.TryParse(newOrder.Total, NumberStyles.Float,
+                                                CultureInfo.InvariantCulture, out volume) &&
+                                            Double.TryParse(newOrder.Amount, NumberStyles.Float,
+                                                CultureInfo.InvariantCulture, out coinVolume))
                                         {
-                                            BtcPrice = price,
-                                            BtcVolume = volume,
-                                            CoinVolume = coinVolume
-                                        };
+                                            Coin.Exchange.Order order = new Coin.Exchange.Order
+                                            {
+                                                BtcPrice = price,
+                                                BtcVolume = volume,
+                                                CoinVolume = coinVolume
+                                            };
 
-                                        switch (data.Type)
-                                        {
-                                            case "buy":
-                                                mpExchange.BuyOrders.Add(order);
-                                                break;
-                                            case "sell":
-                                                mpExchange.SellOrders.Add(order);
-                                                break;
+                                            switch (data.Type)
+                                            {
+                                                case "buy":
+                                                    mpExchange.BuyOrders.Add(order);
+                                                    break;
+                                                case "sell":
+                                                    mpExchange.SellOrders.Add(order);
+                                                    break;
+                                            }
                                         }
                                     }
                                 }
-                            }
                         }
-                        catch (Exception e)
+
+                        if (c.HasImplementedMarketApi)
                         {
-                            errorOrders = e;
+                            c.Exchanges.Add(mpExchange);
+                            c.TotalExchange.BtcVolume += mpExchange.BtcVolume;
                         }
-                    }
-                    
-                    if (c.HasImplementedMarketApi)
-                    {
-                        c.Exchanges.Add(mpExchange);
-                        c.TotalExchange.BtcVolume += mpExchange.BtcVolume;
-                    }
-                    else
-                    {
-                        c.Exchanges = new List<Coin.Exchange> {mpExchange};
-                        c.TotalExchange.BtcVolume = mpExchange.BtcVolume;
-                        c.HasImplementedMarketApi = true;
-                    }
+                        else
+                        {
+                            c.Exchanges = new List<Coin.Exchange> {mpExchange};
+                            c.TotalExchange.BtcVolume = mpExchange.BtcVolume;
+                            c.HasImplementedMarketApi = true;
+                        }
 
-                    Po.CancellationToken.ThrowIfCancellationRequested();
+                        break;
+                    }
                 }
-            }));
-
-            if (errorOrders != null)
-            {
-                throw new Exception("Error while trying to get order data from Mintpal. MP doesn't like a flood of requests.", errorOrders);
             }
         }
 

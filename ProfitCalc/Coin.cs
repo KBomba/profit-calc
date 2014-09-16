@@ -342,7 +342,7 @@ namespace ProfitCalc
 
                 double priceToUse = TotalExchange.BtcVolume > 0 && useWeightedCalculations
                     ? WeightedBtcPrice
-                    : (useFallThroughPrice 
+                    : (useFallThroughPrice && Exchanges[0].FallThroughPrice > 0
                     ? Exchanges[0].FallThroughPrice 
                     : Exchanges[0].BtcPrice);
                 BtcPerDay = CoinsPerDay*priceToUse;

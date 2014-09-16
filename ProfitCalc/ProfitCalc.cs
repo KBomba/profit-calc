@@ -34,11 +34,10 @@ namespace ProfitCalc
             InitCustomCoins();
             InitJsonRpcSettings();
 
-            if (_historicAlgoList == null)
+            foreach (KeyValuePair<string, Profile> profile in _profileList)
             {
-                _historicAlgoList = new AutoCompleteStringCollection();
+                UpdateHistoricAlgo(profile.Value.CustomAlgoList);
             }
-            UpdateHistoricAlgo(_profileList[cbbProfiles.Items[0].ToString()].CustomAlgoList);
         }
 
         private void InitializeOtherComponents()
@@ -385,7 +384,7 @@ namespace ProfitCalc
 
             foreach (KeyValuePair<string, Profile> profile in _profileList)
             {
-                AddToResultsTabControl(profile);
+                AddToResultsTabControl(profile.Key);
             }
             
             
@@ -460,7 +459,7 @@ namespace ProfitCalc
             }
         }
 
-        private void AddToResultsTabControl(KeyValuePair<string, Profile> profile)
+        private void AddToResultsTabControl(string name)
         {
             ResultsDatagrid results = new ResultsDatagrid()
             {
@@ -470,7 +469,7 @@ namespace ProfitCalc
             TabPage tabProfile = new TabPage
             {
                 UseVisualStyleBackColor = false,
-                Text = profile.Key
+                Text = name,
             };
 
             tabProfile.Controls.Add(results);
@@ -479,6 +478,11 @@ namespace ProfitCalc
 
         private void UpdateHistoricAlgo(IEnumerable<CustomAlgo> customAlgoList)
         {
+            if (_historicAlgoList == null)
+            {
+                _historicAlgoList = new AutoCompleteStringCollection();
+            }
+
             foreach (CustomAlgo customAlgo in customAlgoList)
             {
                 if (!_historicAlgoList.Contains(customAlgo.Name))
@@ -1491,6 +1495,15 @@ namespace ProfitCalc
             if (btnAddDeleteProfile.Text.Contains("Remove"))
             {
                 _profileList.Remove(cbbProfiles.Text);
+                foreach (TabPage tabPage in tbcResults.TabPages)
+                {
+                    if (tabPage.Text == cbbProfiles.Text)
+                    {
+                        tabPage.Dispose();
+                        break;
+                    }
+                }
+
                 foreach (var item in cbbProfiles.Items)
                 {
                     if (item.ToString() == cbbProfiles.Text)
@@ -1504,6 +1517,9 @@ namespace ProfitCalc
             else if (!_profileList.ContainsKey(cbbProfiles.Text))
             {
                 _profileList.Add(cbbProfiles.Text, GetDefaultProfileList()["Default"]);
+                dgvCustomAlgos.DataSource = null;
+                dgvCustomAlgos.DataSource = _profileList[cbbProfiles.Text].CustomAlgoList;
+                AddToResultsTabControl(cbbProfiles.Text);
                 cbbProfiles.Items.Add(cbbProfiles.Text);
 
                 btnAddDeleteProfile.Text = "Remove profile";
@@ -1532,11 +1548,10 @@ namespace ProfitCalc
             if (_profileList != null)
             {
                 dgvCustomAlgos.DataSource = _profileList[cbbProfiles.Text].CustomAlgoList;
-                //_coinList.AddToListOfAllAlgos(_profileList[cbbProfiles.Text].CustomAlgoList);
                 nudAmount.Value = _profileList[cbbProfiles.Text].Multiplier;
                 cbbFiat.SelectedIndex = _profileList[cbbProfiles.Text].FiatOfChoice;
                 txtFiatElectricityCost.Text = _profileList[cbbProfiles.Text].FiatPerKwh.ToString(CultureInfo.InvariantCulture);
-                //UpdateHistoricAlgo(_profileList[cbbProfiles.SelectedText].CustomAlgoList);
+                UpdateHistoricAlgo(_profileList[cbbProfiles.Text].CustomAlgoList);
             }
         }
 
