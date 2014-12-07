@@ -256,8 +256,8 @@
             this.txtReadme.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtReadme.Size = new System.Drawing.Size(967, 211);
             this.txtReadme.TabIndex = 0;
-            this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate some BTC @ 1MVBPhMae" +
-    "uj5daZtaKaVu8BZL5K44CCq7E ";
+            this.txtReadme.Text = "Seems like README.txt is missing :) But you can still donate some BTC @ 1BombaWy4" +
+    "6SPqX8NJumFBvSjSpry8hpzr4 ";
             // 
             // tabLog
             // 
@@ -617,8 +617,7 @@
             // chkMintpal
             // 
             this.chkMintpal.AutoSize = true;
-            this.chkMintpal.Checked = true;
-            this.chkMintpal.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMintpal.Enabled = false;
             this.chkMintpal.Location = new System.Drawing.Point(6, 29);
             this.chkMintpal.Name = "chkMintpal";
             this.chkMintpal.Size = new System.Drawing.Size(60, 17);

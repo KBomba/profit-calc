@@ -890,7 +890,7 @@ namespace ProfitCalc
                 }
             }
 
-            tsProgress.Value += progress;
+            /*tsProgress.Value += progress;
             if (chkMintpal.Checked)
             {
                 try
@@ -903,7 +903,7 @@ namespace ProfitCalc
                     AppendToLog("Error while getting data from Mintpal.",
                         exception);
                 }
-            }
+            }*/
 
             tsProgress.Value += progress;
             if (chkCryptsy.Checked)

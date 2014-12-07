@@ -100,8 +100,5 @@ Supported APIs
 
 Donations are welcome!
 ================
-- BTC: 	1MVBPhMaeuj5daZtaKaVu8BZL5K44CCq7E
-- DOGE:	DPxLiumk4CQPWyvoCuDUpdZtnnwcvWXvmr
-- BC: 	B4s7UnNYKePfGz5DVBzyNbaeiwi2ExLy7D
-- TAC: 	TswDiAfmHdTnCpiRJVgfEtFxr3a4z3yHQk
-- JPC: 	JfLNncEbEH3Y6wNSvTXWFGGAwonMUnCyQJ
+- BTC: 	1BombaWy46SPqX8NJumFBvSjSpry8hpzr4
+- XMG: 	9FTm53BWMkcktCiPxwgRtpBpVbLRyQ9XtW

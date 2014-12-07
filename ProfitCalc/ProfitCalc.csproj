@@ -101,10 +101,10 @@
     <Compile Include="ApiControl\TemplateClasses\WhatToMine.cs" />
     <Compile Include="Coin.cs" />
     <Compile Include="CoinList.cs" />
-    <Compile Include="DetailedResult.cs">
+    <Compile Include="UserControls\DetailedResult.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DetailedResult.Designer.cs">
+    <Compile Include="UserControls\DetailedResult.Designer.cs">
       <DependentUpon>DetailedResult.cs</DependentUpon>
     </Compile>
     <Compile Include="ProfitCalc.cs">
@@ -116,13 +116,13 @@
     <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultsDatagrid.cs">
+    <Compile Include="UserControls\ResultsDatagrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ResultsDatagrid.Designer.cs">
+    <Compile Include="UserControls\ResultsDatagrid.Designer.cs">
       <DependentUpon>ResultsDatagrid.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DetailedResult.resx">
+    <EmbeddedResource Include="UserControls\DetailedResult.resx">
       <DependentUpon>DetailedResult.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -139,7 +139,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ResultsDatagrid.resx">
+    <EmbeddedResource Include="UserControls\ResultsDatagrid.resx">
       <DependentUpon>ResultsDatagrid.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest">

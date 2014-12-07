@@ -308,7 +308,7 @@ namespace ProfitCalc
                 GetDepthPercentile(boxLowest, depth, orderList, useBtcVolume),
                 GetDepthPercentile(boxHighest, depth, orderList, useBtcVolume),
                 GetDepthPercentile(0.5, depth, orderList, useBtcVolume),
-                GetWeightedAverage(depth, orderList, useBtcVolume),
+                GetWeightedAverage(depth, orderList, useBtcVolume)
             };
         }
 

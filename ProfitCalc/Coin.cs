@@ -56,6 +56,7 @@ namespace ProfitCalc
         
         public double CoinsPerDay { get; set; }
         public double BtcPerDay { get; set; }
+        public double ElectricityCost { get; set; }
 
         public double UsdPerDay { get; set; }
         public double EurPerDay { get; set; }

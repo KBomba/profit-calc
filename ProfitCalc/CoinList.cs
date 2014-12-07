@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -8,7 +7,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.SqlServer.Server;
 using Newtonsoft.Json.Linq;
 using ProfitCalc.ApiControl;
 using ProfitCalc.ApiControl.TemplateClasses;
@@ -1537,16 +1535,20 @@ namespace ProfitCalc
                             switch (profileToUse.FiatOfChoice)
                             {
                                 case 1:
-                                    coin.BtcPerDay -= (fiatElectricityCost/_eurPrice);
+                                    coin.ElectricityCost = (fiatElectricityCost/_eurPrice);
+                                    coin.BtcPerDay -= coin.ElectricityCost;
                                     break;
                                 case 2:
-                                    coin.BtcPerDay -= (fiatElectricityCost/_gbpPrice);
+                                    coin.ElectricityCost = (fiatElectricityCost/_gbpPrice);
+                                    coin.BtcPerDay -= coin.ElectricityCost;
                                     break;
                                 case 3:
-                                    coin.BtcPerDay -= (fiatElectricityCost/_cnyPrice);
+                                    coin.ElectricityCost = (fiatElectricityCost/_cnyPrice);
+                                    coin.BtcPerDay -= coin.ElectricityCost;
                                     break;
                                 default:
-                                    coin.BtcPerDay -= (fiatElectricityCost/_usdPrice);
+                                    coin.ElectricityCost = (fiatElectricityCost/_usdPrice);
+                                    coin.BtcPerDay -= coin.ElectricityCost;
                                     break;
                             }
                             
